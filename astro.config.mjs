@@ -1,3 +1,4 @@
+import mdx from '@astrojs/mdx';
 import sitemap from '@astrojs/sitemap';
 import { defineConfig } from 'astro/config';
 
@@ -13,6 +14,7 @@ import { siteConfig } from './src/site.config.ts';
 const site = process.env.PUBLIC_SITE_URL || process.env.CF_PAGES_URL || 'http://localhost:4321';
 
 const integrations = [
+  mdx(),
   sitemap({
     i18n: {
       defaultLocale: 'en',

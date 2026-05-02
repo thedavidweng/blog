@@ -59,8 +59,8 @@ const jsonLd = {
   type="article"
   jsonLd={jsonLd}
 >
-  {siteConfig.features.toc && <Toc />}
   <article class="article relative">
+    {siteConfig.features.toc && <Toc />}
     <header class="article-header">
       <p class="post-meta">
         <time datetime={post.data.publishedDate.toISOString()}>{dateLabel}</time>

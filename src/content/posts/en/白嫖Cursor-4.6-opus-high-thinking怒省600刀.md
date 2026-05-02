@@ -22,8 +22,6 @@ I ran it for hours. The setup agent session never generated any billing.
 
 The hole got patched within days. Prompt injection attempts in the setup phase now get an immediate refusal.
 
----
-
 ## The Full Exploit (For Reference)
 
 1. Open Cursor, enter Cloud Agent mode
@@ -33,16 +31,11 @@ The hole got patched within days. Prompt injection attempts in the setup phase n
 5. Start chatting directly — you're now in a setup agent session, not a regular Agent session
 6. The setup agent uses 4.6-opus-high-thinking by default, and generates no billing
 
----
-
 ## Why Was There No Billing?
 
 ![Cursor Cloud Agent Billing page — setup agent session not billed, no billing records](/posts/exploit-cursor-cloud-agent/exploit-cursor-cloud-agent-billing.avif)
 
-Cursor's setup agent is designed for first-time environment configuration — the model cost is covered by Cursor as part of the onboarding experience. By not saving the environment, you keep that temporary session alive indefinitely. You're essentially using Cursor's "customer support" as your own free assistant.
-
----
-
+Cursor's setup agent is designed for first-time environment configuration — the model cost is covered by Cursor as part of the onboarding experience. By not saving the environment, you keep that temporary session alive indefinitely.
 
 ## It Got Patched
 

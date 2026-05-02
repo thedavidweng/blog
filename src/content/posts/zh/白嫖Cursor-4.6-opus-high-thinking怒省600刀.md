@@ -22,8 +22,6 @@ Cursor 的 Cloud Agent 模式，可以连上 GitHub 账户拉取账号下的 Rep
 
 没几天这个洞就被补上了。现在尝试在 setup environment 的时候做 prompt injection，agent 会直接拒绝响应。
 
----
-
 ## 漏洞利用的完整步骤
 
 1. 打开 Cursor，进入 Cloud Agent 模式
@@ -33,15 +31,11 @@ Cursor 的 Cloud Agent 模式，可以连上 GitHub 账户拉取账号下的 Rep
 5. 直接开始对话，此时你用的是 setup agent 的会话，而不是普通 Agent
 6. setup agent 默认使用 4.6-opus-high-thinking，且不产生账单
 
----
-
 ## 为什么没有计费？
 
 ![Cursor Cloud Agent 账单页面，setup agent 的会话不计费，Billing 记录为空](/posts/exploit-cursor-cloud-agent/exploit-cursor-cloud-agent-billing.avif)
 
-Cursor 的 setup agent 设计初衷是在用户首次配置开发环境时使用，模型成本由 Cursor 承担。用户通过不保存环境的方式，让这个临时会话持续运行，本质上是把 Cursor 的"客服"当成了自己的免费助手。
-
----
+Cursor 的 setup agent 设计初衷是在用户首次配置开发环境时使用，模型成本由 Cursor 承担。用户通过不保存环境的方式，让这个临时会话持续运行。
 
 ## 漏洞被修复了
 

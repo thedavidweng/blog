@@ -1,11 +1,14 @@
 import sitemap from '@astrojs/sitemap';
 import { defineConfig } from 'astro/config';
 
+import tailwindcss from '@tailwindcss/vite';
+
 const site = process.env.PUBLIC_SITE_URL || process.env.CF_PAGES_URL || 'http://localhost:4321';
 
 export default defineConfig({
   site,
   output: 'static',
+
   integrations: [
     sitemap({
       i18n: {
@@ -17,9 +20,14 @@ export default defineConfig({
       }
     })
   ],
+
   markdown: {
     shikiConfig: {
       theme: 'github-dark'
     }
+  },
+
+  vite: {
+    plugins: [tailwindcss()]
   }
 });

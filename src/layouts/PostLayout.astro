@@ -62,7 +62,7 @@ const jsonLd = {
         {post.data.tags.map((tag) => <li><a class="tag-pill" href={tagUrl(locale as Locale, tag)}>{tagLabel(locale as Locale, tag)}</a></li>)}
       </ul>
     </header>
-    <div class="prose">
+    <div class="prose prose-zinc dark:prose-invert max-w-[65ch] mx-auto prose-a:text-accent prose-a:no-underline prose-img:rounded-lg">
       <slot />
     </div>
   </article>

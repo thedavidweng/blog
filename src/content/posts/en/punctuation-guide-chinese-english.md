@@ -974,7 +974,7 @@ The title image is from: screenshot of "Love in a Puff".
 
 - [Copywriting Style Guide - LeanCloud](https://open.leancloud.cn/copywriting-style-guide/)
 
-- [Online Article Publishing Typesetting Specifications - Banban](https://blog.dlzhang.com/posts/8f12814/)
+- [Online Article Publishing Typesetting Specifications - Banban](https://blog.dlzhang.com/posts/punctuation-guide-chinese-english/)
 
 - [Essentials of Academic Writing - M-x Chris-An-Emacser](https://chriszheng.science/essentials-of-academic-writing/)
 
@@ -1016,7 +1016,7 @@ Finally, I have an impolite request: I hope readers who see this can help spread
 
 - [Copywriting Style Guide - LeanCloud](https://open.leancloud.cn/copywriting-style-guide/)
 
-- [Online Article Publishing Typesetting Specifications - Banban](https://blog.dlzhang.com/posts/8f12814/)
+- [Online Article Publishing Typesetting Specifications - Banban](https://blog.dlzhang.com/posts/punctuation-guide-chinese-english/)
 
 - [Essentials of Academic Writing - M-x Chris-An-Emacser](https://chriszheng.science/essentials-of-academic-writing/)
 

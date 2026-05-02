@@ -9,13 +9,13 @@ tags:
 draft: true
 ---
 
-![](/posts/Fiat24/IMG_0763.avif)
-![](/posts/Fiat24/IMG_0764.avif)
-![](/posts/Fiat24/IMG_0765.avif)
-![](/posts/Fiat24/IMG_0766.avif)
-![](/posts/Fiat24/IMG_0767.avif)
-![](/posts/Fiat24/IMG_0768.avif)
-![](/posts/Fiat24/IMG_0769.avif)
-![](/posts/Fiat24/IMG_0770.avif)
-![](/posts/Fiat24/IMG_0771.avif)
-![](/posts/Fiat24/IMG_0772.avif)
+![](/posts/fiat24/IMG_0763.avif)
+![](/posts/fiat24/IMG_0764.avif)
+![](/posts/fiat24/IMG_0765.avif)
+![](/posts/fiat24/IMG_0766.avif)
+![](/posts/fiat24/IMG_0767.avif)
+![](/posts/fiat24/IMG_0768.avif)
+![](/posts/fiat24/IMG_0769.avif)
+![](/posts/fiat24/IMG_0770.avif)
+![](/posts/fiat24/IMG_0771.avif)
+![](/posts/fiat24/IMG_0772.avif)

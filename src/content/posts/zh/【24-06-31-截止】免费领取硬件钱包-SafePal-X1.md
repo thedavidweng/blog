@@ -14,10 +14,10 @@ draft: false
 
 SafePal 是个币安投资的加密货币钱包，最近开了几个交易所（主要是 Bybit）然后决定搞点 Crypto，这个硬件钱包的活动需要你做任务才能拿到，最后付款的时候要付 10U（激活设备后返还） + 你地区的运费（深圳发货，中国大陆是 5U，加拿大是 17U，肉痛）。
 
-![](/posts/【24-06-31-截止】免费领取硬件钱包-SafePal-X1/safepal-x1-product.avif)
+![](/posts/safepal-x1-free-hardware-wallet/safepal-x1-product.avif)
 活动在 24 年六月底结束，这个教程发的很晚，看不到就错过了。到货时间超过六月应该没问题，我和客服确认了只要你的设备是通过活动拿到的，就可以返还付款时的 10U
 
-![](/posts/【24-06-31-截止】免费领取硬件钱包-SafePal-X1/order-page.avif)
+![](/posts/safepal-x1-free-hardware-wallet/order-page.avif)
 ## 流程
 
 ### 订货
@@ -82,7 +82,7 @@ USDC is available 24/7 for transactions, making it a convenient and reliable way
 
 希望大家可以少走一些弯路。
 
-![](/posts/【24-06-31-截止】免费领取硬件钱包-SafePal-X1/verification.avif)
+![](/posts/safepal-x1-free-hardware-wallet/verification.avif)
 ## 补充
 
 美国能用的交易所不多，但是你可以学大陆云居民，云开 N26 这样的德国银行然后用账单过 KYC，当然这是另外的话题，如果有人对英国卡或欧盟卡感兴趣我可以单开贴说说，坦白来说这些地区的卡在撸的价值上和美卡完全没有可比性，但是在作为 KYC 地址证明或交易加密货币方面有一些特殊作用。

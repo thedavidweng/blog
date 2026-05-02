@@ -10,8 +10,8 @@ tags:
 draft: false
 ---
 
-![The 系列片中造型](/posts/廉价假面骑士一号 Cosplay 皮套解决方案汇总/Untitled.avif)
-![新·假面骑士片中造型](/posts/廉价假面骑士一号 Cosplay 皮套解决方案汇总/Untitled 1.avif)
+![The 系列片中造型](/posts/kamen-rider-cosplay-suit-solutions/Untitled.avif)
+![新·假面骑士片中造型](/posts/kamen-rider-cosplay-suit-solutions/Untitled 1.avif)
 此文章列举了从黑鹰坠落吧的帖子开始，不同尝试搭配还原的假面骑士 The 系列与新**·**假面骑士中造型的平价方案，特点是尽量使用大路货（拼多多、淘宝为主，闲鱼为辅）实现造型，完全属于假面骑士的产品可能只有头盔和腰带。
 
 ## 被遗忘的135
@@ -22,13 +22,13 @@ draft: false
 
 ### 上身效果
 
-![](/posts/廉价假面骑士一号 Cosplay 皮套解决方案汇总/Untitled 2.avif)
-![](/posts/廉价假面骑士一号 Cosplay 皮套解决方案汇总/Untitled 3.avif)
-![](/posts/廉价假面骑士一号 Cosplay 皮套解决方案汇总/Untitled 4.avif)
-![](/posts/廉价假面骑士一号 Cosplay 皮套解决方案汇总/Untitled 5.avif)
+![](/posts/kamen-rider-cosplay-suit-solutions/Untitled 2.avif)
+![](/posts/kamen-rider-cosplay-suit-solutions/Untitled 3.avif)
+![](/posts/kamen-rider-cosplay-suit-solutions/Untitled 4.avif)
+![](/posts/kamen-rider-cosplay-suit-solutions/Untitled 5.avif)
 ### 购物清单
 
-![](/posts/廉价假面骑士一号 Cosplay 皮套解决方案汇总/Untitled 6.avif)
+![](/posts/kamen-rider-cosplay-suit-solutions/Untitled 6.avif)
 ## 时凛怜
 
 “模仿贴吧大佬的法子自己摸了一套，参考the系皮套加了一点细节，总体效果还不错加上头盔一套自制下来也才1500出头。兄弟们想撸一套出来的可以参考参考，头盔是在闲鱼披头马赫家买的，手套因为去年缺货我重新买了好几次。腰带是买一号简易版改造的。然后手甲和靴子都是自己直接喷罐上色。”
@@ -37,11 +37,11 @@ draft: false
 
 ### 上身效果
 
-![](/posts/廉价假面骑士一号 Cosplay 皮套解决方案汇总/Untitled 7.avif)
+![](/posts/kamen-rider-cosplay-suit-solutions/Untitled 7.avif)
 ### 购物清单
 
-![](/posts/廉价假面骑士一号 Cosplay 皮套解决方案汇总/Untitled 8.avif)
-![](/posts/廉价假面骑士一号 Cosplay 皮套解决方案汇总/Untitled 9.avif)
+![](/posts/kamen-rider-cosplay-suit-solutions/Untitled 8.avif)
+![](/posts/kamen-rider-cosplay-suit-solutions/Untitled 9.avif)
 ## ET永恒恒
 
 “算下来是422元，头盔，魔术贴这些耗材没算，因为eva自己做巨便宜，所以就算全部一共500咯大家自己抄作业叭。”
@@ -50,13 +50,13 @@ draft: false
 
 ### 上身效果
 
-![](/posts/廉价假面骑士一号 Cosplay 皮套解决方案汇总/Screenshot_2024-07-01_at_10.34.32_PM.avif)
-![](/posts/廉价假面骑士一号 Cosplay 皮套解决方案汇总/Untitled 10.avif)
+![](/posts/kamen-rider-cosplay-suit-solutions/Screenshot_2024-07-01_at_10.34.32_PM.avif)
+![](/posts/kamen-rider-cosplay-suit-solutions/Untitled 10.avif)
 ### 购物清单
 
-![](/posts/廉价假面骑士一号 Cosplay 皮套解决方案汇总/Untitled 11.avif)
-![](/posts/廉价假面骑士一号 Cosplay 皮套解决方案汇总/Untitled 12.avif)
-![](/posts/廉价假面骑士一号 Cosplay 皮套解决方案汇总/Untitled 13.avif)
+![](/posts/kamen-rider-cosplay-suit-solutions/Untitled 11.avif)
+![](/posts/kamen-rider-cosplay-suit-solutions/Untitled 12.avif)
+![](/posts/kamen-rider-cosplay-suit-solutions/Untitled 13.avif)
 ## 我超_冰_
 
 “训练蛙服可以换成保安服 虽然版型不一样但是重甲风会浓一些 马术护腿可以换成户外护腿”
@@ -65,30 +65,30 @@ draft: false
 
 ### 上身效果
 
-![](/posts/廉价假面骑士一号 Cosplay 皮套解决方案汇总/Untitled 14.avif)
+![](/posts/kamen-rider-cosplay-suit-solutions/Untitled 14.avif)
 ### 购物清单
 
-![](/posts/廉价假面骑士一号 Cosplay 皮套解决方案汇总/Untitled 15.avif)
-![](/posts/廉价假面骑士一号 Cosplay 皮套解决方案汇总/Untitled 16.avif)
+![](/posts/kamen-rider-cosplay-suit-solutions/Untitled 15.avif)
+![](/posts/kamen-rider-cosplay-suit-solutions/Untitled 16.avif)
 ## 西泽尔white
 
 [https://www.bilibili.com/video/BV1BW421N7d2/](https://www.bilibili.com/video/BV1BW421N7d2/)
 
 ### 上身效果
 
-![](/posts/廉价假面骑士一号 Cosplay 皮套解决方案汇总/Screenshot_2024-07-01_at_10.52.30_PM.avif)
-![](/posts/廉价假面骑士一号 Cosplay 皮套解决方案汇总/Screenshot_2024-07-01_at_10.52.50_PM.avif)
+![](/posts/kamen-rider-cosplay-suit-solutions/Screenshot_2024-07-01_at_10.52.30_PM.avif)
+![](/posts/kamen-rider-cosplay-suit-solutions/Screenshot_2024-07-01_at_10.52.50_PM.avif)
 ### 购物清单
 
-![](/posts/廉价假面骑士一号 Cosplay 皮套解决方案汇总/Screenshot_2024-07-01_at_10.53.19_PM.avif)
-![](/posts/廉价假面骑士一号 Cosplay 皮套解决方案汇总/Screenshot_2024-07-01_at_10.54.06_PM.avif)
-![](/posts/廉价假面骑士一号 Cosplay 皮套解决方案汇总/Screenshot_2024-07-01_at_10.54.42_PM.avif)
-![](/posts/廉价假面骑士一号 Cosplay 皮套解决方案汇总/Screenshot_2024-07-01_at_10.56.00_PM.avif)
-![](/posts/廉价假面骑士一号 Cosplay 皮套解决方案汇总/Screenshot_2024-07-01_at_10.56.25_PM.avif)
-![](/posts/廉价假面骑士一号 Cosplay 皮套解决方案汇总/Screenshot_2024-07-01_at_10.56.43_PM.avif)
-![](/posts/廉价假面骑士一号 Cosplay 皮套解决方案汇总/Screenshot_2024-07-01_at_10.57.37_PM.avif)
-![](/posts/廉价假面骑士一号 Cosplay 皮套解决方案汇总/Screenshot_2024-07-01_at_10.58.02_PM.avif)
-![](/posts/廉价假面骑士一号 Cosplay 皮套解决方案汇总/Screenshot_2024-07-01_at_10.58.21_PM.avif)
-![](/posts/廉价假面骑士一号 Cosplay 皮套解决方案汇总/Screenshot_2024-07-01_at_10.58.36_PM.avif)
-![](/posts/廉价假面骑士一号 Cosplay 皮套解决方案汇总/Screenshot_2024-07-01_at_10.59.03_PM.avif)
-![](/posts/廉价假面骑士一号 Cosplay 皮套解决方案汇总/Screenshot_2024-07-01_at_10.59.19_PM.avif)
+![](/posts/kamen-rider-cosplay-suit-solutions/Screenshot_2024-07-01_at_10.53.19_PM.avif)
+![](/posts/kamen-rider-cosplay-suit-solutions/Screenshot_2024-07-01_at_10.54.06_PM.avif)
+![](/posts/kamen-rider-cosplay-suit-solutions/Screenshot_2024-07-01_at_10.54.42_PM.avif)
+![](/posts/kamen-rider-cosplay-suit-solutions/Screenshot_2024-07-01_at_10.56.00_PM.avif)
+![](/posts/kamen-rider-cosplay-suit-solutions/Screenshot_2024-07-01_at_10.56.25_PM.avif)
+![](/posts/kamen-rider-cosplay-suit-solutions/Screenshot_2024-07-01_at_10.56.43_PM.avif)
+![](/posts/kamen-rider-cosplay-suit-solutions/Screenshot_2024-07-01_at_10.57.37_PM.avif)
+![](/posts/kamen-rider-cosplay-suit-solutions/Screenshot_2024-07-01_at_10.58.02_PM.avif)
+![](/posts/kamen-rider-cosplay-suit-solutions/Screenshot_2024-07-01_at_10.58.21_PM.avif)
+![](/posts/kamen-rider-cosplay-suit-solutions/Screenshot_2024-07-01_at_10.58.36_PM.avif)
+![](/posts/kamen-rider-cosplay-suit-solutions/Screenshot_2024-07-01_at_10.59.03_PM.avif)
+![](/posts/kamen-rider-cosplay-suit-solutions/Screenshot_2024-07-01_at_10.59.19_PM.avif)

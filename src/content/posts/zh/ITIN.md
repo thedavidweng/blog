@@ -10,4 +10,4 @@ tags:
 draft: false
 ---
 
-![](/posts/ITIN/cropped-favicon-frugalflyer-575x575-rounded-50px-192x192.avif)
+![](/posts/itin-application-guide/cropped-favicon-frugalflyer-575x575-rounded-50px-192x192.avif)

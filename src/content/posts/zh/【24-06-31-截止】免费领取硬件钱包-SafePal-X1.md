@@ -30,9 +30,9 @@ SafePal 是个币安投资的加密货币钱包，最近开了几个交易所（
 
 - 从交易所（币安、OKX、ByBit、海妖）等平台购买或从你的其他钱包发送价值高于 35 USDC（不能是 USDC）的加密货币到 SafePal 钱包中。
 
-- 点击 Safepal App 底栏的闪兑并兑换超过 35 USDC 的金额。
+- 点击 SafePal App 底栏的闪兑并兑换超过 35 USDC 的金额。
 
-- 点击 Safepal App 底栏的探索，找到 DApp 中 Swap 35 USDC to Get Limited Edition USDC X1 Wallet 的活动海报，滑动到最下面找到五个需要验证的任务（Quiz、Whitelist、Twitter Rewards、Swap USDC、Redeem USDC X1 Wallet），如果你完成了前几部操作，这里你只需要完成 Quiz 并绑定 Twitter（X）账户转推活动推文并关注 SafePal，其他任务都应该可以直接 Verify。
+- 点击 SafePal App 底栏的探索，找到 DApp 中 Swap 35 USDC to Get Limited Edition USDC X1 Wallet 的活动海报，滑动到最下面找到五个需要验证的任务（Quiz、Whitelist、Twitter Rewards、Swap USDC、Redeem USDC X1 Wallet），如果你完成了前几部操作，这里你只需要完成 Quiz 并绑定 Twitter（X）账户转推活动推文并关注 SafePal，其他任务都应该可以直接 Verify。
 
 - Verify 完毕所有任务，在 Redeem USDC X Wallet 任务中就可以找到下单链接，支付10U+运费下单了，下单完记得回到活动界面 Verify 最后一个任务。
 
@@ -44,7 +44,7 @@ SafePal 是个币安投资的加密货币钱包，最近开了几个交易所（
 
 - 硬件钱包与 SafePal App 配对：[X1 User Manual – SafePal Help Center](https://safepalsupport.zendesk.com/hc/en-us/articles/18121204766491)
 
-- 在钱包资产列表中添加 USDC (Polygon)：[How to add $USDC(Polygon) to SafePal X1 Wallet Assest List – SafePal Help Center](https://safepalsupport.zendesk.com/hc/en-us/articles/22182713414299)
+- 在钱包资产列表中添加 USDC (Polygon)：[How to add $USDC (Polygon) to SafePal X1 Wallet Assest List – SafePal Help Center](https://safepalsupport.zendesk.com/hc/en-us/articles/22182713414299)
 
 在硬件钱包上创建好钱包并绑定完 App 后，DApps - 搜索 “USDC Privilege” - “Claim 10 USDC”
 
@@ -54,7 +54,7 @@ SafePal 是个币安投资的加密货币钱包，最近开了几个交易所（
 
 - 闪兑 USDC 支持兑换为多个不同链上的不同版本，此活动支持 Arbitrum, Avalanche, Ethereum, Opmainnet, Polygon PoS, Tron 和 Solana
 
-- 不同服务商和不同链兑换的时候收取的服务费和 Gas fee 都不同，这是最大的坑点，你在交易所提币并发送到钱包的时候就可以选择不同的链，我因为手续费便宜选择了 USDT (Solana)，但不知道这意味着我会需要 SOL (Solana) 来支付转换的 Gas fee，同理如果你要换的原始币种在 BEP20 上，你就需要 BNB (BEP20) 来支付 Gas fee。你必须提前做好准备，比如我就遇到了币安 P2P 买币在 24h 内无法提币的限制，拖慢了我的进度。并且由于交易所提币的时候会有最低提币额度，以及转换 USDC 的损耗，你不可能只转精准的等值 35U 到钱包里，总会有些额外的花销。现在回头看看我应该一开始就转 ETH (Arbitrum)，然后闪兑成 USDC (Arbitrum)
+- 不同服务商和不同链兑换的时候收取的服务费和 Gas fee 都不同，这是最大的坑点，你在交易所提币并发送到钱包的时候就可以选择不同的链，我因为手续费便宜选择了 USDT (Solana)，但不知道这意味着我会需要 SOL (Solana) 来支付转换的 Gas fee，同理如果你要换的原始币种在 BEP20 上，你就需要 BNB (BEP20) 来支付 Gas fee。你必须提前做好准备，比如我就遇到了币安 P2P 买币在 24h 内无法提币的限制，拖慢了我的进度。并且由于交易所提币的时候会有最低提币额度，以及转换 USDC 的损耗，你不可能只转精准的等值 35 U 到钱包里，总会有些额外的花销。现在回头看看我应该一开始就转 ETH (Arbitrum)，然后闪兑成 USDC (Arbitrum)
 
 - 验证任务的时候注意要根据任务顺序一步步认证，如果上一个任务没做完下一个任务的 Verify 按钮不能被点击。
 

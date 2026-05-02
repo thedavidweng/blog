@@ -1,5 +1,5 @@
 ---
-title: "联邦快递（FedEx）偷了我价值$1500 的包裹，并封了我的号"
+title: "联邦快递（FedEx）偷了我价值 $1500 的包裹，并封了我的号"
 locale: zh
 slug: "fedex-stole-package-banned-account"
 description: "FedEx Stole My Package Worth $1500 and Closed My Account Without Notice."

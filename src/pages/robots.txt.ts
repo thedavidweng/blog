@@ -1,0 +1,17 @@
+import type { APIRoute } from 'astro';
+import { absoluteUrl } from '../site.config';
+
+export const GET: APIRoute = () =>
+  new Response(
+    [
+      'User-agent: *',
+      'Allow: /',
+      `Sitemap: ${absoluteUrl('/sitemap-index.xml')}`,
+      `Sitemap: ${absoluteUrl('/llms.txt')}`
+    ].join('\n'),
+    {
+      headers: {
+        'Content-Type': 'text/plain; charset=utf-8'
+      }
+    }
+  );

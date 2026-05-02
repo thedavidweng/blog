@@ -1,0 +1,31 @@
+---
+import type { CollectionEntry } from 'astro:content';
+import { getPostSlug, postUrl, tagLabel } from '../lib/content';
+import type { Locale } from '../site.config';
+
+interface Props {
+  post: CollectionEntry<'posts'>;
+  locale: Locale;
+}
+
+const { post, locale } = Astro.props;
+const slug = getPostSlug(post);
+const date = post.data.publishedDate.toLocaleDateString(locale === 'zh' ? 'zh-CN' : 'en-US', {
+  year: 'numeric',
+  month: 'long',
+  day: 'numeric',
+  timeZone: 'UTC'
+});
+const dateLabel = locale === 'zh' ? `发布于 ${date}` : `Published on ${date}`;
+---
+
+<article>
+  <a class="post-card" href={postUrl(locale, slug)}>
+    <time class="post-meta" datetime={post.data.publishedDate.toISOString()}>{dateLabel}</time>
+    <h2 class="post-title">{post.data.title}</h2>
+    <p class="post-description">{post.data.description}</p>
+    <ul class="tag-list" aria-label={locale === 'zh' ? '标签' : 'Tags'}>
+      {post.data.tags.map((tag) => <li><span class="tag-pill">{tagLabel(locale, tag)}</span></li>)}
+    </ul>
+  </a>
+</article>

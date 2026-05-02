@@ -1,0 +1,44 @@
+---
+import LocaleRedirect from '../components/LocaleRedirect.astro';
+import PostCard from '../components/PostCard.astro';
+import BaseLayout from '../layouts/BaseLayout.astro';
+import { getPublishedPosts } from '../lib/content';
+import { absoluteUrl, siteConfig } from '../site.config';
+
+const locale = 'en';
+const posts = await getPublishedPosts(locale);
+const jsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'Blog',
+  name: siteConfig.name,
+  description: siteConfig.description[locale],
+  url: absoluteUrl('/'),
+  author: {
+    '@type': 'Person',
+    name: siteConfig.author
+  },
+  inLanguage: 'en'
+};
+---
+
+<BaseLayout
+  locale={locale}
+  title="Blog"
+  description={siteConfig.description[locale]}
+  path="/"
+  alternatePath="/zh/"
+  active="home"
+  jsonLd={jsonLd}
+  includeLocaleRedirect
+>
+  <LocaleRedirect slot="locale-redirect" />
+  <section class="content-wrap">
+    <header class="hero">
+      <h1>Blog</h1>
+      <p class="hero-copy">{siteConfig.description[locale]}</p>
+    </header>
+    <div class="post-list">
+      {posts.map((post) => <PostCard post={post} locale={locale} />)}
+    </div>
+  </section>
+</BaseLayout>

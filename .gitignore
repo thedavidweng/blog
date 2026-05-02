@@ -1,0 +1,14 @@
+node_modules/
+dist/
+.astro/
+.wrangler/
+.playwright-mcp/
+.workbuddy/
+__pycache__/
+*.pyc
+blog-*.png
+.env
+.env.*
+!.env.example
+npm-debug.log*
+.DS_Store

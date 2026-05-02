@@ -1,0 +1,23 @@
+---
+import { render } from 'astro:content';
+import PostLayout from '../../../../layouts/PostLayout.astro';
+import { assertTranslatedPostPairs, postUrl } from '../../../../lib/content';
+
+export async function getStaticPaths() {
+  const pairs = await assertTranslatedPostPairs();
+  return pairs.map(({ slug, posts }) => ({
+    params: { slug },
+    props: {
+      post: posts.zh,
+      alternatePath: postUrl('en', slug)
+    }
+  }));
+}
+
+const { post, alternatePath } = Astro.props;
+const { Content } = await render(post);
+---
+
+<PostLayout post={post} alternatePath={alternatePath}>
+  <Content />
+</PostLayout>

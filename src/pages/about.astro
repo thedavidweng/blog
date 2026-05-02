@@ -1,0 +1,19 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import { siteConfig } from '../site.config';
+
+const locale = 'en';
+---
+
+<BaseLayout locale={locale} title="About" description={`About ${siteConfig.author}.`} path="/about/" alternatePath="/zh/about/" active="about">
+  <section class="content-wrap">
+    <header class="hero">
+      <h1>About</h1>
+      <p class="hero-copy">{siteConfig.role[locale]}</p>
+    </header>
+    <div class="about-panel">
+      <p>{siteConfig.description[locale]}</p>
+      <p>This site is a static Astro blog focused on clear writing, fast pages, and a small content workflow.</p>
+    </div>
+  </section>
+</BaseLayout>

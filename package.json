@@ -1,0 +1,30 @@
+{
+  "name": "blog",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "astro dev",
+    "build": "astro build",
+    "preview": "astro preview",
+    "check": "astro check && npm run test:source && npm run test:content",
+    "test:source": "tsx tests/source-contract.test.ts",
+    "test:content": "tsx tests/content-contract.test.ts",
+    "test:dist": "tsx tests/dist-contract.test.ts",
+    "deploy": "wrangler pages deploy ./dist"
+  },
+  "dependencies": {
+    "@astrojs/mdx": "^5.0.4",
+    "@astrojs/rss": "^4.0.18",
+    "@astrojs/sitemap": "^3.7.2",
+    "@lucide/astro": "^1.14.0",
+    "astro": "^6.2.1",
+    "astro-og-canvas": "^0.11.1"
+  },
+  "devDependencies": {
+    "@astrojs/check": "^0.9.9",
+    "tsx": "^4.21.0",
+    "typescript": "^6.0.3",
+    "wrangler": "^4.87.0"
+  }
+}

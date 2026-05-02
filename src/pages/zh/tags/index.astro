@@ -1,0 +1,19 @@
+---
+import BaseLayout from '../../../layouts/BaseLayout.astro';
+import { getTags, tagLabel, tagUrl } from '../../../lib/content';
+
+const locale = 'zh';
+const tags = await getTags(locale);
+---
+
+<BaseLayout locale={locale} title="标签" description="按标签浏览文章。" path="/zh/tags/" alternatePath="/tags/" active="tags">
+  <section class="content-wrap">
+    <header class="hero">
+      <h1>标签</h1>
+      <p class="hero-copy">按主题浏览文章。</p>
+    </header>
+    <div class="tag-grid">
+      {tags.map((tag) => <a class="tag-pill" href={tagUrl(locale, tag)}>{tagLabel(locale, tag)}</a>)}
+    </div>
+  </section>
+</BaseLayout>

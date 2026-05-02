@@ -1,0 +1,11 @@
+<script is:inline>
+  (() => {
+    const key = 'preferred-locale';
+    const saved = localStorage.getItem(key);
+    if (saved) return;
+    const isChinese = navigator.languages?.some((language) => language.toLowerCase().startsWith('zh')) || navigator.language.toLowerCase().startsWith('zh');
+    if (isChinese && location.pathname === '/') {
+      location.replace('/zh/');
+    }
+  })();
+</script>

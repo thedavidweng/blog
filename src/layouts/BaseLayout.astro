@@ -1,0 +1,84 @@
+---
+import Sidebar from '../components/Sidebar.astro';
+import ThemeScript from '../components/ThemeScript.astro';
+import '../styles/global.css';
+import { absoluteUrl, defaultLocale, siteConfig, type Locale } from '../site.config';
+
+interface Props {
+  locale: Locale;
+  title: string;
+  description: string;
+  path: string;
+  alternatePath: string;
+  active: 'home' | 'posts' | 'tags' | 'about';
+  image?: string;
+  type?: 'website' | 'article';
+  jsonLd?: Record<string, unknown>;
+  includeLocaleRedirect?: boolean;
+}
+
+const {
+  locale,
+  title,
+  description,
+  path,
+  alternatePath,
+  active,
+  image = '/og/hello-astro.png',
+  type = 'website',
+  jsonLd,
+  includeLocaleRedirect = false
+} = Astro.props;
+
+const canonical = absoluteUrl(path);
+const alternate = absoluteUrl(alternatePath);
+const imageUrl = absoluteUrl(image);
+const htmlLang = locale === 'zh' ? 'zh-CN' : 'en';
+const fullTitle = title === siteConfig.name ? title : `${title} | ${siteConfig.name}`;
+const xDefault = absoluteUrl(path.startsWith('/zh/') ? path.replace('/zh', '') : path);
+---
+
+<!doctype html>
+<html lang={htmlLang} data-theme="dark">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <ThemeScript />
+    {includeLocaleRedirect && <slot name="locale-redirect" />}
+    <title>{fullTitle}</title>
+    <meta name="description" content={description} />
+    <link rel="canonical" href={canonical} />
+    <link rel="alternate" hreflang={locale === defaultLocale ? 'zh-CN' : 'en'} href={alternate} />
+    <link rel="alternate" hreflang="x-default" href={xDefault} />
+    <link rel="icon" href="/favicon.ico" sizes="any" />
+    <link rel="icon" href="/favicon-16x16.png" type="image/png" sizes="16x16" />
+    <link rel="icon" href="/favicon-32x32.png" type="image/png" sizes="32x32" />
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+    <link rel="manifest" href="/site.webmanifest" />
+    <link rel="alternate" type="application/rss+xml" title={`${siteConfig.name} RSS`} href={locale === 'zh' ? '/zh/rss.xml' : '/rss.xml'} />
+    <meta property="og:site_name" content={siteConfig.name} />
+    <meta property="og:type" content={type} />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:url" content={canonical} />
+    <meta property="og:image" content={imageUrl} />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:locale" content={locale === 'zh' ? 'zh_CN' : 'en_US'} />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content={title} />
+    <meta name="twitter:description" content={description} />
+    <meta name="twitter:image" content={imageUrl} />
+    <meta name="author" content={siteConfig.author} />
+    {jsonLd && <script is:inline type="application/ld+json" set:html={JSON.stringify(jsonLd)} />}
+  </head>
+  <body>
+    <a class="skip-link" href="#main">{locale === 'zh' ? '跳到正文' : 'Skip to content'}</a>
+    <div class="page-shell">
+      <Sidebar locale={locale} active={active} alternatePath={alternatePath} />
+      <main id="main" class="main-frame">
+        <slot />
+      </main>
+    </div>
+  </body>
+</html>

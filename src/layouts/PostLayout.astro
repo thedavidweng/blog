@@ -1,0 +1,69 @@
+---
+import type { CollectionEntry } from 'astro:content';
+import BaseLayout from './BaseLayout.astro';
+import { getPostSlug, ogImagePath, parsePostId, postUrl, tagLabel, tagUrl } from '../lib/content';
+import { absoluteUrl, defaultLocale, siteConfig, type Locale } from '../site.config';
+
+interface Props {
+  post: CollectionEntry<'posts'>;
+  alternatePath: string;
+}
+
+const { post, alternatePath } = Astro.props;
+const { locale } = parsePostId(post.id);
+const slug = getPostSlug(post);
+const postPath = postUrl(locale, slug);
+const ogPath = ogImagePath(locale, slug);
+const date = post.data.publishedDate.toLocaleDateString(locale === 'zh' ? 'zh-CN' : 'en-US', {
+  year: 'numeric',
+  month: 'long',
+  day: 'numeric',
+  timeZone: 'UTC'
+});
+const dateLabel = locale === 'zh' ? `发布于 ${date}` : `Published on ${date}`;
+
+const jsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'BlogPosting',
+  headline: post.data.title,
+  description: post.data.description,
+  datePublished: post.data.publishedDate.toISOString(),
+  dateModified: (post.data.updatedDate ?? post.data.publishedDate).toISOString(),
+  author: {
+    '@type': 'Person',
+    name: siteConfig.author
+  },
+  mainEntityOfPage: absoluteUrl(postPath),
+  image: absoluteUrl(ogPath),
+  inLanguage: locale === defaultLocale ? 'en' : 'zh-CN',
+  keywords: post.data.tags.map((tag) => tagLabel(locale as Locale, tag))
+};
+---
+
+<BaseLayout
+  locale={locale as Locale}
+  title={post.data.title}
+  description={post.data.description}
+  path={postPath}
+  alternatePath={alternatePath}
+  active="posts"
+  image={ogPath}
+  type="article"
+  jsonLd={jsonLd}
+>
+  <article class="article">
+    <header class="article-header">
+      <p class="post-meta">
+        <time datetime={post.data.publishedDate.toISOString()}>{dateLabel}</time>
+      </p>
+      <h1 class="article-title">{post.data.title}</h1>
+      <p class="article-description">{post.data.description}</p>
+      <ul class="tag-list" aria-label={locale === 'zh' ? '标签' : 'Tags'}>
+        {post.data.tags.map((tag) => <li><a class="tag-pill" href={tagUrl(locale as Locale, tag)}>{tagLabel(locale as Locale, tag)}</a></li>)}
+      </ul>
+    </header>
+    <div class="article-body">
+      <slot />
+    </div>
+  </article>
+</BaseLayout>

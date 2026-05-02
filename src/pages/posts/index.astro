@@ -1,0 +1,20 @@
+---
+import PostCard from '../../components/PostCard.astro';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import { getPublishedPosts } from '../../lib/content';
+
+const locale = 'en';
+const posts = await getPublishedPosts(locale);
+---
+
+<BaseLayout locale={locale} title="Posts" description="All posts." path="/posts/" alternatePath="/zh/posts/" active="posts">
+  <section class="content-wrap">
+    <header class="hero">
+      <h1>Posts</h1>
+      <p class="hero-copy">All writing, newest first.</p>
+    </header>
+    <div class="post-list">
+      {posts.map((post) => <PostCard post={post} locale={locale} />)}
+    </div>
+  </section>
+</BaseLayout>

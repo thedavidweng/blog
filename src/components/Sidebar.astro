@@ -1,0 +1,93 @@
+---
+import { BookOpenText, ExternalLink, House, Info, Languages, Moon, Sun, Tags } from '@lucide/astro';
+import GitHubMark from './GitHubMark.astro';
+import Logo from './Logo.astro';
+import { defaultLocale, localizedPath, siteConfig, type Locale } from '../site.config';
+
+interface Props {
+  locale: Locale;
+  active: 'home' | 'posts' | 'tags' | 'about';
+  alternatePath: string;
+}
+
+const { locale, active, alternatePath } = Astro.props;
+const nav = siteConfig.nav[locale];
+const themeLabel = locale === 'zh' ? '切换主题' : 'Toggle theme';
+const langLabel = locale === 'zh' ? 'Switch to English' : '切换到中文';
+const social = siteConfig.social;
+
+const links = [
+  { key: 'home', href: localizedPath(locale), label: nav.home, icon: House },
+  { key: 'posts', href: localizedPath(locale, '/posts/'), label: nav.posts, icon: BookOpenText },
+  { key: 'tags', href: localizedPath(locale, '/tags/'), label: nav.tags, icon: Tags },
+  { key: 'about', href: localizedPath(locale, '/about/'), label: nav.about, icon: Info }
+] as const;
+---
+
+<aside class="site-sidebar">
+  <div class="sidebar-inner">
+    <a class="brand" href={localizedPath(locale)} aria-label={siteConfig.name}>
+      <span class="brand-mark"><Logo /></span>
+      <span class="brand-text">
+        <span class="brand-name">{siteConfig.author}</span>
+        <span class="brand-role">{siteConfig.role[locale]}</span>
+      </span>
+    </a>
+
+    <div class="sidebar-actions">
+      <nav class="site-nav" aria-label={locale === 'zh' ? '主导航' : 'Primary'}>
+        {
+          links.map(({ key, href, label, icon: Icon }) => (
+            <a class="nav-link" href={href} aria-current={active === key ? 'page' : undefined}>
+              <Icon size={23} stroke-width={2.4} />
+              <span>{label}</span>
+            </a>
+          ))
+        }
+      </nav>
+
+      <nav class="social-nav" aria-label={locale === 'zh' ? '社交链接' : 'Social links'}>
+        {
+          social.map((item) => (
+            <a class="social-link" href={item.href} rel="me noopener noreferrer" target="_blank">
+              {item.label === 'GitHub' ? <GitHubMark size={23} /> : <ExternalLink size={23} stroke-width={2.3} />}
+              <span>{item.label}</span>
+            </a>
+          ))
+        }
+      </nav>
+    </div>
+  </div>
+</aside>
+
+<div class="toolbar" aria-label={locale === 'zh' ? '页面工具' : 'Page tools'}>
+  <button class="icon-button" type="button" data-theme-toggle aria-label={themeLabel} title={themeLabel}>
+    <Sun class="theme-light" size={22} />
+    <Moon class="theme-dark" size={22} />
+  </button>
+  <a class="icon-button" href={alternatePath} hreflang={locale === defaultLocale ? 'zh-CN' : 'en'} aria-label={langLabel} title={langLabel} data-locale-link>
+    <Languages size={22} />
+  </a>
+</div>
+
+<script>
+  const root = document.documentElement;
+  const themeButton = document.querySelector('[data-theme-toggle]');
+  themeButton?.addEventListener('click', () => {
+    const nextTheme = root.dataset.theme === 'dark' ? 'light' : 'dark';
+    root.dataset.theme = nextTheme;
+    localStorage.setItem('theme', nextTheme);
+  });
+
+  document.querySelector('[data-locale-link]')?.addEventListener('click', (event) => {
+    const href = event.currentTarget instanceof HTMLAnchorElement ? event.currentTarget.getAttribute('href') : null;
+    localStorage.setItem('preferred-locale', href?.startsWith('/zh') ? 'zh' : 'en');
+  });
+</script>
+
+<style>
+  :root[data-theme="dark"] .theme-light,
+  :root:not([data-theme="dark"]) .theme-dark {
+    display: none;
+  }
+</style>

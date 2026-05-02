@@ -6,8 +6,6 @@ const root = fileURLToPath(new URL('..', import.meta.url));
 const requiredFiles = [
   'dist/index.html',
   'dist/zh/index.html',
-  'dist/posts/index.html',
-  'dist/zh/posts/index.html',
   'dist/posts/hello-astro/index.html',
   'dist/zh/posts/hello-astro/index.html',
   'dist/og/hello-astro.png',

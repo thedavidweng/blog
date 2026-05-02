@@ -1,12 +1,13 @@
 ---
-import { BookOpenText, ExternalLink, House, Info, Languages, Moon, Sun, Tags } from '@lucide/astro';
+import { BookOpenText, BriefcaseBusiness, House, Info, Languages, Moon, Sun, Tags } from '@lucide/astro';
 import GitHubMark from './GitHubMark.astro';
+import LinkedInMark from './LinkedInMark.astro';
 import Logo from './Logo.astro';
 import { defaultLocale, localizedPath, siteConfig, type Locale } from '../site.config';
 
 interface Props {
   locale: Locale;
-  active: 'home' | 'posts' | 'tags' | 'about';
+  active: 'posts' | 'tags' | 'about';
   alternatePath: string;
 }
 
@@ -17,11 +18,17 @@ const langLabel = locale === 'zh' ? 'Switch to English' : '切换到中文';
 const social = siteConfig.social;
 
 const links = [
-  { key: 'home', href: localizedPath(locale), label: nav.home, icon: House },
-  { key: 'posts', href: localizedPath(locale, '/posts/'), label: nav.posts, icon: BookOpenText },
+  { key: 'posts', href: localizedPath(locale), label: nav.posts, icon: BookOpenText },
   { key: 'tags', href: localizedPath(locale, '/tags/'), label: nav.tags, icon: Tags },
   { key: 'about', href: localizedPath(locale, '/about/'), label: nav.about, icon: Info }
 ] as const;
+
+const SocialIcon = {
+  github: GitHubMark,
+  linkedin: LinkedInMark,
+  portfolio: BriefcaseBusiness,
+  home: House
+};
 ---
 
 <aside class="site-sidebar">
@@ -50,7 +57,10 @@ const links = [
         {
           social.map((item) => (
             <a class="social-link" href={item.href} rel="me noopener noreferrer" target="_blank">
-              {item.label === 'GitHub' ? <GitHubMark size={23} /> : <ExternalLink size={23} stroke-width={2.3} />}
+              {(() => {
+                const Icon = SocialIcon[item.icon];
+                return item.icon === 'github' || item.icon === 'linkedin' ? <Icon size={23} /> : <Icon size={23} stroke-width={2.3} />;
+              })()}
               <span>{item.label}</span>
             </a>
           ))

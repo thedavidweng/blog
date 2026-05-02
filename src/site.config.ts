@@ -6,8 +6,7 @@ export type Locale = (typeof locales)[number];
 export const siteConfig = {
   name: 'David Blog',
   author: 'David',
-  handle: '@david',
-  email: 'hello@example.com',
+  handle: '@thedavidweng',
   description: {
     en: 'Writing about design, code, and the messy space in between.',
     zh: '记录设计、代码，以及两者之间不整洁但真实的空间。'
@@ -18,13 +17,11 @@ export const siteConfig = {
   },
   nav: {
     en: {
-      home: 'Home',
       posts: 'Posts',
       tags: 'Tags',
       about: 'About'
     },
     zh: {
-      home: '首页',
       posts: '文章',
       tags: '标签',
       about: '关于'
@@ -83,11 +80,23 @@ export const siteConfig = {
   social: [
     {
       label: 'GitHub',
-      href: 'https://github.com/david'
+      href: 'https://github.com/thedavidweng',
+      icon: 'github'
     },
     {
       label: 'LinkedIn',
-      href: 'https://www.linkedin.com/'
+      href: 'https://www.linkedin.com/in/thedavidweng/',
+      icon: 'linkedin'
+    },
+    {
+      label: 'Portfolio',
+      href: 'https://davidweng.eu.org/',
+      icon: 'portfolio'
+    },
+    {
+      label: 'Homepage',
+      href: 'https://thedavidweng.github.io/',
+      icon: 'home'
     }
   ]
 } as const;

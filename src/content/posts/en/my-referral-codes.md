@@ -11,7 +11,7 @@ tags:
 draft: false
 ---
 
-![Screenshot_2023 03 15_at_06](/posts/my-referral-codes/Screenshot_2023-03-15_at_06.22.16.avif)
+![My referral codes list](/posts/my-referral-codes/my-referral-codes-list.avif)
 
 I have organized all my referral codes here. I would be very happy if you can use them.
 

@@ -9,7 +9,7 @@ tags:
 draft: true
 ---
 
-![IMG_0839](/posts/barclays/IMG_0839.avif)
+![Barclays 截图 1](/posts/barclays/barclays-screen-01.avif)
 
-![IMG_0840](/posts/barclays/IMG_0840.avif)
-![IMG_0841](/posts/barclays/IMG_0841.avif)
+![Barclays 截图 2](/posts/barclays/barclays-screen-02.avif)
+![Barclays 截图 3](/posts/barclays/barclays-screen-03.avif)

@@ -9,18 +9,18 @@ tags:
 draft: true
 ---
 
-![IMG_0763](/posts/fiat24/IMG_0763.avif)
+![Fiat24 截图 1](/posts/fiat24/fiat24-screen-01.avif)
 
-![IMG_0764](/posts/fiat24/IMG_0764.avif)
-![IMG_0765](/posts/fiat24/IMG_0765.avif)
+![Fiat24 截图 2](/posts/fiat24/fiat24-screen-02.avif)
+![Fiat24 截图 3](/posts/fiat24/fiat24-screen-03.avif)
 
-![IMG_0766](/posts/fiat24/IMG_0766.avif)
-![IMG_0767](/posts/fiat24/IMG_0767.avif)
+![Fiat24 截图 4](/posts/fiat24/fiat24-screen-04.avif)
+![Fiat24 截图 5](/posts/fiat24/fiat24-screen-05.avif)
 
-![IMG_0768](/posts/fiat24/IMG_0768.avif)
-![IMG_0769](/posts/fiat24/IMG_0769.avif)
+![Fiat24 截图 6](/posts/fiat24/fiat24-screen-06.avif)
+![Fiat24 截图 7](/posts/fiat24/fiat24-screen-07.avif)
 
-![IMG_0770](/posts/fiat24/IMG_0770.avif)
-![IMG_0771](/posts/fiat24/IMG_0771.avif)
+![Fiat24 截图 8](/posts/fiat24/fiat24-screen-08.avif)
+![Fiat24 截图 9](/posts/fiat24/fiat24-screen-09.avif)
 
-![IMG_0772](/posts/fiat24/IMG_0772.avif)
+![Fiat24 截图 10](/posts/fiat24/fiat24-screen-10.avif)

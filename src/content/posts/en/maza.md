@@ -9,51 +9,51 @@ tags:
 draft: true
 ---
 
-![IMG_0788](/posts/maza/IMG_0788.avif)
+![Maza screenshot 1](/posts/maza/maza-screen-01.avif)
 
-![IMG_0789](/posts/maza/IMG_0789.avif)
-![IMG_0790](/posts/maza/IMG_0790.avif)
+![Maza screenshot 2](/posts/maza/maza-screen-02.avif)
+![Maza screenshot 3](/posts/maza/maza-screen-03.avif)
 
-![IMG_0791](/posts/maza/IMG_0791.avif)
-![IMG_0792](/posts/maza/IMG_0792.avif)
+![Maza screenshot 4](/posts/maza/maza-screen-04.avif)
+![Maza screenshot 5](/posts/maza/maza-screen-05.avif)
 
-![IMG_0793](/posts/maza/IMG_0793.avif)
-![IMG_0794](/posts/maza/IMG_0794.avif)
+![Maza screenshot 6](/posts/maza/maza-screen-06.avif)
+![Maza screenshot 7](/posts/maza/maza-screen-07.avif)
 
-![IMG_0795](/posts/maza/IMG_0795.avif)
-![IMG_0797](/posts/maza/IMG_0797.avif)
+![Maza screenshot 8](/posts/maza/maza-screen-08.avif)
+![Maza screenshot 9](/posts/maza/maza-screen-09.avif)
 
-![IMG_0798](/posts/maza/IMG_0798.avif)
-![IMG_0799](/posts/maza/IMG_0799.avif)
+![Maza screenshot 10](/posts/maza/maza-screen-10.avif)
+![Maza screenshot 11](/posts/maza/maza-screen-11.avif)
 
-![IMG_0800](/posts/maza/IMG_0800.avif)
-![IMG_0801](/posts/maza/IMG_0801.avif)
+![Maza screenshot 12](/posts/maza/maza-screen-12.avif)
+![Maza screenshot 13](/posts/maza/maza-screen-13.avif)
 
-![IMG_0802](/posts/maza/IMG_0802.avif)
-![IMG_0803](/posts/maza/IMG_0803.avif)
+![Maza screenshot 14](/posts/maza/maza-screen-14.avif)
+![Maza screenshot 15](/posts/maza/maza-screen-15.avif)
 
-![IMG_0804](/posts/maza/IMG_0804.avif)
-![IMG_0805](/posts/maza/IMG_0805.avif)
+![Maza screenshot 16](/posts/maza/maza-screen-16.avif)
+![Maza screenshot 17](/posts/maza/maza-screen-17.avif)
 
-![IMG_0806](/posts/maza/IMG_0806.avif)
-![IMG_0807](/posts/maza/IMG_0807.avif)
+![Maza screenshot 18](/posts/maza/maza-screen-18.avif)
+![Maza screenshot 19](/posts/maza/maza-screen-19.avif)
 
-![IMG_0808](/posts/maza/IMG_0808.avif)
-![IMG_0809](/posts/maza/IMG_0809.avif)
+![Maza screenshot 20](/posts/maza/maza-screen-20.avif)
+![Maza screenshot 21](/posts/maza/maza-screen-21.avif)
 
-![IMG_0810](/posts/maza/IMG_0810.avif)
-![IMG_0811](/posts/maza/IMG_0811.avif)
+![Maza screenshot 22](/posts/maza/maza-screen-22.avif)
+![Maza screenshot 23](/posts/maza/maza-screen-23.avif)
 
-![IMG_0812](/posts/maza/IMG_0812.avif)
-![IMG_0813](/posts/maza/IMG_0813.avif)
+![Maza screenshot 24](/posts/maza/maza-screen-24.avif)
+![Maza screenshot 25](/posts/maza/maza-screen-25.avif)
 
-![IMG_0814](/posts/maza/IMG_0814.avif)
-![IMG_0815](/posts/maza/IMG_0815.avif)
+![Maza screenshot 26](/posts/maza/maza-screen-26.avif)
+![Maza screenshot 27](/posts/maza/maza-screen-27.avif)
 
-![IMG_0816](/posts/maza/IMG_0816.avif)
-![IMG_0819](/posts/maza/IMG_0819.avif)
+![Maza screenshot 28](/posts/maza/maza-screen-28.avif)
+![Maza screenshot 29](/posts/maza/maza-screen-29.avif)
 
-![IMG_0824](/posts/maza/IMG_0824.avif)
-![IMG_0826](/posts/maza/IMG_0826.avif)
+![Maza screenshot 30](/posts/maza/maza-screen-30.avif)
+![Maza screenshot 31](/posts/maza/maza-screen-31.avif)
 
-![IMG_0827](/posts/maza/IMG_0827.avif)
+![Maza screenshot 32](/posts/maza/maza-screen-32.avif)

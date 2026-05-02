@@ -9,18 +9,18 @@ tags:
 draft: true
 ---
 
-![IMG_0941](/posts/bonify/IMG_0941.avif)
+![Bonify 截图 1](/posts/bonify/bonify-screen-01.avif)
 
-![IMG_0942](/posts/bonify/IMG_0942.avif)
-![IMG_0943](/posts/bonify/IMG_0943.avif)
+![Bonify 截图 2](/posts/bonify/bonify-screen-02.avif)
+![Bonify 截图 3](/posts/bonify/bonify-screen-03.avif)
 
-![IMG_0944](/posts/bonify/IMG_0944.avif)
-![IMG_0945](/posts/bonify/IMG_0945.avif)
+![Bonify 截图 4](/posts/bonify/bonify-screen-04.avif)
+![Bonify 截图 5](/posts/bonify/bonify-screen-05.avif)
 
-![IMG_0946](/posts/bonify/IMG_0946.avif)
-![IMG_0947](/posts/bonify/IMG_0947.avif)
+![Bonify 截图 6](/posts/bonify/bonify-screen-06.avif)
+![Bonify 截图 7](/posts/bonify/bonify-screen-07.avif)
 
-![IMG_0948](/posts/bonify/IMG_0948.avif)
-![IMG_0949](/posts/bonify/IMG_0949.avif)
+![Bonify 截图 8](/posts/bonify/bonify-screen-08.avif)
+![Bonify 截图 9](/posts/bonify/bonify-screen-09.avif)
 
-![IMG_0950](/posts/bonify/IMG_0950.avif)
+![Bonify 截图 10](/posts/bonify/bonify-screen-10.avif)

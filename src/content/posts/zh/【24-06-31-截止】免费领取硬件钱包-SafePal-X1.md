@@ -14,11 +14,11 @@ draft: false
 
 SafePal 是个币安投资的加密货币钱包，最近开了几个交易所（主要是 Bybit）然后决定搞点 Crypto，这个硬件钱包的活动需要你做任务才能拿到，最后付款的时候要付 10U（激活设备后返还） + 你地区的运费（深圳发货，中国大陆是 5U，加拿大是 17U，肉痛）。
 
-![safepal x1 product](/posts/safepal-x1-free-hardware-wallet/safepal-x1-product.avif)
+![SafePal X1 硬件钱包](/posts/safepal-x1-free-hardware-wallet/safepal-x1-product.avif)
 
 活动在 24 年六月底结束，这个教程发的很晚，看不到就错过了。到货时间超过六月应该没问题，我和客服确认了只要你的设备是通过活动拿到的，就可以返还付款时的 10U
 
-![order page](/posts/safepal-x1-free-hardware-wallet/order-page.avif)
+![SafePal X1 订购页](/posts/safepal-x1-free-hardware-wallet/safepal-x1-order-page.avif)
 
 ## 流程
 
@@ -84,7 +84,7 @@ USDC is available 24/7 for transactions, making it a convenient and reliable way
 
 希望大家可以少走一些弯路。
 
-![verification](/posts/safepal-x1-free-hardware-wallet/verification.avif)
+![SafePal X1 领取验证](/posts/safepal-x1-free-hardware-wallet/safepal-x1-verification.avif)
 
 ## 补充
 

@@ -15,11 +15,11 @@ draft: false
 
 SafePal is a cryptocurrency wallet invested by Binance. They recently launched several exchanges (mainly Bybit) and then decided to do some Crypto. This hardware wallet activity requires you to complete tasks to get it. When paying, you need to pay 10U (returned after activating the device) + shipping for your region (shipped from Shenzhen, mainland China is 5U, Canada is 17U, painful).
 
-![safepal x1 product](/posts/safepal-x1-free-hardware-wallet/safepal-x1-product.avif)
+![SafePal X1 hardware wallet](/posts/safepal-x1-free-hardware-wallet/safepal-x1-product.avif)
 
 The activity ends at the end of June 24. This tutorial is posted very late. If you can't see it, you missed it. Arrival time beyond June should be fine. I confirmed with customer service that as long as your device is obtained through the activity, the 10U paid at the time can be returned.
 
-![order page](/posts/safepal-x1-free-hardware-wallet/order-page.avif)
+![SafePal X1 order page](/posts/safepal-x1-free-hardware-wallet/safepal-x1-order-page.avif)
 
 ## Process
 
@@ -85,7 +85,7 @@ USDC is available 24/7 for transactions, making it a convenient and reliable way
 
 Hope everyone can take fewer detours.
 
-![verification](/posts/safepal-x1-free-hardware-wallet/verification.avif)
+![SafePal X1 redemption verification](/posts/safepal-x1-free-hardware-wallet/safepal-x1-verification.avif)
 
 ## Supplement
 

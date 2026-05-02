@@ -14,18 +14,7 @@ import { siteConfig } from './src/site.config.ts';
 
 const site = process.env.PUBLIC_SITE_URL || process.env.CF_PAGES_URL || 'http://localhost:4321';
 
-const integrations = [
-  mdx(),
-  sitemap({
-    i18n: {
-      defaultLocale: 'en',
-      locales: {
-        en: 'en',
-        zh: 'zh-CN'
-      }
-    }
-  })
-];
+const integrations = [];
 
 if (siteConfig.features.expressiveCode) {
   integrations.push(
@@ -37,6 +26,19 @@ if (siteConfig.features.expressiveCode) {
     })
   );
 }
+
+integrations.push(
+  mdx(),
+  sitemap({
+    i18n: {
+      defaultLocale: 'en',
+      locales: {
+        en: 'en',
+        zh: 'zh-CN'
+      }
+    }
+  })
+);
 
 const remarkPlugins = [];
 if (siteConfig.features.readingTime) {

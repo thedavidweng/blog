@@ -11,32 +11,32 @@ tags:
 draft: false
 ---
 
-![1714553672877](/posts/fedex-stole-package-banned-account/1714553672877.avif)
+![FedEx tracking status screenshot](/posts/fedex-stole-package-banned-account/fedex-tracking-screenshot.avif)
 
 ## Beginning
 
 I live in Canada. On February 8 this year, I purchased a Mac Studio and had it shipped to my friend's address in Pittsburgh, USA, planning to pick it up when I had a chance.
 
 ![Credit card consumption record](/posts/fedex-stole-package-banned-account/fedex-amex-card-statement.avif)
-![The arrived Mac Studio, none of us expected what would happen next](/posts/fedex-stole-package-banned-account/c8a13cb7-b024-471b-9c01-0b20d6819199.avif)
+![The arrived Mac Studio, none of us expected what would happen next](/posts/fedex-stole-package-banned-account/fedex-mac-studio-arrival.avif)
 
 On February 19, because my friend and I planned to go to Seattle on February 25-26, I thought I might as well take the opportunity to get the computer, so I researched feasible methods. My idea was to ship it to a FedEx Office and hold it there, then I would go pick it up myself. So I registered a new FedEx account and started creating a Shipping Label.
 
 ## Development
 
-![fedex mac studio delivered photo](/posts/fedex-stole-package-banned-account/fedex-mac-studio-delivered-photo.avif)
+![FedEx delivery photo with Mac Studio](/posts/fedex-stole-package-banned-account/fedex-mac-studio-delivered-photo.avif)
 
 So I created such a shipping order, with my friend as Sender and me as Recipient, and checked "Hold at FedEx location", letting my friend go to FedEx's site to ship it. Strangely, until I finished creating the Shipping Label, FedEx did not ask me to choose a payment method.
 
 My friend and I thought they would pay after weighing at the site, but when they arrived at the site, they didn't ask my friend to pay. They took the package and gave a receipt like this.
 
-![3710_Forbes_Ave](/posts/fedex-stole-package-banned-account/3710_Forbes_Ave.avif)
+![FedEx Office receipt — Forbes Ave](/posts/fedex-stole-package-banned-account/fedex-forbes-ave-address.avif)
 
 ## Transition
 
 On February 21, my friend suddenly received an email saying "Unable to deliver shipment, returned to shipper."
 
-![Exception_Reason](/posts/fedex-stole-package-banned-account/Exception_Reason.avif)
+![FedEx delivery exception notice](/posts/fedex-stole-package-banned-account/fedex-exception-detail.avif)
 
 I immediately tried to log into my FedEx account to check the situation, but after many attempts, I could not log in successfully.
 
@@ -50,17 +50,15 @@ The fourth customer service got my account number using my email + phone, then t
 
 At this point, I was already very angry. After nearly two hours on the phone, I got no information and was finally hung up on. I posted an angry Tweet, @FedExHelp, and then was contacted.
 
-![e35c98f5 1ae6 460e bcab 396f8e76cbd2](/posts/fedex-stole-package-banned-account/e35c98f5-1ae6-460e-bcab-396f8e76cbd2.avif)
+![FedEx support chat on Twitter (1)](/posts/fedex-stole-package-banned-account/fedex-support-chat-1.avif)
 
 I described the sequence of events. @FedExHelp asked me to contact FedEx High Risk Investigations (800) 584-2681.
 
-![e9388dd3 0f3c 4cd0 9579 5c7955df5a0d](/posts/fedex-stole-package-banned-account/e9388dd3-0f3c-4cd0-9579-5c7955df5a0d.avif)
+![FedEx support chat on Twitter (2)](/posts/fedex-stole-package-banned-account/fedex-support-chat-2.avif)
 
 So I did that. After connecting, the other party asked if I was sender or recipient. I said I was recipient, but I created the shipping order. Customer service said sorry, the phone call must be made by the sender.
 
 I could only contact my friend to call FedEx. The other party told my friend there was a dedicated person in charge of my case, contact phone: 8555560557, extension: 102148, Case Number: #370494.
-
-![](/posts/fedex-stole-package-banned-account/...)
 
 After that, we tried to call this phone multiple times. It was always voicemail. The other party was never at their desk. Not once did we get through.
 

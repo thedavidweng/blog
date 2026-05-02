@@ -10,31 +10,31 @@ tags:
 draft: false
 ---
 
-![1714553672877](/posts/fedex-stole-package-banned-account/1714553672877.avif)
+![FedEx 物流状态截图](/posts/fedex-stole-package-banned-account/fedex-tracking-screenshot.avif)
 
 ## 起
 
 我住在加拿大，今年 2 月 8 号我购买了一台 Mac Studio 寄送到我住在美国匹兹堡的朋友的地址，打算之后有机会拿。
 
 ![信用卡消费记录](/posts/fedex-stole-package-banned-account/fedex-amex-card-statement.avif)
-![到货的 Mac Studio，我们都没想到之后会发生什么](/posts/fedex-stole-package-banned-account/c8a13cb7-b024-471b-9c01-0b20d6819199.avif)
+![到货的 Mac Studio，我们都没想到之后会发生什么](/posts/fedex-stole-package-banned-account/fedex-mac-studio-arrival.avif)
 2 月 19 日，因为我和朋友打算 2 月 25-26 日去一趟西雅图，我想不妨趁机把电脑拿到手，于是我研究了一下可行的方法。我的想法是将快递寄到一个 FedEx Office 然后 Hold 在那边，我自己过去取货，于是我注册了一个新的 FedEx 账号开始创建 Shipping Label。
 
 ## 承
 
-![fedex mac studio delivered photo](/posts/fedex-stole-package-banned-account/fedex-mac-studio-delivered-photo.avif)
+![FedEx 派送现场（Mac Studio）](/posts/fedex-stole-package-banned-account/fedex-mac-studio-delivered-photo.avif)
 
 于是我创建了这样的运单，将我朋友作为 Sender，我作为 Recipient，并且勾选了 Hold at FedEx location，让我的朋友去 FedEx 的站点寄送。很奇怪的是直到我创建完成 Shipping Label，FedEx 也没有要我选择付费的方式。
 
 我和我朋友以为会在站点称重后寄送，但到了站点也没有让我朋友付钱，他们拿走了包裹，就给了一张这样的收据。
 
-![3710_Forbes_Ave](/posts/fedex-stole-package-banned-account/3710_Forbes_Ave.avif)
+![FedEx 网点收据（福布斯大道）](/posts/fedex-stole-package-banned-account/fedex-forbes-ave-address.avif)
 
 ## 转
 
 2 月 21 日，我的朋友突然收到一封邮件，告知 “Unable to deliver shipment, returned to shipper。”
 
-![Exception_Reason](/posts/fedex-stole-package-banned-account/Exception_Reason.avif)
+![FedEx 异常派送通知](/posts/fedex-stole-package-banned-account/fedex-exception-detail.avif)
 
 我立刻尝试登陆自己的 FedEx 账号查看情况，但是尝试多次也无法登录成功。
 
@@ -48,11 +48,11 @@ draft: false
 
 到了此时我已经很愤怒了，接近两个小时的电话，没有得到任何信息而且最后被挂断了，我发布了一条愤怒的 Twitter，@FedExHelp，然后被联系了。
 
-![e35c98f5 1ae6 460e bcab 396f8e76cbd2](/posts/fedex-stole-package-banned-account/e35c98f5-1ae6-460e-bcab-396f8e76cbd2.avif)
+![FedEx 推特私信（1）](/posts/fedex-stole-package-banned-account/fedex-support-chat-1.avif)
 
 我描述了一遍事情的经过，@FedExHelp 让我联系 FedEx High Risk Investigations (800) 584-2681.
 
-![e9388dd3 0f3c 4cd0 9579 5c7955df5a0d](/posts/fedex-stole-package-banned-account/e9388dd3-0f3c-4cd0-9579-5c7955df5a0d.avif)
+![FedEx 推特私信（2）](/posts/fedex-stole-package-banned-account/fedex-support-chat-2.avif)
 
 于是我这么做了。接通后，对方问我是 sender 还是 recipient，我说我是 recipient，但是我创建了运单。客服说对不起，电话必须要 sender 来打才行。
 

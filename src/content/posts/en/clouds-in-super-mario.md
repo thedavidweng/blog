@@ -12,18 +12,18 @@ tags:
 draft: false
 ---
 
-![**Cory Arcangel, Super Mario Clouds, 2002**](/posts/clouds-in-super-mario/Super_Mario_Clouds.avif)
+![Cory Arcangel, Super Mario Clouds, 2002](/posts/clouds-in-super-mario/super-mario-clouds.avif)
 
 
 You can probably see that these are the clouds from the first Super Mario Brothers on NES/FC.
 
 This is an artwork made by Cory Arcangel in 2002 *Super Mario Clouds*. This GIF image is not the original artwork. The original artwork uses a real Nintendo NES cartridge, with hardware modifications made to the cartridge to remove all content except the clouds and blue sky.
 
-![Mario Clouds Cartridge](/posts/clouds-in-super-mario/mario-clouds-cartridge.avif)
+![Mario Clouds cartridge (2002)](/posts/clouds-in-super-mario/mario-clouds-cartridge.avif)
 
 To understand this artwork, it is necessary to understand a little about video games.
 
-![Super_Mario_Level_1](/posts/clouds-in-super-mario/Super_Mario_Level_1.avif)
+![Super Mario Bros. World 1-1](/posts/clouds-in-super-mario/super-mario-bros-world-1-1.avif)
 
 Super Mario Brothers has 8 worlds, each world having 4 small levels. This image shows the first level of Super Mario Brothers. Guess how much storage space Super Mario Brothers occupies.
 
@@ -31,7 +31,7 @@ Super Mario Brothers has 8 worlds, each world having 4 small levels. This image 
 
 Everyone has downloaded images and listened to music, knowing how crazy this number sounds today. 64KB of space, fitting an entire game. How did they do it?
 
-![Super_Mario_Tile_Map](/posts/clouds-in-super-mario/Super_Mario_Tile_Map.avif)
+![Super Mario Bros. tile map (sprite sheet)](/posts/clouds-in-super-mario/super-mario-bros-tile-map.avif)
 
 **This is their solution. These are all the elements that appear in Super Mario Brothers. They are all stored in one image. This image is called a TileMap. Developers don't place elements in advance in the image, but write code to record which element to use where. The game map is generated synchronously when playing. This made it possible for "Super Mario Brothers", which occupies 64 KB but contains 32 levels, to be created.**
 

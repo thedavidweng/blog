@@ -118,7 +118,7 @@ All information updated to 2023.06.09
 
 -
 
-![canada neo financial card](/posts/canada-international-student-banking-guide-2023/canada-neo-financial-card.avif)
+![Neo Financial card](/posts/canada-international-student-banking-guide-2023/canada-neo-financial-card.avif)
 
 Referral code: [2LZG](https://card.neofinancial.com/product-referral?utm_medium=Ambassador_FA&utm_source=GenericFA&skip_intro=true&nf_cv=R5G6JN4P&nf_ac=2LZG)
 
@@ -128,7 +128,7 @@ A network bank card applied for through the mobile APP. Also my first credit car
 
 -
 
-![canada triangle mastercard](/posts/canada-international-student-banking-guide-2023/canada-triangle-mastercard.avif)
+![Triangle Mastercard](/posts/canada-international-student-banking-guide-2023/canada-triangle-mastercard.avif)
 
 Buying groceries 1.5% CT Money Cashback, Canadian Tire subsidiary stores (Canadian Tire, Sport Chek, Mark's/L'Équipeur, Atmosphere, Party City, Sports Rousseau, Hockey Experts, L'Entrepôt du Hockey, Pro Hockey Life, partial Sports Experts) 4% CT Money Cashback, other consumption 0.8% CT Money Cashback
 
@@ -138,7 +138,7 @@ This card is my second credit card in Canada. I originally applied for **Triangl
 
 -
 
-![Referral code: `JIACHEN4770`](/posts/canada-international-student-banking-guide-2023/EQ_Bank_Card.avif)
+![Referral code: `JIACHEN4770`](/posts/canada-international-student-banking-guide-2023/canada-eq-bank-card.avif)
 
 
 All consumption 0.5% Cashback, with bank account interest rate 2.50%
@@ -153,7 +153,7 @@ This card is not for swiping, this card is unbelievably good that you withdraw m
 
 -
 
-![TD_Cash_Back_Visa_Infinite_Card](/posts/canada-international-student-banking-guide-2023/TD_Cash_Back_Visa_Infinite_Card.avif)
+![TD Cash Back Visa Infinite](/posts/canada-international-student-banking-guide-2023/canada-td-cash-back-visa-infinite.avif)
 
 Buying groceries, refueling, paying bills 3% Cashback, other consumption 1% Cashback
 
@@ -179,7 +179,7 @@ Scotiabank, TD, and CIBC all have cards with similar positioning. In the followi
 
 -
 
-![canada cibc dividend visa infinite](/posts/canada-international-student-banking-guide-2023/canada-cibc-dividend-visa-infinite.avif)
+![CIBC Dividend Visa Infinite](/posts/canada-international-student-banking-guide-2023/canada-cibc-dividend-visa-infinite.avif)
 
 Buying groceries, refueling 4% Cashback, transportation, eating, paying bills 2% Cashback, other consumption 1% Cashback
 
@@ -207,7 +207,7 @@ This card's grocery cashback ratio is slightly higher than TD's same-positioned 
 
 -
 
-![canada rbc ion plus visa](/posts/canada-international-student-banking-guide-2023/canada-rbc-ion-plus-visa.avif)
+![RBC ION+ Visa](/posts/canada-international-student-banking-guide-2023/canada-rbc-ion-plus-visa.avif)
 
 Buying groceries, eating, takeout, transportation, refueling, streaming media, subscriptions, video games 3x Avion Premium points, other consumption 1x Avion Premium points
 
@@ -231,7 +231,7 @@ The advantage is that you can waive monthly fees using a student account. The di
 
 -
 
-![canada amex cobalt card](/posts/canada-international-student-banking-guide-2023/canada-amex-cobalt-card.avif)
+![American Express Cobalt](/posts/canada-international-student-banking-guide-2023/canada-amex-cobalt-card.avif)
 
 Restaurants in Canada, buying groceries, takeout consumption 5x MR Select points (about 5%+, annual maximum $30000); refueling, travel, transportation consumption 2x MR Select points (about 2%+), any other consumption 1x MR Select points (about 1%+)
 

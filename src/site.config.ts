@@ -12,8 +12,22 @@ export const siteConfig = {
     zh: '记录设计、代码，以及两者之间不整洁但真实的空间。'
   },
   role: {
-    en: 'Design Technologist',
-    zh: '设计技术人'
+    en: 'I should eat less frozen food',
+    zh: '我应该少吃点速冻食品'
+  },
+  about: {
+    en: [
+      'This blog will probably cover three kinds of things.',
+      'First, the thinking behind projects and works.',
+      'Second, observations about design, media, AI, and the internet.',
+      'Third, notes on workflows, tools, and explorations.'
+    ],
+    zh: [
+      '这个博客大概会写三种东西。',
+      '一是项目和作品背后的想法。',
+      '二是设计、媒介、AI 和互联网相关的观察。',
+      '三是一些工作流、工具和探索记录。'
+    ]
   },
   nav: {
     en: {
@@ -97,6 +111,11 @@ export const siteConfig = {
       label: 'Homepage',
       href: 'https://thedavidweng.github.io/',
       icon: 'home'
+    },
+    {
+      label: 'X',
+      href: 'https://x.com/thedavidweng',
+      icon: 'x'
     }
   ]
 } as const;

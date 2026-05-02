@@ -12,8 +12,7 @@ const locale = 'zh';
       <p class="hero-copy">{siteConfig.role[locale]}</p>
     </header>
     <div class="about-panel">
-      <p>{siteConfig.description[locale]}</p>
-      <p>这个站点是一个静态 Astro 博客，重点是清晰写作、快速加载和小而稳定的内容工作流。</p>
+      {siteConfig.about[locale].map((paragraph) => <p>{paragraph}</p>)}
     </div>
   </section>
 </BaseLayout>

@@ -12,8 +12,7 @@ const locale = 'en';
       <p class="hero-copy">{siteConfig.role[locale]}</p>
     </header>
     <div class="about-panel">
-      <p>{siteConfig.description[locale]}</p>
-      <p>This site is a static Astro blog focused on clear writing, fast pages, and a small content workflow.</p>
+      {siteConfig.about[locale].map((paragraph) => <p>{paragraph}</p>)}
     </div>
   </section>
 </BaseLayout>

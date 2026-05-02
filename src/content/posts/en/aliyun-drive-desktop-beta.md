@@ -42,26 +42,26 @@ Aliyun Drive has launched [Android and iOS clients](https://www.aliyundrive.com/
 
 The official website shows other versions are still under development.
 
-![](/posts/aliyun-drive-desktop-beta/Ali-drive-client.avif)
-Ali-drive-client
+![](/posts/aliyun-drive-desktop-beta/alidrive-desktop-client.avif)
+alidrive-desktop-client
 
 ## Beta Desktop Client
 
 The beta version I got this time provided Windows/macOS dual versions, using Alibaba's signature, proving it is from Aliyun Drive official, not a third-party client.
 
-![](/posts/aliyun-drive-desktop-beta/Ali-drive-macos-install.avif)
-Ali-drive-macos-install
+![](/posts/aliyun-drive-desktop-beta/alidrive-desktop-macos-install.avif)
+alidrive-desktop-macos-install
 
-![](/posts/aliyun-drive-desktop-beta/Ali-drive-macos-login.avif)
-Ali-drive-macos-login
+![](/posts/aliyun-drive-desktop-beta/alidrive-desktop-macos-login.avif)
+alidrive-desktop-macos-login
 
-![](/posts/aliyun-drive-desktop-beta/Ali-drive-macos-ui.avif)
-Ali-drive-macos-ui
+![](/posts/aliyun-drive-desktop-beta/alidrive-desktop-macos-ui.avif)
+alidrive-desktop-macos-ui
 
 The functions provided by the beta client are the same as the web version. It is speculated to be a client made using **Electron**.
 
-![](/posts/aliyun-drive-desktop-beta/Ali-drive-macos-setting.avif)
-Ali-drive-macos-setting
+![](/posts/aliyun-drive-desktop-beta/alidrive-desktop-macos-settings.avif)
+alidrive-desktop-macos-settings
 
 Currently, it supports adaptive dark mode. It does not support folder synchronization and album synchronization functions.
 

@@ -15,13 +15,13 @@ draft: false
 
 我住在加拿大，今年 2 月 8 号我购买了一台 Mac Studio 寄送到我住在美国匹兹堡的朋友的地址，打算之后有机会拿。
 
-![信用卡消费记录](/posts/fedex-stole-package-banned-account/Untitled.avif)
+![信用卡消费记录](/posts/fedex-stole-package-banned-account/fedex-amex-card-statement.avif)
 ![到货的 Mac Studio，我们都没想到之后会发生什么](/posts/fedex-stole-package-banned-account/c8a13cb7-b024-471b-9c01-0b20d6819199.avif)
 2 月 19 日，因为我和朋友打算 2 月 25-26 日去一趟西雅图，我想不妨趁机把电脑拿到手，于是我研究了一下可行的方法。我的想法是将快递寄到一个 FedEx Office 然后 Hold 在那边，我自己过去取货，于是我注册了一个新的 FedEx 账号开始创建 Shipping Label。
 
 ## 承
 
-![](/posts/fedex-stole-package-banned-account/Untitled_(2).avif)
+![](/posts/fedex-stole-package-banned-account/fedex-mac-studio-delivered-photo.avif)
 于是我创建了这样的运单，将我朋友作为 Sender，我作为 Recipient，并且勾选了 Hold at FedEx location，让我的朋友去 FedEx 的站点寄送。很奇怪的是直到我创建完成 Shipping Label，FedEx 也没有要我选择付费的方式。
 
 我和我朋友以为会在站点称重后寄送，但到了站点也没有让我朋友付钱，他们拿走了包裹，就给了一张这样的收据。

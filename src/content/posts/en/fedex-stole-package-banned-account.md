@@ -17,14 +17,14 @@ draft: false
 
 I live in Canada. On February 8 this year, I purchased a Mac Studio and had it shipped to my friend's address in Pittsburgh, USA, planning to pick it up when I had a chance.
 
-![Credit card consumption record](/posts/fedex-stole-package-banned-account/Untitled.avif)
+![Credit card consumption record](/posts/fedex-stole-package-banned-account/fedex-amex-card-statement.avif)
 ![The arrived Mac Studio, none of us expected what would happen next](/posts/fedex-stole-package-banned-account/c8a13cb7-b024-471b-9c01-0b20d6819199.avif)
 
 On February 19, because my friend and I planned to go to Seattle on February 25-26, I thought I might as well take the opportunity to get the computer, so I researched feasible methods. My idea was to ship it to a FedEx Office and hold it there, then I would go pick it up myself. So I registered a new FedEx account and started creating a Shipping Label.
 
 ## Development
 
-![](/posts/fedex-stole-package-banned-account/Untitled_(2).avif)
+![](/posts/fedex-stole-package-banned-account/fedex-mac-studio-delivered-photo.avif)
 
 So I created such a shipping order, with my friend as Sender and me as Recipient, and checked "Hold at FedEx location", letting my friend go to FedEx's site to ship it. Strangely, until I finished creating the Shipping Label, FedEx did not ask me to choose a payment method.
 

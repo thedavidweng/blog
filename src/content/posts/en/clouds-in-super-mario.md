@@ -35,7 +35,7 @@ Everyone has downloaded images and listened to music, knowing how crazy this num
 
 **This is their solution. These are all the elements that appear in Super Mario Brothers. They are all stored in one image. This image is called a TileMap. Developers don't place elements in advance in the image, but write code to record which element to use where. The game map is generated synchronously when playing. This made it possible for "Super Mario Brothers", which occupies 64 KB but contains 32 levels, to be created.**
 
-![](/posts/clouds-in-super-mario/截屏2022-03-17_11.43.47.avif)
+![](/posts/clouds-in-super-mario/mario-clouds-article-screenshot-2022-03-17.avif)
 
 Returning to *Super Mario Clouds*, you can see that all the efforts of developers to reduce game size have become void. In the development process of classical games like Super Mario, every line of code is carefully considered, just to fit the game into a cartridge with pitifully small capacity. But seventeen years after the game's release, in this era of explosive development of information technology, when any random image you post on Instagram is larger than dozens of old games combined, **Cory Arcangel** modified a game that was already precisely compressed to the extreme, leaving only the minimizable recognizable features. In my view, this is a deconstruction of the game. Even though almost all elements in the picture are deleted, we can still distinguish that these are clouds from Super Mario. Then before losing the ability to distinguish the source, how many elements can be deleted?
 

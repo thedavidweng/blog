@@ -10,8 +10,8 @@ tags:
 draft: false
 ---
 
-![Look from The series films](/posts/kamen-rider-cosplay-suit-solutions/Untitled.avif)
-![Look from Shin Kamen Rider film](/posts/kamen-rider-cosplay-suit-solutions/Untitled 1.avif)
+![Look from The series films](/posts/kamen-rider-cosplay-suit-solutions/reference-the-series-costume.avif)
+![Look from Shin Kamen Rider film](/posts/kamen-rider-cosplay-suit-solutions/reference-shin-film-costume.avif)
 
 This article lists affordable solutions for reproducing the looks from Kamen Rider The series and Shin Kamen Rider that started from a Tieba post, with different attempt combinations. The characteristic is to use common off-the-shelf products (mainly Pinduoduo, Taobao, with Xianyu as supplementary) as much as possible. Products that are completely Kamen Rider might only be the helmet and belt.
 
@@ -23,14 +23,14 @@ This article lists affordable solutions for reproducing the looks from Kamen Rid
 
 ### Fitting Effects
 
-![](/posts/kamen-rider-cosplay-suit-solutions/Untitled 2.avif)
-![](/posts/kamen-rider-cosplay-suit-solutions/Untitled 3.avif)
-![](/posts/kamen-rider-cosplay-suit-solutions/Untitled 4.avif)
-![](/posts/kamen-rider-cosplay-suit-solutions/Untitled 5.avif)
+![](/posts/kamen-rider-cosplay-suit-solutions/forgotten-135-fit-01.avif)
+![](/posts/kamen-rider-cosplay-suit-solutions/forgotten-135-fit-02.avif)
+![](/posts/kamen-rider-cosplay-suit-solutions/forgotten-135-fit-03.avif)
+![](/posts/kamen-rider-cosplay-suit-solutions/forgotten-135-fit-04.avif)
 
 ### Shopping List
 
-![](/posts/kamen-rider-cosplay-suit-solutions/Untitled 6.avif)
+![](/posts/kamen-rider-cosplay-suit-solutions/forgotten-135-shopping-collage.avif)
 
 ## Shi Linlian
 
@@ -40,12 +40,12 @@ This article lists affordable solutions for reproducing the looks from Kamen Rid
 
 ### Fitting Effects
 
-![](/posts/kamen-rider-cosplay-suit-solutions/Untitled 7.avif)
+![](/posts/kamen-rider-cosplay-suit-solutions/shilinlian-full-costume.avif)
 
 ### Shopping List
 
-![](/posts/kamen-rider-cosplay-suit-solutions/Untitled 8.avif)
-![](/posts/kamen-rider-cosplay-suit-solutions/Untitled 9.avif)
+![](/posts/kamen-rider-cosplay-suit-solutions/shilinlian-shopping-list-01.avif)
+![](/posts/kamen-rider-cosplay-suit-solutions/shilinlian-shopping-list-02.avif)
 
 ## ET Yonghengheng
 
@@ -56,13 +56,13 @@ This article lists affordable solutions for reproducing the looks from Kamen Rid
 ### Fitting Effects
 
 ![](/posts/kamen-rider-cosplay-suit-solutions/Screenshot_2024-07-01_at_10.34.32_PM.avif)
-![](/posts/kamen-rider-cosplay-suit-solutions/Untitled 10.avif)
+![](/posts/kamen-rider-cosplay-suit-solutions/et-yonghengheng-fit-second-angle.avif)
 
 ### Shopping List
 
-![](/posts/kamen-rider-cosplay-suit-solutions/Untitled 11.avif)
-![](/posts/kamen-rider-cosplay-suit-solutions/Untitled 12.avif)
-![](/posts/kamen-rider-cosplay-suit-solutions/Untitled 13.avif)
+![](/posts/kamen-rider-cosplay-suit-solutions/et-yonghengheng-shopping-01.avif)
+![](/posts/kamen-rider-cosplay-suit-solutions/et-yonghengheng-shopping-02.avif)
+![](/posts/kamen-rider-cosplay-suit-solutions/et-yonghengheng-shopping-03.avif)
 
 ## Wo Chao_ Bing_
 
@@ -72,12 +72,12 @@ This article lists affordable solutions for reproducing the looks from Kamen Rid
 
 ### Fitting Effects
 
-![](/posts/kamen-rider-cosplay-suit-solutions/Untitled 14.avif)
+![](/posts/kamen-rider-cosplay-suit-solutions/wo-chao-bing-training-suit-fit.avif)
 
 ### Shopping List
 
-![](/posts/kamen-rider-cosplay-suit-solutions/Untitled 15.avif)
-![](/posts/kamen-rider-cosplay-suit-solutions/Untitled 16.avif)
+![](/posts/kamen-rider-cosplay-suit-solutions/wo-chao-bing-shopping-01.avif)
+![](/posts/kamen-rider-cosplay-suit-solutions/wo-chao-bing-shopping-02.avif)
 
 ## Xize Erwhite
 

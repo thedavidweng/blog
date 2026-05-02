@@ -62,10 +62,10 @@ brew install fsnotes
 
 完成安装后，软件内置非常详细的英文使用教学。
 
-![](/posts/fsnotes-apple-ecosystem-notes/Built-in tutorial.avif)
+![](/posts/fsnotes-apple-ecosystem-notes/fsnotes-built-in-tutorial.avif)
 笔者对其进行了翻译，并且在 GitHub 提交了希望增加多语言支持的 Issues。
 
-![](/posts/fsnotes-apple-ecosystem-notes/GitHub Issue.avif)
+![](/posts/fsnotes-apple-ecosystem-notes/fsnotes-github-issue-panel.avif)
 接下来是本人翻译的使用教学。
 
 ### 1. 引言

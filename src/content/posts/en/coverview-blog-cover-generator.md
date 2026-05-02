@@ -19,7 +19,7 @@ I believe many people are like me, only remembering the need for a cover image w
 
 ## Where to Find
 
-![](/posts/coverview-blog-cover-generator/Untitled.avif)
+![](/posts/coverview-blog-cover-generator/coverview-github-repo-showcase.avif)
 
 **CoverView** is a web project developed by React, less than 500kb in size, open-sourced on [GitHub](https://github.com/rutikwankhade/CoverView), currently having over three hundred Stars.
 
@@ -27,13 +27,13 @@ The author provides a web page hosted on [Vercel](https://coverview.vercel.app/)
 
 Because the project is relatively simple, I took the opportunity to [localize](https://github.com/thedavidweng/CoverView-CN) it. Currently, it exists in the form of a Fork, but I have already submitted an [Issue](https://github.com/rutikwankhade/CoverView/issues/18) to the author. In the future, I hope to directly merge it into the main project as a multi-language option.
 
-![](/posts/coverview-blog-cover-generator/Untitled 1.avif)
+![](/posts/coverview-blog-cover-generator/coverview-cn-localized-editor.avif)
 
 For the following introduction, I will directly use screenshots of the localized version.
 
 ## Options
 
-![](/posts/coverview-blog-cover-generator/Untitled 2.avif)
+![](/posts/coverview-blog-cover-generator/coverview-font-style-picker.avif)
 
 **CoverView** currently only provides three font styles, with room for improvement in the future.
 
@@ -41,12 +41,12 @@ For the following introduction, I will directly use screenshots of the localized
 
 In terms of colors, it provides multiple interaction methods such as hexadecimal color codes, RGB values, color picker, and color disk, which is very complete.
 
-![](/posts/coverview-blog-cover-generator/Untitled 3.avif)
-![](/posts/coverview-blog-cover-generator/Untitled 4.avif)
+![](/posts/coverview-blog-cover-generator/coverview-theme-layout-selector.avif)
+![](/posts/coverview-blog-cover-generator/coverview-background-pattern-picker.avif)
 
 In terms of styles, it provides four themes (title arrangement) and nineteen different background patterns.
 
-![](/posts/coverview-blog-cover-generator/Untitled 5.avif)
+![](/posts/coverview-blog-cover-generator/coverview-icon-library-panel.avif)
 
 Built-in icons cover the needs of most technical articles. At the bottom, there is also a custom icon option for uploading by yourself.
 
@@ -58,4 +58,4 @@ Built-in icons cover the needs of most technical articles. At the bottom, there 
 
 **CoverView** developer Rutik Wankhade's other work includes [Tabwave](https://tabwave.vercel.app/), a new tab page. Xiao Zong Software has an [introduction article](https://www.appinn.com/tabwave-for-chrome-and-firefox/), also the same simple and beautiful small tool style.
 
-![](/posts/coverview-blog-cover-generator/Untitled 6.avif)
+![](/posts/coverview-blog-cover-generator/coverview-tabwave-promo-card.avif)

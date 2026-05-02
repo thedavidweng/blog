@@ -49,11 +49,11 @@ Or download from GitHub Releases page [GitHub Releases](https://github.com/glush
 
 After completing the installation, the software has very detailed English usage tutorials built-in.
 
-![](/posts/fsnotes-apple-ecosystem-notes/Built-in tutorial.avif)
+![](/posts/fsnotes-apple-ecosystem-notes/fsnotes-built-in-tutorial.avif)
 
 I have translated it, and submitted an Issue on GitHub hoping to add multi-language support.
 
-![](/posts/fsnotes-apple-ecosystem-notes/GitHub Issue.avif)
+![](/posts/fsnotes-apple-ecosystem-notes/fsnotes-github-issue-panel.avif)
 
 Next is the usage tutorial translated by myself.
 

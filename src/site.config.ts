@@ -44,7 +44,11 @@ export const siteConfig = {
   tags: {
     Animation: {
       en: 'Animation',
-      zh: '动画'
+      zh: '动画' 
+    },
+    CLI: {
+      en: 'CLI',
+      zh: '命令行'
     },
     Experience: {
       en: 'Experience',
@@ -52,7 +56,7 @@ export const siteConfig = {
     },
     Finance: {
       en: 'Finance',
-      zh: '金钱'
+      zh: '财务'
     },
     Games: {
       en: 'Games',
@@ -88,7 +92,11 @@ export const siteConfig = {
     },
     Writing: {
       en: 'Writing',
-      zh: '文字'
+      zh: '文字' 
+    },
+    Workflow: {
+      en: 'Workflow',
+      zh: '工作流'
     }
   },
   social: [

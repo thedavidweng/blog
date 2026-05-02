@@ -1,10 +1,11 @@
-import { readdir, readFile } from 'node:fs/promises';
+import { readdir, readFile, access } from 'node:fs/promises';
 import { join } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { siteConfig } from '../src/site.config';
 
 const root = fileURLToPath(new URL('..', import.meta.url));
 const postsRoot = join(root, 'src/content/posts');
+const publicRoot = join(root, 'public');
 const locales = ['en', 'zh'] as const;
 
 type Frontmatter = {
@@ -17,7 +18,7 @@ type Frontmatter = {
 async function listPostFiles(locale: string) {
   const dir = join(postsRoot, locale);
   const files = await readdir(dir);
-  return files.filter((file) => file.endsWith('.md')).sort();
+  return files.filter((file) => file.endsWith('.md') || file.endsWith('.mdx')).sort();
 }
 
 function assert(condition: unknown, message: string): asserts condition {
@@ -59,23 +60,47 @@ const entriesByLocale = Object.fromEntries(
       const entries = await Promise.all(
         filesByLocale[locale].map(async (file) => {
           const body = await readFile(join(postsRoot, locale, file), 'utf8');
-          return { file, frontmatter: parseFrontmatter(`${locale}/${file}`, body) };
+          return { file, body, frontmatter: parseFrontmatter(`${locale}/${file}`, body) };
         })
       );
       return [locale, entries];
     })
   )
-) as Record<(typeof locales)[number], Array<{ file: string; frontmatter: Frontmatter }>>;
+) as Record<(typeof locales)[number], Array<{ file: string; body: string; frontmatter: Frontmatter }>>;
 
+// 1. Validation for each post
 for (const locale of locales) {
-  for (const { file, frontmatter } of entriesByLocale[locale]) {
-    assert(frontmatter.locale === locale, `${locale}/${file} has locale "${frontmatter.locale}"`);
+  const slugs = new Set();
+  for (const { file, body, frontmatter } of entriesByLocale[locale]) {
+    // Check locale consistency
+    assert(frontmatter.locale === locale, `${locale}/${file} has locale "${frontmatter.locale}" in frontmatter, expected "${locale}"`);
+    
+    // Check for duplicate slugs within the same locale
+    assert(!slugs.has(frontmatter.slug), `${locale}/${file} has duplicate slug "${frontmatter.slug}"`);
+    slugs.add(frontmatter.slug);
+
+    // Check tags against siteConfig
     for (const tag of frontmatter.tags) {
-      assert(tag in siteConfig.tags, `${locale}/${file} uses unknown tag id "${tag}"`);
+      assert(tag in siteConfig.tags, `${locale}/${file} uses unknown tag id "${tag}". Add it to siteConfig.tags.`);
+    }
+
+    // Check image references
+    const imgMatches = body.matchAll(/!\[.*?\]\((.*?)\)/g);
+    for (const match of imgMatches) {
+      const imgPath = match[1];
+      if (imgPath.startsWith('/')) {
+        const fullPath = join(publicRoot, imgPath);
+        try {
+          await access(fullPath);
+        } catch {
+          throw new Error(`${locale}/${file} references missing image: ${imgPath}`);
+        }
+      }
     }
   }
 }
 
+// 2. Cross-locale validation (Translation completeness)
 const publishedSlugsByLocale = Object.fromEntries(
   locales.map((locale) => [
     locale,
@@ -90,10 +115,19 @@ const reference = publishedSlugsByLocale.en.join('\n');
 assert(publishedSlugsByLocale.en.length > 0, 'Expected at least one translated post pair.');
 
 for (const locale of locales) {
-  assert(
-    publishedSlugsByLocale[locale].join('\n') === reference,
-    `Published post slugs must match English slugs. en=[${publishedSlugsByLocale.en.join(', ')}] ${locale}=[${publishedSlugsByLocale[locale].join(', ')}]`
-  );
+  if (publishedSlugsByLocale[locale].join('\n') !== reference) {
+    const enSet = new Set(publishedSlugsByLocale.en);
+    const currentSet = new Set(publishedSlugsByLocale[locale]);
+    
+    const missingInCurrent = publishedSlugsByLocale.en.filter(s => !currentSet.has(s));
+    const extraInCurrent = publishedSlugsByLocale[locale].filter(s => !enSet.has(s));
+    
+    let error = `Translation mismatch for locale "${locale}":\n`;
+    if (missingInCurrent.length > 0) error += `  - Missing translations (exist in English but not in ${locale}): ${missingInCurrent.join(', ')}\n`;
+    if (extraInCurrent.length > 0) error += `  - Orphan translations (exist in ${locale} but not in English): ${extraInCurrent.join(', ')}\n`;
+    
+    throw new Error(error);
+  }
 }
 
-console.log(`Content contract ok: ${publishedSlugsByLocale.en.length} translated post pair(s).`);
+console.log(`✅ Content contract ok: ${publishedSlugsByLocale.en.length} translated post pair(s) verified.`);

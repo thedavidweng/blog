@@ -1,6 +1,14 @@
 @import "tailwindcss";
 @plugin "@tailwindcss/typography";
 
+/* Manual theme toggle uses html[data-theme]; keep dark:* utilities in sync (not OS prefers-color-scheme). */
+@custom-variant dark (&:where([data-theme="dark"], [data-theme="dark"] *));
+
+/* Restrained accent: links and keys pick up --accent from :root / data-theme. */
+@theme {
+  --color-accent: var(--accent);
+}
+
 :root {
   color-scheme: light dark;
   --ease-out-quart: cubic-bezier(0.25, 1, 0.5, 1);
@@ -214,6 +222,7 @@ button {
   z-index: 20;
   display: flex;
   gap: 10px;
+  contain: layout style;
 }
 
 .icon-button {
@@ -237,6 +246,19 @@ button {
 .icon-button:hover {
   border-color: var(--accent);
   color: var(--accent);
+}
+
+.icon-button:active {
+  transform: scale(0.96);
+}
+
+.nav-link:active,
+.social-link:active {
+  opacity: 0.88;
+}
+
+.post-card:active {
+  opacity: 0.97;
 }
 
 .content-wrap {
@@ -456,6 +478,13 @@ pre.astro-code-themes {
   outline-offset: 2px;
 }
 
+/* Article body: links use accent via prose-a:text-accent; match focus ring to brand accent. */
+.article .prose a:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+  border-radius: 2px;
+}
+
 @media (prefers-reduced-motion: reduce) {
   html {
     scroll-behavior: auto;
@@ -475,6 +504,10 @@ pre.astro-code-themes {
 
   .icon-button {
     backdrop-filter: none;
+  }
+
+  .icon-button:active {
+    transform: none;
   }
 }
 

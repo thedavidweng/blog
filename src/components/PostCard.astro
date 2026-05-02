@@ -24,7 +24,7 @@ const dateLabel = locale === 'zh' ? `发布于 ${date}` : `Published on ${date}`
     <time class="post-meta" datetime={post.data.publishedDate.toISOString()}>{dateLabel}</time>
     <h2 class="post-title">{post.data.title}</h2>
     <p class="post-description">{post.data.description}</p>
-    <ul class="tag-list" aria-label={locale === 'zh' ? '标签' : 'Tags'}>
+    <ul class="tag-list" aria-label={locale === 'zh' ? '文章标签' : 'Article tags'}>
       {post.data.tags.map((tag) => <li><span class="tag-pill">{tagLabel(locale, tag)}</span></li>)}
     </ul>
   </a>

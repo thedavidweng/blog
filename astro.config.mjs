@@ -3,6 +3,8 @@ import { defineConfig } from 'astro/config';
 
 import tailwindcss from '@tailwindcss/vite';
 
+import { rehypeLazyImages } from './src/plugins/rehype-lazy-images.ts';
+
 const site = process.env.PUBLIC_SITE_URL || process.env.CF_PAGES_URL || 'http://localhost:4321';
 
 export default defineConfig({
@@ -28,7 +30,8 @@ export default defineConfig({
         dark: 'github-dark'
       },
       defaultColor: false
-    }
+    },
+    rehypePlugins: [rehypeLazyImages]
   },
 
   vite: {

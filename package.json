@@ -21,7 +21,8 @@
     "@tailwindcss/vite": "^4.2.4",
     "astro": "^6.2.1",
     "astro-og-canvas": "^0.11.1",
-    "tailwindcss": "^4.2.4"
+    "tailwindcss": "^4.2.4",
+    "unist-util-visit": "^5.1.0"
   },
   "devDependencies": {
     "@astrojs/check": "^0.9.9",

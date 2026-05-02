@@ -58,7 +58,7 @@ const jsonLd = {
       </p>
       <h1 class="article-title">{post.data.title}</h1>
       <p class="article-description">{post.data.description}</p>
-      <ul class="tag-list" aria-label={locale === 'zh' ? '标签' : 'Tags'}>
+      <ul class="tag-list" aria-label={locale === 'zh' ? '文章标签' : 'Article tags'}>
         {post.data.tags.map((tag) => <li><a class="tag-pill" href={tagUrl(locale as Locale, tag)}>{tagLabel(locale as Locale, tag)}</a></li>)}
       </ul>
     </header>

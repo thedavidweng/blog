@@ -11,8 +11,11 @@ interface Props {
 
 const { locale, active, alternatePath } = Astro.props;
 const nav = siteConfig.nav[locale];
-const themeLabel = locale === 'zh' ? '切换主题' : 'Toggle theme';
-const langLabel = locale === 'zh' ? 'Switch to English' : '切换到中文';
+const navLandmark = locale === 'zh' ? '主导航' : 'Primary navigation';
+const socialLandmark = locale === 'zh' ? '外部链接' : 'External links';
+const toolbarLandmark = locale === 'zh' ? '主题与语言' : 'Theme and language';
+const themeLabel = locale === 'zh' ? '切换浅色或深色主题' : 'Toggle light or dark theme';
+const langLabel = locale === 'zh' ? 'Switch to English' : 'Switch to Chinese';
 const social = siteConfig.social;
 
 const links = [
@@ -30,7 +33,16 @@ const socialIcons = {
 <aside class="site-sidebar">
   <div class="sidebar-inner">
     <a class="brand" href={localizedPath(locale)} aria-label={siteConfig.name}>
-      <span class="brand-mark"><img src="/android-chrome-512x512.png" alt="" width="58" height="58" /></span>
+      <span class="brand-mark">
+        <img
+          src="/android-chrome-512x512.png"
+          alt=""
+          width="58"
+          height="58"
+          decoding="async"
+          fetchpriority="low"
+        />
+      </span>
       <span class="brand-text">
         <span class="brand-name">{siteConfig.author}</span>
         <span class="brand-role">{siteConfig.role[locale]}</span>
@@ -38,7 +50,7 @@ const socialIcons = {
     </a>
 
     <div class="sidebar-actions">
-      <nav class="site-nav" aria-label={locale === 'zh' ? '主导航' : 'Primary'}>
+      <nav class="site-nav" aria-label={navLandmark}>
         {
           links.map(({ key, href, label, icon: Icon }) => (
             <a class="nav-link" href={href} aria-current={active === key ? 'page' : undefined}>
@@ -49,11 +61,11 @@ const socialIcons = {
         }
       </nav>
 
-      <nav class="social-nav" aria-label={locale === 'zh' ? '社交链接' : 'Social links'}>
+      <nav class="social-nav" aria-label={socialLandmark}>
         {
           social.map((item, index) => (
             <>
-              {index === 3 && <hr class="social-divider" />}
+              {index === 3 && <hr class="social-divider" aria-hidden="true" />}
               <a class="social-link" href={item.href} rel="me noopener noreferrer" target="_blank">
                 {item.icon === 'github' || item.icon === 'linkedin' || item.icon === 'x' ? (
                   <BrandIcon brand={item.icon} size={23} />
@@ -73,7 +85,7 @@ const socialIcons = {
   </div>
 </aside>
 
-<div class="toolbar" role="toolbar" aria-label={locale === 'zh' ? '页面工具' : 'Page tools'}>
+<div class="toolbar" role="group" aria-label={toolbarLandmark}>
   <button class="icon-button" type="button" data-theme-toggle aria-label={themeLabel} title={themeLabel}>
     <Sun class="theme-light" size={22} />
     <Moon class="theme-dark" size={22} />
@@ -89,12 +101,20 @@ const socialIcons = {
   themeButton?.addEventListener('click', () => {
     const nextTheme = root.dataset.theme === 'dark' ? 'light' : 'dark';
     root.dataset.theme = nextTheme;
-    localStorage.setItem('theme', nextTheme);
+    try {
+      localStorage.setItem('theme', nextTheme);
+    } catch {
+      /* ignore */
+    }
   });
 
   document.querySelector('[data-locale-link]')?.addEventListener('click', (event) => {
     const href = event.currentTarget instanceof HTMLAnchorElement ? event.currentTarget.getAttribute('href') : null;
-    localStorage.setItem('preferred-locale', href?.startsWith('/zh') ? 'zh' : 'en');
+    try {
+      localStorage.setItem('preferred-locale', href?.startsWith('/zh') ? 'zh' : 'en');
+    } catch {
+      /* ignore */
+    }
   });
 </script>
 

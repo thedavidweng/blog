@@ -1,11 +1,24 @@
 <script is:inline>
   (() => {
-    const key = 'preferred-locale';
-    const saved = localStorage.getItem(key);
-    if (saved) return;
-    const isChinese = navigator.languages?.some((language) => language.toLowerCase().startsWith('zh')) || navigator.language.toLowerCase().startsWith('zh');
-    if (isChinese && location.pathname === '/') {
-      location.replace('/zh/');
+    try {
+      const key = 'preferred-locale';
+      let saved = null;
+      try {
+        saved = localStorage.getItem(key);
+      } catch {
+        /* storage unavailable */
+      }
+      if (saved) return;
+      const langs = navigator.languages;
+      const primary = navigator.language || '';
+      const isChinese =
+        (Array.isArray(langs) && langs.some((language) => language.toLowerCase().startsWith('zh'))) ||
+        primary.toLowerCase().startsWith('zh');
+      if (isChinese && location.pathname === '/') {
+        location.replace('/zh/');
+      }
+    } catch {
+      /* fail open: stay on current page */
     }
   })();
 </script>

@@ -9,11 +9,11 @@ export const siteConfig = {
   handle: '@thedavidweng',
   description: {
     en: 'Writing about design, code, and the messy space in between.',
-    zh: '记录设计、代码，以及两者之间不整洁但真实的空间。'
+    zh: '记录人与技术，以及两者之间作为环境的媒介。'
   },
   role: {
     en: 'I should eat less frozen food',
-    zh: '我应该少吃点速冻食品'
+    zh: '我该少吃速冻食品'
   },
   about: {
     en: [
@@ -103,6 +103,11 @@ export const siteConfig = {
       icon: 'linkedin'
     },
     {
+      label: 'X',
+      href: 'https://x.com/thedavidweng',
+      icon: 'x'
+    },
+    {
       label: 'Portfolio',
       href: 'https://davidweng.eu.org/',
       icon: 'portfolio'
@@ -111,11 +116,6 @@ export const siteConfig = {
       label: 'Homepage',
       href: 'https://thedavidweng.github.io/',
       icon: 'home'
-    },
-    {
-      label: 'X',
-      href: 'https://x.com/thedavidweng',
-      icon: 'x'
     }
   ]
 } as const;

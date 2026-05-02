@@ -51,18 +51,21 @@ const socialIcons = {
 
       <nav class="social-nav" aria-label={locale === 'zh' ? '社交链接' : 'Social links'}>
         {
-          social.map((item) => (
-            <a class="social-link" href={item.href} rel="me noopener noreferrer" target="_blank">
-              {item.icon === 'github' || item.icon === 'linkedin' || item.icon === 'x' ? (
-                <BrandIcon brand={item.icon} size={23} />
-              ) : (
-                (() => {
-                  const Icon = socialIcons[item.icon];
-                  return <Icon size={23} stroke-width={2.3} />;
-                })()
-              )}
-              <span>{item.label}</span>
-            </a>
+          social.map((item, index) => (
+            <>
+              {index === 3 && <hr class="social-divider" />}
+              <a class="social-link" href={item.href} rel="me noopener noreferrer" target="_blank">
+                {item.icon === 'github' || item.icon === 'linkedin' || item.icon === 'x' ? (
+                  <BrandIcon brand={item.icon} size={23} />
+                ) : (
+                  (() => {
+                    const Icon = socialIcons[item.icon];
+                    return <Icon size={23} stroke-width={2.3} />;
+                  })()
+                )}
+                <span>{item.label}</span>
+              </a>
+            </>
           ))
         }
       </nav>

@@ -19,7 +19,7 @@ You can probably see that these are the clouds from the first Super Mario Brothe
 
 This is an artwork made by Cory Arcangel in 2002 *Super Mario Clouds*. This GIF image is not the original artwork. The original artwork uses a real Nintendo NES cartridge, with hardware modifications made to the cartridge to remove all content except the clouds and blue sky.
 
-![mario clouds 2002 001 cartridge 2 database ih](/posts/clouds-in-super-mario/mario-clouds-2002-001-cartridge-2-database-ih.avif)
+![Mario Clouds Cartridge](/posts/clouds-in-super-mario/mario-clouds-cartridge.avif)
 
 To understand this artwork, it is necessary to understand a little about video games.
 

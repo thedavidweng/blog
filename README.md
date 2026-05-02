@@ -12,6 +12,7 @@ Pure static bilingual blog built with Astro 6, Markdown content collections, bui
 - **Tailwind Typography (Prose)**: Custom, zero-dependency implementation for highly readable Chinese/English typography and rich markdown styling.
 - **Reading Time**: Automatically calculates and displays estimated reading time for dual-language posts.
 - **MDX**: Support for using Astro components directly inside Markdown content, enabling custom interactive elements and manual link cards.
+- **Rehype Slug**: Automatically adds IDs to Markdown headings, enabling anchor linking and supporting **Tocbot**'s navigation.
 - **MDAST Util To String**: A unified ecosystem utility to extract pure text from Markdown ASTs for accurate metadata processing.
 
 ### Interactive Experience

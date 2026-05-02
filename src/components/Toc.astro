@@ -2,7 +2,7 @@
 ---
 
 <!-- tocbot will inject the table of contents here -->
-<div class="toc-wrapper hidden xl:block absolute top-0 left-full ml-16 w-64 h-full">
+<div class="toc-wrapper hidden lg:block absolute top-0 left-full ml-10 w-64 h-full z-10">
   <div class="sticky top-32">
     <div class="text-xs font-bold mb-4 text-zinc-400 dark:text-zinc-500 tracking-wider uppercase">Table of Contents</div>
     <nav class="js-toc toc"></nav>
@@ -33,23 +33,47 @@
     linkClass: 'toc-link text-sm text-zinc-500 hover:text-accent dark:text-zinc-400 dark:hover:text-accent transition-colors',
     // Collapse deeper levels
     collapseDepth: 6,
+    // Headings offset for sticky headers/padding
+    headingsOffset: 86,
+    scrollSmoothOffset: -86,
   });
 </script>
 
 <style is:global>
+  .toc-wrapper {
+    max-height: calc(100vh - 10rem);
+    overflow-y: auto;
+    scrollbar-width: none;
+  }
+  .toc-wrapper::-webkit-scrollbar {
+    display: none;
+  }
   .toc-list {
     list-style: none;
-    padding-left: 1rem;
-    margin-top: 0.5rem;
+    padding-left: 0;
+    margin: 0;
   }
   .toc-list .toc-list {
-    margin-top: 0.25rem;
+    padding-left: 1.25rem;
   }
   .toc-list-item {
     margin-bottom: 0.5rem;
   }
+  .toc-link {
+    display: block;
+    padding: 0.15rem 0;
+    line-height: 1.4;
+    position: relative;
+    border-left: 2px solid transparent;
+    padding-left: 0.75rem;
+    margin-left: -2px;
+  }
   .is-active-link {
     color: var(--accent) !important;
     font-weight: 600;
+    border-left-color: var(--accent);
+  }
+  .toc-link:hover {
+    color: var(--accent);
   }
 </style>

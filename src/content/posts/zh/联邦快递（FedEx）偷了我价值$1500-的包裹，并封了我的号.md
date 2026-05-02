@@ -38,7 +38,7 @@ draft: false
 
 我立刻尝试登陆自己的 FedEx 账号查看情况，但是尝试多次也无法登录成功。
 
-![Screenshot_2024 04 26_at_4](/posts/fedex-stole-package-banned-account/Screenshot_2024-04-26_at_4.43.31_AM.avif)
+![联邦快递账号登录失败](/posts/fedex-stole-package-banned-account/fedex-login-failure.avif)
 
 我打给 FedEx，第一个客服和我说这个是 Fraud delivery，我问什么原因，他说无法帮助我，会帮我转接给别人。第二个客服说我可以帮你看看什么原因但你要告诉我你的 account number，我说我登不上我的 account 给不了你 account number，我只有我的邮箱。
 

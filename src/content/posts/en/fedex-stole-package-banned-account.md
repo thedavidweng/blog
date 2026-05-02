@@ -40,7 +40,7 @@ On February 21, my friend suddenly received an email saying "Unable to deliver s
 
 I immediately tried to log into my FedEx account to check the situation, but after many attempts, I could not log in successfully.
 
-![Screenshot_2024 04 26_at_4](/posts/fedex-stole-package-banned-account/Screenshot_2024-04-26_at_4.43.31_AM.avif)
+![FedEx Account Login Failure](/posts/fedex-stole-package-banned-account/fedex-login-failure.avif)
 
 I called FedEx. The first customer service representative told me this was a Fraud delivery. I asked what reason, and he said he could not help me and would transfer me to someone else. The second customer service representative said I can help you see what the reason is, but you need to tell me your account number. I said I can't log into my account so I can't give you the account number. I only have my email.
 

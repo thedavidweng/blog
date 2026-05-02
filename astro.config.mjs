@@ -6,6 +6,7 @@ import tailwindcss from '@tailwindcss/vite';
 
 import { rehypeFigureCaptions } from './src/plugins/rehype-figure-captions.ts';
 import { rehypeLazyImages } from './src/plugins/rehype-lazy-images.ts';
+import rehypeSlug from 'rehype-slug';
 import { remarkReadingTime } from './src/plugins/remark-reading-time.ts';
 import remarkLinkCard from 'remark-link-card';
 import expressiveCode from 'astro-expressive-code';
@@ -60,7 +61,7 @@ export default defineConfig({
       defaultColor: false
     },
     remarkPlugins,
-    rehypePlugins: [rehypeFigureCaptions, rehypeLazyImages]
+    rehypePlugins: [rehypeSlug, rehypeFigureCaptions, rehypeLazyImages]
   },
 
   vite: {

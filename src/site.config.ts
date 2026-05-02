@@ -12,8 +12,8 @@ export const siteConfig = {
     zh: '记录人与技术，以及两者之间作为环境的媒介。'
   },
   role: {
-    en: 'I should eat less frozen food',
-    zh: '我该少吃速冻食品'
+    en: 'I eat frozen food a lot.',
+    zh: '我吃很多速冻食品'
   },
   about: {
     en: [

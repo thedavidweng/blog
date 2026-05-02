@@ -438,7 +438,7 @@ h1 {
 
 @media (max-width: 980px) {
   .back-to-top {
-    bottom: 88px;
+    bottom: 16px;
   }
 }
 
@@ -677,7 +677,8 @@ pre.astro-code-themes {
 
   .toolbar {
     top: auto;
-    right: 16px;
+    left: 16px;
+    right: auto;
     bottom: 16px;
   }
 }

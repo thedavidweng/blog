@@ -4,20 +4,28 @@ Pure static bilingual blog built with Astro 6, Markdown content collections, bui
 
 ## Tech Stack & Integrations
 
+### Core Framework
 - **Astro 6**: Core framework for generating blazing-fast static pages.
 - **Tailwind CSS**: Utility-first CSS framework for rapid UI styling.
+
+### Typography & Writing
 - **Tailwind Typography (Prose)**: Custom, zero-dependency implementation for highly readable Chinese/English typography and rich markdown styling.
+- **Reading Time**: Automatically calculates and displays estimated reading time for dual-language posts.
+- **MDAST Util To String**: A unified ecosystem utility to extract pure text from Markdown ASTs for accurate metadata processing.
+
+### Interactive Experience
 - **Giscus**: Lightweight, database-free, and theme-aware commenting system powered by GitHub Discussions. Supports cross-language unified comment threads.
 - **Medium-Zoom**: Vanilla JS, zero-dependency library providing silky-smooth, Medium-style image lightbox zooming.
-- **Astro Expressive Code**: Advanced code block syntax highlighting with Mac-style window controls and copy buttons.
 - **Tocbot**: Vanilla JS auto-generated sticky Table of Contents with scroll-spy.
+
+### Rich Content & Code
+- **Astro Expressive Code**: Advanced code block syntax highlighting with Mac-style window controls and copy buttons.
 - **Remark Link Card**: Automatically converts raw URLs into beautiful, Notion-style rich link preview cards.
-- **Reading Time**: Automatically calculates and displays estimated reading time for dual-language posts.
-- **MDAST Util To String**: A unified ecosystem utility strictly declaring dependencies to extract pure text from Markdown ASTs (preventing phantom dependencies).
+
+### Automated Assets
+- **Astro OG Canvas & CanvasKit**: Build-time dynamic Open Graph image generation using the Skia (CanvasKit WASM) engine. Automatically renders post titles and descriptions with multi-language font support (Noto Sans SC).
 
 ## Commands
-
-We use `pnpm` as the strict package manager for speed and consistency.
 
 ```bash
 pnpm install

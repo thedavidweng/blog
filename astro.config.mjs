@@ -30,7 +30,7 @@ if (siteConfig.features.expressiveCode) {
       themes: ['github-light', 'github-dark'],
       useThemedScrollbars: false,
       useThemedSelectionColors: false,
-      themeCssSelector: (theme, { styleVariants }) => `[data-theme='${theme.name === 'github-dark' ? 'dark' : 'light'}']`
+      themeCssSelector: (theme) => `[data-theme='${theme.name === 'github-dark' ? 'dark' : 'light'}']`
     })
   );
 }

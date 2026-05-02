@@ -21,6 +21,9 @@ const contentLib = await readSource('src/lib/content.ts');
 const llmsRoute = await readSource('src/pages/llms.txt.ts');
 const enRssRoute = await readSource('src/pages/rss.xml.ts');
 const zhRssRoute = await readSource('src/pages/zh/rss.xml.ts');
+const packageJson = JSON.parse(await readSource('package.json')) as {
+  dependencies?: Record<string, string>;
+};
 
 assert(zhOgRoute.includes('noto-sans-sc'), 'Chinese OG route must load Noto Sans SC font files.');
 assert(zhOgRoute.includes('Noto Sans SC Thin'), 'Chinese OG route must render with the CanvasKit family name for Noto Sans SC.');
@@ -36,5 +39,9 @@ assert(!postLayout.includes('post.slug'), 'Post layout must not use the removed 
 assert(!llmsRoute.includes('post.slug'), 'LLMs route must not use the removed Astro post.slug field.');
 assert(!enRssRoute.includes('post.slug'), 'English RSS route must not use the removed Astro post.slug field.');
 assert(!zhRssRoute.includes('post.slug'), 'Chinese RSS route must not use the removed Astro post.slug field.');
+assert(
+  packageJson.dependencies?.['canvaskit-wasm'],
+  'astro-og-canvas requires canvaskit-wasm as a direct dependency when installing with pnpm.'
+);
 
 console.log('Source contract ok: OG fonts and preview hooks are configured.');

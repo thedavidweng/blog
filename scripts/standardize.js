@@ -36,7 +36,7 @@ files.forEach(file => {
   let changed = false;
   
   // Replace ![](/path) followed by text
-  const newContent = content.replace(/!\[\]\(([^)]+)\)\n([^\n]+)/g, (match, imagePath, nextLine) => {
+  const newContent = content.replace(/!\[\]\(([^)]+)\)\n([^\n]+)/g, (_match, imagePath, nextLine) => {
     if (isCaption(nextLine)) {
       return `![${nextLine.trim()}](${imagePath})\n`;
     } else {
@@ -52,7 +52,7 @@ files.forEach(file => {
   }
 
   // Find any remaining ![]() that weren't followed by text immediately, or were alone
-  const newContent2 = content.replace(/!\[\]\(([^)]+)\)/g, (match, imagePath) => {
+  const newContent2 = content.replace(/!\[\]\(([^)]+)\)/g, (_match, imagePath) => {
     const altText = generateAltFromPath(imagePath);
     return `![${altText}](${imagePath})`;
   });

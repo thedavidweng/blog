@@ -3,6 +3,7 @@
 
 :root {
   color-scheme: light dark;
+  --ease-out-quart: cubic-bezier(0.25, 1, 0.5, 1);
   --bg: #fbfbfa;
   --panel: #f1f1f0;
   --panel-strong: #e9e9e8;
@@ -226,7 +227,11 @@ button {
   color: var(--text);
   cursor: pointer;
   backdrop-filter: blur(10px);
-  transition: all 0.2s ease;
+  transition:
+    border-color 0.2s var(--ease-out-quart),
+    color 0.2s var(--ease-out-quart),
+    box-shadow 0.2s var(--ease-out-quart),
+    background-color 0.2s var(--ease-out-quart);
 }
 
 .icon-button:hover {
@@ -283,7 +288,10 @@ h1 {
   background: var(--panel);
   padding: clamp(24px, 5vw, 34px);
   box-shadow: none;
-  transition: all 0.2s ease;
+  transition:
+    box-shadow 0.2s var(--ease-out-quart),
+    transform 0.2s var(--ease-out-quart),
+    color 0.2s var(--ease-out-quart);
 }
 
 .post-card:hover {
@@ -329,7 +337,10 @@ h1 {
   padding: 4px 10px;
   font-size: 0.95rem;
   font-weight: 680;
-  transition: all 0.2s ease;
+  transition:
+    background-color 0.2s var(--ease-out-quart),
+    color 0.2s var(--ease-out-quart),
+    transform 0.2s var(--ease-out-quart);
 }
 
 .tag-pill:hover {
@@ -371,6 +382,13 @@ h1 {
   gap: 12px;
 }
 
+/* Link pills: minimum touch target (~44px) */
+.tag-grid a.tag-pill,
+.article .tag-list a.tag-pill {
+  min-height: 44px;
+  padding: 10px 14px;
+}
+
 .about-panel {
   border-radius: var(--radius);
   background: var(--panel);
@@ -388,6 +406,76 @@ h1 {
   background: var(--panel);
   color: var(--muted);
   padding: 28px;
+}
+
+/* Shiki dual themes: pair with markdown shikiConfig themes light/dark + defaultColor false */
+pre.astro-code-themes {
+  background-color: var(--shiki-light-bg);
+  color: var(--shiki-light);
+}
+
+:root[data-theme="dark"] pre.astro-code-themes {
+  background-color: var(--shiki-dark-bg);
+  color: var(--shiki-dark);
+}
+
+/* Keyboard focus: visible ring without relying on browser defaults only */
+:focus:not(:focus-visible) {
+  outline: none;
+}
+
+.skip-link:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+}
+
+.brand:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 3px;
+  border-radius: 10px;
+}
+
+.nav-link:focus-visible,
+.social-link:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+}
+
+.icon-button:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 3px;
+}
+
+.post-card:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 4px;
+}
+
+.tag-pill:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+
+  .post-card,
+  .icon-button,
+  .tag-pill {
+    transition-duration: 0.01ms !important;
+    transition-delay: 0ms !important;
+  }
+
+  .post-card:hover,
+  .tag-pill:hover {
+    transform: none;
+  }
+
+  .icon-button {
+    backdrop-filter: none;
+  }
 }
 
 @media (max-width: 980px) {

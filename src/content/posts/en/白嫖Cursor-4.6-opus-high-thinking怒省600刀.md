@@ -41,9 +41,8 @@ The hole got patched within days. Prompt injection attempts in the setup phase n
 
 Cursor's setup agent is designed for first-time environment configuration — the model cost is covered by Cursor as part of the onboarding experience. By not saving the environment, you keep that temporary session alive indefinitely. You're essentially using Cursor's "customer support" as your own free assistant.
 
-This is similar to the old trick of repeatedly creating new Google Colab notebooks to bypass the reset timer — exploiting the gap between a product's intended design and its actual behavior.
-
 ---
+
 
 ## It Got Patched
 

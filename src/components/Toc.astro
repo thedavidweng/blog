@@ -8,12 +8,10 @@ const tocTitle = locale === 'zh' ? '目录' : 'Table of Contents';
 ---
 
 <!-- tocbot will inject the table of contents here -->
-<div class="toc-wrapper hidden lg:block min-w-0 w-full">
-  <div class="sticky top-32">
-    <div class="text-xs font-bold mb-4 text-zinc-400 dark:text-zinc-500 tracking-wider uppercase">{tocTitle}</div>
-    <nav class="js-toc toc"></nav>
-  </div>
-</div>
+<aside class="toc-wrapper sticky top-32 hidden lg:block min-w-0 w-full">
+  <div class="text-xs font-bold mb-4 text-zinc-400 dark:text-zinc-500 tracking-wider uppercase">{tocTitle}</div>
+  <nav class="js-toc toc"></nav>
+</aside>
 
 <script>
   import tocbot from 'tocbot';

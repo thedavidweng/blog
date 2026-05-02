@@ -16,7 +16,9 @@ const posts = defineCollection({
     tags: z.array(z.string().min(1)).min(1),
     draft: z.boolean().default(false),
     slug: z.string().optional(),
-    locale: z.enum(['en', 'zh']).optional()
+    locale: z.enum(['en', 'zh']).optional(),
+    /** When true, figure images are capped (e.g. product/card photos). */
+    narrowFigures: z.boolean().optional()
   })
 });
 

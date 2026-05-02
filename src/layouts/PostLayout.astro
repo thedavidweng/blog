@@ -15,6 +15,8 @@ interface Props {
 const { post, alternatePath, remarkPluginFrontmatter } = Astro.props;
 const { locale } = parsePostId(post.id);
 const slug = getPostSlug(post);
+const hasToc = siteConfig.features.toc;
+const narrowFigures = post.data.narrowFigures === true;
 const postPath = postUrl(locale, slug);
 const ogPath = ogImagePath(locale, slug);
 const date = post.data.publishedDate.toLocaleDateString(locale === 'zh' ? 'zh-CN' : 'en-US', {
@@ -59,8 +61,8 @@ const jsonLd = {
   type="article"
   jsonLd={jsonLd}
 >
-  <article class="article relative">
-    {siteConfig.features.toc && <Toc />}
+  <article class:list={['article', 'relative', hasToc && 'article--with-toc', narrowFigures && 'article--narrow-figures']}>
+    <div class:list={['article-primary', hasToc && 'min-w-0']}>
     <header class="article-header">
       <p class="post-meta">
         <time datetime={post.data.publishedDate.toISOString()}>{dateLabel}</time>
@@ -72,11 +74,18 @@ const jsonLd = {
         {post.data.tags.map((tag) => <li><a class="tag-pill" href={tagUrl(locale as Locale, tag)}>{tagLabel(locale as Locale, tag)}</a></li>)}
       </ul>
     </header>
-    <div class="prose prose-zinc dark:prose-invert max-w-[65ch] mx-auto prose-a:text-accent prose-a:no-underline prose-img:rounded-lg">
+    <div
+      class:list={[
+        'prose prose-zinc dark:prose-invert mx-auto prose-a:text-accent prose-a:no-underline prose-img:rounded-lg',
+        hasToc ? 'max-w-none' : 'max-w-[65ch]'
+      ]}
+    >
       <slot />
     </div>
-    
+
     {siteConfig.features.giscus && <Giscus slug={slug} locale={locale} />}
+    </div>
+    {hasToc && <Toc locale={locale} />}
   </article>
 
   {siteConfig.features.mediumZoom && (

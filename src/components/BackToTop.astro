@@ -1,0 +1,35 @@
+---
+import { ChevronUp } from '@lucide/astro';
+
+interface Props {
+  locale: 'en' | 'zh';
+}
+
+const { locale } = Astro.props;
+const label = locale === 'zh' ? '回到顶部' : 'Back to top';
+---
+
+<button type="button" class="back-to-top icon-button" data-back-to-top aria-label={label}>
+  <ChevronUp size={22} stroke-width={2.25} aria-hidden="true" />
+</button>
+
+<script>
+  const btn = document.querySelector<HTMLButtonElement>('[data-back-to-top]');
+  if (!btn) {
+    console.warn('[back-to-top] button not found');
+  } else {
+    const threshold = 360;
+    const mqReduce = window.matchMedia('(prefers-reduced-motion: reduce)');
+
+    const toggle = () => {
+      btn.classList.toggle('back-to-top--visible', window.scrollY > threshold);
+    };
+
+    toggle();
+    window.addEventListener('scroll', toggle, { passive: true });
+
+    btn.addEventListener('click', () => {
+      window.scrollTo({ top: 0, behavior: mqReduce.matches ? 'auto' : 'smooth' });
+    });
+  }
+</script>

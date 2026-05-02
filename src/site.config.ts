@@ -125,7 +125,8 @@ export const siteConfig = {
     linkCard: true,         // Enable remark-link-card for rich link embeds
     expressiveCode: true,   // Enable astro-expressive-code for code blocks
     mediumZoom: true,       // Enable medium-zoom for image previews
-    giscus: true            // Enable Giscus comments
+    giscus: true,           // Enable Giscus comments
+    backToTop: true         // Fixed button to scroll to top
   }
 } as const;
 

@@ -8,7 +8,7 @@ import { rehypeFigureCaptions } from './src/plugins/rehype-figure-captions.ts';
 import { rehypeLazyImages } from './src/plugins/rehype-lazy-images.ts';
 import rehypeSlug from 'rehype-slug';
 import { remarkReadingTime } from './src/plugins/remark-reading-time.ts';
-import remarkLinkCard from 'remark-link-card';
+import remarkLinkCard from './src/plugins/remark-link-card.ts';
 import expressiveCode from 'astro-expressive-code';
 import { siteConfig } from './src/site.config.ts';
 

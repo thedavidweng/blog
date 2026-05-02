@@ -1,10 +1,16 @@
 ---
+interface Props {
+  locale: 'en' | 'zh';
+}
+
+const { locale } = Astro.props;
+const tocTitle = locale === 'zh' ? '目录' : 'Table of Contents';
 ---
 
 <!-- tocbot will inject the table of contents here -->
-<div class="toc-wrapper hidden lg:block absolute top-0 left-full ml-10 w-64 h-full z-10">
+<div class="toc-wrapper hidden lg:block min-w-0 w-full">
   <div class="sticky top-32">
-    <div class="text-xs font-bold mb-4 text-zinc-400 dark:text-zinc-500 tracking-wider uppercase">Table of Contents</div>
+    <div class="text-xs font-bold mb-4 text-zinc-400 dark:text-zinc-500 tracking-wider uppercase">{tocTitle}</div>
     <nav class="js-toc toc"></nav>
   </div>
 </div>

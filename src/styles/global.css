@@ -485,6 +485,38 @@ pre.astro-code-themes {
   border-radius: 2px;
 }
 
+/* Markdown images: alt text as bottom-right overlay (rehypeFigureCaptions). */
+.article .prose figure.post-figure {
+  position: relative;
+  margin: 1.25em 0;
+}
+
+.article .prose figure.post-figure > img {
+  margin: 0;
+  width: 100%;
+  height: auto;
+  border-radius: var(--radius);
+}
+
+.article .prose figure.post-figure .post-figure-caption {
+  position: absolute;
+  right: 0.5rem;
+  bottom: 0.5rem;
+  left: auto;
+  margin: 0;
+  max-width: min(100% - 1rem, 42ch);
+  padding: 0.28rem 0.55rem;
+  border-radius: 6px;
+  background: rgb(0 0 0 / 0.58);
+  color: #f4f4f5;
+  font-size: 0.78rem;
+  font-style: normal;
+  font-weight: 600;
+  line-height: 1.35;
+  text-align: right;
+  box-decoration-break: clone;
+}
+
 @media (prefers-reduced-motion: reduce) {
   html {
     scroll-behavior: auto;

@@ -9,11 +9,11 @@ tags:
   - Animation
 draft: false
 ---
-
 ![The 系列片中造型](/posts/kamen-rider-cosplay-suit-solutions/reference-the-series-costume.avif)
+
 ![新·假面骑士片中造型](/posts/kamen-rider-cosplay-suit-solutions/reference-shin-film-costume.avif)
 
-此文章列举了从黑鹰坠落吧的帖子开始，不同尝试搭配还原的假面骑士 The 系列与新**·**假面骑士中造型的平价方案，特点是尽量使用大路货（拼多多、淘宝为主，闲鱼为辅）实现造型，完全属于假面骑士的产品可能只有头盔和腰带。
+此文章列举了从黑鹰坠落吧的帖子开始，不同尝试搭配还原的假面骑士 The 系列与新·假面骑士中造型的平价方案，特点是尽量使用大路货（拼多多、淘宝为主，闲鱼为辅）实现造型，完全属于假面骑士的产品可能只有头盔和腰带。
 
 ## 被遗忘的135
 
@@ -24,8 +24,11 @@ draft: false
 ### 上身效果
 
 ![](/posts/kamen-rider-cosplay-suit-solutions/forgotten-135-fit-01.avif)
+
 ![](/posts/kamen-rider-cosplay-suit-solutions/forgotten-135-fit-02.avif)
+
 ![](/posts/kamen-rider-cosplay-suit-solutions/forgotten-135-fit-03.avif)
+
 ![](/posts/kamen-rider-cosplay-suit-solutions/forgotten-135-fit-04.avif)
 ### 购物清单
 
@@ -42,6 +45,7 @@ draft: false
 ### 购物清单
 
 ![](/posts/kamen-rider-cosplay-suit-solutions/shilinlian-shopping-list-01.avif)
+
 ![](/posts/kamen-rider-cosplay-suit-solutions/shilinlian-shopping-list-02.avif)
 ## ET永恒恒
 
@@ -52,11 +56,14 @@ draft: false
 ### 上身效果
 
 ![](/posts/kamen-rider-cosplay-suit-solutions/Screenshot_2024-07-01_at_10.34.32_PM.avif)
+
 ![](/posts/kamen-rider-cosplay-suit-solutions/et-yonghengheng-fit-second-angle.avif)
 ### 购物清单
 
 ![](/posts/kamen-rider-cosplay-suit-solutions/et-yonghengheng-shopping-01.avif)
+
 ![](/posts/kamen-rider-cosplay-suit-solutions/et-yonghengheng-shopping-02.avif)
+
 ![](/posts/kamen-rider-cosplay-suit-solutions/et-yonghengheng-shopping-03.avif)
 ## 我超_冰_
 
@@ -70,6 +77,7 @@ draft: false
 ### 购物清单
 
 ![](/posts/kamen-rider-cosplay-suit-solutions/wo-chao-bing-shopping-01.avif)
+
 ![](/posts/kamen-rider-cosplay-suit-solutions/wo-chao-bing-shopping-02.avif)
 ## 西泽尔white
 
@@ -78,18 +86,30 @@ draft: false
 ### 上身效果
 
 ![](/posts/kamen-rider-cosplay-suit-solutions/Screenshot_2024-07-01_at_10.52.30_PM.avif)
+
 ![](/posts/kamen-rider-cosplay-suit-solutions/Screenshot_2024-07-01_at_10.52.50_PM.avif)
 ### 购物清单
 
 ![](/posts/kamen-rider-cosplay-suit-solutions/Screenshot_2024-07-01_at_10.53.19_PM.avif)
+
 ![](/posts/kamen-rider-cosplay-suit-solutions/Screenshot_2024-07-01_at_10.54.06_PM.avif)
+
 ![](/posts/kamen-rider-cosplay-suit-solutions/Screenshot_2024-07-01_at_10.54.42_PM.avif)
+
 ![](/posts/kamen-rider-cosplay-suit-solutions/Screenshot_2024-07-01_at_10.56.00_PM.avif)
+
 ![](/posts/kamen-rider-cosplay-suit-solutions/Screenshot_2024-07-01_at_10.56.25_PM.avif)
+
 ![](/posts/kamen-rider-cosplay-suit-solutions/Screenshot_2024-07-01_at_10.56.43_PM.avif)
+
 ![](/posts/kamen-rider-cosplay-suit-solutions/Screenshot_2024-07-01_at_10.57.37_PM.avif)
+
 ![](/posts/kamen-rider-cosplay-suit-solutions/Screenshot_2024-07-01_at_10.58.02_PM.avif)
+
 ![](/posts/kamen-rider-cosplay-suit-solutions/Screenshot_2024-07-01_at_10.58.21_PM.avif)
+
 ![](/posts/kamen-rider-cosplay-suit-solutions/Screenshot_2024-07-01_at_10.58.36_PM.avif)
+
 ![](/posts/kamen-rider-cosplay-suit-solutions/Screenshot_2024-07-01_at_10.59.03_PM.avif)
+
 ![](/posts/kamen-rider-cosplay-suit-solutions/Screenshot_2024-07-01_at_10.59.19_PM.avif)

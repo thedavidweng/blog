@@ -3,6 +3,7 @@ import { defineConfig } from 'astro/config';
 
 import tailwindcss from '@tailwindcss/vite';
 
+import { rehypeFigureCaptions } from './src/plugins/rehype-figure-captions.ts';
 import { rehypeLazyImages } from './src/plugins/rehype-lazy-images.ts';
 
 const site = process.env.PUBLIC_SITE_URL || process.env.CF_PAGES_URL || 'http://localhost:4321';
@@ -31,7 +32,7 @@ export default defineConfig({
       },
       defaultColor: false
     },
-    rehypePlugins: [rehypeLazyImages]
+    rehypePlugins: [rehypeFigureCaptions, rehypeLazyImages]
   },
 
   vite: {

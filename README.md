@@ -1,6 +1,6 @@
 # David Blog
 
-Pure static bilingual blog built with Astro 6, MDX content collections, build-time Open Graph images, RSS, sitemap, and Cloudflare Pages configuration.
+Pure static bilingual blog built with Astro 6, Markdown content collections, build-time Open Graph images, RSS, sitemap, and Cloudflare Pages configuration.
 
 ## Commands
 
@@ -16,15 +16,15 @@ Cloudflare Pages:
 
 - Build command: `npm run build`
 - Output directory: `dist`
-- Node version: `22`
+- Node version: `25.9.0` from `.nvmrc`
 - Optional production URL variable: `PUBLIC_SITE_URL=https://your-domain.example`
 
 ## Content
 
-Posts live in paired MDX files:
+Posts live in paired Markdown files:
 
-- `src/content/posts/en/<slug>.mdx`
-- `src/content/posts/zh/<slug>.mdx`
+- `src/content/posts/en/<slug>.md`
+- `src/content/posts/zh/<slug>.md`
 
 Every published slug must exist in both languages. Tag IDs live in `src/site.config.ts` and render as localized labels.
 

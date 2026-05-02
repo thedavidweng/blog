@@ -14,7 +14,6 @@
     "deploy": "wrangler pages deploy ./dist"
   },
   "dependencies": {
-    "@astrojs/mdx": "^5.0.4",
     "@astrojs/rss": "^4.0.18",
     "@astrojs/sitemap": "^3.7.2",
     "@lucide/astro": "^1.14.0",
@@ -26,5 +25,10 @@
     "tsx": "^4.21.0",
     "typescript": "^6.0.3",
     "wrangler": "^4.87.0"
+  },
+  "overrides": {
+    "yaml-language-server": {
+      "yaml": "2.8.3"
+    }
   }
 }

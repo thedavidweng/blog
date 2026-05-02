@@ -17,7 +17,7 @@ type Frontmatter = {
 async function listPostFiles(locale: string) {
   const dir = join(postsRoot, locale);
   const files = await readdir(dir);
-  return files.filter((file) => /\.mdx?$/.test(file)).sort();
+  return files.filter((file) => file.endsWith('.md')).sort();
 }
 
 function assert(condition: unknown, message: string): asserts condition {

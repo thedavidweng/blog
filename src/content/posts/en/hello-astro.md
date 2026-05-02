@@ -9,7 +9,7 @@ tags:
   - Writing
 ---
 
-Astro is a practical fit for a personal blog when the core requirement is speed. The content lives in Markdown or MDX, the repository is the source of truth, and the deployed site can stay entirely static.
+Astro is a practical fit for a personal blog when the core requirement is speed. The content lives in Markdown, the repository is the source of truth, and the deployed site can stay entirely static.
 
 This example keeps the stack intentionally small:
 

@@ -1,0 +1,24 @@
+version: 2
+updates:
+  # Enable npm/pnpm dependency tracking
+  - package-ecosystem: "npm"
+    directory: "/"
+    schedule:
+      interval: "weekly"
+      day: "monday"
+    # Automatically add labels to PRs
+    labels:
+      - "dependencies"
+    # Commit message conventions
+    commit-message:
+      prefix: "chore"
+      include: "scope"
+
+  # Keep GitHub Actions up to date (if you ever add any)
+  - package-ecosystem: "github-actions"
+    directory: "/"
+    schedule:
+      interval: "weekly"
+      day: "monday"
+    labels:
+      - "dependencies"

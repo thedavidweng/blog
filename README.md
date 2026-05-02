@@ -13,6 +13,7 @@ Pure static bilingual blog built with Astro 6, Markdown content collections, bui
 - **Tocbot**: Vanilla JS auto-generated sticky Table of Contents with scroll-spy.
 - **Remark Link Card**: Automatically converts raw URLs into beautiful, Notion-style rich link preview cards.
 - **Reading Time**: Automatically calculates and displays estimated reading time for dual-language posts.
+- **MDAST Util To String**: A unified ecosystem utility strictly declaring dependencies to extract pure text from Markdown ASTs (preventing phantom dependencies).
 
 ## Commands
 

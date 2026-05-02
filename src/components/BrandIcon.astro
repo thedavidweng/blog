@@ -1,0 +1,18 @@
+---
+import { faGithub, faLinkedin } from '@fortawesome/free-brands-svg-icons';
+
+type BrandName = 'github' | 'linkedin';
+
+interface Props {
+  brand: BrandName;
+  size?: number;
+}
+
+const { brand, size = 23 } = Astro.props;
+const icon = brand === 'github' ? faGithub : faLinkedin;
+const [width, height, , , path] = icon.icon;
+---
+
+<svg width={size} height={size} viewBox={`0 0 ${width} ${height}`} aria-hidden="true" fill="currentColor">
+  <path d={Array.isArray(path) ? path.join(' ') : path} />
+</svg>

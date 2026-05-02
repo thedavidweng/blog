@@ -1,7 +1,6 @@
 ---
 import { BookOpenText, BriefcaseBusiness, House, Info, Languages, Moon, Sun, Tags } from '@lucide/astro';
-import GitHubMark from './GitHubMark.astro';
-import LinkedInMark from './LinkedInMark.astro';
+import BrandIcon from './BrandIcon.astro';
 import Logo from './Logo.astro';
 import { defaultLocale, localizedPath, siteConfig, type Locale } from '../site.config';
 
@@ -23,9 +22,7 @@ const links = [
   { key: 'about', href: localizedPath(locale, '/about/'), label: nav.about, icon: Info }
 ] as const;
 
-const SocialIcon = {
-  github: GitHubMark,
-  linkedin: LinkedInMark,
+const socialIcons = {
   portfolio: BriefcaseBusiness,
   home: House
 };
@@ -57,10 +54,14 @@ const SocialIcon = {
         {
           social.map((item) => (
             <a class="social-link" href={item.href} rel="me noopener noreferrer" target="_blank">
-              {(() => {
-                const Icon = SocialIcon[item.icon];
-                return item.icon === 'github' || item.icon === 'linkedin' ? <Icon size={23} /> : <Icon size={23} stroke-width={2.3} />;
-              })()}
+              {item.icon === 'github' || item.icon === 'linkedin' ? (
+                <BrandIcon brand={item.icon} size={23} />
+              ) : (
+                (() => {
+                  const Icon = socialIcons[item.icon];
+                  return <Icon size={23} stroke-width={2.3} />;
+                })()
+              )}
               <span>{item.label}</span>
             </a>
           ))

@@ -3,13 +3,16 @@ import type { CollectionEntry } from 'astro:content';
 import BaseLayout from './BaseLayout.astro';
 import { getPostSlug, ogImagePath, parsePostId, postUrl, tagLabel, tagUrl } from '../lib/content';
 import { absoluteUrl, defaultLocale, siteConfig, type Locale } from '../site.config';
+import Giscus from '../components/Giscus.astro';
+import Toc from '../components/Toc.astro';
 
 interface Props {
   post: CollectionEntry<'posts'>;
   alternatePath: string;
+  remarkPluginFrontmatter?: Record<string, any>;
 }
 
-const { post, alternatePath } = Astro.props;
+const { post, alternatePath, remarkPluginFrontmatter } = Astro.props;
 const { locale } = parsePostId(post.id);
 const slug = getPostSlug(post);
 const postPath = postUrl(locale, slug);
@@ -21,6 +24,11 @@ const date = post.data.publishedDate.toLocaleDateString(locale === 'zh' ? 'zh-CN
   timeZone: 'UTC'
 });
 const dateLabel = locale === 'zh' ? `发布于 ${date}` : `Published on ${date}`;
+
+const readingTime = remarkPluginFrontmatter?.readingTime;
+const readingTimeLabel = readingTime 
+  ? (locale === 'zh' ? ` · ☕️ 约 ${Math.ceil(readingTime.minutes)} 分钟阅读` : ` · ☕️ ${Math.ceil(readingTime.minutes)} min read`)
+  : '';
 
 const jsonLd = {
   '@context': 'https://schema.org',
@@ -51,10 +59,12 @@ const jsonLd = {
   type="article"
   jsonLd={jsonLd}
 >
-  <article class="article">
+  {siteConfig.features.toc && <Toc />}
+  <article class="article relative">
     <header class="article-header">
       <p class="post-meta">
         <time datetime={post.data.publishedDate.toISOString()}>{dateLabel}</time>
+        {siteConfig.features.readingTime && <span>{readingTimeLabel}</span>}
       </p>
       <h1 class="article-title">{post.data.title}</h1>
       <p class="article-description">{post.data.description}</p>
@@ -65,5 +75,20 @@ const jsonLd = {
     <div class="prose prose-zinc dark:prose-invert max-w-[65ch] mx-auto prose-a:text-accent prose-a:no-underline prose-img:rounded-lg">
       <slot />
     </div>
+    
+    {siteConfig.features.giscus && <Giscus slug={slug} locale={locale} />}
   </article>
+
+  {siteConfig.features.mediumZoom && (
+  <script>
+    import mediumZoom from 'medium-zoom';
+    
+    const images = document.querySelectorAll('.prose img');
+    
+    mediumZoom(images, {
+      margin: 24,
+      background: 'var(--bg)'
+    });
+  </script>
+  )}
 </BaseLayout>

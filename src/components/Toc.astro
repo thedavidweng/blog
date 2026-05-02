@@ -1,0 +1,55 @@
+---
+---
+
+<!-- tocbot will inject the table of contents here -->
+<div class="toc-wrapper hidden xl:block absolute top-32 -right-64 w-56">
+  <div class="sticky top-32">
+    <div class="text-sm font-semibold mb-4 text-zinc-500 dark:text-zinc-400">TABLE OF CONTENTS</div>
+    <nav class="js-toc toc"></nav>
+  </div>
+</div>
+
+<script>
+  import tocbot from 'tocbot';
+
+  // Initialize tocbot
+  tocbot.init({
+    // Where to render the table of contents.
+    tocSelector: '.js-toc',
+    // Where to grab the headings to build the table of contents.
+    contentSelector: '.prose',
+    // Which headings to grab inside of the contentSelector element.
+    headingSelector: 'h2, h3, h4',
+    // For headings inside relative or absolute positioned containers within content.
+    hasInnerContainers: true,
+    // Smooth scroll
+    scrollSmooth: true,
+    scrollSmoothDuration: 420,
+    // Class added to active links
+    activeLinkClass: 'is-active-link',
+    // Class added to list items
+    listItemClass: 'toc-list-item',
+    // Class added to links
+    linkClass: 'toc-link text-sm text-zinc-500 hover:text-accent dark:text-zinc-400 dark:hover:text-accent transition-colors',
+    // Collapse deeper levels
+    collapseDepth: 6,
+  });
+</script>
+
+<style is:global>
+  .toc-list {
+    list-style: none;
+    padding-left: 1rem;
+    margin-top: 0.5rem;
+  }
+  .toc-list .toc-list {
+    margin-top: 0.25rem;
+  }
+  .toc-list-item {
+    margin-bottom: 0.5rem;
+  }
+  .is-active-link {
+    color: var(--accent) !important;
+    font-weight: 600;
+  }
+</style>

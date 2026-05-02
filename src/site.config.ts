@@ -117,7 +117,16 @@ export const siteConfig = {
       href: 'https://thedavidweng.github.io/',
       icon: 'home'
     }
-  ]
+  ],
+  features: {
+    toc: true,              // Enable Table of Contents
+    readingTime: true,      // Enable Estimated Reading Time
+    progressBar: true,      // Enable top reading progress bar
+    linkCard: true,         // Enable remark-link-card for rich link embeds
+    expressiveCode: true,   // Enable astro-expressive-code for code blocks
+    mediumZoom: true,       // Enable medium-zoom for image previews
+    giscus: true            // Enable Giscus comments
+  }
 } as const;
 
 export function getBaseUrl() {

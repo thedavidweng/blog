@@ -10,36 +10,43 @@ tags:
 draft: false
 ---
 
-![](/posts/coverview-blog-cover-generator/cover.avif)
+![cover](/posts/coverview-blog-cover-generator/cover.avif)
+
 ## 前言
 
 相信很多人都像我一样，写完文章后准备发表的时候才想起需要一张封面图，只能赶忙临时去做。鼠标指针移到 Photoshop 上突然又感到没这个必要，最后也就去 [Unsplash](https://unsplash.com/) 上随便找张图或者用 [Canva](https://www.canva.com/) 模版简单糊弄一下。今天突然发现一个简直是为我这样的懒狗量身定制的封面图片生成项目：**CoverView**
 
 ## 在哪找到
 
-![](/posts/coverview-blog-cover-generator/coverview-github-repo-showcase.avif)
+![coverview github repo showcase](/posts/coverview-blog-cover-generator/coverview-github-repo-showcase.avif)
+
 **CoverView** 是一个由 React 开发，不到 500kb 大小，在 [GitHub](https://github.com/rutikwankhade/CoverView) 开源的网页项目，目前收获三百多个 Stars。
 
 作者提供了托管在 [Vercel](https://coverview.vercel.app/) 的网页。
 
 因为项目比较简单，我就顺手[汉化](https://github.com/thedavidweng/CoverView-CN)了，目前是以 Fork 的形式存在，但是已经给作者提了 [Issue](https://github.com/rutikwankhade/CoverView/issues/18)，未来希望直接合并进主项目作为多语言选项存在。
 
-![](/posts/coverview-blog-cover-generator/coverview-cn-localized-editor.avif)
+![coverview cn localized editor](/posts/coverview-blog-cover-generator/coverview-cn-localized-editor.avif)
+
 接下来的介绍我会直接使用汉化版的截图。
 
 ## 选项
 
-![](/posts/coverview-blog-cover-generator/coverview-font-style-picker.avif)
+![coverview font style picker](/posts/coverview-blog-cover-generator/coverview-font-style-picker.avif)
+
 **CoverView** 目前只提供三种字体样式，未来有改进空间。
 
-![](/posts/coverview-blog-cover-generator/SCR-20220506-pjp.avif)
+![SCR 20220506 pjp](/posts/coverview-blog-cover-generator/SCR-20220506-pjp.avif)
+
 颜色方面提供十六进制颜色代码，RGB 数值，取色器和色盘多种交互方式，非常完善。
 
-![](/posts/coverview-blog-cover-generator/coverview-theme-layout-selector.avif)
-![](/posts/coverview-blog-cover-generator/coverview-background-pattern-picker.avif)
+![coverview theme layout selector](/posts/coverview-blog-cover-generator/coverview-theme-layout-selector.avif)
+
+![coverview background pattern picker](/posts/coverview-blog-cover-generator/coverview-background-pattern-picker.avif)
 样式方面提供了四种主题（标题排列方式）和十九种不同的背景图案。
 
-![](/posts/coverview-blog-cover-generator/coverview-icon-library-panel.avif)
+![coverview icon library panel](/posts/coverview-blog-cover-generator/coverview-icon-library-panel.avif)
+
 自带图标覆盖了大部分技术文章的需求，底部还有可自主上传的自定义图标选项。
 
 ## 总结
@@ -50,4 +57,4 @@ draft: false
 
 **CoverView** 的开发者 Rutik Wankhade 另外的作品有 [Tabwave](https://tabwave.vercel.app/) 新标签页，小众软件有[介绍文章](https://www.appinn.com/tabwave-for-chrome-and-firefox/)，也是同样的简单美观小工具风格。
 
-![](/posts/coverview-blog-cover-generator/coverview-tabwave-promo-card.avif)
+![coverview tabwave promo card](/posts/coverview-blog-cover-generator/coverview-tabwave-promo-card.avif)

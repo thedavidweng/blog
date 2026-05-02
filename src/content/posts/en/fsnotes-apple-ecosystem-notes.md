@@ -31,7 +31,7 @@ FSNotes is an open-source note-taking software that supports macOS and iOS. The 
 - Supports Mermaid and MathJax
 - Optional Git version control and backup
 
-![](/posts/fsnotes-apple-ecosystem-notes/macOS-and-iOS.avif)
+![macOS and iOS](/posts/fsnotes-apple-ecosystem-notes/macOS-and-iOS.avif)
 
 Software size is only 13.5 MB, but fully functional. macOS version is completely free, but offers paid download on Mac App Store to support the author's development. iOS version is paid, priced at ¥18 in China region. You can choose to use cloud services to sync to iOS and then use other Markdown-supported software for editing and viewing.
 
@@ -49,11 +49,11 @@ Or download from GitHub Releases page [GitHub Releases](https://github.com/glush
 
 After completing the installation, the software has very detailed English usage tutorials built-in.
 
-![](/posts/fsnotes-apple-ecosystem-notes/fsnotes-built-in-tutorial.avif)
+![fsnotes built in tutorial](/posts/fsnotes-apple-ecosystem-notes/fsnotes-built-in-tutorial.avif)
 
 I have translated it, and submitted an Issue on GitHub hoping to add multi-language support.
 
-![](/posts/fsnotes-apple-ecosystem-notes/fsnotes-github-issue-panel.avif)
+![fsnotes github issue panel](/posts/fsnotes-apple-ecosystem-notes/fsnotes-github-issue-panel.avif)
 
 Next is the usage tutorial translated by myself.
 
@@ -140,20 +140,20 @@ Create unlimited folders in your storage space. Right-click the root directory (
 
 Each project has its own settings, right-click the project - "Show View Options" `cmd + shift + ,`.
 
-![](/posts/fsnotes-apple-ecosystem-notes/view-options.avif)
-View
+![View](/posts/fsnotes-apple-ecosystem-notes/view-options.avif)
+
 
 You can configure sorting, direction, visibility settings.
 
-![](/posts/fsnotes-apple-ecosystem-notes/preferences.avif)
-Preference
+![Preference](/posts/fsnotes-apple-ecosystem-notes/preferences.avif)
+
 
 ### 5. Tags and Subtags
 
 FSNotes version 4 brings an amazing inline tag system. Just add a hash (#) in front of the text to add tags to notes. Like this: #hello. Or, add subtags to them like this: #hello/world. How many tags can you put on your notes? Like #unlimited/sub/tags. Tags auto-complete. Type hash (#) and the first character of the tag, then:
 
-![](/posts/fsnotes-apple-ecosystem-notes/tag-autocomplete.avif)
-Hello
+![Hello](/posts/fsnotes-apple-ecosystem-notes/tag-autocomplete.avif)
+
 
 Very good! There's more. Each project has its own tag namespace. For example, when selecting "Archive", only tags from notes in "Archive" are displayed.
 
@@ -165,7 +165,7 @@ cmd
 
 You can multi-select multiple projects and tags.
 
-![](/posts/fsnotes-apple-ecosystem-notes/git-save.avif)
+![git save](/posts/fsnotes-apple-ecosystem-notes/git-save.avif)
 
 ### 6. Mermaid and MathJax
 
@@ -199,20 +199,20 @@ When ((*a* ≠ 0)), there are two solutions for *a**x*2 + *b**x* + *c* = 0 which
 
 Use `cmd + s` shortcut to save notes:
 
-![](/posts/fsnotes-apple-ecosystem-notes/git-commit-dialog.avif)
-Save
+![Save](/posts/fsnotes-apple-ecosystem-notes/git-commit-dialog.avif)
+
 
 And restore to historical versions in the menu bar:
 
-![](/posts/fsnotes-apple-ecosystem-notes/git-history.avif)
-History
+![History](/posts/fsnotes-apple-ecosystem-notes/git-history.avif)
+
 
 ### Automatic Backup of All Notes
 
 Configure in preferences:
 
-![](/posts/fsnotes-apple-ecosystem-notes/backup-settings.avif)
-Backup
+![Backup](/posts/fsnotes-apple-ecosystem-notes/backup-settings.avif)
+
 
 For example, backup once per hour.
 
@@ -220,8 +220,8 @@ For example, backup once per hour.
 
 After all, one can never be too safe.
 
-![](/posts/fsnotes-apple-ecosystem-notes/backup-backup.avif)
-BackupBackup
+![BackupBackup](/posts/fsnotes-apple-ecosystem-notes/backup-backup.avif)
+
 
 ### 8. Container
 
@@ -255,8 +255,8 @@ Shortcut: `cmd + 1-6`
 
 ### Images
 
-![](/posts/fsnotes-apple-ecosystem-notes/image-toolbar.avif)
-icon
+![icon](/posts/fsnotes-apple-ecosystem-notes/image-toolbar.avif)
+
 
 Shortcut: `cmd + shift + i`
 

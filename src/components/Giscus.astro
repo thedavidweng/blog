@@ -1,0 +1,63 @@
+---
+interface Props {
+  slug: string;
+  locale?: string;
+}
+
+const { slug, locale = 'en' } = Astro.props;
+const giscusLang = locale === 'zh' ? 'zh-CN' : 'en';
+---
+
+<div class="giscus-wrapper mt-16 pt-8 border-t border-[var(--border)] max-w-[65ch] mx-auto">
+  <div class="giscus"></div>
+</div>
+
+<script is:inline define:vars={{ slug, giscusLang }}>
+  function loadGiscus() {
+    const theme = document.documentElement.dataset.theme === 'dark' ? 'dark' : 'light';
+    const script = document.createElement('script');
+    script.src = 'https://giscus.app/client.js';
+    
+    // 请替换为你自己的 GitHub 仓库信息
+    // 可以在 https://giscus.app 网站上生成这些 ID
+    script.dataset.repo = 'thedavidweng/blog'; 
+    script.dataset.repoId = 'R_kgDOSSEcbg'; 
+    script.dataset.category = 'Announcements';
+    script.dataset.categoryId = 'DIC_kwDOSSEcbs4C8KO_'; 
+    
+    // 使用 specific mapping 和 slug 确保中英文使用同一个评论区
+    script.dataset.mapping = 'specific';
+    script.dataset.term = slug;
+    script.dataset.strict = '0';
+    script.dataset.reactionsEnabled = '1';
+    script.dataset.emitMetadata = '0';
+    script.dataset.inputPosition = 'top';
+    script.dataset.theme = theme;
+    script.dataset.lang = giscusLang;
+    script.crossOrigin = 'anonymous';
+    script.async = true;
+    
+    const giscusContainer = document.querySelector('.giscus');
+    if (giscusContainer) {
+      giscusContainer.appendChild(script);
+    }
+  }
+
+  loadGiscus();
+
+  const observer = new MutationObserver((mutations) => {
+    mutations.forEach((mutation) => {
+      if (mutation.attributeName === 'data-theme') {
+        const newTheme = document.documentElement.dataset.theme === 'dark' ? 'dark' : 'light';
+        const iframe = document.querySelector('iframe.giscus-frame');
+        if (!iframe) return;
+        iframe.contentWindow.postMessage(
+          { giscus: { setConfig: { theme: newTheme } } },
+          'https://giscus.app'
+        );
+      }
+    });
+  });
+
+  observer.observe(document.documentElement, { attributes: true, attributeFilter: ['data-theme'] });
+</script>

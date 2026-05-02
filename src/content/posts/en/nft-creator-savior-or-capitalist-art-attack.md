@@ -15,7 +15,7 @@ draft: true
 
 Whether you are interested in digital currency or not, the term **blockchain** always appears when surfing the internet. Since this is not the focus of this short article, you can just understand blockchain as the corner of the blackboard in your high school classroom. Anyone can doodle on it, but unless the person involved admits it, no one can know who drew those things that are not presentable. And you can't boast that you drew the Mona Lisa without evidence, because what has appeared on the blackboard can only be acknowledged if everyone has seen it. Your word alone doesn't count.
 
-![](/posts/nft-creator-savior-or-capitalist-art-attack/mona-lisa-blackboard.avif)
+![mona lisa blackboard](/posts/nft-creator-savior-or-capitalist-art-attack/mona-lisa-blackboard.avif)
 
 Blackboard drawing of Mona Lisa
 
@@ -35,7 +35,7 @@ For a long time, the tug-of-war around copyright has been endless. Movie distrib
 
 NFT provides a solution to this situation. Artists can put their digital works on the trading market like painting works in those days. Although they still can't prevent the spread of piracy, they can sell ownership of the work.
 
-![](/posts/nft-creator-savior-or-capitalist-art-attack/bored-ape.avif)
+![bored ape](/posts/nft-creator-savior-or-capitalist-art-attack/bored-ape.avif)
 
 Bored Ape Yacht Club
 
@@ -47,7 +47,7 @@ At first glance, it seems like a win-win situation. Artists can make a living, a
 
 But when capital tries to enter, everything may become corrupted. Overnight, many NFT games emerged, and traditional game giants are also rubbing their hands preparing to enter. Our dear Ubisoft took the lead in applying NFT to the poorly received "Ghost Recon: Breakpoint". [As long as you grind the game, you can get limited game items in the form of NFT](https://quartz.ubisoft.com/welcome/), sounds okay, right?
 
-![](/posts/nft-creator-savior-or-capitalist-art-attack/ubisoft-quartz.avif)
+![ubisoft quartz](/posts/nft-creator-savior-or-capitalist-art-attack/ubisoft-quartz.avif)
 
 Ubisoft-Quartz
 

@@ -12,18 +12,18 @@ tags:
 draft: false
 ---
 
-![](/posts/clouds-in-super-mario/Super_Mario_Clouds.avif)
-**Cory Arcangel, Super Mario Clouds, 2002**
+![**Cory Arcangel, Super Mario Clouds, 2002**](/posts/clouds-in-super-mario/Super_Mario_Clouds.avif)
+
 
 You can probably see that these are the clouds from the first Super Mario Brothers on NES/FC.
 
 This is an artwork made by Cory Arcangel in 2002 *Super Mario Clouds*. This GIF image is not the original artwork. The original artwork uses a real Nintendo NES cartridge, with hardware modifications made to the cartridge to remove all content except the clouds and blue sky.
 
-![](/posts/clouds-in-super-mario/mario-clouds-2002-001-cartridge-2-database-ih.avif)
+![mario clouds 2002 001 cartridge 2 database ih](/posts/clouds-in-super-mario/mario-clouds-2002-001-cartridge-2-database-ih.avif)
 
 To understand this artwork, it is necessary to understand a little about video games.
 
-![](/posts/clouds-in-super-mario/Super_Mario_Level_1.avif)
+![Super_Mario_Level_1](/posts/clouds-in-super-mario/Super_Mario_Level_1.avif)
 
 Super Mario Brothers has 8 worlds, each world having 4 small levels. This image shows the first level of Super Mario Brothers. Guess how much storage space Super Mario Brothers occupies.
 
@@ -31,11 +31,11 @@ Super Mario Brothers has 8 worlds, each world having 4 small levels. This image 
 
 Everyone has downloaded images and listened to music, knowing how crazy this number sounds today. 64KB of space, fitting an entire game. How did they do it?
 
-![](/posts/clouds-in-super-mario/Super_Mario_Tile_Map.avif)
+![Super_Mario_Tile_Map](/posts/clouds-in-super-mario/Super_Mario_Tile_Map.avif)
 
 **This is their solution. These are all the elements that appear in Super Mario Brothers. They are all stored in one image. This image is called a TileMap. Developers don't place elements in advance in the image, but write code to record which element to use where. The game map is generated synchronously when playing. This made it possible for "Super Mario Brothers", which occupies 64 KB but contains 32 levels, to be created.**
 
-![](/posts/clouds-in-super-mario/mario-clouds-article-screenshot-2022-03-17.avif)
+![mario clouds article screenshot 2022 03 17](/posts/clouds-in-super-mario/mario-clouds-article-screenshot-2022-03-17.avif)
 
 Returning to *Super Mario Clouds*, you can see that all the efforts of developers to reduce game size have become void. In the development process of classical games like Super Mario, every line of code is carefully considered, just to fit the game into a cartridge with pitifully small capacity. But seventeen years after the game's release, in this era of explosive development of information technology, when any random image you post on Instagram is larger than dozens of old games combined, **Cory Arcangel** modified a game that was already precisely compressed to the extreme, leaving only the minimizable recognizable features. In my view, this is a deconstruction of the game. Even though almost all elements in the picture are deleted, we can still distinguish that these are clouds from Super Mario. Then before losing the ability to distinguish the source, how many elements can be deleted?
 

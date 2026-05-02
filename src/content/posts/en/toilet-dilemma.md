@@ -13,7 +13,7 @@ tags:
 draft: false
 ---
 
-![](/posts/toilet-dilemma/toiletbanner1.avif)
+![toiletbanner1](/posts/toilet-dilemma/toiletbanner1.avif)
 
 ## What Is This
 

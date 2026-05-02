@@ -118,7 +118,8 @@ All information updated to 2023.06.09
 
 -
 
-![](/posts/canada-international-student-banking-guide-2023/canada-neo-financial-card.avif)
+![canada neo financial card](/posts/canada-international-student-banking-guide-2023/canada-neo-financial-card.avif)
+
 Referral code: [2LZG](https://card.neofinancial.com/product-referral?utm_medium=Ambassador_FA&utm_source=GenericFA&skip_intro=true&nf_cv=R5G6JN4P&nf_ac=2LZG)
 
 All consumption 1% Cashback, with bank account interest rate 2.25%
@@ -127,7 +128,8 @@ A network bank card applied for through the mobile APP. Also my first credit car
 
 -
 
-![](/posts/canada-international-student-banking-guide-2023/canada-triangle-mastercard.avif)
+![canada triangle mastercard](/posts/canada-international-student-banking-guide-2023/canada-triangle-mastercard.avif)
+
 Buying groceries 1.5% CT Money Cashback, Canadian Tire subsidiary stores (Canadian Tire, Sport Chek, Mark's/L'Équipeur, Atmosphere, Party City, Sports Rousseau, Hockey Experts, L'Entrepôt du Hockey, Pro Hockey Life, partial Sports Experts) 4% CT Money Cashback, other consumption 0.8% CT Money Cashback
 
 **Bill Payment 0.8% CT Money Cashback,** single consumption over C$150 can have interest-free installment
@@ -136,8 +138,8 @@ This card is my second credit card in Canada. I originally applied for **Triangl
 
 -
 
-![](/posts/canada-international-student-banking-guide-2023/EQ_Bank_Card.avif)
-Referral code: `JIACHEN4770`
+![Referral code: `JIACHEN4770`](/posts/canada-international-student-banking-guide-2023/EQ_Bank_Card.avif)
+
 
 All consumption 0.5% Cashback, with bank account interest rate 2.50%
 
@@ -151,7 +153,8 @@ This card is not for swiping, this card is unbelievably good that you withdraw m
 
 -
 
-![](/posts/canada-international-student-banking-guide-2023/TD_Cash_Back_Visa_Infinite_Card.avif)
+![TD_Cash_Back_Visa_Infinite_Card](/posts/canada-international-student-banking-guide-2023/TD_Cash_Back_Visa_Infinite_Card.avif)
+
 Buying groceries, refueling, paying bills 3% Cashback, other consumption 1% Cashback
 
 **Holding TD All Inclusive account can waive main card annual fee. (TD All Inclusive account with C$5,000 deposit can waive account fee)**
@@ -176,7 +179,8 @@ Scotiabank, TD, and CIBC all have cards with similar positioning. In the followi
 
 -
 
-![](/posts/canada-international-student-banking-guide-2023/canada-cibc-dividend-visa-infinite.avif)
+![canada cibc dividend visa infinite](/posts/canada-international-student-banking-guide-2023/canada-cibc-dividend-visa-infinite.avif)
+
 Buying groceries, refueling 4% Cashback, transportation, eating, paying bills 2% Cashback, other consumption 1% Cashback
 
 **Holding CIBC Smart Plus Account can waive main card annual fee. (CIBC Smart Plus Account with C$6,000 deposit can waive account fee)**
@@ -203,7 +207,8 @@ This card's grocery cashback ratio is slightly higher than TD's same-positioned 
 
 -
 
-![](/posts/canada-international-student-banking-guide-2023/canada-rbc-ion-plus-visa.avif)
+![canada rbc ion plus visa](/posts/canada-international-student-banking-guide-2023/canada-rbc-ion-plus-visa.avif)
+
 Buying groceries, eating, takeout, transportation, refueling, streaming media, subscriptions, video games 3x Avion Premium points, other consumption 1x Avion Premium points
 
 Avion Premium needs to be transferred to Avion Elite to obtain higher returns. Details can refer to:
@@ -226,7 +231,8 @@ The advantage is that you can waive monthly fees using a student account. The di
 
 -
 
-![](/posts/canada-international-student-banking-guide-2023/canada-amex-cobalt-card.avif)
+![canada amex cobalt card](/posts/canada-international-student-banking-guide-2023/canada-amex-cobalt-card.avif)
+
 Restaurants in Canada, buying groceries, takeout consumption 5x MR Select points (about 5%+, annual maximum $30000); refueling, travel, transportation consumption 2x MR Select points (about 2%+), any other consumption 1x MR Select points (about 1%+)
 
 Monthly fee $12.99
@@ -263,8 +269,8 @@ A big pain point of Amex is charging high handling fees from merchants, causing 
 
 -
 
-![](/posts/canada-international-student-banking-guide-2023/canada-triangle-world-elite-mastercard.avif)
-Consumption return (CT Money)
+![Consumption return (CT Money)](/posts/canada-international-student-banking-guide-2023/canada-triangle-world-elite-mastercard.avif)
+
 
 - Canadian Tire subsidiary stores (Canadian Tire, Sport Chek, Mark's/L'Équipeur, Atmosphere, Party City, Sports Rousseau, Hockey Experts, L'Entrepôt du Hockey, Pro Hockey Life, partial Sports Experts) 4% CT Money Cashback
 

@@ -9,6 +9,7 @@ tags:
 draft: true
 ---
 
-![](/posts/barclays/IMG_0839.avif)
-![](/posts/barclays/IMG_0840.avif)
-![](/posts/barclays/IMG_0841.avif)
+![IMG_0839](/posts/barclays/IMG_0839.avif)
+
+![IMG_0840](/posts/barclays/IMG_0840.avif)
+![IMG_0841](/posts/barclays/IMG_0841.avif)

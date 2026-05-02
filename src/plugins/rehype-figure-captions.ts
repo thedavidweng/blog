@@ -46,9 +46,8 @@ function buildFigure(img: Element): Element {
     children: []
   };
 
-  if (alt) {
-    imgCopy.properties.alt = '';
-  }
+  // Do not strip the alt attribute to maintain accessibility.
+  // The image should retain the alt text matching the caption.
 
   const figureChildren: ElementContent[] = [imgCopy];
   if (alt) {

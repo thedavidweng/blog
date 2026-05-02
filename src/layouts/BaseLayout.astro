@@ -1,6 +1,7 @@
 ---
 import Sidebar from '../components/Sidebar.astro';
 import ThemeScript from '../components/ThemeScript.astro';
+import ProgressBar from '../components/ProgressBar.astro';
 import '../styles/global.css';
 import { absoluteUrl, defaultLocale, siteConfig, type Locale } from '../site.config';
 
@@ -73,6 +74,7 @@ const xDefault = absoluteUrl(path.startsWith('/zh/') ? path.replace('/zh', '') :
     {jsonLd && <script is:inline type="application/ld+json" set:html={JSON.stringify(jsonLd)} />}
   </head>
   <body>
+    {siteConfig.features.progressBar && <ProgressBar />}
     <a class="skip-link" href="#main">{locale === 'zh' ? '跳到正文' : 'Skip to content'}</a>
     <div class="page-shell">
       <Sidebar locale={locale} active={active} alternatePath={alternatePath} />

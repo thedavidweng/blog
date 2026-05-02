@@ -11,7 +11,7 @@ tags:
 draft: false
 ---
 
-![](/posts/fedex-stole-package-banned-account/1714553672877.avif)
+![1714553672877](/posts/fedex-stole-package-banned-account/1714553672877.avif)
 
 ## Beginning
 
@@ -24,23 +24,23 @@ On February 19, because my friend and I planned to go to Seattle on February 25-
 
 ## Development
 
-![](/posts/fedex-stole-package-banned-account/fedex-mac-studio-delivered-photo.avif)
+![fedex mac studio delivered photo](/posts/fedex-stole-package-banned-account/fedex-mac-studio-delivered-photo.avif)
 
 So I created such a shipping order, with my friend as Sender and me as Recipient, and checked "Hold at FedEx location", letting my friend go to FedEx's site to ship it. Strangely, until I finished creating the Shipping Label, FedEx did not ask me to choose a payment method.
 
 My friend and I thought they would pay after weighing at the site, but when they arrived at the site, they didn't ask my friend to pay. They took the package and gave a receipt like this.
 
-![](/posts/fedex-stole-package-banned-account/3710_Forbes_Ave.avif)
+![3710_Forbes_Ave](/posts/fedex-stole-package-banned-account/3710_Forbes_Ave.avif)
 
 ## Transition
 
 On February 21, my friend suddenly received an email saying "Unable to deliver shipment, returned to shipper."
 
-![](/posts/fedex-stole-package-banned-account/Exception_Reason.avif)
+![Exception_Reason](/posts/fedex-stole-package-banned-account/Exception_Reason.avif)
 
 I immediately tried to log into my FedEx account to check the situation, but after many attempts, I could not log in successfully.
 
-![](/posts/fedex-stole-package-banned-account/Screenshot_2024-04-26_at_4.43.31_AM.avif)
+![Screenshot_2024 04 26_at_4](/posts/fedex-stole-package-banned-account/Screenshot_2024-04-26_at_4.43.31_AM.avif)
 
 I called FedEx. The first customer service representative told me this was a Fraud delivery. I asked what reason, and he said he could not help me and would transfer me to someone else. The second customer service representative said I can help you see what the reason is, but you need to tell me your account number. I said I can't log into my account so I can't give you the account number. I only have my email.
 
@@ -50,11 +50,11 @@ The fourth customer service got my account number using my email + phone, then t
 
 At this point, I was already very angry. After nearly two hours on the phone, I got no information and was finally hung up on. I posted an angry Tweet, @FedExHelp, and then was contacted.
 
-![](/posts/fedex-stole-package-banned-account/e35c98f5-1ae6-460e-bcab-396f8e76cbd2.avif)
+![e35c98f5 1ae6 460e bcab 396f8e76cbd2](/posts/fedex-stole-package-banned-account/e35c98f5-1ae6-460e-bcab-396f8e76cbd2.avif)
 
 I described the sequence of events. @FedExHelp asked me to contact FedEx High Risk Investigations (800) 584-2681.
 
-![](/posts/fedex-stole-package-banned-account/e9388dd3-0f3c-4cd0-9579-5c7955df5a0d.avif)
+![e9388dd3 0f3c 4cd0 9579 5c7955df5a0d](/posts/fedex-stole-package-banned-account/e9388dd3-0f3c-4cd0-9579-5c7955df5a0d.avif)
 
 So I did that. After connecting, the other party asked if I was sender or recipient. I said I was recipient, but I created the shipping order. Customer service said sorry, the phone call must be made by the sender.
 

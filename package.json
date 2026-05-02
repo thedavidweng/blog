@@ -8,6 +8,7 @@
     "build": "astro build",
     "preview": "astro preview",
     "check": "astro check && pnpm test:source && pnpm test:content",
+    "check:images": "node scripts/check-image-formats.js",
     "test:source": "tsx tests/source-contract.test.ts",
     "test:content": "tsx tests/content-contract.test.ts",
     "test:dist": "tsx tests/dist-contract.test.ts",

@@ -43,12 +43,19 @@ To upgrade all dependencies to their absolute latest versions, simply run:
 pnpm up --latest
 ```
 
-Cloudflare Pages:
+### Environment Variables
+
+| Variable | Required | Description |
+|----------|----------|-------------|
+| `PUBLIC_SITE_URL` | Yes | Production site URL (e.g. `https://blog.blahaj.uk`). Used to generate absolute URLs for OG images, canonical links, and sitemap. Without this, all URLs default to `http://localhost:4321` and social media platforms cannot fetch OG images. |
+
+Set this in **Cloudflare Pages → Settings → Environment variables** (Production).
+
+### Cloudflare Pages
 
 - Build command: `pnpm run build`
 - Output directory: `dist`
 - Node version: `25.9.0` from `.nvmrc`
-- Optional production URL variable: `PUBLIC_SITE_URL=https://your-domain.example`
 
 ## Content
 

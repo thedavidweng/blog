@@ -2,7 +2,7 @@
 title: "白嫖 Cursor 4.6-opus-high-thinking 怒省 600 刀"
 locale: zh
 slug: "exploit-cursor-cloud-agent"
-description: "上个月我发现一个漏洞，可以无限免费使用 Cursor 的 4.6-opus-high-thinking 模型。漏洞已修复，但这背后的原理值得深思。"
+description: "上个月我发现一个漏洞，可以无限免费使用 Cursor 的 4.6-opus-high-thinking 模型。"
 publishedDate: 2026-05-02
 tags:
   - Tools

@@ -6,7 +6,7 @@ description: "How I completed the U.S. Bank $450 sign-up bonus requirement using
 publishedDate: 2026-05-03
 tags:
   - Finance
-draft: false
+draft: true
 ---
 
 U.S. Bank's $450 sign-up bonus requires $8,000 in direct deposits within 60 days. I don't have a U.S. employer, so I had to rely on fake DD to meet the requirement.

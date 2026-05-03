@@ -25,11 +25,39 @@ function assert(condition: unknown, message: string): asserts condition {
   if (!condition) throw new Error(message);
 }
 
+// Validate that boolean fields in frontmatter use valid YAML 1.2 boolean literals.
+// Strings like "no", "yes", "on", "off" are NOT booleans in YAML 1.2 and will
+// cause Astro's z.boolean() schema validation to fail at build time.
+// See: https://yaml.org/spec/1.2.2/#1032-tag-resolution-directives
+// Valid YAML 1.2 booleans: true, false, True, False, TRUE, FALSE
+function validateYamlBooleans(file: string, frontmatterBlock: string): void {
+  const booleanFields = ['draft', 'narrowFigures'];
+  for (const field of booleanFields) {
+    const match = frontmatterBlock.match(new RegExp(`^${field}:\\s*(\\S+)`, 'm'));
+    if (!match) continue; // field not present — optional fields may be absent
+    const rawValue = match[1];
+    // Strip inline comment if present (e.g. "false  # draft post")
+    const value = rawValue.split('#')[0].trim();
+    const validBooleans = ['true', 'false', 'True', 'False', 'TRUE', 'FALSE'];
+    if (!validBooleans.includes(value)) {
+      throw new Error(
+        `${file}: field "${field}" must be a YAML 1.2 boolean, ` +
+        `found "${value}" (type: string in YAML 1.2).\n` +
+        `  Valid values: true, false, True, False, TRUE, FALSE\n` +
+        `  Values like "no", "yes", "on", "off" are strings in YAML 1.2, not booleans.\n` +
+        `  Fix example: use "draft: false" instead of "draft: no".`
+      );
+    }
+  }
+}
+
 function parseFrontmatter(file: string, body: string): Frontmatter {
   const match = body.match(/^---\n([\s\S]*?)\n---/);
   assert(match, `${file} is missing frontmatter`);
 
   const frontmatter = match[1];
+  validateYamlBooleans(file, frontmatter);
+
   const getString = (key: string) => {
     const value = frontmatter.match(new RegExp(`^${key}:\\s*"?([^"\\n]+)"?\\s*$`, 'm'))?.[1];
     assert(value, `${file} is missing ${key} frontmatter`);

@@ -1,0 +1,99 @@
+---
+import type { CollectionEntry } from 'astro:content';
+import { getPostSlug, postUrl } from '../lib/content';
+import type { Locale } from '../site.config';
+
+interface Props {
+  locale: Locale;
+  posts: CollectionEntry<'posts'>[];
+}
+
+const { locale, posts } = Astro.props;
+
+if (posts.length === 0) return null;
+
+const isZh = locale === 'zh';
+
+function getPostInfo(post: CollectionEntry<'posts'>) {
+  const slug = getPostSlug(post);
+  const postLocale = post.id.startsWith('zh/') ? 'zh' : 'en';
+  return {
+    url: postUrl(postLocale, slug),
+    title: post.data.title,
+    description: post.data.description
+  };
+}
+
+const items = posts.map(getPostInfo);
+---
+
+<section class="related-posts" aria-label={isZh ? '相关文章' : 'Related posts'}>
+  <h2 class="related-posts-heading">{isZh ? '相关文章' : 'Related Posts'}</h2>
+  <ul class="related-posts-list">
+    {items.map((item) => (
+      <li>
+        <a href={item.url} class="related-posts-link">
+          <span class="related-posts-title">{item.title}</span>
+          <span class="related-posts-desc">{item.description}</span>
+        </a>
+      </li>
+    ))}
+  </ul>
+</section>
+
+<style>
+  .related-posts {
+    margin-top: 2rem;
+    padding-top: 2rem;
+    border-top: 1px solid var(--border);
+  }
+
+  .related-posts-heading {
+    font-size: 1rem;
+    font-weight: 600;
+    color: var(--muted);
+    margin-bottom: 1rem;
+  }
+
+  .related-posts-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+  }
+
+  .related-posts-link {
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
+    padding: 1rem;
+    border: 1px solid var(--border);
+    border-radius: 0.75rem;
+    text-decoration: none;
+    transition: border-color 0.2s, background-color 0.2s;
+  }
+
+  .related-posts-link:hover {
+    border-color: var(--accent);
+    background-color: var(--surface);
+  }
+
+  .related-posts-title {
+    font-size: 0.95rem;
+    font-weight: 600;
+    color: var(--text);
+    line-height: 1.4;
+  }
+
+  .related-posts-desc {
+    font-size: 0.85rem;
+    color: var(--muted);
+    line-height: 1.5;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+  }
+</style>

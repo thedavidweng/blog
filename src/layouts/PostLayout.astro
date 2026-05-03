@@ -5,14 +5,19 @@ import { getPostSlug, ogImagePath, parsePostId, postUrl, tagLabel, tagUrl } from
 import { absoluteUrl, defaultLocale, siteConfig, type Locale } from '../site.config';
 import Giscus from '../components/Giscus.astro';
 import Toc from '../components/Toc.astro';
+import PostNavigation from '../components/PostNavigation.astro';
+import RelatedPosts from '../components/RelatedPosts.astro';
 
 interface Props {
   post: CollectionEntry<'posts'>;
   alternatePath: string;
   remarkPluginFrontmatter?: Record<string, any>;
+  prev?: CollectionEntry<'posts'>;
+  next?: CollectionEntry<'posts'>;
+  relatedPosts?: CollectionEntry<'posts'>[];
 }
 
-const { post, alternatePath, remarkPluginFrontmatter } = Astro.props;
+const { post, alternatePath, remarkPluginFrontmatter, prev, next, relatedPosts = [] } = Astro.props;
 const { locale } = parsePostId(post.id);
 const slug = getPostSlug(post);
 const hasToc = siteConfig.features.toc;
@@ -81,6 +86,11 @@ const jsonLd = {
       ]}
     >
       <slot />
+    </div>
+
+    <div class:list={[hasToc ? 'max-w-none' : 'max-w-[65ch]', 'mx-auto']}>
+      <PostNavigation locale={locale as Locale} prev={prev} next={next} />
+      <RelatedPosts locale={locale as Locale} posts={relatedPosts} />
     </div>
 
     {siteConfig.features.giscus && <Giscus slug={slug} locale={locale} />}

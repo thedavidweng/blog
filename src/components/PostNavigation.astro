@@ -1,0 +1,90 @@
+---
+import type { CollectionEntry } from 'astro:content';
+import { getPostSlug, postUrl } from '../lib/content';
+import type { Locale } from '../site.config';
+
+interface Props {
+  locale: Locale;
+  prev?: CollectionEntry<'posts'>;
+  next?: CollectionEntry<'posts'>;
+}
+
+const { locale, prev, next } = Astro.props;
+
+const isZh = locale === 'zh';
+
+function getPostInfo(post: CollectionEntry<'posts'>) {
+  const slug = getPostSlug(post);
+  const locale = post.id.startsWith('zh/') ? 'zh' : 'en';
+  return { url: postUrl(locale, slug), title: post.data.title };
+}
+
+const prevInfo = prev ? getPostInfo(prev) : null;
+const nextInfo = next ? getPostInfo(next) : null;
+---
+
+<nav class="post-nav" aria-label={isZh ? '文章导航' : 'Post navigation'}>
+  {prevInfo ? (
+    <a href={prevInfo.url} class="post-nav-link post-nav-prev">
+      <span class="post-nav-label">{isZh ? '上一篇' : 'Previous'}</span>
+      <span class="post-nav-title">{prevInfo.title}</span>
+    </a>
+  ) : <div />}
+  {nextInfo ? (
+    <a href={nextInfo.url} class="post-nav-link post-nav-next">
+      <span class="post-nav-label">{isZh ? '下一篇' : 'Next'}</span>
+      <span class="post-nav-title">{nextInfo.title}</span>
+    </a>
+  ) : <div />}
+</nav>
+
+<style>
+  .post-nav {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1rem;
+    margin-top: 3rem;
+    padding-top: 2rem;
+    border-top: 1px solid var(--border);
+  }
+
+  .post-nav-link {
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
+    padding: 1rem;
+    border: 1px solid var(--border);
+    border-radius: 0.75rem;
+    text-decoration: none;
+    transition: border-color 0.2s, background-color 0.2s;
+  }
+
+  .post-nav-link:hover {
+    border-color: var(--accent);
+    background-color: var(--surface);
+  }
+
+  .post-nav-next {
+    text-align: right;
+  }
+
+  .post-nav-label {
+    font-size: 0.8rem;
+    color: var(--muted);
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+  }
+
+  .post-nav-title {
+    font-size: 0.95rem;
+    font-weight: 600;
+    color: var(--text);
+    line-height: 1.4;
+  }
+
+  @media (max-width: 640px) {
+    .post-nav {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>

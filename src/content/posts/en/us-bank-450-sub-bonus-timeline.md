@@ -6,6 +6,8 @@ description: "How I completed the U.S. Bank $450 sign-up bonus requirement using
 publishedDate: 2026-05-03
 tags:
   - Finance
+related:
+  - churning-slang
 draft: false
 ---
 

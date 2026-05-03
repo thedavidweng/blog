@@ -66,6 +66,21 @@ Posts live in paired Markdown files:
 
 Every published slug must exist in both languages. Tag IDs live in `src/site.config.ts` and render as localized labels.
 
+### Frontmatter Schema
+
+| Field | Type | Required | Description |
+|-------|------|----------|-------------|
+| `title` | string | Yes | Post title |
+| `description` | string | Yes | Post description |
+| `publishedDate` | date | Yes | Publication date |
+| `updatedDate` | date | No | Last updated date |
+| `tags` | string[] | Yes | At least one tag from `siteConfig.tags` |
+| `draft` | boolean | No | Exclude from production build (default: `false`) |
+| `slug` | string | No | Override default slug (derived from filename) |
+| `locale` | `en` \| `zh` | No | Override locale (inferred from directory) |
+| `narrowFigures` | boolean | No | Cap figure image width |
+| `related` | string[] | No | Slugs of related posts to display at the bottom |
+
 ## Static Outputs
 
 - English RSS: `/rss.xml`

@@ -1,23 +1,42 @@
 ---
-import { render } from 'astro:content';
+import { render, type CollectionEntry } from 'astro:content';
 import PostLayout from '../../../../layouts/PostLayout.astro';
-import { assertTranslatedPostPairs, postUrl } from '../../../../lib/content';
+import { assertTranslatedPostPairs, getPostSlug, postUrl } from '../../../../lib/content';
 
 export async function getStaticPaths() {
   const pairs = await assertTranslatedPostPairs();
-  return pairs.map(({ slug, posts }) => ({
-    params: { slug },
-    props: {
-      post: posts.zh,
-      alternatePath: postUrl('en', slug)
-    }
-  }));
+  const sorted = pairs.sort((a, b) =>
+    b.posts.zh.data.publishedDate.valueOf() - a.posts.zh.data.publishedDate.valueOf()
+  );
+
+  const allPosts = new Map<string, CollectionEntry<'posts'>>();
+  for (const { posts } of sorted) {
+    allPosts.set(getPostSlug(posts.zh), posts.zh);
+  }
+
+  return sorted.map(({ slug, posts }, index) => {
+    const relatedSlugs = posts.zh.data.related ?? [];
+    const relatedPosts = relatedSlugs
+      .map((s) => allPosts.get(s))
+      .filter((p): p is CollectionEntry<'posts'> => p !== undefined);
+
+    return {
+      params: { slug },
+      props: {
+        post: posts.zh,
+        alternatePath: postUrl('en', slug),
+        prev: index < sorted.length - 1 ? sorted[index + 1].posts.zh : undefined,
+        next: index > 0 ? sorted[index - 1].posts.zh : undefined,
+        relatedPosts
+      }
+    };
+  });
 }
 
-const { post, alternatePath } = Astro.props;
+const { post, alternatePath, prev, next, relatedPosts } = Astro.props;
 const { Content, remarkPluginFrontmatter } = await render(post);
 ---
 
-<PostLayout post={post} alternatePath={alternatePath} remarkPluginFrontmatter={remarkPluginFrontmatter}>
+<PostLayout post={post} alternatePath={alternatePath} remarkPluginFrontmatter={remarkPluginFrontmatter} prev={prev} next={next} relatedPosts={relatedPosts}>
   <Content />
 </PostLayout>

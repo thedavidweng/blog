@@ -6,7 +6,7 @@ description: "A beginner's guide to common churning abbreviations and slang — 
 publishedDate: 2026-05-03
 tags:
   - Finance
-draft: no
+draft: false
 ---
 
 ## The Basics

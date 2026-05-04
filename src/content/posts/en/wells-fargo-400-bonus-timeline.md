@@ -6,6 +6,8 @@ description: "Opened alongside U.S. Bank during the same Seattle trip. Used SoFi
 publishedDate: 2026-05-03
 tags:
   - Finance
+related:
+  - churning-slang
 draft: false
 ---
 

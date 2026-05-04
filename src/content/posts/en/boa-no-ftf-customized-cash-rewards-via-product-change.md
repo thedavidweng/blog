@@ -7,6 +7,8 @@ publishedDate: 2026-05-04
 tags:
   - Finance
 draft: false
+related:
+  - churning-slang
 ---
 
 Bank of America's Customized Cash Rewards lets you pick one category for 3% back — online shopping, dining, gas, travel, drugstores, or home improvement. But the card itself carries a 3% foreign transaction fee. Not great for non-USD spending.
@@ -56,7 +58,3 @@ Cards product changed to Customized Cash Rewards usually keep the original card 
 - [Bank of America Customized Cash Rewards credit card overview](https://www.uscreditcardguide.com/boa-cash-rewards/) (Chinese)
 - [Bank of America FTF avoidance trick: product change from a no-FTF card](https://www.uscreditcardguide.com/boa-credit-card-no-ftf-by-product-changing/) (Chinese)
 - [Bank of America product change / credit limit guide](https://www.uscardforum.com/t/topic/3626) (Chinese)
-
-## Reference
-
-- [Churning Community Slang 101](/posts/churning-slang/)

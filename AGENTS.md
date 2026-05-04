@@ -30,6 +30,7 @@ pnpm test:dist      # build output contract test
 - **YAML 1.2 boolean pitfall**: Only `true`/`false`/`True`/`False`/`TRUE`/`FALSE` are booleans. `no`/`yes`/`on`/`off` are strings and will cause `z.boolean()` validation to fail. **Write `draft: false`, not `draft: no`**.
 - Posts with `draft: true` are excluded from translation pairing checks.
 - Tags must be registered in `siteConfig.tags` in `src/site.config.ts`.
+- **Related posts**: Use `related: [slug1, slug2]` in frontmatter to link related posts — do **not** add manual link sections at the end of post body. The `related` field is defined in `src/content.config.ts`.
 
 ## Code Style
 

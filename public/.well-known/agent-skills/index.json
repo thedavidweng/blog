@@ -1,0 +1,26 @@
+{
+  "$schema": "https://schemas.agentskills.io/discovery/0.2.0/schema.json",
+  "skills": [
+    {
+      "name": "ag-md",
+      "type": "skill-md",
+      "description": "Project conventions, commands, post conventions, code style, and deployment info for the David Blog Astro site on Cloudflare Pages.",
+      "url": "https://thedavidweng.github.io/AGENTS.md",
+      "digest": "sha256:af10d58380a40242438c00737a1806bd37c74b69d174c2251260b7e41394f153"
+    },
+    {
+      "name": "llms-txt",
+      "type": "skill-md",
+      "description": "AI-optimized site overview with description, recent posts, projects, and links for LLM consumption.",
+      "url": "/llms.txt",
+      "digest": "sha256:e89858c168ca5a047d157aad2641775e6ac21fb9e021523ff76579d47cff918e"
+    },
+    {
+      "name": "llms-full-txt",
+      "type": "skill-md",
+      "description": "Extended AI knowledge base with content areas, writing principles, tags, tech stack, and site structure.",
+      "url": "/llms-full.txt",
+      "digest": "sha256:6ab5c7b88ff29a66fe8d537c638fb25ae822b3d577e4db31555186ba21cd062d"
+    }
+  ]
+}

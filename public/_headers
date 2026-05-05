@@ -1,0 +1,19 @@
+# Link headers for agent discovery (RFC 8288)
+# Homepage - point agents to machine-readable resources
+/
+  Link: </llms.txt>; rel="describedby"; type="text/plain"; title="LLMs.txt"
+  Link: </llms-full.txt>; rel="describedby"; type="text/plain"; title="LLMs Full"
+  Link: </robots.txt>; rel="describedby"; type="text/plain"; title="Robots Exclusion"
+  Link: </.well-known/agent-skills/index.json>; rel="describedby"; type="application/json"; title="Agent Skills"
+
+# Markdown for Agents - content negotiation
+# When agents request text/markdown, serve the appropriate markdown variant
+/llms.txt
+  Content-Type: text/plain; charset=utf-8
+
+/llms-full.txt
+  Content-Type: text/plain; charset=utf-8
+
+# Well-known endpoints - ensure correct content types
+/.well-known/agent-skills/index.json
+  Content-Type: application/json; charset=utf-8

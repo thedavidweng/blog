@@ -1,0 +1,4 @@
+# IndexNow Key File
+# Register your key at: https://www.bing.com/indexnow
+# Then replace this placeholder with your actual key
+# After registering, delete this comment and keep only the key value

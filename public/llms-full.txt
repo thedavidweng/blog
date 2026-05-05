@@ -1,0 +1,60 @@
+# David Blog - AI Knowledge Base
+
+> A bilingual (English/Chinese) blog about technology, finance, design, and productivity.
+
+## About
+
+David is a developer based in Vancouver, Canada. The blog documents explorations in tech tools, financial products, and creative work — sharing discoveries, workflows, and honest evaluations.
+
+## Content Areas
+
+### Tools & Workflows
+Hands-on reviews of software, CLI utilities, and productivity systems. Real-world testing with specific use cases, installation instructions, and honest pros/cons.
+
+### Finance & Banking
+Guides on Canadian and international banking products, credit card strategies, and financial tools. Focus on international students and new residents in Canada. Banks covered include HSBC, TD, BoA, Wells Fargo, and more.
+
+### Design & Animation
+Analysis of animation series, films, and visual media. Storytelling techniques, cultural context, and visual design assessment.
+
+### Writing & Typography
+Style guides for mixed-language (Chinese-English) writing. Spaces between text, punctuation usage, proper capitalization, and date/currency formatting.
+
+### Projects
+Documentation of personal software projects.
+
+## Writing Principles
+
+1. **Specificity over generality** — Real data, concrete examples, step-by-step details
+2. **Data-driven analysis** — Claims supported by real-world testing
+3. **Honest evaluation** — Both pros and cons presented
+4. **Bilingual consideration** — English versions tend to be more comprehensive; translations preserve original tone
+
+## Tags
+
+Animation, CLI, Experience, Finance, Games, Info, LLM-free, Reprint, Screen, Thoughts, Tools, Translated, Writing, Workflow
+
+## Technical Stack
+
+- Astro (static site generator)
+- Cloudflare Pages
+- TypeScript, Markdown
+- Tailwind CSS
+
+## Site Structure
+
+- `/posts/` — Blog posts (en/, zh/)
+- `/tags/` — Posts by tag
+- `/about/` — About page
+- `/my-referral-codes/` — Financial referral codes
+
+## External Profiles
+
+- GitHub: github.com/thedavidweng
+- X/Twitter: x.com/thedavidweng
+- LinkedIn: linkedin.com/in/thedavidweng/
+- Portfolio: davidweng.eu.org/
+
+---
+
+*For the latest posts, check the sitemap.*

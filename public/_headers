@@ -6,8 +6,7 @@
   Link: </robots.txt>; rel="describedby"; type="text/plain"; title="Robots Exclusion"
   Link: </.well-known/agent-skills/index.json>; rel="describedby"; type="application/json"; title="Agent Skills"
 
-# Markdown for Agents - content negotiation
-# When agents request text/markdown, serve the appropriate markdown variant
+# Markdown for Agents — handled by functions/_middleware.ts (dynamic Accept header negotiation)
 /llms.txt
   Content-Type: text/plain; charset=utf-8
 

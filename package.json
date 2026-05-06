@@ -36,6 +36,7 @@
     "sanitize-filename": "^1.6.4",
     "tailwindcss": "^4.2.4",
     "tocbot": "^4.36.6",
+    "turndown": "^7.2.4",
     "unist-util-visit": "^5.1.0"
   },
   "devDependencies": {
@@ -45,6 +46,7 @@
     "@types/he": "^1.2.3",
     "@types/mdast": "4.0.4",
     "@types/probe-image-size": "7.2.5",
+    "@types/turndown": "^5.0.6",
     "tsx": "^4.21.0",
     "typescript": "^6.0.3",
     "wrangler": "^4.87.0"

@@ -10,7 +10,7 @@ tags:
   - Workflow
 draft: false
 related:
-  - "how-i-replaced-document-creation-with-three-cli-tools"
+  - support-explicit-over-auto-detection-lyric-romanizer
 ---
 
 [OpenKara](https://github.com/thedavidweng/OpenKara) is an open-source karaoke app I'm building with Tauri 2 + React + TypeScript. The core feature is separating vocals from a track and displaying synchronized lyrics. Recently I've been working on: CJK Transliteration.

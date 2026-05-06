@@ -11,7 +11,7 @@ tags:
 draft: false
 ---
 
-![FedEx tracking status screenshot](/posts/fedex-stole-package-banned-account/fedex-tracking-screenshot.avif)
+![FedEx delivery scene](/posts/fedex-stole-package-banned-account/fedex-drivers-belike.avif)
 
 ## Beginning
 
@@ -24,13 +24,13 @@ On February 19, because my friend and I planned to go to Seattle on February 25-
 
 ## Development
 
-![FedEx delivery photo with Mac Studio](/posts/fedex-stole-package-banned-account/fedex-mac-studio-delivered-photo.avif)
+![FedEx Transaction Record](/posts/fedex-stole-package-banned-account/fedex-mac-studio-delivered-photo.avif)
 
 So I created such a shipping order, with my friend as Sender and me as Recipient, and checked "Hold at FedEx location", letting my friend go to FedEx's site to ship it. Strangely, until I finished creating the Shipping Label, FedEx did not ask me to choose a payment method.
 
 My friend and I thought they would pay after weighing at the site, but when they arrived at the site, they didn't ask my friend to pay. They took the package and gave a receipt like this.
 
-![FedEx Office receipt — Forbes Ave](/posts/fedex-stole-package-banned-account/fedex-forbes-ave-address.avif)
+![FedEx Office receipt](/posts/fedex-stole-package-banned-account/fedex-forbes-ave-address.avif)
 
 ## Transition
 

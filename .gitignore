@@ -12,3 +12,4 @@ blog-*.png
 !.env.example
 npm-debug.log*
 .DS_Store
+.commandcode/

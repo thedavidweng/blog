@@ -1,5 +1,5 @@
 ---
-title: "lyric-romanizer：别造轮子"
+title: "lyric-romanizer Pt. 1：别造轮子"
 locale: zh
 slug: "stop-reinventing-the-wheel-lyric-romanizer"
 description: "OpenKara 需要支持中日韩歌词罗马化，调研途中发现了 Spotify Karaoke 扩展里的现成引擎。一次 GitHub Issue 之后，我把它拆成了独立 npm 包 lyric-romanizer，支持 12 种本地语言罗马化和 4 种在线语言罗马化。"

@@ -25,11 +25,11 @@ Jyutping 转换本身不是问题，[to-jyutping](https://github.com/CanCLID/to-
 
 一开始的想法是构建一个类似 [pinyin-pro](https://github.com/zh-lx/pinyin-pro) 的库，但服务对象是粤语，把中文文本快速转换成 Jyutping。我本身不是粤语使用者，所以希望复用权威标准，做出一个像 pinyin-pro 一样快速通用的基础设施。
 
-我把 rime-cantonese 和 inject-jyutping 浏览器插件的源码都附上，问 ChatGPT：
+我把找到的 [rime-cantonese](https://github.com/rime/rime-cantonese) 和 [inject-jyutping](https://github.com/CanCLID/inject-jyutping) 浏览器插件的源码都附上，问 ChatGPT：
 
 > pinyin-pro 是基于一套词库工作的吗？能否用相同逻辑映射来实现粤语 Jyutping 的效果？rime-cantonese 和 inject-jyutping 有已经做好的词库吗？可以直接用吗？这两个解决方案背后的原理相同吗？有明显更好的一个吗？
 
-结论是：pinyin-pro 的核心确实是词库 + 匹配逻辑，不是语言理解推理。rime-cantonese 有现成的字表和词表，数据质量够用。inject-jyutping 本身更像浏览器插件，它真正依赖的是 to-jyutping。
+结论是：pinyin-pro 的核心确实是词库 + 匹配逻辑，不是语言理解推理。rime-cantonese 有现成的字表和词表，数据质量够用。而 inject-jyutping 实际依赖的是 [to-jyutping](https://github.com/CanCLID/to-jyutping) 库。
 
 如果要做一个 pinyin-pro 风格的 Jyutping 库，rime-cantonese 的数据可以作为底层词库。
 

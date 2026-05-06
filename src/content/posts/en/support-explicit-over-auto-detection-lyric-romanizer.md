@@ -25,7 +25,7 @@ Jyutping conversion itself is not the problem — [to-jyutping](https://github.c
 
 The initial idea was to build a library similar to [pinyin-pro](https://github.com/zh-lx/pinyin-pro), but targeting Cantonese — quickly converting Chinese text to Jyutping. I'm not a Cantonese speaker myself, so I wanted to reuse an authoritative standard and build fast, general-purpose infrastructure like pinyin-pro.
 
-I attached the source code of rime-cantonese and the inject-jyutping browser extension, and asked ChatGPT:
+I attached the source code of [rime-cantonese](https://github.com/rime/rime-cantonese) and [inject-jyutping](https://github.com/CanCLID/inject-jyutping) browser extension, and asked ChatGPT:
 
 > Is pinyin-pro based on a dictionary? Can the same logic be mapped to achieve Jyutping output for Cantonese? Do rime-cantonese and inject-jyutping have ready-made dictionaries? Can they be used directly? Do these two solutions share the same underlying principle? Is one clearly better?
 

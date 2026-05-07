@@ -16,31 +16,25 @@ const tocTitle = locale === 'zh' ? '目录' : 'Table of Contents';
 <script>
   import tocbot from 'tocbot';
 
-  // Initialize tocbot
-  tocbot.init({
-    // Where to render the table of contents.
-    tocSelector: '.js-toc',
-    // Where to grab the headings to build the table of contents.
-    contentSelector: '.prose',
-    // Which headings to grab inside of the contentSelector element.
-    headingSelector: 'h2, h3, h4',
-    // For headings inside relative or absolute positioned containers within content.
-    hasInnerContainers: true,
-    // Smooth scroll
-    scrollSmooth: true,
-    scrollSmoothDuration: 420,
-    // Class added to active links
-    activeLinkClass: 'is-active-link',
-    // Class added to list items
-    listItemClass: 'toc-list-item',
-    // Class added to links
-    linkClass: 'toc-link text-sm text-zinc-500 hover:text-accent dark:text-zinc-400 dark:hover:text-accent transition-colors',
-    // Collapse deeper levels
-    collapseDepth: 6,
-    // Headings offset for sticky headers/padding
-    headingsOffset: 86,
-    scrollSmoothOffset: -86,
-  });
+  function initToc() {
+    tocbot.destroy();
+    tocbot.init({
+      tocSelector: '.js-toc',
+      contentSelector: '.prose',
+      headingSelector: 'h2, h3, h4',
+      hasInnerContainers: true,
+      scrollSmooth: true,
+      scrollSmoothDuration: 420,
+      activeLinkClass: 'is-active-link',
+      listItemClass: 'toc-list-item',
+      linkClass: 'toc-link text-sm text-zinc-500 hover:text-accent dark:text-zinc-400 dark:hover:text-accent transition-colors',
+      collapseDepth: 6,
+      headingsOffset: 86,
+      scrollSmoothOffset: -86,
+    });
+  }
+
+  document.addEventListener('astro:page-load', initToc);
 </script>
 
 <style is:global>

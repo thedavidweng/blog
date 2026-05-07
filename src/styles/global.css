@@ -223,6 +223,7 @@ button {
   display: flex;
   gap: 10px;
   contain: layout style;
+  transform: translateZ(0);
 }
 
 .icon-button {

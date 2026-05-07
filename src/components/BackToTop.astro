@@ -13,23 +13,31 @@ const label = locale === 'zh' ? '回到顶部' : 'Back to top';
   <ChevronUp size={22} stroke-width={2.25} aria-hidden="true" />
 </button>
 
-<script is:inline data-astro-rerun>
-  const btn = document.querySelector('[data-back-to-top]');
-  if (!btn) {
-    console.warn('[back-to-top] button not found');
-  } else {
-    const threshold = 360;
-    const mqReduce = window.matchMedia('(prefers-reduced-motion: reduce)');
+<script is:inline>
+  (function() {
+    let scrollHandler;
+    const btn = document.querySelector('[data-back-to-top]');
+    if (!btn) return;
 
-    const toggle = () => {
-      btn.classList.toggle('back-to-top--visible', window.scrollY > threshold);
-    };
+    function setup() {
+      if (scrollHandler) window.removeEventListener('scroll', scrollHandler);
 
-    toggle();
-    window.addEventListener('scroll', toggle, { passive: true });
+      const threshold = 360;
+
+      scrollHandler = () => {
+        btn.classList.toggle('back-to-top--visible', window.scrollY > threshold);
+      };
+
+      scrollHandler();
+      window.addEventListener('scroll', scrollHandler, { passive: true });
+    }
 
     btn.addEventListener('click', () => {
-      window.scrollTo({ top: 0, behavior: mqReduce.matches ? 'auto' : 'smooth' });
+      const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+      window.scrollTo({ top: 0, behavior: reduce ? 'auto' : 'smooth' });
     });
-  }
+
+    document.addEventListener('astro:page-load', setup);
+    setup();
+  })();
 </script>

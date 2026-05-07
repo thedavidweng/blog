@@ -13,8 +13,8 @@ const label = locale === 'zh' ? '回到顶部' : 'Back to top';
   <ChevronUp size={22} stroke-width={2.25} aria-hidden="true" />
 </button>
 
-<script>
-  const btn = document.querySelector<HTMLButtonElement>('[data-back-to-top]');
+<script is:inline data-astro-rerun>
+  const btn = document.querySelector('[data-back-to-top]');
   if (!btn) {
     console.warn('[back-to-top] button not found');
   } else {

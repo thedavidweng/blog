@@ -102,12 +102,15 @@ const jsonLd = {
   <script>
     import mediumZoom from 'medium-zoom';
     
-    const images = document.querySelectorAll('.prose img');
-    
-    mediumZoom(images, {
-      margin: 24,
-      background: 'var(--bg)'
-    });
+    function initMediumZoom() {
+      const images = document.querySelectorAll('.prose img');
+      mediumZoom(images, {
+        margin: 24,
+        background: 'var(--bg)'
+      });
+    }
+
+    document.addEventListener('astro:page-load', initMediumZoom);
   </script>
   )}
 </BaseLayout>

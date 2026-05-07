@@ -30,7 +30,7 @@ const socialIcons = {
 };
 ---
 
-<aside class="site-sidebar">
+<aside class="site-sidebar" transition:persist="sidebar">
   <div class="sidebar-inner">
     <a class="brand" href={localizedPath(locale)} aria-label={siteConfig.name}>
       <span class="brand-mark">
@@ -85,7 +85,7 @@ const socialIcons = {
   </div>
 </aside>
 
-<div class="toolbar" role="group" aria-label={toolbarLandmark}>
+<div class="toolbar" role="group" transition:persist="toolbar" aria-label={toolbarLandmark}>
   <button class="icon-button" type="button" data-theme-toggle aria-label={themeLabel} title={themeLabel}>
     <Sun class="theme-light" size={22} />
     <Moon class="theme-dark" size={22} />

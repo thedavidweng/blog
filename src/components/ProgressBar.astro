@@ -5,7 +5,7 @@
   <div id="reading-progress-bar" class="h-full bg-accent w-0 transition-all duration-150 ease-out"></div>
 </div>
 
-<script>
+<script is:inline data-astro-rerun>
   function updateProgress() {
     const winScroll = document.body.scrollTop || document.documentElement.scrollTop;
     const height = document.documentElement.scrollHeight - document.documentElement.clientHeight;

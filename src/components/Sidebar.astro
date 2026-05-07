@@ -96,6 +96,16 @@ const socialIcons = {
 </div>
 
 <script>
+  function updateActiveNav() {
+    const current = location.pathname.replace(/\/+$/, '') || '/';
+    document.querySelectorAll('.nav-link').forEach((link) => {
+      const href = link instanceof HTMLAnchorElement ? new URL(link.href).pathname.replace(/\/+$/, '') || '/' : '';
+      link.setAttribute('aria-current', href === current ? 'page' : 'false');
+    });
+  }
+
+  document.addEventListener('astro:after-swap', updateActiveNav);
+
   const root = document.documentElement;
   const themeButton = document.querySelector('[data-theme-toggle]');
   themeButton?.addEventListener('click', () => {

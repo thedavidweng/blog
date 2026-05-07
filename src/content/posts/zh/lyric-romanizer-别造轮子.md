@@ -60,7 +60,7 @@ Perplexity 帮我整理了主流的几个方案。
 
 <figure>
   <img src="/posts/stop-reinventing-the-wheel-lyric-romanizer/stop-reinventing-the-wheel-lyric-romanizer-github-issue-resolved.avif" alt="GitHub Issue #3 关闭截图：lyric-romanizer 发布" />
-  <figcaption>Issue 关闭：lyric-romanizer 发布成</figcaption>
+  <figcaption>Issue 关闭：lyric-romanizer 发布</figcaption>
 </figure>
 
 ## 复盘

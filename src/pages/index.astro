@@ -7,17 +7,43 @@ import { absoluteUrl, siteConfig } from '../site.config';
 
 const locale = 'en';
 const posts = await getPublishedPosts(locale);
+const siteUrl = absoluteUrl('/');
+const socialUrls = siteConfig.social
+  .filter(s => ['GitHub', 'LinkedIn', 'X'].includes(s.label))
+  .map(s => s.href);
 const jsonLd = {
   '@context': 'https://schema.org',
-  '@type': 'Blog',
-  name: siteConfig.name,
-  description: siteConfig.description[locale],
-  url: absoluteUrl('/'),
-  author: {
-    '@type': 'Person',
-    name: siteConfig.author
-  },
-  inLanguage: 'en'
+  '@graph': [
+    {
+      '@type': 'Blog',
+      name: siteConfig.name,
+      description: siteConfig.description[locale],
+      url: siteUrl,
+      author: {
+        '@type': 'Person',
+        name: siteConfig.author
+      },
+      inLanguage: 'en'
+    },
+    {
+      '@type': 'Organization',
+      name: siteConfig.name,
+      url: siteUrl,
+      logo: absoluteUrl('/android-chrome-512x512.png'),
+      sameAs: socialUrls
+    },
+    {
+      '@type': 'Person',
+      name: siteConfig.author,
+      url: siteUrl,
+      sameAs: socialUrls
+    },
+    {
+      '@type': 'WebSite',
+      name: siteConfig.name,
+      url: siteUrl
+    }
+  ]
 };
 ---
 

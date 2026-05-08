@@ -1,11 +1,24 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
-import { siteConfig } from '../site.config';
+import { absoluteUrl, siteConfig } from '../site.config';
 
 const locale = 'en';
+const jsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'AboutPage',
+  name: `About ${siteConfig.author}`,
+  description: `About ${siteConfig.author}.`,
+  url: absoluteUrl('/about/'),
+  about: {
+    '@type': 'Person',
+    name: siteConfig.author,
+    url: absoluteUrl('/')
+  },
+  inLanguage: 'en'
+};
 ---
 
-<BaseLayout locale={locale} title="About" description={`About ${siteConfig.author}.`} path="/about/" alternatePath="/zh/about/" active="about">
+<BaseLayout locale={locale} title="About" description={`About ${siteConfig.author}.`} path="/about/" alternatePath="/zh/about/" active="about" jsonLd={jsonLd}>
   <section class="content-wrap">
     <header class="hero">
       <h1>About</h1>

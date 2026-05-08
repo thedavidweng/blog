@@ -1,11 +1,24 @@
 ---
 import BaseLayout from '../../layouts/BaseLayout.astro';
-import { siteConfig } from '../../site.config';
+import { absoluteUrl, siteConfig } from '../../site.config';
 
 const locale = 'zh';
+const jsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'AboutPage',
+  name: `关于 ${siteConfig.author}`,
+  description: `关于 ${siteConfig.author}。`,
+  url: absoluteUrl('/zh/about/'),
+  about: {
+    '@type': 'Person',
+    name: siteConfig.author,
+    url: absoluteUrl('/')
+  },
+  inLanguage: 'zh-CN'
+};
 ---
 
-<BaseLayout locale={locale} title="关于" description={`关于 ${siteConfig.author}。`} path="/zh/about/" alternatePath="/about/" active="about">
+<BaseLayout locale={locale} title="关于" description={`关于 ${siteConfig.author}。`} path="/zh/about/" alternatePath="/about/" active="about" jsonLd={jsonLd}>
   <section class="content-wrap">
     <header class="hero">
       <h1>关于</h1>

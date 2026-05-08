@@ -38,6 +38,12 @@ pnpm test:dist      # build output contract test
 - Use full-width punctuation for Chinese text, half-width for English.
 - Preserve correct capitalization for proper nouns (SafePal, Wealthsimple, etc.).
 
+## OG Images
+
+OG images are generated at build time by `astro-og-canvas` and output to `dist/og/` — they are **not** committed to `public/og/`. The `public/og/` directory is empty by design. Do NOT report OG images as missing just because `public/og/` is empty; check `dist/og/` instead.
+
+Generation code lives in `src/pages/og/[...slug].ts` (EN) and `src/pages/zh/og/[...slug].ts` (ZH). Uses CanvasKit WASM for rendering. Images are served statically by Cloudflare Pages CDN at `/og/<slug>.png`.
+
 ## Deployment
 
 Pushing to `main` triggers Cloudflare Pages automatic deployment.

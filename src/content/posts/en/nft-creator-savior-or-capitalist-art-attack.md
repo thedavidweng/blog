@@ -15,7 +15,7 @@ draft: true
 
 Whether you are interested in digital currency or not, the term **blockchain** always appears when surfing the internet. Since this is not the focus of this short article, you can just understand blockchain as the corner of the blackboard in your high school classroom. Anyone can doodle on it, but unless the person involved admits it, no one can know who drew those things that are not presentable. And you can't boast that you drew the Mona Lisa without evidence, because what has appeared on the blackboard can only be acknowledged if everyone has seen it. Your word alone doesn't count.
 
-![mona lisa blackboard](/posts/nft-creator-savior-or-capitalist-art-attack/mona-lisa-blackboard.avif)
+![Blackboard sketch of Mona Lisa](/posts/nft-creator-savior-or-capitalist-art-attack/mona-lisa-blackboard.avif)
 
 Blackboard drawing of Mona Lisa
 
@@ -58,3 +58,4 @@ Citing reports from game media Kotaku, employees at Ubisoft expressed the follow
 Is NFT the best means for creators to make a living? I don't know, because before this, there were some profit-making methods more targeted at creators, such as Patreon and OnlyFans. These platforms provide a way for content creators' audiences to directly support creators, paying subscriptions to get content, and subscription fees are entirely decided by the creator. NFT is more like digital currency. Its price is determined not only by its own value, but also by the market. In the early days of NFT, you can see too much digital garbage being sold at prices completely mismatched with their value because of excellent marketing and concept hype. This undoubtedly brings a smell of copper to art creation.
 
 Whether NFT is the savior of creators or another attack on art by capital, let time verify the answer to this question.
+ this question.

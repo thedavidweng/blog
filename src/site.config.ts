@@ -44,7 +44,11 @@ export const siteConfig = {
   tags: {
     Animation: {
       en: 'Animation',
-      zh: '动画' 
+      zh: '动画'
+    },
+    Automation: {
+      en: 'Automation',
+      zh: '自动化'
     },
     CLI: {
       en: 'CLI',

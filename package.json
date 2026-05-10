@@ -60,10 +60,7 @@
     ],
     "overrides": {
       "yaml-language-server>yaml": "2.8.4",
-      "yaml": "2.8.4",
-      "fast-xml-builder": ">=1.1.7",
-      "fast-uri": ">=3.1.2",
-      "fast-xml-parser": ">=5.2.0"
+      "yaml": "2.8.4"
     }
   }
 }

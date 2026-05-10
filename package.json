@@ -20,8 +20,8 @@
     "@astrojs/sitemap": "^3.7.2",
     "@fortawesome/free-brands-svg-icons": "^7.2.0",
     "@lucide/astro": "^1.14.0",
-    "@tailwindcss/vite": "^4.2.4",
-    "astro": "^6.2.2",
+    "@tailwindcss/vite": "^4.3.0",
+    "astro": "^6.3.1",
     "astro-expressive-code": "^0.42.0",
     "astro-og-canvas": "^0.11.1",
     "canvaskit-wasm": "0.41.1",
@@ -34,7 +34,7 @@
     "reading-time": "^1.5.0",
     "rehype-slug": "^6.0.0",
     "sanitize-filename": "^1.6.4",
-    "tailwindcss": "^4.2.4",
+    "tailwindcss": "^4.3.0",
     "tocbot": "^4.36.6",
     "turndown": "^7.2.4",
     "unist-util-visit": "^5.1.0"
@@ -49,7 +49,7 @@
     "@types/turndown": "^5.0.6",
     "tsx": "^4.21.0",
     "typescript": "^6.0.3",
-    "wrangler": "^4.87.0"
+    "wrangler": "^4.90.0"
   },
   "packageManager": "pnpm@10.33.2",
   "pnpm": {

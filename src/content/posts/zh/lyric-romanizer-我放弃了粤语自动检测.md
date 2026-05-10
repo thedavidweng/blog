@@ -43,7 +43,7 @@ Jyutping 转换本身不是问题，[to-jyutping](https://github.com/CanCLID/to-
 
 这个阶段我决定：先集成 to-jyutping，不重新造轮子。
 
-## 三、真正的问题浮出水面：繁体中文 ≠ 粤语
+## 三、问题浮出水面：繁体中文 ≠ 粤语
 
 繁体中文不等于粤语。
 

@@ -90,12 +90,11 @@ export const GET: APIRoute = () =>
       'Content-Signal: ai-train=no, search=yes, ai-input=no',
       'Allow: /',
       '',
-      '# ============================================',
-      '# Sitemap',
-      '# ============================================',
-      '',
-      `Sitemap: ${absoluteUrl('/sitemap-index.xml')}`,
-      `Sitemap: ${absoluteUrl('/llms.txt')}`
+      `# ============================================`,
+      `# Sitemap`,
+      `# ============================================`,
+      ``,
+      `Sitemap: ${absoluteUrl('/sitemap-index.xml')}`
     ].join('\n'),
     {
       headers: {

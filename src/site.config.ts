@@ -126,7 +126,7 @@ export const siteConfig = {
     },
     {
       label: 'Homepage',
-      href: 'https://thedavidweng.github.io/',
+      href: 'https://blog.blahaj.uk/',
       icon: 'home'
     }
   ],

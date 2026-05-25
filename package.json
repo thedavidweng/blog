@@ -47,7 +47,7 @@
     "@types/mdast": "4.0.4",
     "@types/probe-image-size": "7.2.5",
     "@types/turndown": "^5.0.6",
-    "tsx": "^4.21.0",
+    "tsx": "^4.22.3",
     "typescript": "^6.0.3",
     "wrangler": "^4.92.0"
   },

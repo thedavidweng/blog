@@ -15,7 +15,7 @@
     "deploy": "wrangler pages deploy ./dist"
   },
   "dependencies": {
-    "@astrojs/mdx": "^5.0.4",
+    "@astrojs/mdx": "^5.0.6",
     "@astrojs/rss": "^4.0.18",
     "@astrojs/sitemap": "^3.7.2",
     "@fortawesome/free-brands-svg-icons": "^7.2.0",

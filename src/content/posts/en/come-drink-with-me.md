@@ -1,7 +1,6 @@
 ---
 title: "Come Drink with Me: The Foundation of Shaw Brothers Martial Arts Cinema"
 locale: en
-
 description: "Come Drink with Me - Hu Jinquan's first martial arts film and the pioneering work of Shaw Brothers' new school of martial arts cinema. Its status and significance are naturally monumental. In 1966, such a color martial arts film was groundbreaking, but fifty-six years later, does it still hold viewing value?"
 publishedDate: 2022-01-16
 tags:

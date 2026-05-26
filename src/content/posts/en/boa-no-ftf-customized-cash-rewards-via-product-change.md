@@ -1,7 +1,6 @@
 ---
 title: "How to get a no annual fee, no FTF, 3% custom category credit card"
 locale: en
-
 description: "Bank of America product changes preserve the original card's no-FTF benefit. Apply for Travel Rewards first, then PC to Customized Cash Rewards after a year — and you get a no-AF, no-FTF, 3% custom category card."
 publishedDate: 2026-05-04
 tags:

@@ -1,6 +1,5 @@
 ---
 title: "轻量优雅的备份方式：dotfiles"
-
 description: "每次换新机器都要花半天重新配置软件和设置，现在一条命令搞定。"
 publishedDate: 2026-05-08
 tags:

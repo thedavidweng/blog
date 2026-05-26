@@ -1,7 +1,6 @@
 ---
 title: "NFT 是创作者救星还是资本对艺术的进攻"
 locale: zh
-
 description: "NFT 究竟是创作者的救星还是资本对艺术的又一次进攻，这个问题的答案还是交给时间去验证吧。"
 publishedDate: 2021-12-25
 tags:

@@ -1,7 +1,6 @@
 ---
 title: "超级马里奥中的云"
 locale: zh
-
 description: "Cory Arcangel 在 2002 年制作的艺术品Super Mario Clouds使用了一张真正的任天堂 NES 卡带，在卡带上进行了硬件修改移除了除了云朵和蓝天以外的所有内容。"
 publishedDate: 2022-03-24
 tags:

@@ -1,6 +1,5 @@
 ---
 title: "Dotfiles, Part 2: Managing Cross-Machine Config and Secrets with Chezmoi"
-
 description: "Moving from Dotbot to Chezmoi — layered management of shared config, machine-local overrides, and secrets."
 publishedDate: 2026-05-19
 tags:

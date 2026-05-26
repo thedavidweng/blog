@@ -1,8 +1,6 @@
 ---
 title: "案例：Wells Fargo $400 开户奖时间线"
 locale: zh
-
-
 description: "与 U.S. Bank 同一趟旅程开出的第二个账户，用 SoFi 和 U.S. Bank 做 Fake DD 完成 $3,000 存款要求。"
 publishedDate: 2026-05-03
 tags:

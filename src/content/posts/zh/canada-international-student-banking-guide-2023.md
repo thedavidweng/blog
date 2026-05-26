@@ -1,7 +1,6 @@
 ---
 title: "加拿大留学生银行账户/银行卡全能入门指南 2023"
 locale: zh
-
 description: "个人经验总结的加拿大留学生基础银行账户/银行卡知识。"
 publishedDate: 2023-06-09
 tags:

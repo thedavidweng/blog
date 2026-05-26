@@ -1,7 +1,6 @@
 ---
 title: "如何获得一张无年费、无外币转换费、3% 自选类别返现的信用卡"
 locale: zh
-
 description: "BOA 转卡会保留原卡的无 FTF 福利。先申请 Travel Rewards，一年后转为 Customized Cash Rewards，得到一张无年费、无 FTF、自选 3% 类别返现信用卡。"
 publishedDate: 2026-05-04
 tags:

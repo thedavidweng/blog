@@ -1,7 +1,6 @@
 ---
 title: "厕所难题"
 locale: zh
-
 description: "独立游戏设计师 Steven Harmon 在 2017 年创建了一个叫做厕所游戏研究Toilet Game Studies的网站"
 publishedDate: 2022-01-26
 tags:

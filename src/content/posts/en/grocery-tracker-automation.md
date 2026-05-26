@@ -1,7 +1,6 @@
 ---
 title: "Building an Automated Grocery Tracker with Agent + Notion API"
 locale: en
-
 description: "I have a bad memory. I buy the same things twice and forget expiration dates. My solution: a Notion database with an automation pipeline."
 publishedDate: 2026-05-08
 tags:

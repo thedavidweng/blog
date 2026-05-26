@@ -1,7 +1,6 @@
 ---
 title: "Clouds in Super Mario"
 locale: en
-
 description: "Cory Arcangel's 2002 artwork Super Mario Clouds uses a real Nintendo NES cartridge, with hardware modifications made to the cartridge to remove all content except the clouds and blue sky."
 publishedDate: 2022-03-24
 tags:

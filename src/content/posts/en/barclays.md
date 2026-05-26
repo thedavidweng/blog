@@ -1,7 +1,6 @@
 ---
 title: "Barclays"
 locale: en
-
 description: "Barclays"
 publishedDate: 2024-09-05
 tags:

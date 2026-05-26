@@ -1,7 +1,6 @@
 ---
 title: "案例：AMEX Checking $300 开户奖时间线"
 locale: zh
-
 description: "用 ITIN 线上开户，Wise 备注 payroll 做 fake DD 完成 $300 存款要求，当天到账。"
 publishedDate: 2026-05-25
 tags:

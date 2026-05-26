@@ -1,7 +1,6 @@
 ---
 title: "【24/06/31 截止】免费领取硬件钱包 SafePal X1"
 locale: zh
-
 description: "免费领取一个加密货币硬件钱包的流程"
 publishedDate: 2024-06-24
 tags:

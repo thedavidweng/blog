@@ -1,7 +1,6 @@
 ---
 title: "Aliyun Drive Desktop Beta Early Experience"
 locale: en
-
 description: "Aliyun Drive is Alibaba's second attempt to join the cloud storage war after Kupan. This time it carries the Alibaba prefix, symbolizing the determination to pour resources and its high internal status."
 publishedDate: 2021-04-15
 tags:

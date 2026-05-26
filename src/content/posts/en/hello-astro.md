@@ -1,7 +1,6 @@
 ---
 title: "Building a fast static blog with Astro"
 locale: en
-
 description: "A minimal bilingual blog that keeps content in Git, ships static HTML, and generates Open Graph images at build time."
 publishedDate: 2026-04-30
 tags:

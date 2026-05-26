@@ -1,6 +1,5 @@
 ---
 title: "dotfiles 进阶篇：用 Chezmoi 管理跨机器配置与密钥"
-
 description: "从 Dotbot 迁移到 Chezmoi，把公共配置、机器私有配置、密钥分层管理。"
 publishedDate: 2026-05-19
 tags:

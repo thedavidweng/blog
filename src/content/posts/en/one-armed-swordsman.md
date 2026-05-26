@@ -1,7 +1,6 @@
 ---
 title: "One-Armed Swordsman: Adapting to the Times, Leading the Trend"
 locale: en
-
 description: "Chang Cheh made changes that adapted to the times in theme, absorbed Shaw Brothers' years of filming experience and budget-saving techniques in form, and in fact led the trend of similar films."
 publishedDate: 2022-01-23
 tags:

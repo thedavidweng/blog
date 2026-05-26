@@ -1,7 +1,6 @@
 ---
 title: "HSBC UK/AU Global Transfer to Maintain Premier Status"
 locale: en
-
 description: "Without an Australian local bank account, use HSBC UK's AUD account and Global Transfer to complete the monthly A$9,000 deposit requirement and maintain HSBC AU Premier."
 publishedDate: 2026-05-03
 tags:

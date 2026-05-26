@@ -1,7 +1,6 @@
 ---
 title: "lyric-romanizer Pt. 1: Stop Reinventing the Wheel"
 locale: en
-
 description: "OpenKara needed CJK lyric romanization. While researching, I found a ready-made engine inside the Spotify Karaoke Chrome extension. One GitHub Issue later, I extracted it into a standalone npm package — lyric-romanizer — supporting 12 native scripts and 4 API-based scripts."
 publishedDate: 2026-05-06
 tags:

@@ -1,7 +1,6 @@
 ---
 title: "How I Replaced Document Creation with Three CLI Tools"
 locale: en
-
 description: "One day in April, I realized I almost never need to create a PDF-bound document from scratch. Most of the time I'm just filling out something someone else sent me. The things I actually need to write and export from scratch boil down to three: resume, invoice, and cover letter."
 publishedDate: 2026-04-28
 tags:

@@ -1,7 +1,6 @@
 ---
 title: "How to Waive TD All-Inclusive Credit Card Fee Without Keeping $6,000 Long-Term"
 locale: en
-
 description: "Use TD's online account type change feature to temporarily upgrade to an All-Inclusive account in the month your credit card annual fee is charged, then downgrade immediately after the rebate lands."
 publishedDate: 2026-05-03
 tags:

@@ -1,7 +1,7 @@
 ---
 title: "【持续更新】我的推荐码"
 locale: zh
-slug: "my-referral-codes"
+
 description: "我把自己的推荐码都整理在这儿了，如果你用的上的话我会很开心。"
 publishedDate: 2023-03-13
 tags:

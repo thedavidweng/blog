@@ -1,7 +1,7 @@
 ---
 title: "TD All-Inclusive 账户免信用卡年费但不长期维持 $6,000 余额方法"
 locale: zh
-slug: "td-all-inclusive-credit-card-fee-waiver-workaround"
+
 description: "利用 TD 在线更改账户类型的功能，在信用卡年费收取的月份临时升级为 All-Inclusive 账户，免完年费后立即降级。"
 publishedDate: 2026-05-03
 tags:

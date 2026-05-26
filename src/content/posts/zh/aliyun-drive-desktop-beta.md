@@ -1,7 +1,7 @@
 ---
 title: "阿里云盘桌面端测试版抢先体验"
 locale: zh
-slug: "aliyun-drive-desktop-beta"
+
 description: "阿里云盘是阿里巴巴继酷盘后第二次尝试加入网盘大战的产物。这次带上了阿里的前缀，象征其倾注资源的决心与内部的高地位。"
 publishedDate: 2021-04-15
 tags:

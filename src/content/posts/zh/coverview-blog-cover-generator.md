@@ -1,7 +1,7 @@
 ---
 title: "用 CoverView 简单快速为博客文章创建封面图片"
 locale: zh
-slug: "coverview-blog-cover-generator"
+
 description: "CoverView是一个由 React 开发，不到 500kb 大小，在GitHub开源的网页项目"
 publishedDate: 2022-05-06
 tags:

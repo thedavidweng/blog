@@ -1,7 +1,7 @@
 ---
 title: "案例：US BANK $450 开户奖时间线"
 locale: zh
-slug: "us-bank-450-bonus-timeline"
+
 description: "用 ITIN、Fake DD 和一次西雅图之行完成 U.S. Bank $450 开户奖励的全过程。"
 publishedDate: 2026-05-03
 tags:

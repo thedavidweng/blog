@@ -1,7 +1,7 @@
 ---
 title: "HSBC UK/AU 互转维持 Premier 状态"
 locale: zh
-slug: "hsbc-au-global-transfer-maintain-premier"
+
 description: "没有澳洲本地银行账户，用 HSBC UK 的澳币账户和 Global Transfer 完成每月 A$9,000 的入账要求，维持 HSBC AU Premier。"
 publishedDate: 2026-05-03
 tags:

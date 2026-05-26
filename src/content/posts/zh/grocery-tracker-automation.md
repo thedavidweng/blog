@@ -1,7 +1,7 @@
 ---
 title: "Agent + Notion API 构建自动化杂货管理"
 locale: zh
-slug: "grocery-tracker-automation"
+
 description: "我记忆力不好，会重复买东西，会忘记食物的保质期。我的解决方案是 Notion 数据库加自动化流水线"
 publishedDate: 2026-05-08
 tags:

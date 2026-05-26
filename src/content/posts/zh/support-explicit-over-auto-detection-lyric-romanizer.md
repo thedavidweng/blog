@@ -1,7 +1,7 @@
 ---
 title: "lyric-romanizer Pt. 2：我放弃了粤语自动检测"
 locale: zh
-slug: "support-explicit-over-auto-detection-lyric-romanizer"
+
 description: "给歌词罗马化工具加粤语支持的过程中，我走了一圈自动检测的弯路，最终选择显式参数。"
 publishedDate: 2026-05-06
 tags:

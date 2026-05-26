@@ -1,7 +1,7 @@
 ---
 title: "撸卡社区黑话入门"
 locale: zh
-slug: "churning-slang"
+
 description: "一文看懂撸卡社区常用缩写和黑话，从基础概念到各大银行申请规则全覆盖。"
 publishedDate: 2026-05-03
 tags:

@@ -1,7 +1,7 @@
 ---
 title: "Apple 生态下的开源笔记 - FSNotes"
 locale: zh
-slug: "fsnotes-apple-ecosystem-notes"
+
 description: "软件大小仅 13.5 MB，但功能齐全。 macOS 版完全免费，但提供 Mac App Store 付费下载，用于支持作者开发 iOS 版付费买断，国区售价 ¥18。可以选择使用云服务同步到 iOS 后使用其他支持 Markdown 的软件进行编辑查看。"
 publishedDate: 2021-04-16
 tags:

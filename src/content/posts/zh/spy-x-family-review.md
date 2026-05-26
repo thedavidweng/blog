@@ -1,7 +1,7 @@
 ---
 title: "锐评间谍过家家"
 locale: zh
-slug: "spy-x-family-review"
+
 description: "某天下午的饭点，我点开了间谍过家家并连续观看了三集，然后决定在剧情正式展开之前停止观看并写一篇锐评的稿子。"
 publishedDate: 2022-06-02
 tags:

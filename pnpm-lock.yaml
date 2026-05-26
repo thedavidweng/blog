@@ -74,8 +74,8 @@ importers:
         specifier: ^4.3.0
         version: 4.3.0
       tocbot:
-        specifier: ^4.36.6
-        version: 4.36.6
+        specifier: ^4.36.8
+        version: 4.36.8
       turndown:
         specifier: ^7.2.4
         version: 7.2.4
@@ -2570,8 +2570,8 @@ packages:
     resolution: {integrity: sha512-pn99VhoACYR8nFHhxqix+uvsbXineAasWm5ojXoN8xEwK5Kd3/TrhNn1wByuD52UxWRLy8pu+kRMniEi6Eq9Zg==}
     engines: {node: '>=12.0.0'}
 
-  tocbot@4.36.6:
-    resolution: {integrity: sha512-iIRRfzdHey2nyUpo8nq2OuNHI+83COxGMFOZjKHhmLut6W6T1WhAsJb1EiIa7X3PJyOdwZXuZX4d7jp+gkxh7A==}
+  tocbot@4.36.8:
+    resolution: {integrity: sha512-TpN+Z2YP4DTboeZ3GkUjzkjmG5NhJhXTVuH9EWQ/F4HgONVje9GZ8eNZE4kk88umV5o7hm3faS+eF/7qYwsP2w==}
 
   trim-lines@3.0.1:
     resolution: {integrity: sha512-kRj8B+YHZCc9kQYdWfJB2/oUl9rA99qbowYYBtr4ui4mZyAQ2JpvVBd/6U2YloATfqBhBTSMhTpgBHtU0Mf3Rg==}
@@ -5791,7 +5791,7 @@ snapshots:
       fdir: 6.5.0(picomatch@4.0.4)
       picomatch: 4.0.4
 
-  tocbot@4.36.6: {}
+  tocbot@4.36.8: {}
 
   trim-lines@3.0.1: {}
 

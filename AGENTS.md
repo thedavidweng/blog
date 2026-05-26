@@ -40,11 +40,18 @@ pnpm test:dist      # build output contract test
 - Tags must be registered in `siteConfig.tags` in `src/site.config.ts`.
 - **Related posts**: Use `related: [slug1, slug2]` in frontmatter to link related posts — do **not** add manual link sections at the end of post body. The `related` field is defined in `src/content.config.ts`.
 
-## Code Style
+## Writing Style
 
-- Add a half-width space between Chinese and English/digits.
-- Use full-width punctuation for Chinese text, half-width for English.
-- Preserve correct capitalization for proper nouns (SafePal, Wealthsimple, etc.).
+All content must follow the writing style guide in `docs/writing-style-guide.md`. Key requirements:
+
+- Direct, factual, no fluff — express through facts, not adjectives
+- Short paragraphs (1–3 sentences), no em dashes or semicolons
+- Half-width space between Chinese and English/digits
+- Full-width punctuation for Chinese, half-width for English
+- Proper noun capitalization (SafePal, Wealthsimple, GitHub, iOS)
+- No cheesy endings, filler phrases, or false familiarity
+- Data/timeline entries: action and result only — no commentary
+- End immediately after final result — no summary or 展望
 
 ## OG Images
 

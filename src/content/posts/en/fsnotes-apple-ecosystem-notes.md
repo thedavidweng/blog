@@ -1,7 +1,7 @@
 ---
 title: "FSNotes - Open Source Notes in Apple Ecosystem"
 locale: en
-slug: "fsnotes-apple-ecosystem-notes"
+
 description: "Software size is only 13.5 MB, but fully functional. macOS version is completely free, but offers paid download on Mac App Store to support the author's development. iOS version is paid, priced at ¥18 in China region. You can choose to use cloud services to sync to iOS and then use other Markdown-supported software for editing and viewing."
 publishedDate: 2021-04-16
 tags:

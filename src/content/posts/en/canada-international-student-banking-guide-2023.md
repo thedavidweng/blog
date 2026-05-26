@@ -1,7 +1,7 @@
 ---
 title: "Canada International Student Banking Guide 2023"
 locale: en
-slug: "canada-international-student-banking-guide-2023"
+
 description: "Personal experience summarized Canada international student basic bank account/card knowledge."
 publishedDate: 2023-06-09
 tags:

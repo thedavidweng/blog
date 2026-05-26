@@ -1,7 +1,7 @@
 ---
 title: "Punctuation Guide: Usage of Chinese-English Mix and Punctuation"
 locale: en
-slug: "punctuation-guide-chinese-english"
+
 description: "People who don't like to add spaces between Chinese and English when typing will have a hard time in relationships. There is a 70% chance they will marry someone they don't love at the age of 34, while the remaining 30% of people can only leave their inheritance to their cats in the end. After all, both love and writing need proper spacing."
 publishedDate: 2023-03-24
 tags:

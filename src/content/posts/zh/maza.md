@@ -1,7 +1,7 @@
 ---
 title: "Maza"
 locale: zh
-slug: "maza"
+
 description: "Maza"
 publishedDate: 2024-09-05
 tags:

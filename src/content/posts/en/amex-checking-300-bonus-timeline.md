@@ -1,7 +1,7 @@
 ---
 title: "Case Study: AMEX Checking $300 Bonus Timeline"
 locale: en
-slug: "amex-checking-300-bonus-timeline"
+
 description: "Opened online with ITIN. Used a Wise transfer with memo set to payroll as fake DD to meet the $7,500 deposit requirement. Bonus posted same day."
 publishedDate: 2026-05-25
 tags:

@@ -1,7 +1,7 @@
 ---
 title: "Fiat24"
 locale: zh
-slug: "fiat24"
+
 description: "Fiat24"
 publishedDate: 2024-09-05
 tags:

@@ -1,7 +1,7 @@
 ---
 title: "lyric-romanizer Pt. 2: I Gave Up on Cantonese Auto-Detection"
 locale: en
-slug: support-explicit-over-auto-detection-lyric-romanizer
+
 description: "While adding Cantonese support to the lyric romanization tool, I went in circles with auto-detection and finally settled on explicit parameters."
 publishedDate: 2026-05-06
 tags:

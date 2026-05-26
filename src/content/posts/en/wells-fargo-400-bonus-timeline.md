@@ -1,7 +1,7 @@
 ---
 title: "Case Study: Wells Fargo $400 Bonus Timeline"
 locale: en
-slug: "wells-fargo-400-bonus-timeline"
+
 description: "Opened alongside U.S. Bank during the same Seattle trip. Used SoFi and U.S. Bank ACH transfers as fake DD to meet the $3,000 direct deposit requirement."
 publishedDate: 2026-05-03
 tags:

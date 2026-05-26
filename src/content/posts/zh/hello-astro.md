@@ -1,7 +1,7 @@
 ---
 title: "用 Astro 搭建一个快速的静态博客"
 locale: zh
-slug: "hello-astro"
+
 description: "一个极简的双语博客：内容托管在 Git，部署纯静态 HTML，并在构建时生成 Open Graph 图片。"
 publishedDate: 2026-04-30
 tags:

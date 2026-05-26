@@ -1,7 +1,7 @@
 ---
 title: "Toilet Dilemma"
 locale: en
-slug: "toilet-dilemma"
+
 description: "Independent game designer Steven Harmon created a website called Toilet Game Studies in 2017"
 publishedDate: 2022-01-26
 tags:

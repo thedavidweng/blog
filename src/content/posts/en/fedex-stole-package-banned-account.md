@@ -1,7 +1,7 @@
 ---
 title: "FedEx Stole My $1500 Package and Banned My Account"
 locale: en
-slug: "fedex-stole-package-banned-account"
+
 description: "FedEx Stole My Package Worth $1500 and Closed My Account Without Notice."
 publishedDate: 2024-04-26
 tags:

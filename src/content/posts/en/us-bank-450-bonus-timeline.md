@@ -1,7 +1,7 @@
 ---
 title: "Case Study: US Bank $450 SUB Timeline"
 locale: en
-slug: "us-bank-450-bonus-timeline"
+
 description: "How I completed the U.S. Bank $450 sign-up bonus requirement using an ITIN, fake DD, and a trip to Seattle."
 publishedDate: 2026-05-03
 tags:

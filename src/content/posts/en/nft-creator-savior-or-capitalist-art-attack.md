@@ -1,7 +1,7 @@
 ---
 title: "NFT: Creator's Savior or Capitalist Attack on Art"
 locale: en
-slug: "nft-creator-savior-or-capitalist-art-attack"
+
 description: "Whether NFT is the savior of creators or another attack on art by capital, let time verify the answer to this question."
 publishedDate: 2021-12-25
 tags:

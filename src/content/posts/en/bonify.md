@@ -1,7 +1,7 @@
 ---
 title: "Bonify"
 locale: en
-slug: "bonify"
+
 description: "Bonify"
 publishedDate: 2024-09-05
 tags:

@@ -1,7 +1,7 @@
 ---
 title: "My Referral Codes [Continuously Updated]"
 locale: en
-slug: "my-referral-codes"
+
 description: "I have organized all my referral codes here. I would be very happy if you can use them."
 publishedDate: 2023-03-13
 tags:

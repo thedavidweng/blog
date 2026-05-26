@@ -1,7 +1,7 @@
 ---
 title: "Get Free SafePal X1 Hardware Wallet [Deadline: June 31, 24]"
 locale: en
-slug: "safepal-x1-free-hardware-wallet"
+
 description: "Process for getting a free cryptocurrency hardware wallet"
 publishedDate: 2024-06-24
 tags:

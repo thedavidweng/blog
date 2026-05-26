@@ -1,7 +1,7 @@
 ---
 title: "Maza DNS Blocker"
 locale: en
-slug: "maza"
+
 description: "Maza"
 publishedDate: 2024-09-05
 tags:

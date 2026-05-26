@@ -1,6 +1,6 @@
 ---
 title: "A Lightweight, Elegant Backup: Dotfiles"
-slug: dotfiles-setup-with-dotbot
+
 description: "After years of manually copying config files between machines, I finally built a setup where one command installs everything I need."
 publishedDate: 2026-05-08
 tags:

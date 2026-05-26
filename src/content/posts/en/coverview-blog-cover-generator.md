@@ -1,7 +1,7 @@
 ---
 title: "Simple and Fast Blog Article Cover Image Creation with CoverView"
 locale: en
-slug: "coverview-blog-cover-generator"
+
 description: "CoverView is a web project developed by React, less than 500kb in size, open-sourced on GitHub"
 publishedDate: 2022-05-06
 tags:

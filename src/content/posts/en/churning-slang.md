@@ -1,7 +1,7 @@
 ---
 title: "Churning Community Slang 101"
 locale: en
-slug: "churning-slang"
+
 description: "A beginner's guide to common churning abbreviations and slang — from the basics to each bank's application rules."
 publishedDate: 2026-05-03
 tags:

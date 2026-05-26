@@ -1,7 +1,7 @@
 ---
 title: "Sharp Review of Spy x Family"
 locale: en
-slug: "spy-x-family-review"
+
 description: "One afternoon at mealtime, I clicked on Spy x Family and watched three episodes continuously, then decided to stop watching before the plot officially unfolded and write a sharp review."
 publishedDate: 2022-06-02
 tags:

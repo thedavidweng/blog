@@ -2,29 +2,38 @@
 title: "Case Study: AMEX Checking $300 Bonus Timeline"
 locale: en
 slug: "amex-checking-300-bonus-timeline"
-description: "Opened online with an ITIN. Used a Wise transfer with memo set to payroll as fake DD to meet the deposit requirement. Bonus posted the same day."
+description: "Opened online with ITIN. Used a Wise transfer with memo set to payroll as fake DD to meet the $7,500 deposit requirement. Bonus posted same day."
 publishedDate: 2026-05-25
 tags:
   - Finance
 related:
   - churning-slang
-draft: true
+draft: false
 ---
 
-AMEX Checking's $300 sign-up bonus requires just one direct deposit with no minimum amount. The entire process was done online.
+AMEX Checking's current public offer is a $300 account opening bonus, requiring at least $7,500 in direct deposits. No branch visit needed; entirely online.
 
-Background conditions were the same as the previous post: ITIN, a friend's Bellevue address, a SoFi account, and a U.S. bank statement as proof of address. Fake DD method referenced from Doctor of Credit's DD data collection page.
+![AMEX Checking $300 Offer](/posts/amex-checking-300-bonus-timeline/300-offer-by-7-30-2026.avif)
 
-[Doctor of Credit: List Of Methods Banks Count As Direct Deposits](https://www.doctorofcredit.com/knowledge-base/list-methods-banks-count-direct-deposits/)
+AMEX recently opened Checking account applications for 900-series ITINs. Previous attempts of mine were all rejected.
 
-## May 6 · Online Account Opening
+Fake direct deposit methods I found on [DOC](https://www.doctorofcredit.com/knowledge-base/list-methods-banks-count-direct-deposits/) that work for AMEX Checking:
 
-Applied for an AMEX Checking account online with an ITIN.
+- Kraken
+- Wise — memo set to "payroll"
+- Schwab Brokerage
+- Fidelity Checking — mixed results; failure cases reported
 
-## May 20 · Wise → AMEX
+## 5.6 · Online Account Opening
 
-Initiated an ACH transfer from Wise to AMEX Checking with the memo set to "payroll." Upon arrival, it was recognized as a direct deposit. Fake DD done.
+Applied for AMEX Checking online with ITIN. Same day, contacted customer service via live chat to request a card replacement to a Canadian address.
 
-## May 20 · Bonus Arrived
+![Application Approved](/posts/amex-checking-300-bonus-timeline/application-approved.avif)
 
-$300 sign-up bonus landed the same day.
+## 5.20 · Wise → AMEX
+
+Initiated an ACH transfer from Wise to AMEX Checking, memo set to payroll. Recognized as direct deposit on arrival. Fake DD done.
+
+## 5.20 · Bonus Posted
+
+$300 account opening bonus posted same day.

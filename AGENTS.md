@@ -7,10 +7,18 @@ Source: https://github.com/thedavidweng/blog
 
 ```
 src/content/posts/   ← posts (subdirs: en/, zh/, .md files)
-public/posts/<slug>/ ← post images
+public/posts/<slug>/ ← post images (AVIF only, see docs/image-workflow.md)
 src/                 ← site code (Astro + TypeScript)
 tests/               ← contract tests
 ```
+
+## Images
+
+All article images must be in `public/posts/<slug>/` as **AVIF** files.
+
+- **Why `public/` instead of `src/`**: Article images are manually pre-optimized as AVIF. Astro's build-time pipeline would decode and re-encode them (default: WebP quality 80), which is a net loss for already-optimal AVIF files. `public/` copies them as-is, keeping builds fast. Full rationale in `docs/image-workflow.md`.
+- **How to convert**: Use `pnpm exec tsx scripts/convert-to-avif.mjs <input> <slug>`. This creates the directory, converts to AVIF (quality 65, effort 6), and deletes originals.
+- **CI enforcement**: `pnpm check` includes `check:images`, which fails if `.png`/`.jpg`/`.jpeg`/`.gif`/`.webp` are found in `public/`.
 
 ## Common Commands
 

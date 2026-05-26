@@ -66,6 +66,8 @@ Posts live in paired Markdown files:
 
 Every published slug must exist in both languages. Tag IDs live in `src/site.config.ts` and render as localized labels.
 
+Post images live in `public/posts/<slug>/` as AVIF files. See [`docs/image-workflow.md`](docs/image-workflow.md) for the rationale (why `public/` instead of `src/`), the AVIF conversion parameters, and the agent operation guide.
+
 ### Frontmatter Schema
 
 | Field | Type | Required | Description |

@@ -81,7 +81,7 @@ function parseFrontmatter(file: string, body: string): Frontmatter {
 
   return {
     draft: frontmatter.match(/^draft:\s*true\s*$/m) ? true : undefined,
-    locale: getString("locale"),
+    locale: getString("locale") as string,
     slug:
       getString("slug", true) ?? file.replace(/^.*\/([^/]+)\.(md|mdx)$/, "$1"),
     tags,

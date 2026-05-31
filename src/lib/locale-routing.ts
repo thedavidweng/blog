@@ -1,6 +1,6 @@
 import type { CollectionEntry } from 'astro:content';
 import { assertTranslatedPostPairs, getPostSlug, getPublishedPosts, getTags, ogImagePath, postUrl, tagLabel } from './content';
-import { absoluteUrl, siteConfig, type Locale, defaultLocale } from '../site.config';
+import { absoluteUrl, siteConfig, type Locale, defaultLocale, locales } from '../site.config';
 
 /** Shared getStaticPaths for post detail pages. */
 export async function getPostStaticPaths(locale: Locale) {
@@ -14,6 +14,8 @@ export async function getPostStaticPaths(locale: Locale) {
     allPosts.set(getPostSlug(posts[locale]), posts[locale]);
   }
 
+  const alternateLocale = locales.find(l => l !== locale)!;
+
   return sorted.map(({ slug, posts }, index) => {
     const relatedSlugs = posts[locale].data.related ?? [];
     const relatedPosts = relatedSlugs
@@ -24,7 +26,7 @@ export async function getPostStaticPaths(locale: Locale) {
       params: { slug },
       props: {
         post: posts[locale],
-        alternatePath: postUrl(locale === 'en' ? 'zh' : 'en', slug),
+        alternatePath: postUrl(alternateLocale, slug),
         prev: index < sorted.length - 1 ? sorted[index + 1].posts[locale] : undefined,
         next: index > 0 ? sorted[index - 1].posts[locale] : undefined,
         relatedPosts

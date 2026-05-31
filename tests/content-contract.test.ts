@@ -1,19 +1,17 @@
 import { readdir, readFile, access } from "node:fs/promises";
 import { join } from "node:path";
 import { fileURLToPath } from "node:url";
+import { parse as parseYaml } from "yaml";
 import { siteConfig } from "../src/site.config";
+import { postSchema, type PostFrontmatter } from "../src/schemas/post";
 
 const root = fileURLToPath(new URL("..", import.meta.url));
 const postsRoot = join(root, "src/content/posts");
 const publicRoot = join(root, "public");
 const locales = ["en", "zh"] as const;
 
-type Frontmatter = {
-  draft?: boolean;
-  locale: string;
-  slug: string;
-  tags: string[];
-};
+/** Frontmatter with slug always derived (never undefined). */
+type ResolvedFrontmatter = PostFrontmatter & { slug: string };
 
 async function listPostFiles(locale: string) {
   const dir = join(postsRoot, locale);
@@ -55,37 +53,33 @@ function validateYamlBooleans(file: string, frontmatterBlock: string): void {
   }
 }
 
-function parseFrontmatter(file: string, body: string): Frontmatter {
+function parseFrontmatter(file: string, body: string): ResolvedFrontmatter {
   const match = body.match(/^---\n([\s\S]*?)\n---/);
   assert(match, `${file} is missing frontmatter`);
 
-  const frontmatter = match[1];
-  validateYamlBooleans(file, frontmatter);
+  const frontmatterBlock = match[1];
+  validateYamlBooleans(file, frontmatterBlock);
 
-  const getString = (key: string, optional = false) => {
-    const value = frontmatter.match(
-      new RegExp(`^${key}:\\s*"?([^"\\n]+)"?\\s*$`, "m"),
-    )?.[1];
-    if (!optional) {
-      assert(value, `${file} is missing ${key} frontmatter`);
-    }
-    return value;
-  };
+  let raw: Record<string, unknown>;
+  try {
+    raw = parseYaml(frontmatterBlock) as Record<string, unknown>;
+  } catch (err) {
+    throw new Error(`${file}: failed to parse frontmatter YAML: ${err}`);
+  }
 
-  const tagsBlock = frontmatter.match(/^tags:\n((?:\s+-\s+.+\n?)+)/m)?.[1];
-  assert(tagsBlock, `${file} is missing tags frontmatter`);
-  const tags = [...tagsBlock.matchAll(/^\s+-\s+(.+?)\s*$/gm)].map(
-    (tagMatch) => tagMatch[1],
-  );
-  assert(tags.length > 0, `${file} must list at least one tag id`);
+  const result = postSchema.safeParse(raw);
+  if (!result.success) {
+    const issues = result.error.issues
+      .map((i) => `  - ${i.path.join(".")}: ${i.message}`)
+      .join("\n");
+    throw new Error(`${file}: frontmatter validation failed:\n${issues}`);
+  }
 
-  return {
-    draft: frontmatter.match(/^draft:\s*true\s*$/m) ? true : undefined,
-    locale: getString("locale") as string,
-    slug:
-      getString("slug", true) ?? file.replace(/^.*\/([^/]+)\.(md|mdx)$/, "$1"),
-    tags,
-  };
+  // Derive slug from filename when not present in frontmatter
+  const slug =
+    result.data.slug ?? file.replace(/^.*\/([^/]+)\.(md|mdx)$/, "$1");
+
+  return { ...result.data, slug };
 }
 
 const filesByLocale = Object.fromEntries(
@@ -112,7 +106,7 @@ const entriesByLocale = Object.fromEntries(
   ),
 ) as Record<
   (typeof locales)[number],
-  Array<{ file: string; body: string; frontmatter: Frontmatter }>
+  Array<{ file: string; body: string; frontmatter: ResolvedFrontmatter }>
 >;
 
 // 1. Validation for each post

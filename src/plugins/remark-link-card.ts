@@ -14,11 +14,23 @@ export type RemarkLinkCardOptions = {
   cache?: boolean;
 };
 
+export type LinkCardData = {
+  title: string;
+  description: string;
+  faviconSrc: string;
+  ogImageSrc: string;
+  ogImageAlt: string;
+  displayUrl: string;
+  url: string;
+};
+
+export type LinkCardFetcher = (url: string) => Promise<LinkCardData>;
+
 /**
  * Link-card blurbs must be plain text. OGS is the right tool; we only drop values that are clearly markup
  * (e.g. a site echoing a full &lt;meta&gt; tag into a field).
  */
-function isUnsafePlaintextSnippet(raw: string): boolean {
+export function isUnsafePlaintextSnippet(raw: string): boolean {
   const s = raw.trim();
   if (!s) return true;
   if (/^\s*</.test(s)) return true;
@@ -27,7 +39,7 @@ function isUnsafePlaintextSnippet(raw: string): boolean {
 }
 
 /** Use OG/Twitter card fields only; order matches typical social-preview precedence. */
-function pickDescription(ogResult: Record<string, unknown> | undefined): string {
+export function pickDescription(ogResult: Record<string, unknown> | undefined): string {
   if (!ogResult) return '';
   const keys = ['ogDescription', 'twitterDescription'] as const;
   for (const key of keys) {
@@ -54,90 +66,6 @@ async function getOpenGraph(targetUrl: string) {
     );
     return undefined;
   }
-}
-
-async function fetchData(targetUrl: string, options: RemarkLinkCardOptions | undefined) {
-  const ogResult = await getOpenGraph(targetUrl);
-  const parsedUrl = new URL(targetUrl);
-  const title =
-    (typeof ogResult?.ogTitle === 'string' && he.encode(ogResult.ogTitle)) || parsedUrl.hostname;
-  const description = pickDescription(ogResult);
-
-  const faviconUrl = `https://www.google.com/s2/favicons?domain=${parsedUrl.hostname}`;
-  let faviconSrc = '';
-  if (options?.cache) {
-    const faviconFilename = await downloadImage(
-      faviconUrl,
-      path.join(process.cwd(), defaultSaveDirectory, defaultOutputDirectory)
-    );
-    faviconSrc = faviconFilename ? path.join(defaultOutputDirectory, faviconFilename) : faviconUrl;
-  } else {
-    faviconSrc = faviconUrl;
-  }
-
-  let ogImageSrc = '';
-  const ogImage = ogResult?.ogImage as { url?: string; alt?: string } | undefined;
-  if (ogImage?.url) {
-    if (options?.cache) {
-      const imageFilename = await downloadImage(
-        ogImage.url,
-        path.join(process.cwd(), defaultSaveDirectory, defaultOutputDirectory)
-      );
-      ogImageSrc = imageFilename ? path.join(defaultOutputDirectory, imageFilename) : ogImage.url;
-    } else {
-      ogImageSrc = ogImage.url;
-    }
-  }
-
-  const ogImageAlt =
-    (typeof ogImage?.alt === 'string' && he.encode(ogImage.alt)) || title;
-
-  let displayUrl = options?.shortenUrl ? parsedUrl.hostname : targetUrl;
-  try {
-    displayUrl = decodeURI(displayUrl);
-  } catch {
-    console.error(`[remark-link-card] Cannot decode url: "${displayUrl}"`);
-  }
-
-  return {
-    title,
-    description,
-    faviconSrc,
-    ogImageSrc,
-    ogImageAlt,
-    displayUrl,
-    url: targetUrl
-  };
-}
-
-function createLinkCard(data: Awaited<ReturnType<typeof fetchData>>) {
-  const faviconElement = data.faviconSrc
-    ? `<img class="rlc-favicon" src="${data.faviconSrc}" alt="${data.title} favicon" width="16" height="16">`.trim()
-    : '';
-
-  const descriptionElement = data.description
-    ? `<div class="rlc-description">${data.description}</div>`
-    : '';
-
-  const imageElement = data.ogImageSrc
-    ? `<div class="rlc-image-container">
-      <img class="rlc-image" src="${data.ogImageSrc}" alt="${data.ogImageAlt}" />
-    </div>`.trim()
-    : '';
-
-  return `
-<a class="rlc-container" href="${data.url}">
-  <div class="rlc-info">
-    <div class="rlc-title">${data.title}</div>
-    ${descriptionElement}
-    <div class="rlc-url-container">
-      ${faviconElement}
-      <span class="rlc-url">${data.displayUrl}</span>
-    </div>
-  </div>
-  ${imageElement}
-</a>
-`.trim();
 }
 
 async function downloadImage(url: string, saveDirectory: string): Promise<string | undefined> {
@@ -178,9 +106,96 @@ async function downloadImage(url: string, saveDirectory: string): Promise<string
   return filename;
 }
 
+export function createDefaultFetcher(options?: RemarkLinkCardOptions): LinkCardFetcher {
+  return async (targetUrl: string) => {
+    const ogResult = await getOpenGraph(targetUrl);
+    const parsedUrl = new URL(targetUrl);
+    const title =
+      (typeof ogResult?.ogTitle === 'string' && he.encode(ogResult.ogTitle)) || parsedUrl.hostname;
+    const description = pickDescription(ogResult);
+
+    const faviconUrl = `https://www.google.com/s2/favicons?domain=${parsedUrl.hostname}`;
+    let faviconSrc = '';
+    if (options?.cache) {
+      const faviconFilename = await downloadImage(
+        faviconUrl,
+        path.join(process.cwd(), defaultSaveDirectory, defaultOutputDirectory)
+      );
+      faviconSrc = faviconFilename ? path.join(defaultOutputDirectory, faviconFilename) : faviconUrl;
+    } else {
+      faviconSrc = faviconUrl;
+    }
+
+    let ogImageSrc = '';
+    const ogImage = ogResult?.ogImage as { url?: string; alt?: string } | undefined;
+    if (ogImage?.url) {
+      if (options?.cache) {
+        const imageFilename = await downloadImage(
+          ogImage.url,
+          path.join(process.cwd(), defaultSaveDirectory, defaultOutputDirectory)
+        );
+        ogImageSrc = imageFilename ? path.join(defaultOutputDirectory, imageFilename) : ogImage.url;
+      } else {
+        ogImageSrc = ogImage.url;
+      }
+    }
+
+    const ogImageAlt =
+      (typeof ogImage?.alt === 'string' && he.encode(ogImage.alt)) || title;
+
+    let displayUrl = options?.shortenUrl ? parsedUrl.hostname : targetUrl;
+    try {
+      displayUrl = decodeURI(displayUrl);
+    } catch {
+      console.error(`[remark-link-card] Cannot decode url: "${displayUrl}"`);
+    }
+
+    return {
+      title,
+      description,
+      faviconSrc,
+      ogImageSrc,
+      ogImageAlt,
+      displayUrl,
+      url: targetUrl
+    };
+  };
+}
+
+export function createLinkCard(data: LinkCardData) {
+  const faviconElement = data.faviconSrc
+    ? `<img class="rlc-favicon" src="${data.faviconSrc}" alt="${data.title} favicon" width="16" height="16">`.trim()
+    : '';
+
+  const descriptionElement = data.description
+    ? `<div class="rlc-description">${data.description}</div>`
+    : '';
+
+  const imageElement = data.ogImageSrc
+    ? `<div class="rlc-image-container">
+      <img class="rlc-image" src="${data.ogImageSrc}" alt="${data.ogImageAlt}" />
+    </div>`.trim()
+    : '';
+
+  return `
+<a class="rlc-container" href="${data.url}">
+  <div class="rlc-info">
+    <div class="rlc-title">${data.title}</div>
+    ${descriptionElement}
+    <div class="rlc-url-container">
+      ${faviconElement}
+      <span class="rlc-url">${data.displayUrl}</span>
+    </div>
+  </div>
+  ${imageElement}
+</a>
+`.trim();
+}
+
 type ParentWithChildren = { children: Root['children'] };
 
-export default function remarkLinkCard(options?: RemarkLinkCardOptions) {
+export default function remarkLinkCard(options?: RemarkLinkCardOptions & { fetcher?: LinkCardFetcher }) {
+  const fetch = options?.fetcher ?? createDefaultFetcher(options);
   return async (tree: Root) => {
     const tasks: Array<{ index: number; parent: ParentWithChildren; url: string }> = [];
 
@@ -209,7 +224,7 @@ export default function remarkLinkCard(options?: RemarkLinkCardOptions) {
       for (const list of byParent.values()) {
         list.sort((a, b) => b.index - a.index);
         for (const { index, parent, url } of list) {
-          const data = await fetchData(url, options);
+          const data = await fetch(url);
           parent.children.splice(index, 1, { type: 'html', value: createLinkCard(data) });
         }
       }

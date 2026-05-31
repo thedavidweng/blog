@@ -1,36 +1,10 @@
 ---
-import { render, type CollectionEntry } from 'astro:content';
+import { render } from 'astro:content';
 import PostLayout from '../../../layouts/PostLayout.astro';
-import { assertTranslatedPostPairs, getPostSlug, postUrl } from '../../../lib/content';
+import { getPostStaticPaths } from '../../../lib/locale-routing';
 
 export async function getStaticPaths() {
-  const pairs = await assertTranslatedPostPairs();
-  const sorted = pairs.sort((a, b) =>
-    b.posts.en.data.publishedDate.valueOf() - a.posts.en.data.publishedDate.valueOf()
-  );
-
-  const allPosts = new Map<string, CollectionEntry<'posts'>>();
-  for (const { posts } of sorted) {
-    allPosts.set(getPostSlug(posts.en), posts.en);
-  }
-
-  return sorted.map(({ slug, posts }, index) => {
-    const relatedSlugs = posts.en.data.related ?? [];
-    const relatedPosts = relatedSlugs
-      .map((s) => allPosts.get(s))
-      .filter((p): p is CollectionEntry<'posts'> => p !== undefined);
-
-    return {
-      params: { slug },
-      props: {
-        post: posts.en,
-        alternatePath: postUrl('zh', slug),
-        prev: index < sorted.length - 1 ? sorted[index + 1].posts.en : undefined,
-        next: index > 0 ? sorted[index - 1].posts.en : undefined,
-        relatedPosts
-      }
-    };
-  });
+  return getPostStaticPaths('en');
 }
 
 const { post, alternatePath, prev, next, relatedPosts } = Astro.props;

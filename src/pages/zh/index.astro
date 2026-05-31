@@ -2,53 +2,12 @@
 import PostCard from '../../components/PostCard.astro';
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import { getPublishedPosts } from '../../lib/content';
-import { absoluteUrl, siteConfig } from '../../site.config';
+import { getHomeJsonLd } from '../../lib/locale-routing';
+import { siteConfig } from '../../site.config';
 
 const locale = 'zh';
 const posts = await getPublishedPosts(locale);
-const siteUrl = absoluteUrl('/');
-const zhUrl = absoluteUrl('/zh/');
-const socialUrls = siteConfig.social
-  .filter(s => ['GitHub', 'LinkedIn', 'X'].includes(s.label))
-  .map(s => s.href);
-const jsonLd = {
-  '@context': 'https://schema.org',
-  '@graph': [
-    {
-      '@type': 'Blog',
-      name: siteConfig.name,
-      description: siteConfig.description[locale],
-      url: zhUrl,
-      author: {
-        '@type': 'Person',
-        name: siteConfig.author,
-        jobTitle: 'Developer and Designer',
-        knowsAbout: ['Open-source tools', 'Desktop application development', 'AI-integrated creative work']
-      },
-      inLanguage: 'zh-CN'
-    },
-    {
-      '@type': 'Organization',
-      name: siteConfig.name,
-      url: siteUrl,
-      logo: absoluteUrl('/android-chrome-512x512.png'),
-      sameAs: socialUrls
-    },
-    {
-      '@type': 'Person',
-      name: siteConfig.author,
-      url: siteUrl,
-      sameAs: socialUrls,
-      jobTitle: 'Developer and Designer',
-      knowsAbout: ['Open-source tools', 'Desktop application development', 'AI-integrated creative work']
-    },
-    {
-      '@type': 'WebSite',
-      name: siteConfig.name,
-      url: siteUrl
-    }
-  ]
-};
+const jsonLd = getHomeJsonLd(locale);
 ---
 
 <BaseLayout

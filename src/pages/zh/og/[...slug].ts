@@ -1,5 +1,5 @@
 import { OGImageRoute } from 'astro-og-canvas';
-import { assertTranslatedPostPairs } from '../../../lib/content';
+import { getOgPages } from '../../../lib/locale-routing';
 
 const fonts = [
   'https://cdn.jsdelivr.net/fontsource/fonts/noto-sans-sc@5.2.9/chinese-simplified-400-normal.ttf',
@@ -8,16 +8,7 @@ const fonts = [
 // CanvasKit exposes these Fontsource TTFs under this family name.
 const fontFamilies = ['Noto Sans SC Thin', 'Noto Sans'];
 
-const pairs = await assertTranslatedPostPairs();
-const pages = Object.fromEntries(
-  pairs.map(({ slug, posts }) => [
-    slug,
-    {
-      title: posts.zh.data.title,
-      description: posts.zh.data.description
-    }
-  ])
-);
+const pages = await getOgPages('zh');
 
 export const { getStaticPaths, GET } = await OGImageRoute({
   param: 'slug',

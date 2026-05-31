@@ -1,13 +1,13 @@
 ---
 import PostCard from '../../../../components/PostCard.astro';
 import BaseLayout from '../../../../layouts/BaseLayout.astro';
-import { getPublishedPosts, getTags, tagLabel, tagUrl } from '../../../../lib/content';
+import { getPublishedPosts, tagLabel, tagUrl } from '../../../../lib/content';
+import { getTagStaticPaths } from '../../../../lib/locale-routing';
 
 const locale = 'zh';
 
 export async function getStaticPaths() {
-  const tags = await getTags('zh');
-  return tags.map((tag) => ({ params: { tag }, props: { tag } }));
+  return getTagStaticPaths('zh');
 }
 
 const { tag } = Astro.props;

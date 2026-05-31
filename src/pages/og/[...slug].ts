@@ -1,21 +1,12 @@
 import { OGImageRoute } from 'astro-og-canvas';
-import { assertTranslatedPostPairs } from '../../lib/content';
+import { getOgPages } from '../../lib/locale-routing';
 
 const fonts = [
   'https://cdn.jsdelivr.net/fontsource/fonts/noto-sans@5.2.9/latin-400-normal.ttf',
   'https://cdn.jsdelivr.net/fontsource/fonts/noto-sans@5.2.9/latin-700-normal.ttf'
 ];
 
-const pairs = await assertTranslatedPostPairs();
-const pages = Object.fromEntries(
-  pairs.map(({ slug, posts }) => [
-    slug,
-    {
-      title: posts.en.data.title,
-      description: posts.en.data.description
-    }
-  ])
-);
+const pages = await getOgPages('en');
 
 export const { getStaticPaths, GET } = await OGImageRoute({
   param: 'slug',

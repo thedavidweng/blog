@@ -1,145 +1,23 @@
-export const defaultLocale = 'en' as const;
-export const locales = ['en', 'zh'] as const;
+import { description, role, about, nav, tags } from './config/i18n';
+import { features } from './config/features';
+import { social } from './config/social';
+import { defaultLocale, locales } from './config/locale';
+import type { Locale } from './config/locale';
 
-export type Locale = (typeof locales)[number];
+export { defaultLocale, locales };
+export type { Locale };
 
 export const siteConfig = {
   name: 'David Blog',
   author: 'David',
   handle: '@thedavidweng',
-  description: {
-    en: 'Writing about design, code, and the messy space in between.',
-    zh: '记录人与技术，以及两者之间作为环境的媒介。'
-  },
-  role: {
-    en: 'I eat frozen food a lot.',
-    zh: '我吃很多速冻食品'
-  },
-  about: {
-    en: [
-      'This blog will probably cover three kinds of things.',
-      'First, the thinking behind projects and works.',
-      'Second, observations about design, media, AI, and the internet.',
-      'Third, notes on workflows, tools, and explorations.'
-    ],
-    zh: [
-      '这个博客大概会写三种东西。',
-      '一是项目和作品背后的想法。',
-      '二是设计、媒介、AI 和互联网相关的观察。',
-      '三是一些工作流、工具和探索记录。'
-    ]
-  },
-  nav: {
-    en: {
-      posts: 'Posts',
-      tags: 'Tags',
-      about: 'About'
-    },
-    zh: {
-      posts: '文章',
-      tags: '标签',
-      about: '关于'
-    }
-  },
-  tags: {
-    Animation: {
-      en: 'Animation',
-      zh: '动画'
-    },
-    Automation: {
-      en: 'Automation',
-      zh: '自动化'
-    },
-    CLI: {
-      en: 'CLI',
-      zh: '命令行'
-    },
-    Experience: {
-      en: 'Experience',
-      zh: '经历'
-    },
-    Finance: {
-      en: 'Finance',
-      zh: '财务'
-    },
-    Games: {
-      en: 'Games',
-      zh: '游戏'
-    },
-    Info: {
-      en: 'Info',
-      zh: '信息'
-    },
-    'LLM-free': {
-      en: 'LLM-free',
-      zh: 'LLM-free'
-    },
-    Reprint: {
-      en: 'Reprint',
-      zh: '转载'
-    },
-    Screen: {
-      en: 'Screen',
-      zh: '影视'
-    },
-    Thoughts: {
-      en: 'Thoughts',
-      zh: '思考'
-    },
-    Tools: {
-      en: 'Tools',
-      zh: '工具'
-    },
-    Translated: {
-      en: 'Translated',
-      zh: '翻译'
-    },
-    Writing: {
-      en: 'Writing',
-      zh: '文字' 
-    },
-    Workflow: {
-      en: 'Workflow',
-      zh: '工作流'
-    }
-  },
-  social: [
-    {
-      label: 'GitHub',
-      href: 'https://github.com/thedavidweng',
-      icon: 'github'
-    },
-    {
-      label: 'LinkedIn',
-      href: 'https://www.linkedin.com/in/thedavidweng/',
-      icon: 'linkedin'
-    },
-    {
-      label: 'X',
-      href: 'https://x.com/thedavidweng',
-      icon: 'x'
-    },
-    {
-      label: 'Portfolio',
-      href: 'https://davidweng.eu.org/',
-      icon: 'portfolio'
-    },
-    {
-      label: 'Homepage',
-      href: 'https://blog.blahaj.uk/',
-      icon: 'home'
-    }
-  ],
-  features: {
-    toc: true,              // Enable Table of Contents
-    readingTime: true,      // Enable Estimated Reading Time
-    progressBar: true,      // Enable top reading progress bar
-    linkCard: true,         // Enable remark-link-card for rich link embeds
-    expressiveCode: true,   // Enable astro-expressive-code for code blocks
-    mediumZoom: true,       // Enable medium-zoom for image previews
-    giscus: true,           // Enable Giscus comments
-    backToTop: true         // Fixed button to scroll to top
-  }
+  description,
+  role,
+  about,
+  nav,
+  tags,
+  social,
+  features
 } as const;
 
 export function getBaseUrl() {

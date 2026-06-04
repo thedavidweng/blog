@@ -13,4 +13,4 @@ blog-*.png
 npm-debug.log*
 .DS_Store
 .commandcode/
-.obsidian/
+test.md

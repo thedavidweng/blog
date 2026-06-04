@@ -1,6 +1,7 @@
 ---
-title: "A Lightweight, Elegant Backup: Dotfiles"
-description: "After years of manually copying config files between machines, I finally built a setup where one command installs everything I need."
+title: "The Cleanest Way to Back Up Your Mac Setup: dotfiles"
+slug: dotfiles-setup-with-dotbot
+description: "Stop manually reconfiguring every new Mac. One dotfiles command restores all your settings."
 publishedDate: 2026-05-08
 tags:
   - Tools
@@ -10,28 +11,28 @@ draft: false
 locale: en
 ---
 
-Every time I get a new Mac, the same dilemma starts. If you restore from the old machine, you carry over years of cruft. If you set up from scratch, you lose half a day installing and configuring everything manually.
+Getting a new machine or reinstalling your OS — importing from an old one brings over all the tech debt and junk. Starting from scratch means manually downloading every app and tweaking every setting, and a full day is gone.
 
-Managing a dotfiles repo solves this completely. One terminal command, and a brand new machine is restored to your ideal state.
+A dotfiles repo solves this completely. One terminal command restores a fresh machine to your ideal state.
 
 ## Core Concepts
 
-Dotfiles don't mean dumping your entire $HOME into Git. The right approach is to keep config files in a dedicated repo, then use symlinks to place them where the system expects them.
+Dotfiles doesn't mean throwing your entire $HOME into Git. You keep config files in a separate repo and use symlinks to mount them where the system expects them.
 
-This gives you two benefits. First, apps still read from standard paths like ~/.zshrc and ~/.gitconfig — they have no idea a repo exists. Second, the repo lives cleanly in ~/.dotfiles without cluttering your home directory. And since you're only backing up plain text configs (not caches), the repo stays tiny and is perfect for Git version control.
+Two direct benefits. First, apps still read their standard paths (~/.zshrc, ~/.gitconfig, etc.) without knowing a repo exists. Second, the repo stays clean in ~/dotfiles or ~/.dotfiles, not mixed with other $HOME files. It's a precise config backup with no cached cruft.
 
-If you use a package manager, the repo can also record every installed package for one-command reinstallation.
+If you use a package manager, the dotfiles repo can also record every installed package for one-command reinstallation. And because the backup is plain text, it takes almost no space and works perfectly with Git.
 
-My dotfiles repo uses four tools:
+My dotfiles repo uses three tools:
 
-- **Dotbot**: A lightweight setup launcher. Uses YAML to describe which files to link where, then creates the symlinks.
-- **Homebrew Bundle**: Homebrew's Brewfile records every CLI tool, desktop app, and Mac App Store app as plain text.
+- **Dotbot**: A lightweight bootstrapper that reads a YAML description of "which files link where" and creates symlinks automatically.
+- **Homebrew Bundle**: Records all manually installed CLI tools and desktop apps as text in a Brewfile.
 - **MAS**: Complements Homebrew by managing Mac App Store apps.
-- **dotbot-brew**: A Dotbot plugin that runs `brew bundle` before creating symlinks.
+- **dotbot-brew**: A Dotbot plugin that runs `brew bundle` automatically before creating symlinks.
 
 ## Building from Scratch
 
-These examples are on macOS, but the workflow is similar on other systems.
+The following example is on macOS. Specifics vary by system, but the overall flow is the same.
 
 ### 1. Create the Repo and Add Dotbot
 
@@ -44,11 +45,11 @@ cp dotbot/tools/git-submodule/install .
 touch install.conf.yaml
 ```
 
-The install script reads `install.conf.yaml` and executes the config. Dotbot is added as a Git submodule with no external dependencies.
+The `install` script comes from Dotbot's official template. It reads `install.conf.yaml` and executes the config. Dotbot itself is added as a Git submodule with no external package manager dependency.
 
 ### 2. Write install.conf.yaml
 
-Here's my config skeleton (personal paths removed):
+This is my config skeleton with some personal paths removed:
 
 ```yaml
 - defaults:
@@ -73,15 +74,15 @@ Here's my config skeleton (personal paths removed):
     - Brewfile
 ```
 
-`clean` removes stale symlinks pointing outside the repo. Each item under `link` maps a target path to a relative path in the repo. The `brew` section is handled by dotbot-brew.
+`clean` removes stale symlinks pointing outside the repo. Each entry under `link` maps a target path to a relative path in the repo. The `brew` section is handled by dotbot-brew.
 
-### 3. Generate a Brewfile
+### 3. Generate the Brewfile
 
 ```bash
 brew bundle dump --file ~/.dotfiles/Brewfile --force
 ```
 
-This exports every manually installed formula, cask, and MAS app as text. Brewfile is idempotent — on a new machine, already-installed packages are skipped, only missing ones are added.
+This exports all manually installed formulae, casks, and MAS (Mac App Store) apps as text. Brewfile is idempotent: when you run `brew bundle` on a new machine, already-installed packages are skipped and only missing ones are added.
 
 A typical Brewfile looks like this:
 
@@ -109,47 +110,49 @@ mas "Bitwarden", id: 1352778147
 mas "Tailscale", id: 1475387142
 ```
 
-Note: MAS requires you to be signed into the Apple ID on the new machine, or the App Store entries will error (without interrupting Homebrew installations).
+Note: MAS requires the new machine to be signed into an Apple ID, otherwise the App Store section will error. It won't interrupt Homebrew package installation.
 
 ### 4. Handling Machine-Specific Config
 
-Not everything belongs in a shared repo. SSH keys, API tokens, email credentials, per-machine download paths — these should stay local.
+Not all config should be shared. SSH keys, API tokens, email passwords, and per-machine download paths should stay local.
 
-My approach is to add an include directive in the main config file that points to a `.local` file not tracked by Git.
+My approach: leave an include entry in the main config that points to a `.local` file not tracked in the repo.
 
-#### 4.1 What is a .local File
+#### 4.1 What Is a .local File
 
-A `.local` file is a config isolation pattern: the repo stores **shared config**, while machine-specific content lives in a separate `.local` file that is **not tracked by Git**.
+A `.local` file is a config isolation pattern: the dotfiles repo stores **shared config**, while machine-specific content lives in a separate `.local` file that is **not tracked by Git**.
 
-Core principle:
+Core principles:
 
-- **Repo = shared config**: Everything common across machines (shortcuts, plugins, themes, workflows) goes in Git.
-- **.local = local overrides**: Per-machine secrets, paths, proxies, credentials stay in untracked `.local` files.
+- **Repo = shared config**: Everything shared across machines (shortcuts, plugins, themes, workflows) goes into Git.
+- **.local = local overrides**: Per-machine content (secrets, paths, proxies, credentials) goes in `.local` files and is not committed.
 
-This means you can safely sync the repo to any machine — all shared config applies automatically, while each machine keeps its own personality.
+You can safely sync the repo across machines. All shared config takes effect automatically, while each machine keeps its own settings.
 
-#### 4.2 Common .local Patterns by Tool
+#### 4.2 How Different Apps Load .local Files
 
-Different software has different include mechanisms. Here are the most common ones:
+Different software has different include mechanisms:
 
 **zshrc**
 
-Add at the end of `~/.zshrc`:
+Add this at the end of `~/.zshrc`:
 
 ```bash
+# Load local config if present
 if [ -f ~/.zshrc.local ]; then
     source ~/.zshrc.local
 fi
 ```
 
-Use `.zshrc.local` for machine-specific aliases, proxy settings, environment variables, and dev paths.
+`~/.zshrc.local` can hold: machine-specific aliases, corporate proxy settings, personal environment variables, local dev paths.
 
 **gitconfig**
 
-Git supports `includeIf` for conditional config loading:
+Git natively supports `includeIf` for conditional config loading:
 
 ```ini
 [user]
+    # Shared: commit template, default editor
     editor = code --wait
     commitTemplate = ~/.gitmessage
 
@@ -160,18 +163,20 @@ Git supports `includeIf` for conditional config loading:
     path = ~/.gitconfig_local
 ```
 
-Use `.gitconfig_local` for personal email, GPG signing keys, work usernames, and private repo credential helpers.
+`~/.gitconfig_local` holds: personal email/GPG signing key, company Git username, private repo credential helpers.
 
 **vim / neovim**
 
 ```vim
 " ~/.config/nvim/init.vim
+
+" Try loading local config at the end
 if filereadable(expand('~/.config/nvim/init.local.vim'))
     source ~/.config/nvim/init.local.vim
 endif
 ```
 
-Or with Lua:
+Or with Lua config:
 
 ```lua
 -- ~/.config/nvim/lua/config/local.lua
@@ -183,8 +188,10 @@ end
 
 **tmux**
 
-```bash
+```tmux
 # ~/.tmux.conf
+
+# Try loading local config
 if-shell "test -f ~/.tmux.conf.local" "source-file ~/.tmux.conf.local"
 ```
 
@@ -192,62 +199,70 @@ if-shell "test -f ~/.tmux.conf.local" "source-file ~/.tmux.conf.local"
 
 VS Code's `settings.json` doesn't support includes, but you can work around it:
 
-```json
+```jsonc
+// ~/.config/Code/User/settings.json
 {
+    // Shared settings (in repo)
     "editor.fontSize": 14,
-    "editor.tabSize": 2
+    "editor.tabSize": 2,
+    // Local settings are modified via GUI, written to the same file
+    // Tip: only commit the shared part, leave local changes uncommitted
 }
 ```
 
-Commit only the shared settings. Per-machine overrides are edited through the GUI and left uncommitted. For a cleaner approach, use the [Settings Sync](https://marketplace.visualstudio.com/items?itemName=Shan.code-settings-sync) extension to sync shared config to a Gist.
+A better approach: use [Settings Sync](https://marketplace.visualstudio.com/items?itemName=Shan.code-settings-sync) to sync shared config to a Gist, then override locally on each machine.
 
-**Other tools**
+**Other Apps**
 
-For apps that don't support includes, use a local override file with a symlink:
+For apps without native include support, use symlinks as a workaround:
 
-```
+```bash
+# Shared config in repo
 ~/.config/myapp/config    →  ~/dotfiles/config/myapp/config
-~/.config/myapp/config.local     (not tracked)
+
+# Local override (not tracked)
+~/.config/myapp/config.local
 ```
 
-Then in the app's startup script, check for `config.local` and prefer it when present.
+Then check in the app's startup script: if `config.local` exists, load it first.
 
 #### 4.3 Recommended Directory Structure
 
-Keep all `.local` files under `$HOME`, mirroring the repo structure:
+Keep all `.local` files under `$HOME` to mirror the repo structure:
 
 ```
 $HOME/
 ├── .zshrc              ← repo (shared)
-├── .zshrc.local        ← untracked (local)
+├── .zshrc.local        ← not tracked (local)
 ├── .gitconfig          ← repo (shared)
-├── .gitconfig_local    ← untracked (local)
+├── .gitconfig_local    ← not tracked (local)
 ├── .tmux.conf          ← repo (shared)
-├── .tmux.conf.local    ← untracked (local)
+├── .tmux.conf.local    ← not tracked (local)
 └── .config/
     └── myapp/
         ├── config       ← repo (shared)
-        └── config.local ← untracked (local)
+        └── config.local ← not tracked (local)
 ```
 
-Add this to your repo's `.gitignore`:
+In the repo's `.gitignore`, ignore all `.local` files:
 
-```
+```gitignore
+# .gitignore
 *.local
 ```
 
-Now `git status` will never show dirty untracked `.local` files.
+This way, even if you accidentally create a `.local` file locally, `git status` won't show it.
 
-#### 4.4 New Machine Workflow
+#### 4.4 Setting Up a New Machine
 
-1. Clone and install:
+1. Clone the repo and run the install script:
 
 ```bash
 git clone git@github.com:yourname/dotfiles.git ~/.dotfiles
 cd ~/.dotfiles && ./install
 ```
 
-2. Create local override files:
+2. Create the `.local` files you need:
 
 ```bash
 touch ~/.zshrc.local
@@ -255,16 +270,17 @@ touch ~/.gitconfig_local
 touch ~/.tmux.conf.local
 ```
 
-3. Fill in machine-specific config.
+3. Fill in the machine-specific config.
 
-Day to day, you edit shared config in the repo and local overrides in the `.local` files — they never interfere.
+4. In daily use, editing shared vs. local config is just editing different files. They don't interfere.
 
-#### 4.5 Advanced: Environment-Based Loading
+#### 4.5 Advanced: Dynamic Loading by Environment
 
-If you have multiple machine roles (work, home, server), use more granular logic:
+If you have multiple machine roles (work, home, server), use finer-grained conditionals:
 
 ```bash
 # ~/.zshrc
+
 HOSTNAME=$(hostname)
 
 if [ -f ~/.zshrc.local ]; then
@@ -281,30 +297,36 @@ case "$HOSTNAME" in
 esac
 ```
 
-Or with Git's `includeIf` (2.13+):
+Or use `includeIf` with Git (2.13+):
 
 ```ini
 [includeIf "gitdir/i:~/work/"]
     path = ~/.gitconfig_work
 ```
 
-This lets a single dotfiles repo auto-switch config based on the current directory — great for juggling work and personal projects.
+This pattern lets a single dotfiles repo switch config based on the current directory, ideal for people with both work and personal projects.
 
 ## Common Pitfalls
 
 **Don't fork someone else's dotfiles**
 
-Dotfiles are a personal config backup. Someone else's shortcuts, shell themes, and Git aliases are noise to you. Reference official docs and community solutions, but understand each line before adding it to your own repo.
+Dotfiles are personal preferences. Someone else's shortcuts, shell themes, and Git aliases are noise for you. Read the official docs and community solutions, but understand every line before adding it to your own repo.
 
-**Don't commit secrets to Git**
+**Never put secrets in Git**
 
-Even if the repo is private, never store plaintext secrets. GPG keys, SSH keys, and API tokens belong in `.local` files or a password manager.
+Even with a private repo, don't store plaintext secrets in dotfiles. GPG private keys, SSH keys, and API tokens all go in .local files or a password manager.
 
-**Watch out for cloud-synced apps**
+**Watch out for cloud-sync apps**
 
-Some apps (like VS Code) have their own cloud sync. If you also manage their config with dotfiles symlinks, the two will fight for control and your repo will show constant drift. Let those apps handle their own sync, and exclude their paths from dotfiles.
+Some apps (like VS Code) have built-in cloud sync. If you also manage their config files via symlinks in dotfiles, the two fight for control and the repo will show constant drift. Let these apps use their own sync, and exclude their paths from dotfiles.
 
-## Setting Up a New Machine
+**Brewfile shouldn't be a dumping ground**
+
+`brew bundle dump` faithfully exports every manually installed package. If you tried a tool three years ago and forgot to uninstall it, it's in the Brewfile. Review periodically and remove unused entries, or your new machine will install a pile of junk.
+
+## Setting Up a New Machine (in Practice)
+
+Three commands:
 
 ```bash
 git clone git@github.com:thedavidweng/dotfiles.git ~/.dotfiles
@@ -312,7 +334,7 @@ cd ~/.dotfiles
 ./install
 ```
 
-The install script runs in order: initializes the Dotbot submodule, runs `brew bundle`, and creates all symlinks. When it finishes, every CLI tool, desktop app, and App Store app is installed.
+The install script runs in sequence: initialize the dotbot submodule, run brew bundle, create all symlinks. After it finishes, 58 CLI tools, 28 desktop apps, and 17 App Store apps are ready.
 
 Then create two local override files:
 
@@ -321,14 +343,14 @@ touch ~/.zshrc.local
 touch ~/.gitconfig_local
 ```
 
-Fill in the machine-specific details.
+Fill in the machine-specific config as needed.
 
-## What I Gained
+## Results
 
-- **New Mac setup**: 10 minutes instead of half a day
-- **Version history**: Every config change is a Git commit — roll back to last month's zsh theme in one command
-- **Environment consistency**: Same editor shortcuts, shell aliases, and Git behavior across machines — zero cognitive friction when switching
-- **No vendor lock-in**: Plain text files and standard CLI tools, no paid sync service required
+- **Migration time**: from half a day to 10 minutes
+- **Version tracking**: every config change is a Git commit, rollback to any point
+- **Environment consistency**: same editor shortcuts, shell aliases, and Git behavior across work and personal machines
+- **No vendor lock-in**: plain text files and standard CLI tools, no paid sync service required
 
 ## References
 

@@ -1,6 +1,5 @@
 ---
 title: "The Cleanest Way to Back Up Your Mac Setup: dotfiles"
-slug: dotfiles-setup-with-dotbot
 description: "Stop manually reconfiguring every new Mac. One dotfiles command restores all your settings."
 publishedDate: 2026-05-08
 tags:

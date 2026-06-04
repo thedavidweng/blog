@@ -1,7 +1,6 @@
 ---
 title: "How Much I Spent on AI"
 locale: en
-slug: "how-much-i-spent-on-ai"
 description: "A breakdown of my AI spending from August 2023 to May 2026, spanning nearly three years. Conclusion: most of the time I used free options, and actual out-of-pocket expenses were C$120.00 + U$13.54 + £11.00 + ¥99.00."
 publishedDate: 2026-05-15
 tags:

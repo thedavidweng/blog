@@ -20,17 +20,3 @@ Follow `docs/writing-style-guide.md`.
 ## OG Images
 
 Generated at build time by `astro-og-canvas` → `dist/og/`, **not** committed to `public/og/`. The directory is empty by design.
-
-## Agent skills
-
-### Issue tracker
-
-GitHub Issues — use `gh` CLI. See `docs/agents/issue-tracker.md`.
-
-### Triage labels
-
-Five canonical labels: `needs-triage`, `needs-info`, `ready-for-agent`, `ready-for-human`, `wontfix`. See `docs/agents/triage-labels.md`.
-
-### Domain docs
-
-Single-context — `CONTEXT.md` at root, ADRs in `docs/adr/`. See `docs/agents/domain.md`.

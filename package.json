@@ -14,6 +14,10 @@
     "test:plugins": "tsx tests/remark-link-card.test.ts",
     "test:dist": "tsx tests/dist-contract.test.ts",
     "convert-images": "tsx scripts/convert-to-avif.mjs",
+    "lint": "oxlint --fix",
+    "lint:check": "oxlint",
+    "format": "oxfmt --write 'src/**/*.{ts,json}' 'tests/**/*.ts' 'scripts/**/*.{ts,mjs}'",
+    "format:check": "oxfmt --check 'src/**/*.{ts,json}' 'tests/**/*.ts' 'scripts/**/*.{ts,mjs}'",
     "deploy": "wrangler pages deploy ./dist"
   },
   "dependencies": {
@@ -49,6 +53,8 @@
     "@types/mdast": "4.0.4",
     "@types/probe-image-size": "7.2.5",
     "@types/turndown": "^5.0.6",
+    "oxfmt": "^0.53.0",
+    "oxlint": "^1.68.0",
     "sharp": "^0.34.0",
     "tsx": "^4.22.3",
     "typescript": "^6.0.3",

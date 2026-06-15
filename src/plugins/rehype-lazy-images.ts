@@ -13,7 +13,7 @@ export function rehypeLazyImages() {
       const props = node.properties ?? (node.properties = {});
       if (props.loading == null) props.loading = 'lazy';
       if (props.decoding == null) props.decoding = 'async';
-      
+
       // Add no-referrer to bypass hotlink protection for external images (e.g. Bilibili link cards)
       if (typeof props.src === 'string' && props.src.startsWith('http')) {
         props.referrerPolicy = 'no-referrer';

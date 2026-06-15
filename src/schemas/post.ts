@@ -12,7 +12,7 @@ export const postSchema = z.object({
   /** When true, figure images are capped (e.g. product/card photos). */
   narrowFigures: z.boolean().optional(),
   /** Slugs of related posts to display at the bottom. */
-  related: z.array(z.string()).optional()
+  related: z.array(z.string()).optional(),
 });
 
 export type PostFrontmatter = z.infer<typeof postSchema>;

@@ -11,10 +11,8 @@ export const GET: APIRoute = async () => {
   const allPosts = await getCollection('posts');
   const published = allPosts
     .filter((post) => !post.data.draft)
-    .sort(
-      (a, b) =>
-        new Date(b.data.publishedDate).getTime() -
-        new Date(a.data.publishedDate).getTime()
+    .toSorted(
+      (a, b) => new Date(b.data.publishedDate).getTime() - new Date(a.data.publishedDate).getTime(),
     );
 
   const totalPosts = published.length;
@@ -70,12 +68,12 @@ export const GET: APIRoute = async () => {
     `- ${absoluteUrl('/llms-full.txt')} — Complete blog knowledge base`,
     `- ${absoluteUrl('/rss.xml')} — RSS feed (English)`,
     `- ${absoluteUrl('/zh/rss.xml')} — RSS feed (Chinese)`,
-    ''
+    '',
   ].join('\n');
 
   return new Response(text, {
     headers: {
-      'Content-Type': 'text/markdown; charset=utf-8'
-    }
+      'Content-Type': 'text/markdown; charset=utf-8',
+    },
   });
 };

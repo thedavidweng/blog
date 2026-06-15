@@ -3,7 +3,7 @@ import { getOgPages } from '../../lib/locale-routing';
 
 const fonts = [
   'https://cdn.jsdelivr.net/fontsource/fonts/noto-sans@5.2.9/latin-400-normal.ttf',
-  'https://cdn.jsdelivr.net/fontsource/fonts/noto-sans@5.2.9/latin-700-normal.ttf'
+  'https://cdn.jsdelivr.net/fontsource/fonts/noto-sans@5.2.9/latin-700-normal.ttf',
 ];
 
 const pages = await getOgPages('en');
@@ -18,7 +18,7 @@ export const { getStaticPaths, GET } = await OGImageRoute({
     border: {
       color: [125, 211, 252],
       width: 12,
-      side: 'inline-start'
+      side: 'inline-start',
     },
     padding: 72,
     fonts,
@@ -28,15 +28,15 @@ export const { getStaticPaths, GET } = await OGImageRoute({
         size: 74,
         weight: 'Bold',
         lineHeight: 1.04,
-        families: ['Noto Sans']
+        families: ['Noto Sans'],
       },
       description: {
         color: [165, 165, 171],
         size: 36,
         weight: 'Normal',
         lineHeight: 1.22,
-        families: ['Noto Sans']
-      }
-    }
-  })
+        families: ['Noto Sans'],
+      },
+    },
+  }),
 });

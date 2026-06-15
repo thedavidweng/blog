@@ -1,14 +1,14 @@
-import { readdir, readFile, access } from "node:fs/promises";
-import { join } from "node:path";
-import { fileURLToPath } from "node:url";
-import { parse as parseYaml } from "yaml";
-import { siteConfig } from "../src/site.config";
-import { postSchema, type PostFrontmatter } from "../src/schemas/post";
+import { readdir, readFile, access } from 'node:fs/promises';
+import { join } from 'node:path';
+import { fileURLToPath } from 'node:url';
+import { parse as parseYaml } from 'yaml';
+import { siteConfig } from '../src/site.config';
+import { postSchema, type PostFrontmatter } from '../src/schemas/post';
 
-const root = fileURLToPath(new URL("..", import.meta.url));
-const postsRoot = join(root, "src/content/posts");
-const publicRoot = join(root, "public");
-const locales = ["en", "zh"] as const;
+const root = fileURLToPath(new URL('..', import.meta.url));
+const postsRoot = join(root, 'src/content/posts');
+const publicRoot = join(root, 'public');
+const locales = ['en', 'zh'] as const;
 
 /** Frontmatter with slug always derived (never undefined). */
 type ResolvedFrontmatter = PostFrontmatter & { slug: string };
@@ -16,9 +16,7 @@ type ResolvedFrontmatter = PostFrontmatter & { slug: string };
 async function listPostFiles(locale: string) {
   const dir = join(postsRoot, locale);
   const files = await readdir(dir);
-  return files
-    .filter((file) => file.endsWith(".md") || file.endsWith(".mdx"))
-    .sort();
+  return files.filter((file) => file.endsWith('.md') || file.endsWith('.mdx')).toSorted();
 }
 
 function assert(condition: unknown, message: string): asserts condition {
@@ -31,16 +29,14 @@ function assert(condition: unknown, message: string): asserts condition {
 // See: https://yaml.org/spec/1.2.2/#1032-tag-resolution-directives
 // Valid YAML 1.2 booleans: true, false, True, False, TRUE, FALSE
 function validateYamlBooleans(file: string, frontmatterBlock: string): void {
-  const booleanFields = ["draft", "narrowFigures"];
+  const booleanFields = ['draft', 'narrowFigures'];
   for (const field of booleanFields) {
-    const match = frontmatterBlock.match(
-      new RegExp(`^${field}:\\s*(\\S+)`, "m"),
-    );
+    const match = frontmatterBlock.match(new RegExp(`^${field}:\\s*(\\S+)`, 'm'));
     if (!match) continue; // field not present — optional fields may be absent
     const rawValue = match[1];
     // Strip inline comment if present (e.g. "false  # draft post")
-    const value = rawValue.split("#")[0].trim();
-    const validBooleans = ["true", "false", "True", "False", "TRUE", "FALSE"];
+    const value = rawValue.split('#')[0].trim();
+    const validBooleans = ['true', 'false', 'True', 'False', 'TRUE', 'FALSE'];
     if (!validBooleans.includes(value)) {
       throw new Error(
         `${file}: field "${field}" must be a YAML 1.2 boolean, ` +
@@ -64,28 +60,25 @@ function parseFrontmatter(file: string, body: string): ResolvedFrontmatter {
   try {
     raw = parseYaml(frontmatterBlock) as Record<string, unknown>;
   } catch (err) {
-    throw new Error(`${file}: failed to parse frontmatter YAML: ${err}`);
+    throw new Error(`${file}: failed to parse frontmatter YAML: ${err}`, { cause: err });
   }
 
   const result = postSchema.safeParse(raw);
   if (!result.success) {
     const issues = result.error.issues
-      .map((i) => `  - ${i.path.join(".")}: ${i.message}`)
-      .join("\n");
+      .map((i) => `  - ${i.path.join('.')}: ${i.message}`)
+      .join('\n');
     throw new Error(`${file}: frontmatter validation failed:\n${issues}`);
   }
 
   // Derive slug from filename when not present in frontmatter
-  const slug =
-    result.data.slug ?? file.replace(/^.*\/([^/]+)\.(md|mdx)$/, "$1");
+  const slug = result.data.slug ?? file.replace(/^.*\/([^/]+)\.(md|mdx)$/, '$1');
 
   return { ...result.data, slug };
 }
 
 const filesByLocale = Object.fromEntries(
-  await Promise.all(
-    locales.map(async (locale) => [locale, await listPostFiles(locale)]),
-  ),
+  await Promise.all(locales.map(async (locale) => [locale, await listPostFiles(locale)])),
 ) as Record<(typeof locales)[number], string[]>;
 
 const entriesByLocale = Object.fromEntries(
@@ -93,7 +86,7 @@ const entriesByLocale = Object.fromEntries(
     locales.map(async (locale) => {
       const entries = await Promise.all(
         filesByLocale[locale].map(async (file) => {
-          const body = await readFile(join(postsRoot, locale, file), "utf8");
+          const body = await readFile(join(postsRoot, locale, file), 'utf8');
           return {
             file,
             body,
@@ -138,14 +131,12 @@ for (const locale of locales) {
     const imgMatches = body.matchAll(/!\[.*?\]\((.*?)\)/g);
     for (const match of imgMatches) {
       const imgPath = match[1];
-      if (imgPath.startsWith("/")) {
+      if (imgPath.startsWith('/')) {
         const fullPath = join(publicRoot, imgPath);
         try {
           await access(fullPath);
         } catch {
-          throw new Error(
-            `${locale}/${file} references missing image: ${imgPath}`,
-          );
+          throw new Error(`${locale}/${file} references missing image: ${imgPath}`);
         }
       }
     }
@@ -159,33 +150,26 @@ const publishedSlugsByLocale = Object.fromEntries(
     entriesByLocale[locale]
       .filter(({ frontmatter }) => !frontmatter.draft)
       .map(({ frontmatter }) => frontmatter.slug)
-      .sort(),
+      .toSorted(),
   ]),
 ) as Record<(typeof locales)[number], string[]>;
 
-const reference = publishedSlugsByLocale.en.join("\n");
-assert(
-  publishedSlugsByLocale.en.length > 0,
-  "Expected at least one translated post pair.",
-);
+const reference = publishedSlugsByLocale.en.join('\n');
+assert(publishedSlugsByLocale.en.length > 0, 'Expected at least one translated post pair.');
 
 for (const locale of locales) {
-  if (publishedSlugsByLocale[locale].join("\n") !== reference) {
+  if (publishedSlugsByLocale[locale].join('\n') !== reference) {
     const enSet = new Set(publishedSlugsByLocale.en);
     const currentSet = new Set(publishedSlugsByLocale[locale]);
 
-    const missingInCurrent = publishedSlugsByLocale.en.filter(
-      (s) => !currentSet.has(s),
-    );
-    const extraInCurrent = publishedSlugsByLocale[locale].filter(
-      (s) => !enSet.has(s),
-    );
+    const missingInCurrent = publishedSlugsByLocale.en.filter((s) => !currentSet.has(s));
+    const extraInCurrent = publishedSlugsByLocale[locale].filter((s) => !enSet.has(s));
 
     let error = `Translation mismatch for locale "${locale}":\n`;
     if (missingInCurrent.length > 0)
-      error += `  - Missing translations (exist in English but not in ${locale}): ${missingInCurrent.join(", ")}\n`;
+      error += `  - Missing translations (exist in English but not in ${locale}): ${missingInCurrent.join(', ')}\n`;
     if (extraInCurrent.length > 0)
-      error += `  - Orphan translations (exist in ${locale} but not in English): ${extraInCurrent.join(", ")}\n`;
+      error += `  - Orphan translations (exist in ${locale} but not in English): ${extraInCurrent.join(', ')}\n`;
 
     throw new Error(error);
   }

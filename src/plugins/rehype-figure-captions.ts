@@ -14,7 +14,8 @@ export function rehypeFigureCaptions() {
 
       const substantive = node.children.filter((c) => !isSkippableBetweenImages(c));
       if (substantive.length === 0) return;
-      if (!substantive.every((c) => c.type === 'element' && (c as Element).tagName === 'img')) return;
+      if (!substantive.every((c) => c.type === 'element' && (c as Element).tagName === 'img'))
+        return;
 
       const figures = substantive.map((child) => buildFigure(child as Element));
       patches.push({ parent: parent as Element, index, figures });
@@ -43,7 +44,7 @@ function buildFigure(img: Element): Element {
     type: 'element',
     tagName: 'img',
     properties: img.properties ? { ...img.properties } : {},
-    children: []
+    children: [],
   };
 
   // Do not strip the alt attribute to maintain accessibility.
@@ -55,7 +56,7 @@ function buildFigure(img: Element): Element {
       type: 'element',
       tagName: 'figcaption',
       properties: { className: ['post-figure-caption'] },
-      children: [{ type: 'text', value: alt }]
+      children: [{ type: 'text', value: alt }],
     });
   }
 
@@ -63,7 +64,7 @@ function buildFigure(img: Element): Element {
     type: 'element',
     tagName: 'figure',
     properties: { className: ['post-figure'] },
-    children: figureChildren
+    children: figureChildren,
   };
 }
 

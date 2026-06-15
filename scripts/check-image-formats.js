@@ -7,7 +7,7 @@ const __dirname = path.dirname(__filename);
 const PUBLIC_DIR = path.join(__dirname, '../public');
 
 // Extensions that we want to ban to keep the repository small
-const BANNED_EXTENSIONS = ['.png', '.jpg', '.jpeg', '.gif', '.webp'];
+const BANNED_EXTENSIONS = new Set(['.png', '.jpg', '.jpeg', '.gif', '.webp']);
 
 // Whitelist patterns for files that MUST remain in legacy formats for compatibility
 const WHITELIST = [
@@ -36,7 +36,7 @@ function scanDirectory(dir) {
     } else {
       const ext = path.extname(file).toLowerCase();
       
-      if (BANNED_EXTENSIONS.includes(ext)) {
+      if (BANNED_EXTENSIONS.has(ext)) {
         if (!isWhitelisted(fullPath)) {
           violations.push(path.relative(PUBLIC_DIR, fullPath));
         }

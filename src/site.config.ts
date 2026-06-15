@@ -17,7 +17,7 @@ export const siteConfig = {
   nav,
   tags,
   social,
-  features
+  features,
 } as const;
 
 export function getBaseUrl() {

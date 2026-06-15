@@ -22,8 +22,9 @@ if (siteConfig.features.expressiveCode) {
       themes: ['github-light', 'github-dark'],
       useThemedScrollbars: false,
       useThemedSelectionColors: false,
-      themeCssSelector: (theme) => `[data-theme='${theme.name === 'github-dark' ? 'dark' : 'light'}']`
-    })
+      themeCssSelector: (theme) =>
+        `[data-theme='${theme.name === 'github-dark' ? 'dark' : 'light'}']`,
+    }),
   );
 }
 
@@ -34,10 +35,10 @@ integrations.push(
       defaultLocale: 'en',
       locales: {
         en: 'en',
-        zh: 'zh-CN'
-      }
-    }
-  })
+        zh: 'zh-CN',
+      },
+    },
+  }),
 );
 
 const remarkPlugins = [];
@@ -58,15 +59,15 @@ export default defineConfig({
     shikiConfig: {
       themes: {
         light: 'github-light',
-        dark: 'github-dark'
+        dark: 'github-dark',
       },
-      defaultColor: false
+      defaultColor: false,
     },
     remarkPlugins,
-    rehypePlugins: [rehypeSlug, rehypeFigureCaptions, rehypeLazyImages]
+    rehypePlugins: [rehypeSlug, rehypeFigureCaptions, rehypeLazyImages],
   },
 
   vite: {
-    plugins: [tailwindcss()]
-  }
+    plugins: [tailwindcss()],
+  },
 });

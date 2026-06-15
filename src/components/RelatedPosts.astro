@@ -5,7 +5,7 @@ import type { Locale } from '../site.config';
 
 interface Props {
   locale: Locale;
-  posts: CollectionEntry<'posts'>[];
+  posts: Array<CollectionEntry<'posts'>>;
 }
 
 const { locale, posts } = Astro.props;

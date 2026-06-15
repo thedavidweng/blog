@@ -56,13 +56,13 @@ async function getOpenGraph(targetUrl: string) {
     const { result } = await ogs({
       url: targetUrl,
       timeout: 10000,
-      onlyGetOpenGraphInfo: true
+      onlyGetOpenGraphInfo: true,
     });
     return result as Record<string, unknown> | undefined;
   } catch (error: unknown) {
     const err = error as { result?: { requestUrl?: string; error?: string } };
     console.error(
-      `[remark-link-card] Failed Open Graph for ${err?.result?.requestUrl ?? targetUrl}: ${err?.result?.error ?? error}`
+      `[remark-link-card] Failed Open Graph for ${err?.result?.requestUrl ?? targetUrl}: ${err?.result?.error ?? error}`,
     );
     return undefined;
   }
@@ -93,8 +93,8 @@ async function downloadImage(url: string, saveDirectory: string): Promise<string
     const response = await fetch(targetUrl.href, {
       headers: {
         'User-Agent':
-          'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/74.0.3729.169 Safari/537.36'
-      }
+          'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/74.0.3729.169 Safari/537.36',
+      },
     });
     if (!response.ok) throw new Error(String(response.status));
     const buffer = Buffer.from(await response.arrayBuffer());
@@ -119,9 +119,11 @@ export function createDefaultFetcher(options?: RemarkLinkCardOptions): LinkCardF
     if (options?.cache) {
       const faviconFilename = await downloadImage(
         faviconUrl,
-        path.join(process.cwd(), defaultSaveDirectory, defaultOutputDirectory)
+        path.join(process.cwd(), defaultSaveDirectory, defaultOutputDirectory),
       );
-      faviconSrc = faviconFilename ? path.join(defaultOutputDirectory, faviconFilename) : faviconUrl;
+      faviconSrc = faviconFilename
+        ? path.join(defaultOutputDirectory, faviconFilename)
+        : faviconUrl;
     } else {
       faviconSrc = faviconUrl;
     }
@@ -132,7 +134,7 @@ export function createDefaultFetcher(options?: RemarkLinkCardOptions): LinkCardF
       if (options?.cache) {
         const imageFilename = await downloadImage(
           ogImage.url,
-          path.join(process.cwd(), defaultSaveDirectory, defaultOutputDirectory)
+          path.join(process.cwd(), defaultSaveDirectory, defaultOutputDirectory),
         );
         ogImageSrc = imageFilename ? path.join(defaultOutputDirectory, imageFilename) : ogImage.url;
       } else {
@@ -140,8 +142,7 @@ export function createDefaultFetcher(options?: RemarkLinkCardOptions): LinkCardF
       }
     }
 
-    const ogImageAlt =
-      (typeof ogImage?.alt === 'string' && he.encode(ogImage.alt)) || title;
+    const ogImageAlt = (typeof ogImage?.alt === 'string' && he.encode(ogImage.alt)) || title;
 
     let displayUrl = options?.shortenUrl ? parsedUrl.hostname : targetUrl;
     try {
@@ -157,7 +158,7 @@ export function createDefaultFetcher(options?: RemarkLinkCardOptions): LinkCardF
       ogImageSrc,
       ogImageAlt,
       displayUrl,
-      url: targetUrl
+      url: targetUrl,
     };
   };
 }
@@ -194,7 +195,9 @@ export function createLinkCard(data: LinkCardData) {
 
 type ParentWithChildren = { children: Root['children'] };
 
-export default function remarkLinkCard(options?: RemarkLinkCardOptions & { fetcher?: LinkCardFetcher }) {
+export default function remarkLinkCard(
+  options?: RemarkLinkCardOptions & { fetcher?: LinkCardFetcher },
+) {
   const fetch = options?.fetcher ?? createDefaultFetcher(options);
   return async (tree: Root) => {
     const tasks: Array<{ index: number; parent: ParentWithChildren; url: string }> = [];

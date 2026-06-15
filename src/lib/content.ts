@@ -24,10 +24,10 @@ export function getPostLocale(post: PostEntry): Locale {
 
 export async function getPublishedPosts(locale?: Locale) {
   const entries = await getCollection('posts', ({ data }) => !data.draft);
-  const filtered = locale
-    ? entries.filter((entry) => getPostLocale(entry) === locale)
-    : entries;
-  return filtered.sort((a, b) => b.data.publishedDate.valueOf() - a.data.publishedDate.valueOf());
+  const filtered = locale ? entries.filter((entry) => getPostLocale(entry) === locale) : entries;
+  return filtered.toSorted(
+    (a, b) => b.data.publishedDate.valueOf() - a.data.publishedDate.valueOf(),
+  );
 }
 
 export function getPostSlug(post: PostEntry): string {
@@ -51,16 +51,12 @@ export async function getPostPairs() {
 
 export async function assertTranslatedPostPairs() {
   const pairs = await getPostPairs();
-  const complete = pairs.filter(({ posts }) =>
-    locales.every((locale) => posts[locale])
-  );
+  const complete = pairs.filter(({ posts }) => locales.every((locale) => posts[locale]));
 
-  const missing = pairs.filter(({ posts }) =>
-    !locales.every((locale) => posts[locale])
-  );
+  const missing = pairs.filter(({ posts }) => !locales.every((locale) => posts[locale]));
   if (missing.length > 0) {
     const missingList = missing.map(
-      ({ slug, posts }) => `${slug}: missing ${locales.filter((l) => !posts[l]).join(', ')}`
+      ({ slug, posts }) => `${slug}: missing ${locales.filter((l) => !posts[l]).join(', ')}`,
     );
     console.warn(`Skipping incomplete translations: ${missingList.join(', ')}`);
   }
@@ -91,5 +87,7 @@ export function ogImagePath(locale: Locale, slug: string) {
 
 export async function getTags(locale: Locale) {
   const posts = await getPublishedPosts(locale);
-  return [...new Set(posts.flatMap((post) => post.data.tags))].sort((a, b) => a.localeCompare(b));
+  return [...new Set(posts.flatMap((post) => post.data.tags))].toSorted((a, b) =>
+    a.localeCompare(b),
+  );
 }

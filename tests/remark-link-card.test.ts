@@ -36,15 +36,24 @@ await test('isUnsafePlaintextSnippet: empty string is unsafe', () => {
 
 await test('isUnsafePlaintextSnippet: markup strings are unsafe', () => {
   assert(isUnsafePlaintextSnippet('<div>foo</div>') === true, 'HTML tag should be unsafe');
-  assert(isUnsafePlaintextSnippet('<meta name="description" content="x">') === true, 'meta tag should be unsafe');
+  assert(
+    isUnsafePlaintextSnippet('<meta name="description" content="x">') === true,
+    'meta tag should be unsafe',
+  );
   assert(isUnsafePlaintextSnippet('  <br>') === true, 'leading tag should be unsafe');
   assert(isUnsafePlaintextSnippet('<META>') === true, 'uppercase META should be unsafe');
 });
 
 await test('isUnsafePlaintextSnippet: plain text is safe', () => {
   assert(isUnsafePlaintextSnippet('Hello world') === false, 'plain text should be safe');
-  assert(isUnsafePlaintextSnippet('A description with numbers 123') === false, 'alphanumeric should be safe');
-  assert(isUnsafePlaintextSnippet('contains > and < in context') === false, 'angle brackets mid-string should be safe');
+  assert(
+    isUnsafePlaintextSnippet('A description with numbers 123') === false,
+    'alphanumeric should be safe',
+  );
+  assert(
+    isUnsafePlaintextSnippet('contains > and < in context') === false,
+    'angle brackets mid-string should be safe',
+  );
 });
 
 // ── pickDescription ───────────────────────────────────────────────────────────
@@ -190,7 +199,10 @@ await test('remarkLinkCard: does not touch paragraphs with multiple children', a
 
   let called = false;
   const plugin = remarkLinkCard({
-    fetcher: async () => { called = true; return sampleData; },
+    fetcher: async () => {
+      called = true;
+      return sampleData;
+    },
   });
 
   const result = await plugin(tree);
@@ -211,7 +223,10 @@ await test('remarkLinkCard: does not touch paragraphs without URLs', async () =>
 
   let called = false;
   const plugin = remarkLinkCard({
-    fetcher: async () => { called = true; return sampleData; },
+    fetcher: async () => {
+      called = true;
+      return sampleData;
+    },
   });
 
   const result = await plugin(tree);
@@ -231,7 +246,9 @@ await test('remarkLinkCard: handles fetcher errors gracefully', async () => {
   };
 
   const plugin = remarkLinkCard({
-    fetcher: async () => { throw new Error('network down'); },
+    fetcher: async () => {
+      throw new Error('network down');
+    },
   });
 
   // Should not throw — errors are caught internally

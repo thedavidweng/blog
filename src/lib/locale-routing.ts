@@ -1,12 +1,21 @@
 import type { CollectionEntry } from 'astro:content';
-import { assertTranslatedPostPairs, getPostSlug, getPublishedPosts, getTags, ogImagePath, postUrl, tagLabel } from './content';
+import {
+  assertTranslatedPostPairs,
+  getPostSlug,
+  getPublishedPosts,
+  getTags,
+  ogImagePath,
+  postUrl,
+  tagLabel,
+} from './content';
 import { absoluteUrl, siteConfig, type Locale, defaultLocale, locales } from '../site.config';
 
 /** Shared getStaticPaths for post detail pages. */
 export async function getPostStaticPaths(locale: Locale) {
   const pairs = await assertTranslatedPostPairs();
-  const sorted = pairs.sort((a, b) =>
-    b.posts[locale].data.publishedDate.valueOf() - a.posts[locale].data.publishedDate.valueOf()
+  const sorted = pairs.toSorted(
+    (a, b) =>
+      b.posts[locale].data.publishedDate.valueOf() - a.posts[locale].data.publishedDate.valueOf(),
   );
 
   const allPosts = new Map<string, CollectionEntry<'posts'>>();
@@ -14,7 +23,7 @@ export async function getPostStaticPaths(locale: Locale) {
     allPosts.set(getPostSlug(posts[locale]), posts[locale]);
   }
 
-  const alternateLocale = locales.find(l => l !== locale)!;
+  const alternateLocale = locales.find((l) => l !== locale)!;
 
   return sorted.map(({ slug, posts }, index) => {
     const relatedSlugs = posts[locale].data.related ?? [];
@@ -29,8 +38,8 @@ export async function getPostStaticPaths(locale: Locale) {
         alternatePath: postUrl(alternateLocale, slug),
         prev: index < sorted.length - 1 ? sorted[index + 1].posts[locale] : undefined,
         next: index > 0 ? sorted[index - 1].posts[locale] : undefined,
-        relatedPosts
-      }
+        relatedPosts,
+      },
     };
   });
 }
@@ -49,9 +58,9 @@ export async function getOgPages(locale: Locale) {
       slug,
       {
         title: posts[locale].data.title,
-        description: posts[locale].data.description
-      }
-    ])
+        description: posts[locale].data.description,
+      },
+    ]),
   );
 }
 
@@ -66,7 +75,7 @@ export async function getRssItems(locale: Locale) {
       pubDate: post.data.publishedDate,
       link: postUrl(locale, slug),
       categories: post.data.tags.map((tag) => tagLabel(locale, tag)),
-      customData: `<enclosure url="${absoluteUrl(ogImagePath(locale, slug))}" type="image/png" />`
+      customData: `<enclosure url="${absoluteUrl(ogImagePath(locale, slug))}" type="image/png" />`,
     };
   });
 }
@@ -76,8 +85,8 @@ export function getHomeJsonLd(locale: Locale) {
   const siteUrl = absoluteUrl('/');
   const pageUrl = locale === defaultLocale ? siteUrl : absoluteUrl(`/${locale}/`);
   const socialUrls = siteConfig.social
-    .filter(s => ['GitHub', 'LinkedIn', 'X'].includes(s.label))
-    .map(s => s.href);
+    .filter((s) => ['GitHub', 'LinkedIn', 'X'].includes(s.label))
+    .map((s) => s.href);
 
   return {
     '@context': 'https://schema.org',
@@ -91,16 +100,20 @@ export function getHomeJsonLd(locale: Locale) {
           '@type': 'Person',
           name: siteConfig.author,
           jobTitle: 'Developer and Designer',
-          knowsAbout: ['Open-source tools', 'Desktop application development', 'AI-integrated creative work']
+          knowsAbout: [
+            'Open-source tools',
+            'Desktop application development',
+            'AI-integrated creative work',
+          ],
         },
-        inLanguage: locale === 'en' ? 'en' : 'zh-CN'
+        inLanguage: locale === 'en' ? 'en' : 'zh-CN',
       },
       {
         '@type': 'Organization',
         name: siteConfig.name,
         url: siteUrl,
         logo: absoluteUrl('/android-chrome-512x512.png'),
-        sameAs: socialUrls
+        sameAs: socialUrls,
       },
       {
         '@type': 'Person',
@@ -108,13 +121,17 @@ export function getHomeJsonLd(locale: Locale) {
         url: siteUrl,
         sameAs: socialUrls,
         jobTitle: 'Developer and Designer',
-        knowsAbout: ['Open-source tools', 'Desktop application development', 'AI-integrated creative work']
+        knowsAbout: [
+          'Open-source tools',
+          'Desktop application development',
+          'AI-integrated creative work',
+        ],
       },
       {
         '@type': 'WebSite',
         name: siteConfig.name,
-        url: siteUrl
-      }
-    ]
+        url: siteUrl,
+      },
+    ],
   };
 }

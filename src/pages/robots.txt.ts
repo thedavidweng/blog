@@ -75,7 +75,7 @@ export const GET: APIRoute = () =>
       'Disallow: /',
       '',
       '# ============================================',
-      '# Undeclared Bots (block) - Don\'t play nice',
+      "# Undeclared Bots (block) - Don't play nice",
       '# ============================================',
       '',
       'User-agent: Bytespider',
@@ -94,11 +94,11 @@ export const GET: APIRoute = () =>
       `# Sitemap`,
       `# ============================================`,
       ``,
-      `Sitemap: ${absoluteUrl('/sitemap-index.xml')}`
+      `Sitemap: ${absoluteUrl('/sitemap-index.xml')}`,
     ].join('\n'),
     {
       headers: {
-        'Content-Type': 'text/plain; charset=utf-8'
-      }
-    }
+        'Content-Type': 'text/plain; charset=utf-8',
+      },
+    },
   );

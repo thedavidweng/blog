@@ -6,5 +6,5 @@ export const features = {
   expressiveCode: true,
   mediumZoom: true,
   giscus: true,
-  backToTop: true
+  backToTop: true,
 } as const;

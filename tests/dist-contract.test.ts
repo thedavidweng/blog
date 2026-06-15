@@ -14,7 +14,7 @@ const requiredFiles = [
   'dist/zh/rss.xml',
   'dist/sitemap-index.xml',
   'dist/robots.txt',
-  'dist/llms.txt'
+  'dist/llms.txt',
 ];
 
 for (const file of requiredFiles) {

@@ -14,7 +14,7 @@ interface Props {
   remarkPluginFrontmatter?: Record<string, any>;
   prev?: CollectionEntry<'posts'>;
   next?: CollectionEntry<'posts'>;
-  relatedPosts?: CollectionEntry<'posts'>[];
+  relatedPosts?: Array<CollectionEntry<'posts'>>;
 }
 
 const { post, alternatePath, remarkPluginFrontmatter, prev, next, relatedPosts = [] } = Astro.props;

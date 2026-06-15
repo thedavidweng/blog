@@ -1,0 +1,28 @@
+{
+  "$schema": "https://oxc.rs/docs/guide/usage/linter/config",
+  "categories": {
+    "correctness": "error",
+    "suspicious": "warn",
+    "perf": "warn"
+  },
+  "rules": {
+    "no-unused-vars": ["error", { "argsIgnorePattern": "^_", "caughtErrors": "none" }],
+    "no-console": "off",
+    "sort-imports": "off",
+    "sort-keys": "off",
+    "no-ternary": "off",
+    "id-length": "off",
+    "no-magic-numbers": "off",
+    "max-statements": "off",
+    "prefer-destructuring": "off",
+    "prefer-named-capture-group": "off",
+    "no-continue": "off",
+    "init-declarations": "off",
+    "filename-case": "off",
+    "no-await-in-loop": "off",
+    "no-underscore-dangle": "off",
+    "no-shadow": "off",
+    "preserve-caught-error": "warn",
+    "typescript/array-type": ["error", { "default": "array-simple" }]
+  }
+}

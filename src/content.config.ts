@@ -6,9 +6,9 @@ const posts = defineCollection({
   loader: glob({
     pattern: '**/*.md',
     base: './src/content/posts',
-    generateId: ({ entry }) => entry.replace(/\.md$/, '')
+    generateId: ({ entry }) => entry.replace(/\.md$/, ''),
   }),
-  schema: postSchema
+  schema: postSchema,
 });
 
 export const collections = { posts };

@@ -10,6 +10,6 @@ export const GET: APIRoute = async () => {
     title: siteConfig.name,
     description: siteConfig.description[locale],
     site: absoluteUrl('/'),
-    items: await getRssItems(locale)
+    items: await getRssItems(locale),
   });
 };

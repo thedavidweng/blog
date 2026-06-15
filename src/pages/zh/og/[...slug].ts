@@ -3,7 +3,7 @@ import { getOgPages } from '../../../lib/locale-routing';
 
 const fonts = [
   'https://cdn.jsdelivr.net/fontsource/fonts/noto-sans-sc@5.2.9/chinese-simplified-400-normal.ttf',
-  'https://cdn.jsdelivr.net/fontsource/fonts/noto-sans-sc@5.2.9/chinese-simplified-700-normal.ttf'
+  'https://cdn.jsdelivr.net/fontsource/fonts/noto-sans-sc@5.2.9/chinese-simplified-700-normal.ttf',
 ];
 // CanvasKit exposes these Fontsource TTFs under this family name.
 const fontFamilies = ['Noto Sans SC Thin', 'Noto Sans'];
@@ -20,7 +20,7 @@ export const { getStaticPaths, GET } = await OGImageRoute({
     border: {
       color: [125, 211, 252],
       width: 12,
-      side: 'inline-start'
+      side: 'inline-start',
     },
     padding: 72,
     fonts,
@@ -30,15 +30,15 @@ export const { getStaticPaths, GET } = await OGImageRoute({
         size: 72,
         weight: 'Bold',
         lineHeight: 1.06,
-        families: fontFamilies
+        families: fontFamilies,
       },
       description: {
         color: [165, 165, 171],
         size: 34,
         weight: 'Normal',
         lineHeight: 1.28,
-        families: fontFamilies
-      }
-    }
-  })
+        families: fontFamilies,
+      },
+    },
+  }),
 });

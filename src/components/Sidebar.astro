@@ -95,7 +95,7 @@ const socialIcons = {
   </a>
 </div>
 
-<script>
+<script define:vars={{ i18n: { nav: siteConfig.nav, role: siteConfig.role } }}>
   function updateActiveNav() {
     const current = location.pathname.replace(/\/+$/, '') || '/';
     document.querySelectorAll('.nav-link').forEach((link) => {
@@ -104,7 +104,67 @@ const socialIcons = {
     });
   }
 
-  document.addEventListener('astro:after-swap', updateActiveNav);
+  function getLocale() {
+    return location.pathname.startsWith('/zh') ? 'zh' : 'en';
+  }
+
+  function updateLocaleContent() {
+    const locale = getLocale();
+    const altLocale = locale === 'zh' ? 'en' : 'zh';
+
+    // nav link labels & hrefs
+    const navKeys = ['posts', 'tags', 'about'];
+    document.querySelectorAll('.nav-link').forEach((link, i) => {
+      const key = navKeys[i];
+      const label = link.querySelector('span');
+      if (label) label.textContent = i18n.nav[locale][key];
+      if (link instanceof HTMLAnchorElement) {
+        const base = locale === 'en' ? '/' : '/zh/';
+        const suffix = key === 'posts' ? '' : `${key}/`;
+        link.href = base === '/' && suffix === '' ? '/' : `${base}${suffix}`;
+      }
+    });
+
+    // brand role & link
+    const roleEl = document.querySelector('.brand-role');
+    if (roleEl) roleEl.textContent = i18n.role[locale];
+    const brandLink = document.querySelector('.brand');
+    if (brandLink instanceof HTMLAnchorElement) brandLink.href = locale === 'en' ? '/' : '/zh/';
+
+    // toolbar locale link
+    const localeLink = document.querySelector('[data-locale-link]');
+    if (localeLink instanceof HTMLAnchorElement) {
+      localeLink.href = altLocale === 'zh' ? '/zh/' : '/';
+      localeLink.hreflang = altLocale === 'zh' ? 'zh-CN' : 'en';
+      localeLink.setAttribute('aria-label', locale === 'zh' ? 'Switch to English' : 'Switch to Chinese');
+      localeLink.title = localeLink.getAttribute('aria-label') ?? '';
+    }
+
+    // toolbar aria
+    const toolbar = document.querySelector('.toolbar');
+    if (toolbar) toolbar.setAttribute('aria-label', locale === 'zh' ? '主题与语言' : 'Theme and language');
+    const themeBtn = document.querySelector('[data-theme-toggle]');
+    if (themeBtn) {
+      const label = locale === 'zh' ? '切换浅色或深色主题' : 'Toggle light or dark theme';
+      themeBtn.setAttribute('aria-label', label);
+      themeBtn.title = label;
+    }
+
+    // nav landmarks
+    const siteNav = document.querySelector('.site-nav');
+    if (siteNav) siteNav.setAttribute('aria-label', locale === 'zh' ? '主导航' : 'Primary navigation');
+    const socialNav = document.querySelector('.social-nav');
+    if (socialNav) socialNav.setAttribute('aria-label', locale === 'zh' ? '外部链接' : 'External links');
+
+    // skip link
+    const skipLink = document.querySelector('.skip-link');
+    if (skipLink) skipLink.textContent = locale === 'zh' ? '跳到正文' : 'Skip to content';
+  }
+
+  document.addEventListener('astro:after-swap', () => {
+    updateActiveNav();
+    updateLocaleContent();
+  });
 
   const root = document.documentElement;
   const themeButton = document.querySelector('[data-theme-toggle]');

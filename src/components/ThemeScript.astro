@@ -1,24 +1,29 @@
 <script is:inline>
   (() => {
-    try {
-      const key = 'theme';
-      let stored = null;
+    const key = 'theme';
+    function applyTheme() {
       try {
-        stored = localStorage.getItem(key);
+        let stored = null;
+        try {
+          stored = localStorage.getItem(key);
+        } catch {
+          /* storage unavailable (private mode, blocked, quota) */
+        }
+        let prefersDark = false;
+        try {
+          prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+        } catch {
+          /* matchMedia unsupported */
+        }
+        const valid = stored === 'light' || stored === 'dark';
+        const theme = valid ? stored : prefersDark ? 'dark' : 'light';
+        document.documentElement.dataset.theme = theme;
       } catch {
-        /* storage unavailable (private mode, blocked, quota) */
+        document.documentElement.dataset.theme = 'dark';
       }
-      let prefersDark = false;
-      try {
-        prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
-      } catch {
-        /* matchMedia unsupported */
-      }
-      const valid = stored === 'light' || stored === 'dark';
-      const theme = valid ? stored : prefersDark ? 'dark' : 'light';
-      document.documentElement.dataset.theme = theme;
-    } catch {
-      document.documentElement.dataset.theme = 'dark';
     }
+    applyTheme();
+    // ClientRouter replaces <html> on navigation; re-apply after swap
+    document.addEventListener('astro:after-swap', applyTheme);
   })();
 </script>

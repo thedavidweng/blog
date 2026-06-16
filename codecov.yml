@@ -1,0 +1,46 @@
+coverage:
+  status:
+    project:
+      default:
+        target: auto
+        threshold: 2%
+    patch:
+      default:
+        target: 80%
+
+  precision: 1
+  round: down
+  range: "60...100"
+
+component_management:
+  individual_components:
+    - component_id: src
+      name: src
+      paths:
+        - src/**
+    - component_id: plugins
+      name: plugins
+      paths:
+        - src/plugins/**
+    - component_id: lib
+      name: lib
+      paths:
+        - src/lib/**
+
+comment:
+  layout: "header, diff, components, files"
+  require_changes: true
+
+flags:
+  contract:
+    paths:
+      - src/**
+    carryforward: true
+
+ignore:
+  - "**/*.d.ts"
+  - "**/*.config.*"
+  - "dist/**"
+  - "public/**"
+  - "scripts/**"
+  - "functions/**"

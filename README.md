@@ -55,7 +55,7 @@ Set this in **Cloudflare Pages → Settings → Environment variables** (Product
 
 - Build command: `pnpm run build`
 - Output directory: `dist`
-- Node version: `25.9.0` from `.nvmrc`
+- Node version: from `mise.toml`
 
 ## Content
 

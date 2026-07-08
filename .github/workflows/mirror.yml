@@ -2,12 +2,16 @@ name: Mirror to Codeberg
 
 on:
   push:
-    branches: ["**"]
+    branches: ["main"]
     tags: ["**"]
   workflow_dispatch:
 
 permissions:
   contents: read
+
+concurrency:
+  group: mirror
+  cancel-in-progress: false
 
 jobs:
   mirror:
@@ -22,9 +26,9 @@ jobs:
           fetch-depth: 0
 
       - name: Mirror to Codeberg
-        uses: cssnr/mirror-repository-action@2af5bf347684245f52b5f56502956a57f9b8813e # v1
-        with:
-          host: https://codeberg.org
-          username: thedavidweng
-          password: ${{ secrets.CODEBERG_TOKEN }}
-          force_push: true
+        env:
+          CODEBERG_TOKEN: ${{ secrets.CODEBERG_TOKEN }}
+        run: |
+          git remote add codeberg "https://thedavidweng:${CODEBERG_TOKEN}@codeberg.org/thedavidweng/blog"
+          git push codeberg main --force
+          git push codeberg --tags --force

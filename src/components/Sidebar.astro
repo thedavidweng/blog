@@ -95,12 +95,16 @@ const socialIcons = {
   </a>
 </div>
 
-<script define:vars={{ i18n: { nav: siteConfig.nav, role: siteConfig.role } }}>
+<script is:inline define:vars={{ i18n: { nav: siteConfig.nav, role: siteConfig.role } }}>
   function updateActiveNav() {
     const current = location.pathname.replace(/\/+$/, '') || '/';
     document.querySelectorAll('.nav-link').forEach((link) => {
       const href = link instanceof HTMLAnchorElement ? new URL(link.href).pathname.replace(/\/+$/, '') || '/' : '';
-      link.setAttribute('aria-current', href === current ? 'page' : 'false');
+      if (href === current) {
+        link.setAttribute('aria-current', 'page');
+      } else {
+        link.removeAttribute('aria-current');
+      }
     });
   }
 

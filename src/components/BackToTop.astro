@@ -38,6 +38,9 @@ const label = locale === 'zh' ? '回到顶部' : 'Back to top';
     });
 
     document.addEventListener('astro:page-load', setup);
+    document.addEventListener('astro:before-swap', () => {
+      if (scrollHandler) window.removeEventListener('scroll', scrollHandler);
+    }, { once: true });
     setup();
   })();
 </script>

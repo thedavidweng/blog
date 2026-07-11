@@ -696,7 +696,7 @@ pre.astro-code-themes {
 }
 
 /* remark-link-card (Rich Link Preview Cards) */
-.article .prose a.rlc-container {
+a.rlc-container {
   display: flex;
   flex-direction: column;
   border: 1px solid var(--border);
@@ -705,14 +705,18 @@ pre.astro-code-themes {
   text-decoration: none;
   color: var(--text);
   transition: box-shadow 0.2s var(--ease-out-quart), transform 0.2s var(--ease-out-quart), border-color 0.2s var(--ease-out-quart);
-  margin: 2rem 0;
   background: var(--bg);
 }
 
-.article .prose a.rlc-container:hover {
+a.rlc-container:hover {
   box-shadow: var(--shadow);
   transform: translateY(-1px);
   border-color: var(--accent);
+}
+
+/* Prose context: add vertical spacing */
+.article .prose a.rlc-container {
+  margin: 2rem 0;
 }
 
 .rlc-info {
@@ -724,7 +728,7 @@ pre.astro-code-themes {
   min-width: 0;
 }
 
-.article .prose .rlc-title {
+.rlc-title {
   font-weight: 700;
   font-size: 1.05rem;
   line-height: 1.35;
@@ -736,7 +740,7 @@ pre.astro-code-themes {
   overflow: hidden;
 }
 
-.article .prose .rlc-description {
+.rlc-description {
   font-size: 0.9rem;
   color: var(--muted);
   margin: 0 0 0.8rem 0;
@@ -754,14 +758,14 @@ pre.astro-code-themes {
   margin-top: auto;
 }
 
-.article .prose .rlc-favicon {
+.rlc-favicon {
   width: 16px;
   height: 16px;
   margin: 0;
   border-radius: 2px;
 }
 
-.article .prose .rlc-url {
+.rlc-url {
   font-size: 0.82rem;
   color: var(--muted);
   overflow: hidden;
@@ -775,7 +779,7 @@ pre.astro-code-themes {
   background: var(--panel);
 }
 
-.article .prose .rlc-image {
+.rlc-image {
   width: 100%;
   height: 180px;
   object-fit: cover;
@@ -784,7 +788,7 @@ pre.astro-code-themes {
 }
 
 @media (min-width: 640px) {
-  .article .prose a.rlc-container {
+  a.rlc-container {
     flex-direction: row;
     height: 130px;
   }
@@ -796,7 +800,7 @@ pre.astro-code-themes {
     flex-shrink: 0;
     border-left: 1px solid var(--border);
   }
-  .article .prose .rlc-image {
+  .rlc-image {
     height: 100%;
   }
 }

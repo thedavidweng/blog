@@ -1,6 +1,7 @@
 import type { APIRoute } from 'astro';
 import { getCollection } from 'astro:content';
 import { absoluteUrl } from '../site.config';
+import { getPostLocale, getPostSlug } from '../lib/content';
 
 /**
  * LLMs.txt route — dynamically generated site overview for AI systems.
@@ -20,14 +21,14 @@ export const GET: APIRoute = async () => {
   const recentPosts = published
     .slice(0, 8)
     .map((post) => {
-      const locale = post.data.locale === 'zh' ? 'zh' : 'en';
-      const slug = post.id.replace(/^(en|zh)\//, '');
+      const locale = getPostLocale(post);
+      const slug = getPostSlug(post);
       const path = locale === 'zh' ? `/zh/posts/${slug}/` : `/posts/${slug}/`;
       const url = absoluteUrl(path);
       const desc = post.data.description
         ? ` — ${post.data.description.slice(0, 120)}${post.data.description.length > 120 ? '...' : ''}`
         : '';
-      return `- **[${post.data.title}](${url})** (${locale === 'en' ? 'en' : 'zh'})${desc}`;
+      return `- **[${post.data.title}](${url})** (${locale})${desc}`;
     })
     .join('\n');
 
@@ -46,7 +47,6 @@ export const GET: APIRoute = async () => {
     `- [Posts](${absoluteUrl('/posts/')})`,
     `- [Tags](${absoluteUrl('/tags/')})`,
     `- [About](${absoluteUrl('/about/')})`,
-    `- [Referral Codes](${absoluteUrl('/my-referral-codes/')})`,
     `- [GitHub](https://github.com/thedavidweng)`,
     `- [X / Twitter](https://x.com/thedavidweng)`,
     `- [LinkedIn](https://www.linkedin.com/in/thedavidweng/)`,
@@ -65,7 +65,6 @@ export const GET: APIRoute = async () => {
     '## Machine-Readable Endpoints',
     '',
     `- ${absoluteUrl('/sitemap-index.xml')} — All pages`,
-    `- ${absoluteUrl('/llms-full.txt')} — Complete blog knowledge base`,
     `- ${absoluteUrl('/rss.xml')} — RSS feed (English)`,
     `- ${absoluteUrl('/zh/rss.xml')} — RSS feed (Chinese)`,
     '',

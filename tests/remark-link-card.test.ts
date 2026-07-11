@@ -1,4 +1,5 @@
 import type { Root } from 'mdast';
+import type { OgObject } from 'open-graph-scraper/types';
 import remarkLinkCard, {
   isUnsafePlaintextSnippet,
   pickDescription,
@@ -63,16 +64,19 @@ await test('pickDescription: returns empty for undefined', () => {
 });
 
 await test('pickDescription: returns empty for empty object', () => {
-  assert(pickDescription({}) === '', 'empty object should return empty');
+  assert(pickDescription({} as OgObject) === '', 'empty object should return empty');
 });
 
 await test('pickDescription: prefers ogDescription over twitterDescription', () => {
-  const result = pickDescription({ ogDescription: 'OG desc', twitterDescription: 'Twitter desc' });
+  const result = pickDescription({
+    ogDescription: 'OG desc',
+    twitterDescription: 'Twitter desc',
+  } as OgObject);
   assert(result === 'OG desc', `expected "OG desc", got "${result}"`);
 });
 
 await test('pickDescription: falls back to twitterDescription', () => {
-  const result = pickDescription({ twitterDescription: 'Twitter desc' });
+  const result = pickDescription({ twitterDescription: 'Twitter desc' } as OgObject);
   assert(result === 'Twitter desc', `expected "Twitter desc", got "${result}"`);
 });
 
@@ -80,18 +84,21 @@ await test('pickDescription: skips unsafe values', () => {
   const result = pickDescription({
     ogDescription: '<meta charset="utf-8">',
     twitterDescription: 'Safe description',
-  });
+  } as OgObject);
   assert(result === 'Safe description', `expected "Safe description", got "${result}"`);
 });
 
 await test('pickDescription: encodes HTML entities', () => {
-  const result = pickDescription({ ogDescription: 'Tom & Jerry' });
+  const result = pickDescription({ ogDescription: 'Tom & Jerry' } as OgObject);
   assert(!result.includes('& ') || result.includes('&#'), `should encode & (got "${result}")`);
   assert(result !== 'Tom & Jerry', 'should have encoded the raw ampersand');
 });
 
 await test('pickDescription: skips non-string values', () => {
-  const result = pickDescription({ ogDescription: 42, twitterDescription: true });
+  const result = pickDescription({
+    ogDescription: 42,
+    twitterDescription: true,
+  } as unknown as OgObject);
   assert(result === '', `expected empty, got "${result}"`);
 });
 

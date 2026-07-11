@@ -31,7 +31,7 @@ export function rehypeLazyImages() {
               if (props.height == null) props.height = dimensions.height;
             }
           }
-        } catch (e) {
+        } catch {
           // Ignore if file is not found or cannot be probed
         }
       }

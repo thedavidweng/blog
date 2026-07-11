@@ -1,6 +1,7 @@
 import mdx from '@astrojs/mdx';
 import sitemap from '@astrojs/sitemap';
 import { defineConfig } from 'astro/config';
+import { unified } from '@astrojs/markdown-remark';
 
 import tailwindcss from '@tailwindcss/vite';
 
@@ -63,8 +64,10 @@ export default defineConfig({
       },
       defaultColor: false,
     },
-    remarkPlugins,
-    rehypePlugins: [rehypeSlug, rehypeFigureCaptions, rehypeLazyImages],
+    processor: unified({
+      remarkPlugins,
+      rehypePlugins: [rehypeSlug, rehypeFigureCaptions, rehypeLazyImages],
+    }),
   },
 
   vite: {

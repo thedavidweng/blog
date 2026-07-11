@@ -16,11 +16,12 @@ const label = locale === 'zh' ? '回到顶部' : 'Back to top';
 <script is:inline>
   (function() {
     let scrollHandler;
-    const btn = document.querySelector('[data-back-to-top]');
-    if (!btn) return;
 
     function setup() {
       if (scrollHandler) window.removeEventListener('scroll', scrollHandler);
+
+      const btn = document.querySelector('[data-back-to-top]');
+      if (!btn) return;
 
       const threshold = 360;
 
@@ -28,19 +29,15 @@ const label = locale === 'zh' ? '回到顶部' : 'Back to top';
         btn.classList.toggle('back-to-top--visible', window.scrollY > threshold);
       };
 
+      btn.addEventListener('click', () => {
+        const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+        window.scrollTo({ top: 0, behavior: reduce ? 'auto' : 'smooth' });
+      });
+
       scrollHandler();
       window.addEventListener('scroll', scrollHandler, { passive: true });
     }
 
-    btn.addEventListener('click', () => {
-      const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-      window.scrollTo({ top: 0, behavior: reduce ? 'auto' : 'smooth' });
-    });
-
     document.addEventListener('astro:page-load', setup);
-    document.addEventListener('astro:before-swap', () => {
-      if (scrollHandler) window.removeEventListener('scroll', scrollHandler);
-    }, { once: true });
-    setup();
   })();
 </script>

@@ -15,17 +15,17 @@ const renames = [];
 // CoverView — vague name
 renames.push([
   'coverview-blog-cover-generator/cover.avif',
-  'coverview-blog-cover-generator/coverview-sample-cover.avif'
+  'coverview-blog-cover-generator/coverview-sample-cover.avif',
 ]);
 
 // SafePal
 renames.push([
   'safepal-x1-free-hardware-wallet/order-page.avif',
-  'safepal-x1-free-hardware-wallet/safepal-x1-order-page.avif'
+  'safepal-x1-free-hardware-wallet/safepal-x1-order-page.avif',
 ]);
 renames.push([
   'safepal-x1-free-hardware-wallet/verification.avif',
-  'safepal-x1-free-hardware-wallet/safepal-x1-verification.avif'
+  'safepal-x1-free-hardware-wallet/safepal-x1-verification.avif',
 ]);
 
 // FSNotes — unify fsnotes- prefix (avoid bare git-*.avif / view-options.avif)
@@ -37,7 +37,7 @@ const fsnotesBare = [
   ['git-commit-dialog.avif', 'fsnotes-git-commit-dialog.avif'],
   ['git-history.avif', 'fsnotes-git-history.avif'],
   ['backup-settings.avif', 'fsnotes-backup-settings.avif'],
-  ['image-toolbar.avif', 'fsnotes-image-toolbar.avif']
+  ['image-toolbar.avif', 'fsnotes-image-toolbar.avif'],
 ];
 for (const [a, b] of fsnotesBare) {
   renames.push([`fsnotes-apple-ecosystem-notes/${a}`, `fsnotes-apple-ecosystem-notes/${b}`]);
@@ -64,14 +64,17 @@ const krMap = [
   ['wo-chao-bing-shopping-01.avif', 'kr-wo-chao-bing-shopping-01.avif'],
   ['wo-chao-bing-shopping-02.avif', 'kr-wo-chao-bing-shopping-02.avif'],
   ['xizeer-white-fit-01.avif', 'kr-xizeer-white-fit-01.avif'],
-  ['xizeer-white-fit-02.avif', 'kr-xizeer-white-fit-02.avif']
+  ['xizeer-white-fit-02.avif', 'kr-xizeer-white-fit-02.avif'],
 ];
 for (let i = 1; i <= 12; i++) {
   const n = String(i).padStart(2, '0');
   krMap.push([`xizeer-white-shopping-${n}.avif`, `kr-xizeer-white-shopping-${n}.avif`]);
 }
 for (const [a, b] of krMap) {
-  renames.push([`kamen-rider-cosplay-suit-solutions/${a}`, `kamen-rider-cosplay-suit-solutions/${b}`]);
+  renames.push([
+    `kamen-rider-cosplay-suit-solutions/${a}`,
+    `kamen-rider-cosplay-suit-solutions/${b}`,
+  ]);
 }
 
 function renameFiles() {
@@ -93,7 +96,18 @@ function renameFiles() {
 function replaceInRepo() {
   const pathReplacements = renames.map(([from, to]) => [`/posts/${from}`, `/posts/${to}`]);
 
-  const exts = new Set(['.md', '.mdx', '.astro', '.ts', '.tsx', '.js', '.mjs', '.css', '.html', '.json']);
+  const exts = new Set([
+    '.md',
+    '.mdx',
+    '.astro',
+    '.ts',
+    '.tsx',
+    '.js',
+    '.mjs',
+    '.css',
+    '.html',
+    '.json',
+  ]);
   function walk(dir, out = []) {
     for (const name of fs.readdirSync(dir, { withFileTypes: true })) {
       if (name.name.startsWith('.') && name.name !== '.') continue;

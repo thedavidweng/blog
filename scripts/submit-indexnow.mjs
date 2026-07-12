@@ -45,7 +45,7 @@ async function getAllUrls() {
     // Extract URLs from sitemap
     const urlMatches = sitemap.match(/<loc>([^<]+)<\/loc>/g);
     if (urlMatches) {
-      urlMatches.forEach(match => {
+      urlMatches.forEach((match) => {
         const url = match.replace(/<\/?loc>/g, '');
         urls.add(url);
       });
@@ -63,7 +63,7 @@ async function submitToIndexNow(urls) {
     console.log('   Visit https://www.bing.com/indexnow to register and get your key.');
     console.log('');
     console.log('   URLs that would be submitted:');
-    urls.forEach(url => console.log('   - ' + url));
+    urls.forEach((url) => console.log('   - ' + url));
     return;
   }
 
@@ -71,7 +71,7 @@ async function submitToIndexNow(urls) {
     host: new URL(SITE_URL).hostname,
     key: INDEXNOW_KEY,
     keyLocation: `${SITE_URL}/.well-known/indexnow-key.txt`,
-    urlList: urls
+    urlList: urls,
   };
 
   console.log(`Submitting ${urls.length} URLs to IndexNow...`);
@@ -80,9 +80,9 @@ async function submitToIndexNow(urls) {
     const response = await fetch(BING_API, {
       method: 'POST',
       headers: {
-        'Content-Type': 'application/json'
+        'Content-Type': 'application/json',
       },
-      body: JSON.stringify(payload)
+      body: JSON.stringify(payload),
     });
 
     if (response.ok) {

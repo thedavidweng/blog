@@ -12,34 +12,73 @@ const publicPosts = path.join(root, 'public/posts');
 
 const renames = [
   // clouds-in-super-mario
-  ['clouds-in-super-mario/Super_Mario_Clouds.avif', 'clouds-in-super-mario/super-mario-clouds.avif'],
-  ['clouds-in-super-mario/Super_Mario_Level_1.avif', 'clouds-in-super-mario/super-mario-bros-world-1-1.avif'],
-  ['clouds-in-super-mario/Super_Mario_Tile_Map.avif', 'clouds-in-super-mario/super-mario-bros-tile-map.avif'],
+  [
+    'clouds-in-super-mario/Super_Mario_Clouds.avif',
+    'clouds-in-super-mario/super-mario-clouds.avif',
+  ],
+  [
+    'clouds-in-super-mario/Super_Mario_Level_1.avif',
+    'clouds-in-super-mario/super-mario-bros-world-1-1.avif',
+  ],
+  [
+    'clouds-in-super-mario/Super_Mario_Tile_Map.avif',
+    'clouds-in-super-mario/super-mario-bros-tile-map.avif',
+  ],
   // coverview
-  ['coverview-blog-cover-generator/SCR-20220506-pjp.avif', 'coverview-blog-cover-generator/coverview-color-picker.avif'],
+  [
+    'coverview-blog-cover-generator/SCR-20220506-pjp.avif',
+    'coverview-blog-cover-generator/coverview-color-picker.avif',
+  ],
   // fedex
-  ['fedex-stole-package-banned-account/1714553672877.avif', 'fedex-stole-package-banned-account/fedex-tracking-screenshot.avif'],
-  ['fedex-stole-package-banned-account/c8a13cb7-b024-471b-9c01-0b20d6819199.avif', 'fedex-stole-package-banned-account/fedex-mac-studio-arrival.avif'],
-  ['fedex-stole-package-banned-account/3710_Forbes_Ave.avif', 'fedex-stole-package-banned-account/fedex-forbes-ave-address.avif'],
-  ['fedex-stole-package-banned-account/Exception_Reason.avif', 'fedex-stole-package-banned-account/fedex-exception-detail.avif'],
-  ['fedex-stole-package-banned-account/e35c98f5-1ae6-460e-bcab-396f8e76cbd2.avif', 'fedex-stole-package-banned-account/fedex-support-chat-1.avif'],
-  ['fedex-stole-package-banned-account/e9388dd3-0f3c-4cd0-9579-5c7955df5a0d.avif', 'fedex-stole-package-banned-account/fedex-support-chat-2.avif'],
+  [
+    'fedex-stole-package-banned-account/1714553672877.avif',
+    'fedex-stole-package-banned-account/fedex-tracking-screenshot.avif',
+  ],
+  [
+    'fedex-stole-package-banned-account/c8a13cb7-b024-471b-9c01-0b20d6819199.avif',
+    'fedex-stole-package-banned-account/fedex-mac-studio-arrival.avif',
+  ],
+  [
+    'fedex-stole-package-banned-account/3710_Forbes_Ave.avif',
+    'fedex-stole-package-banned-account/fedex-forbes-ave-address.avif',
+  ],
+  [
+    'fedex-stole-package-banned-account/Exception_Reason.avif',
+    'fedex-stole-package-banned-account/fedex-exception-detail.avif',
+  ],
+  [
+    'fedex-stole-package-banned-account/e35c98f5-1ae6-460e-bcab-396f8e76cbd2.avif',
+    'fedex-stole-package-banned-account/fedex-support-chat-1.avif',
+  ],
+  [
+    'fedex-stole-package-banned-account/e9388dd3-0f3c-4cd0-9579-5c7955df5a0d.avif',
+    'fedex-stole-package-banned-account/fedex-support-chat-2.avif',
+  ],
   // canada banking
-  ['canada-international-student-banking-guide-2023/EQ_Bank_Card.avif', 'canada-international-student-banking-guide-2023/canada-eq-bank-card.avif'],
+  [
+    'canada-international-student-banking-guide-2023/EQ_Bank_Card.avif',
+    'canada-international-student-banking-guide-2023/canada-eq-bank-card.avif',
+  ],
   [
     'canada-international-student-banking-guide-2023/TD_Cash_Back_Visa_Infinite_Card.avif',
-    'canada-international-student-banking-guide-2023/canada-td-cash-back-visa-infinite.avif'
+    'canada-international-student-banking-guide-2023/canada-td-cash-back-visa-infinite.avif',
   ],
   // spy-x
   [
     'spy-x-family-review/9f61396712ba4244e029d0646e1420fdea90567b-1277x716.avif',
-    'spy-x-family-review/spy-x-family-still.avif'
+    'spy-x-family-review/spy-x-family-still.avif',
   ],
   // fsnotes (avoid macOS case-insensitive FS clash: macOS-and-iOS vs macos-and-ios)
-  ['fsnotes-apple-ecosystem-notes/macOS-and-iOS.avif', 'fsnotes-apple-ecosystem-notes/fsnotes-macos-ios.avif'],
-  ['fsnotes-apple-ecosystem-notes/backup-backup.avif', 'fsnotes-apple-ecosystem-notes/fsnotes-backup-nested-dialog.avif'],
+  [
+    'fsnotes-apple-ecosystem-notes/macOS-and-iOS.avif',
+    'fsnotes-apple-ecosystem-notes/fsnotes-macos-ios.avif',
+  ],
+  [
+    'fsnotes-apple-ecosystem-notes/backup-backup.avif',
+    'fsnotes-apple-ecosystem-notes/fsnotes-backup-nested-dialog.avif',
+  ],
   // toilet
-  ['toilet-dilemma/toiletbanner1.avif', 'toilet-dilemma/toilet-dilemma-banner.avif']
+  ['toilet-dilemma/toiletbanner1.avif', 'toilet-dilemma/toilet-dilemma-banner.avif'],
 ];
 
 const bonify = ['0941', '0942', '0943', '0944', '0945', '0946', '0947', '0948', '0949', '0950'];
@@ -91,7 +130,7 @@ const mazaOrder = [
   '0819',
   '0824',
   '0826',
-  '0827'
+  '0827',
 ];
 mazaOrder.forEach((n, i) => {
   const pad = String(i + 1).padStart(2, '0');
@@ -120,11 +159,22 @@ function replaceInRepo() {
     ...renames.map(([from, to]) => [`/posts/${from}`, `/posts/${to}`]),
     [
       '/posts/my-referral-codes/Screenshot_2023-03-15_at_06.22.16.avif',
-      '/posts/my-referral-codes/my-referral-codes-list.avif'
-    ]
+      '/posts/my-referral-codes/my-referral-codes-list.avif',
+    ],
   ];
 
-  const exts = new Set(['.md', '.mdx', '.astro', '.ts', '.tsx', '.js', '.mjs', '.css', '.html', '.json']);
+  const exts = new Set([
+    '.md',
+    '.mdx',
+    '.astro',
+    '.ts',
+    '.tsx',
+    '.js',
+    '.mjs',
+    '.css',
+    '.html',
+    '.json',
+  ]);
   function walk(dir, out = []) {
     for (const name of fs.readdirSync(dir, { withFileTypes: true })) {
       if (name.name.startsWith('.') && name.name !== '.') continue;

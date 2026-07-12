@@ -4,9 +4,9 @@ import { defaultLocale, siteConfig, type Locale, locales } from '../site.config'
 export type PostEntry = CollectionEntry<'posts'>;
 
 export function parsePostId(id: string) {
-  const [locale, ...pathParts] = id.replace(/\.md$/, '').split('/');
+  const [locale, ...pathParts] = id.replace(/\.(md|mdx)$/, '').split('/');
   if (!isLocale(locale) || pathParts.length !== 1 || !pathParts[0]) {
-    throw new Error(`Invalid post id "${id}". Expected <locale>/<filename>.md`);
+    throw new Error(`Invalid post id "${id}". Expected <locale>/<filename>.md or .mdx`);
   }
   return { locale, filenameSlug: pathParts[0] };
 }

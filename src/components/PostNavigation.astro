@@ -15,8 +15,8 @@ const isZh = locale === 'zh';
 
 function getPostInfo(post: CollectionEntry<'posts'>) {
   const slug = getPostSlug(post);
-  const locale = post.id.startsWith('zh/') ? 'zh' : 'en';
-  return { url: postUrl(locale, slug), title: post.data.title };
+  const postLocale = post.id.startsWith('zh/') ? 'zh' : 'en';
+  return { url: postUrl(postLocale, slug), title: post.data.title };
 }
 
 const prevInfo = prev ? getPostInfo(prev) : null;

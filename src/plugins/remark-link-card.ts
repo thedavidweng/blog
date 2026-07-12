@@ -2,6 +2,7 @@ import { access, mkdir, writeFile } from 'node:fs/promises';
 import path from 'node:path';
 import he from 'he';
 import ogs from 'open-graph-scraper';
+import type { OgObject } from 'open-graph-scraper/types';
 import sanitize from 'sanitize-filename';
 import { visit } from 'unist-util-visit';
 import type { Paragraph, Root } from 'mdast';
@@ -39,7 +40,7 @@ export function isUnsafePlaintextSnippet(raw: string): boolean {
 }
 
 /** Use OG/Twitter card fields only; order matches typical social-preview precedence. */
-export function pickDescription(ogResult: Record<string, unknown> | undefined): string {
+export function pickDescription(ogResult: OgObject | undefined): string {
   if (!ogResult) return '';
   const keys = ['ogDescription', 'twitterDescription'] as const;
   for (const key of keys) {
@@ -53,17 +54,15 @@ export function pickDescription(ogResult: Record<string, unknown> | undefined): 
 
 async function getOpenGraph(targetUrl: string) {
   try {
-    const { result } = await ogs({
+    const { result, error } = await ogs({
       url: targetUrl,
       timeout: 10000,
       onlyGetOpenGraphInfo: true,
     });
-    return result as Record<string, unknown> | undefined;
+    if (error) return undefined;
+    return result;
   } catch (error: unknown) {
-    const err = error as { result?: { requestUrl?: string; error?: string } };
-    console.error(
-      `[remark-link-card] Failed Open Graph for ${err?.result?.requestUrl ?? targetUrl}: ${err?.result?.error ?? error}`,
-    );
+    console.error(`[remark-link-card] Failed Open Graph for ${targetUrl}: ${error}`);
     return undefined;
   }
 }
@@ -129,7 +128,7 @@ export function createDefaultFetcher(options?: RemarkLinkCardOptions): LinkCardF
     }
 
     let ogImageSrc = '';
-    const ogImage = ogResult?.ogImage as { url?: string; alt?: string } | undefined;
+    const ogImage = ogResult?.ogImage?.[0];
     if (ogImage?.url) {
       if (options?.cache) {
         const imageFilename = await downloadImage(
@@ -198,7 +197,7 @@ type ParentWithChildren = { children: Root['children'] };
 export default function remarkLinkCard(
   options?: RemarkLinkCardOptions & { fetcher?: LinkCardFetcher },
 ) {
-  const fetch = options?.fetcher ?? createDefaultFetcher(options);
+  const fetcher = options?.fetcher ?? createDefaultFetcher(options);
   return async (tree: Root) => {
     const tasks: Array<{ index: number; parent: ParentWithChildren; url: string }> = [];
 
@@ -227,7 +226,7 @@ export default function remarkLinkCard(
       for (const list of byParent.values()) {
         list.sort((a, b) => b.index - a.index);
         for (const { index, parent, url } of list) {
-          const data = await fetch(url);
+          const data = await fetcher(url);
           parent.children.splice(index, 1, { type: 'html', value: createLinkCard(data) });
         }
       }

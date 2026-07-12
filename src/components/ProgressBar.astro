@@ -16,8 +16,9 @@
     }
   }
 
-  // Update on scroll
   window.addEventListener('scroll', updateProgress, { passive: true });
-  // Initial call
+  document.addEventListener('astro:before-swap', () => {
+    window.removeEventListener('scroll', updateProgress);
+  }, { once: true });
   updateProgress();
 </script>

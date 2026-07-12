@@ -2,7 +2,7 @@
 import type { CollectionEntry } from 'astro:content';
 import BaseLayout from './BaseLayout.astro';
 import { getPostSlug, ogImagePath, parsePostId, postUrl, tagLabel, tagUrl } from '../lib/content';
-import { absoluteUrl, defaultLocale, siteConfig, type Locale } from '../site.config';
+import { absoluteUrl, defaultLocale, siteConfig } from '../site.config';
 import Giscus from '../components/Giscus.astro';
 import Toc from '../components/Toc.astro';
 import PostNavigation from '../components/PostNavigation.astro';
@@ -51,12 +51,12 @@ const jsonLd = {
   mainEntityOfPage: absoluteUrl(postPath),
   image: absoluteUrl(ogPath),
   inLanguage: locale === defaultLocale ? 'en' : 'zh-CN',
-  keywords: post.data.tags.map((tag) => tagLabel(locale as Locale, tag))
+  keywords: post.data.tags.map((tag) => tagLabel(locale, tag))
 };
 ---
 
 <BaseLayout
-  locale={locale as Locale}
+  locale={locale}
   title={post.data.title}
   description={post.data.description}
   path={postPath}
@@ -76,7 +76,7 @@ const jsonLd = {
       <h1 class="article-title">{post.data.title}</h1>
       <p class="article-description">{post.data.description}</p>
       <ul class="tag-list" aria-label={locale === 'zh' ? '文章标签' : 'Article tags'}>
-        {post.data.tags.map((tag) => <li><a class="tag-pill" href={tagUrl(locale as Locale, tag)}>{tagLabel(locale as Locale, tag)}</a></li>)}
+        {post.data.tags.map((tag) => <li><a class="tag-pill" href={tagUrl(locale, tag)}>{tagLabel(locale, tag)}</a></li>)}
       </ul>
     </header>
     <div
@@ -89,8 +89,8 @@ const jsonLd = {
     </div>
 
     <div class:list={[hasToc ? 'max-w-none' : 'max-w-[65ch]', 'mx-auto']}>
-      <PostNavigation locale={locale as Locale} prev={prev} next={next} />
-      <RelatedPosts locale={locale as Locale} posts={relatedPosts} />
+      <PostNavigation locale={locale} prev={prev} next={next} />
+      <RelatedPosts locale={locale} posts={relatedPosts} />
     </div>
 
     {siteConfig.features.giscus && <Giscus slug={slug} locale={locale} />}

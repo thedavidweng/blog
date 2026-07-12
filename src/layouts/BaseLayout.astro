@@ -47,6 +47,14 @@ const xDefault = absoluteUrl(path.startsWith('/zh/') ? path.replace('/zh', '') :
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <ThemeScript />
+    <noscript>
+      <style is:inline>
+        :root:not([data-theme="light"]) { --bg: #101011; --panel: #1a1a1b; --panel-strong: #242426; --text: #f4f4f5; --muted: #a5a5ab; --subtle: #88888e; --border: #2d2d30; --accent: #7dd3fc; --accent-soft: #172632; --shadow: 0 18px 60px rgb(0 0 0 / 0.22); color-scheme: dark; }
+        @media (prefers-color-scheme: light) {
+          :root:not([data-theme="dark"]) { --bg: #fbfbfa; --panel: #f1f1f0; --panel-strong: #e9e9e8; --text: #171719; --muted: #5c5c62; --subtle: #6a6a70; --border: #dededc; --accent: #2563eb; --accent-soft: #dbeafe; --shadow: 0 18px 60px rgb(0 0 0 / 0.08); color-scheme: light; }
+        }
+      </style>
+    </noscript>
     <ClientRouter />
     {includeLocaleRedirect && <slot name="locale-redirect" />}
     <title>{fullTitle}</title>

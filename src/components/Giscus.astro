@@ -41,6 +41,7 @@ const giscusLang = locale === 'zh' ? 'zh-CN' : 'en';
   }
 
   let giscusObserver = null;
+  let giscusLoaded = false;
 
   function setupThemeObserver() {
     giscusObserver = new MutationObserver((mutations) => {
@@ -59,13 +60,35 @@ const giscusLang = locale === 'zh' ? 'zh-CN' : 'en';
     giscusObserver.observe(document.documentElement, { attributes: true, attributeFilter: ['data-theme'] });
   }
 
+  function lazyLoadGiscus() {
+    if (giscusLoaded) return;
+    giscusLoaded = true;
+    loadGiscus();
+    setupThemeObserver();
+  }
+
+  const giscusWrapper = document.querySelector('.giscus-wrapper');
+  if (giscusWrapper) {
+    if ('IntersectionObserver' in window) {
+      const io = new IntersectionObserver((entries) => {
+        if (entries.some((e) => e.isIntersecting)) {
+          lazyLoadGiscus();
+          io.disconnect();
+        }
+      }, { rootMargin: '200px' });
+      io.observe(giscusWrapper);
+      document.addEventListener('astro:before-swap', () => io.disconnect(), { once: true });
+    } else {
+      lazyLoadGiscus();
+    }
+  } else {
+    lazyLoadGiscus();
+  }
+
   document.addEventListener('astro:before-swap', () => {
     if (giscusObserver) {
       giscusObserver.disconnect();
       giscusObserver = null;
     }
   });
-
-  loadGiscus();
-  setupThemeObserver();
 </script>

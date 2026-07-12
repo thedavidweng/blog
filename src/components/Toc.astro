@@ -9,8 +9,8 @@ const tocTitle = locale === 'zh' ? '目录' : 'Table of Contents';
 
 <!-- tocbot will inject the table of contents here -->
 <aside class="toc-wrapper sticky top-32 hidden lg:block min-w-0 w-full">
-  <div class="text-xs font-bold mb-4 text-zinc-400 dark:text-zinc-500 tracking-wider uppercase">{tocTitle}</div>
-  <nav class="js-toc toc"></nav>
+  <h2 class="text-xs font-bold mb-4 text-zinc-400 dark:text-zinc-500 tracking-wider uppercase">{tocTitle}</h2>
+  <nav class="js-toc toc" aria-label={tocTitle}></nav>
 </aside>
 
 <script>
@@ -58,19 +58,21 @@ const tocTitle = locale === 'zh' ? '目录' : 'Table of Contents';
   }
   .toc-link {
     display: block;
-    padding: 0.15rem 0;
+    padding: 0.15rem 0.5rem;
     line-height: 1.4;
-    position: relative;
-    border-left: 2px solid transparent;
-    padding-left: 0.75rem;
-    margin-left: -2px;
+    border-radius: 4px;
   }
   .is-active-link {
     color: var(--accent) !important;
     font-weight: 600;
-    border-left-color: var(--accent);
+    background: var(--accent-soft);
   }
   .toc-link:hover {
     color: var(--accent);
+  }
+
+  .toc-link:focus-visible {
+    outline: 2px solid var(--accent);
+    outline-offset: 2px;
   }
 </style>

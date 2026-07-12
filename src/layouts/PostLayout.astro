@@ -33,8 +33,8 @@ const date = post.data.publishedDate.toLocaleDateString(locale === 'zh' ? 'zh-CN
 const dateLabel = locale === 'zh' ? `发布于 ${date}` : `Published on ${date}`;
 
 const readingTime = remarkPluginFrontmatter?.readingTime;
-const readingTimeLabel = readingTime 
-  ? (locale === 'zh' ? ` · ☕️ 约 ${Math.ceil(readingTime.minutes)} 分钟阅读` : ` · ☕️ ${Math.ceil(readingTime.minutes)} min read`)
+const readingTimeLabel = readingTime
+  ? (locale === 'zh' ? ` · 约 ${Math.ceil(readingTime.minutes)} 分钟阅读` : ` · ${Math.ceil(readingTime.minutes)} min read`)
   : '';
 
 const jsonLd = {

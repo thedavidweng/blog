@@ -20,7 +20,7 @@ But after a while, I hit some new problems:
 
 So I migrated from Dotbot to [Chezmoi](https://chezmoi.io).
 
-This is Part 2 — the next level of dotfiles: layered management of **shared config**, **machine-local overrides**, and **secrets**.
+This is Part 2: layered management of **shared config**, **machine-local overrides**, and **secrets**.
 
 ## Dotbot vs Chezmoi: The Core Difference
 

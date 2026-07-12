@@ -22,7 +22,7 @@ FSNotes 是一款支持 macOS 和 iOS 的开源笔记软件。官方列出了以
 
 - 自适应双窗格视图，可选垂直或水平排布
 
-- 外部编辑器支持，无缝实时同步
+- 外部编辑器支持，实时同步
 
 - 支持超过 170 种编程语言的代码高亮
 
@@ -269,7 +269,7 @@ sequenceDiagram
 
 文件扩展名 – `.textbundle`
 
-TextBundle – 这种格式旨在在应用程序之间交换纯文本文件(如 Markdown 或 RTF)时提供更无缝的用户体验。 http://textbundle.org
+TextBundle – 这种格式把纯文本文件（如 Markdown 或 RTF）和引用的图片打包成一个文件，应用程序之间交换文档时无需再追踪外部资源。 http://textbundle.org
 
 例如，一个 Markdown 文件可能包含对外部图像的引用。当从 Markdown 编辑器发送这样的文件到预览器时，用户必须明确指定每一个图像文件的位置。这就是 TextBundle 派上用场的地方。通过将 Markdown 文本和所有引用的图像打包在一个文件中，Text Bundle 提供更方便的体验。
 

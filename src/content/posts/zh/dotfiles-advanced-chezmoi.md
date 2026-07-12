@@ -21,7 +21,7 @@ locale: zh
 *   `.local` 文件虽然能隔离私有配置，但不是所有软件都支持 include 或 source。
 *   symlink 让配置变得直观，但也让「软件写入」直接变成「仓库写入」。
 
-于是我把 dotfiles 从 Dotbot 迁到了 [Chezmoi](https://www.chezmoi.io/)。这篇是 Part 2，讲的是 dotfiles 的进阶形态：不只是备份配置，而是把「公共配置」「机器私有配置」「密钥」分层管理。
+于是我把 dotfiles 从 Dotbot 迁到了 [Chezmoi](https://www.chezmoi.io/)。这篇是 Part 2：把「公共配置」「机器私有配置」「密钥」分层管理。
 
 ## Dotbot 和 Chezmoi 的核心区别
 

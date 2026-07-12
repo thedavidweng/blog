@@ -18,7 +18,7 @@ FSNotes is an open-source note-taking software that supports macOS and iOS. The 
 - iCloud Drive or Dropbox sync (any sync disk)
 - Multi-folder storage, keyboard-centric operation, shortcuts inspired by nvALT
 - Adaptive dual-pane view, optional vertical or horizontal layout
-- External editor support, seamless real-time sync
+- External editor support, real-time sync
 - Supports code highlighting for over 170 programming languages
 - Supports inline images
 - Supports tags
@@ -232,7 +232,7 @@ I recommend using TextBundle container and encrypted TextBundle container for se
 
 File extension – `.textbundle`
 
-TextBundle – This format is designed to provide a more seamless user experience when exchanging plain text files (such as Markdown or RTF) between applications. http://textbundle.org
+TextBundle – This format packages plain text files (such as Markdown or RTF) and their referenced images into one file, so apps can exchange documents without tracking external assets. http://textbundle.org
 
 For example, a Markdown file may contain references to external images. When sending such a file from a Markdown editor to a previewer, the user must explicitly specify the location of each image file. This is where TextBundle comes in handy. By packaging Markdown text and all referenced images in one file, Text Bundle provides a more convenient experience.
 

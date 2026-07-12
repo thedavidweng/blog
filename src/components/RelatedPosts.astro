@@ -72,12 +72,17 @@ const items = posts.map(getPostInfo);
     border: 1px solid var(--border);
     border-radius: 0.75rem;
     text-decoration: none;
-    transition: border-color 0.2s, background-color 0.2s;
+    transition: border-color 0.2s var(--ease-out-quart), background-color 0.2s var(--ease-out-quart);
   }
 
   .related-posts-link:hover {
     border-color: var(--accent);
-    background-color: var(--surface);
+    background-color: var(--panel-strong);
+  }
+
+  .related-posts-link:focus-visible {
+    outline: 2px solid var(--accent);
+    outline-offset: 2px;
   }
 
   .related-posts-title {

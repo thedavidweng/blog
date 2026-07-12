@@ -56,12 +56,17 @@ const nextInfo = next ? getPostInfo(next) : null;
     border: 1px solid var(--border);
     border-radius: 0.75rem;
     text-decoration: none;
-    transition: border-color 0.2s, background-color 0.2s;
+    transition: border-color 0.2s var(--ease-out-quart), background-color 0.2s var(--ease-out-quart);
   }
 
   .post-nav-link:hover {
     border-color: var(--accent);
-    background-color: var(--surface);
+    background-color: var(--panel-strong);
+  }
+
+  .post-nav-link:focus-visible {
+    outline: 2px solid var(--accent);
+    outline-offset: 2px;
   }
 
   .post-nav-next {

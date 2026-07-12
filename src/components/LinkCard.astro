@@ -19,13 +19,13 @@ const displayFavicon = favicon || `https://www.google.com/s2/favicons?domain=${d
       <div class="rlc-title">{title}</div>
       {description && <div class="rlc-description">{description}</div>}
       <div class="rlc-url-container">
-        <img src={displayFavicon} alt="" class="rlc-favicon" />
+        <img src={displayFavicon} alt="" class="rlc-favicon" loading="lazy" decoding="async" />
         <span class="rlc-url">{displayDomain}</span>
       </div>
     </div>
     {image && (
       <div class="rlc-image-container">
-        <img src={image} alt={title} class="rlc-image" />
+        <img src={image} alt={title} class="rlc-image" loading="lazy" decoding="async" />
       </div>
     )}
   </a>

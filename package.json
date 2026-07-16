@@ -20,7 +20,8 @@
     "format:check": "oxfmt --check 'src/**/*.{ts,json}' 'tests/**/*.ts' 'scripts/**/*.{ts,mjs}'",
     "deploy": "wrangler pages deploy ./dist",
     "test": "tsx tests/source-contract.test.ts && tsx tests/content-contract.test.ts && tsx tests/remark-link-card.test.ts",
-    "test:coverage": "c8 --reporter=lcov --reporter=text --src=src pnpm test"
+    "test:coverage": "c8 --reporter=lcov --reporter=text --src=src pnpm test",
+    "doctor": "npx react-doctor@latest"
   },
   "dependencies": {
     "@astrojs/markdown-remark": "^7.2.1",

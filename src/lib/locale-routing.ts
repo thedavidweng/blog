@@ -84,9 +84,9 @@ export async function getRssItems(locale: Locale) {
 export function getHomeJsonLd(locale: Locale) {
   const siteUrl = absoluteUrl('/');
   const pageUrl = locale === defaultLocale ? siteUrl : absoluteUrl(`/${locale}/`);
-  const socialUrls = siteConfig.social
-    .filter((s) => ['GitHub', 'LinkedIn', 'X'].includes(s.label))
-    .map((s) => s.href);
+  const socialUrls = siteConfig.social.flatMap((s) =>
+    ['GitHub', 'LinkedIn', 'X'].includes(s.label) ? [s.href] : [],
+  );
 
   return {
     '@context': 'https://schema.org',

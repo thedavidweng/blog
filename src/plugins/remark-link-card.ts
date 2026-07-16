@@ -223,11 +223,14 @@ export default function remarkLinkCard(
     }
 
     try {
+      const allTasks = [...byParent.values()].flat();
+      const datas = await Promise.all(allTasks.map((t) => fetcher(t.url)));
+      const dataByTask = new Map(allTasks.map((t, i) => [t, datas[i]!]));
       for (const list of byParent.values()) {
         list.sort((a, b) => b.index - a.index);
-        for (const { index, parent, url } of list) {
-          const data = await fetcher(url);
-          parent.children.splice(index, 1, { type: 'html', value: createLinkCard(data) });
+        for (const task of list) {
+          const data = dataByTask.get(task)!;
+          task.parent.children.splice(task.index, 1, { type: 'html', value: createLinkCard(data) });
         }
       }
     } catch (error) {

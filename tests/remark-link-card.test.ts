@@ -263,6 +263,58 @@ await test('remarkLinkCard: handles fetcher errors gracefully', async () => {
   assert(result.children.length === 1, 'should still have one child');
 });
 
+await test('remarkLinkCard: one failed fetch does not suppress other link cards', async () => {
+  const tree: Root = {
+    type: 'root',
+    children: [
+      {
+        type: 'paragraph',
+        children: [{ type: 'text', value: 'https://good.example.com' }],
+      },
+      {
+        type: 'paragraph',
+        children: [{ type: 'text', value: 'https://broken.example.com' }],
+      },
+      {
+        type: 'paragraph',
+        children: [{ type: 'text', value: 'https://also-good.example.com' }],
+      },
+    ],
+  };
+
+  const plugin = remarkLinkCard({
+    fetcher: async (url) => {
+      if (url.includes('broken')) throw new Error('network down');
+      return {
+        title: `Card for ${url}`,
+        description: '',
+        faviconSrc: '',
+        ogImageSrc: '',
+        ogImageAlt: '',
+        displayUrl: url,
+        url,
+      };
+    },
+  });
+
+  const result = await plugin(tree);
+  assert(result.children.length === 3, 'should still have three children');
+
+  const first = result.children[0] as { type: string; value?: string };
+  assert(first.type === 'html', 'first card should be html');
+  assert(first.value?.includes('Card for https://good.example.com'), 'first card should be rendered');
+
+  const second = result.children[1] as { type: string };
+  assert(second.type === 'paragraph', 'broken URL should remain a paragraph');
+
+  const third = result.children[2] as { type: string; value?: string };
+  assert(third.type === 'html', 'third card should be html');
+  assert(
+    third.value?.includes('Card for https://also-good.example.com'),
+    'third card should be rendered',
+  );
+});
+
 // ── Summary ───────────────────────────────────────────────────────────────────
 
 console.log(`\n${passed} passed, ${failed} failed`);

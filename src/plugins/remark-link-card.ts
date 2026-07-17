@@ -222,19 +222,24 @@ export default function remarkLinkCard(
       byParent.set(t.parent, list);
     }
 
-    try {
-      const allTasks = [...byParent.values()].flat();
-      const datas = await Promise.all(allTasks.map((t) => fetcher(t.url)));
-      const dataByTask = new Map(allTasks.map((t, i) => [t, datas[i]!]));
-      for (const list of byParent.values()) {
-        list.sort((a, b) => b.index - a.index);
-        for (const task of list) {
-          const data = dataByTask.get(task)!;
-          task.parent.children.splice(task.index, 1, { type: 'html', value: createLinkCard(data) });
-        }
+    const allTasks = [...byParent.values()].flat();
+    const results = await Promise.allSettled(allTasks.map((t) => fetcher(t.url)));
+    const dataByTask = new Map<typeof allTasks[number], LinkCardData>();
+    for (let i = 0; i < allTasks.length; i++) {
+      const r = results[i];
+      if (r?.status === 'fulfilled') {
+        dataByTask.set(allTasks[i]!, r.value);
+      } else if (r?.status === 'rejected') {
+        console.error(`[remark-link-card] Failed to fetch ${allTasks[i]!.url}: ${r.reason}`);
       }
-    } catch (error) {
-      console.error(`[remark-link-card] Error: ${error}`);
+    }
+    for (const list of byParent.values()) {
+      list.sort((a, b) => b.index - a.index);
+      for (const task of list) {
+        const data = dataByTask.get(task);
+        if (!data) continue;
+        task.parent.children.splice(task.index, 1, { type: 'html', value: createLinkCard(data) });
+      }
     }
 
     return tree;

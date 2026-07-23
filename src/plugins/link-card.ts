@@ -53,14 +53,13 @@ export function pickDescription(ogResult: OgObject | undefined): string {
   return '';
 }
 
-async function getOpenGraph(targetUrl: string) {
+export async function getOpenGraph(targetUrl: string) {
   try {
-    const { result, error } = await ogs({
+    const { result } = await ogs({
       url: targetUrl,
       timeout: 10000,
       onlyGetOpenGraphInfo: true,
     });
-    if (error) return undefined;
     return result;
   } catch (error: unknown) {
     console.error(`[link-card] Failed Open Graph for ${targetUrl}: ${error}`);
@@ -68,9 +67,12 @@ async function getOpenGraph(targetUrl: string) {
   }
 }
 
-export function createDefaultFetcher(options?: LinkCardOptions): LinkCardFetcher {
+export function createDefaultFetcher(
+  options?: LinkCardOptions & { ogFetcher?: typeof getOpenGraph },
+): LinkCardFetcher {
+  const ogFetcher = options?.ogFetcher ?? getOpenGraph;
   return async (targetUrl: string) => {
-    const ogResult = await getOpenGraph(targetUrl);
+    const ogResult = await ogFetcher(targetUrl);
     const parsedUrl = new URL(targetUrl);
     const title =
       (typeof ogResult?.ogTitle === 'string' && escapeHtml(ogResult.ogTitle)) || parsedUrl.hostname;
@@ -141,7 +143,7 @@ const URL_PATTERN = /(https?:\/\/|www(?=\.))([-.\w]+)([^ \t\r\n]*)/g;
  * A paragraph is a link-card candidate when it has a single child containing exactly one URL.
  * Handles both bare text (pre-autolink) and GFM-autolinked link nodes.
  */
-function extractUrlFromParagraph(paragraph: any): string | undefined {
+export function extractUrlFromParagraph(paragraph: any): string | undefined {
   if (paragraph.data !== undefined) return undefined;
   if (paragraph.children.length !== 1) return undefined;
   const child = paragraph.children[0];
@@ -169,7 +171,9 @@ function extractUrlFromParagraph(paragraph: any): string | undefined {
  * Each paragraph is handled independently — the visitor fetches OG data and
  * returns `{ raw }` to splice the card HTML in place.
  */
-export const linkCardPlugin = (options?: LinkCardOptions & { fetcher?: LinkCardFetcher }) => {
+export const linkCardPlugin = (
+  options?: LinkCardOptions & { fetcher?: LinkCardFetcher; ogFetcher?: typeof getOpenGraph },
+) => {
   const fetcher = options?.fetcher ?? createDefaultFetcher(options);
   return defineMdastPlugin({
     name: 'link-card',

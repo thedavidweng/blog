@@ -5,6 +5,8 @@ import {
   pickDescription,
   createLinkCard,
   createDefaultFetcher,
+  extractUrlFromParagraph,
+  getOpenGraph,
   linkCardPlugin,
   type LinkCardData,
 } from '../src/plugins/link-card.ts';
@@ -45,6 +47,8 @@ await test('isUnsafePlaintextSnippet: markup strings are unsafe', () => {
   );
   assert(isUnsafePlaintextSnippet('  <br>') === true, 'leading tag should be unsafe');
   assert(isUnsafePlaintextSnippet('<META>') === true, 'uppercase META should be unsafe');
+  // Meta tag not at the start (passes the leading-< check, caught by the meta check)
+  assert(isUnsafePlaintextSnippet('text <meta charset="utf-8">') === true, 'embedded meta should be unsafe');
 });
 
 await test('isUnsafePlaintextSnippet: plain text is safe', () => {
@@ -297,6 +301,232 @@ await test('createDefaultFetcher: handles undecodable URL displayUrl gracefully'
   const data = await fetcher(testUrl);
   assert(data.url === testUrl, 'url should match input');
   assert(typeof data.displayUrl === 'string', 'displayUrl should be a string');
+});
+
+await test('createDefaultFetcher: extracts OG image URL and alt when present', async () => {
+  const fetcher = createDefaultFetcher({
+    ogFetcher: async () =>
+      ({
+        ogTitle: 'Test Site',
+        ogImage: [{ url: 'https://example.com/og.png', alt: 'Test OG image' }],
+      }) as any,
+  });
+  const data = await fetcher(`https://${TEST_HOST}`);
+  assert(data.ogImageSrc === 'https://example.com/og.png', `expected og image URL, got "${data.ogImageSrc}"`);
+  assert(data.ogImageAlt === 'Test OG image', `expected escaped alt, got "${data.ogImageAlt}"`);
+  assert(data.title === 'Test Site', `expected OG title, got "${data.title}"`);
+});
+
+await test('createDefaultFetcher: falls back to title when OG image alt is missing', async () => {
+  const fetcher = createDefaultFetcher({
+    ogFetcher: async () =>
+      ({
+        ogTitle: 'Test Site',
+        ogImage: [{ url: 'https://example.com/og.png' }],
+      }) as any,
+  });
+  const data = await fetcher(`https://${TEST_HOST}`);
+  assert(data.ogImageSrc === 'https://example.com/og.png', 'should have og image URL');
+  assert(data.ogImageAlt === 'Test Site', `expected title as alt fallback, got "${data.ogImageAlt}"`);
+});
+
+await test('createDefaultFetcher: escapes HTML in OG image alt', async () => {
+  const fetcher = createDefaultFetcher({
+    ogFetcher: async () =>
+      ({
+        ogTitle: 'Test Site',
+        ogImage: [{ url: 'https://example.com/og.png', alt: 'Tom & Jerry' }],
+      }) as any,
+  });
+  const data = await fetcher(`https://${TEST_HOST}`);
+  assert(data.ogImageAlt.includes('&amp;'), `expected escaped ampersand, got "${data.ogImageAlt}"`);
+});
+
+await test('createDefaultFetcher: escapes HTML in OG title', async () => {
+  const fetcher = createDefaultFetcher({
+    ogFetcher: async () =>
+      ({
+        ogTitle: 'Tom & Jerry',
+      }) as any,
+  });
+  const data = await fetcher(`https://${TEST_HOST}`);
+  assert(data.title.includes('&amp;'), `expected escaped ampersand, got "${data.title}"`);
+});
+
+await test('createDefaultFetcher: returns empty ogImageSrc when OG result has no image', async () => {
+  const fetcher = createDefaultFetcher({
+    ogFetcher: async () => ({ ogTitle: 'Test Site' }) as any,
+  });
+  const data = await fetcher(`https://${TEST_HOST}`);
+  assert(data.ogImageSrc === '', `expected empty ogImageSrc, got "${data.ogImageSrc}"`);
+  assert(data.ogImageAlt === 'Test Site', `expected title as alt, got "${data.ogImageAlt}"`);
+});
+
+await test('createDefaultFetcher: handles getOpenGraph returning undefined', async () => {
+  const fetcher = createDefaultFetcher({
+    ogFetcher: async () => undefined,
+  });
+  const data = await fetcher(`https://${TEST_HOST}`);
+  assert(data.title === TEST_HOST, `expected hostname as title, got "${data.title}"`);
+  assert(data.ogImageSrc === '', 'expected empty ogImageSrc');
+  assert(data.ogImageAlt === TEST_HOST, `expected hostname as alt, got "${data.ogImageAlt}"`);
+  assert(data.description === '', 'expected empty description');
+});
+
+// ── getOpenGraph ──────────────────────────────────────────────────────────────
+
+await test('getOpenGraph: returns undefined for unreachable URL', async () => {
+  const result = await getOpenGraph('https://nonexistent.invalid.example');
+  assert(result === undefined, 'should return undefined for unreachable URL');
+});
+
+// ── linkCardPlugin edge cases ─────────────────────────────────────────────────
+
+await test('linkCardPlugin: processes normal paragraph (no data property)', async () => {
+  const { html } = await markdownToHtml('https://example.com', {
+    mdastPlugins: [
+      () =>
+        linkCardPlugin({
+          fetcher: async (url) => ({
+            title: 'Example',
+            description: '',
+            faviconSrc: '',
+            ogImageSrc: '',
+            ogImageAlt: '',
+            displayUrl: 'example.com',
+            url,
+          }),
+        }),
+    ],
+  });
+  assert(html.includes('rlc-container'), 'should process paragraph without data property');
+});
+
+await test('linkCardPlugin: does not process text with multiple URLs', async () => {
+  let called = false;
+  const { html } = await markdownToHtml('https://a.com https://b.com', {
+    mdastPlugins: [
+      () =>
+        linkCardPlugin({
+          fetcher: async () => {
+            called = true;
+            return sampleData;
+          },
+        }),
+    ],
+  });
+  assert(!called, 'fetcher should not be called for multiple URLs');
+  assert(!html.includes('rlc-container'), 'should not contain link card');
+});
+
+await test('linkCardPlugin: uses provided fetcher option directly', async () => {
+  const { html } = await markdownToHtml('https://example.com', {
+    mdastPlugins: [
+      () =>
+        linkCardPlugin({
+          fetcher: async (url) => ({
+            title: 'Direct Fetcher',
+            description: '',
+            faviconSrc: '',
+            ogImageSrc: '',
+            ogImageAlt: '',
+            displayUrl: 'example.com',
+            url,
+          }),
+        }),
+    ],
+  });
+  assert(html.includes('Direct Fetcher'), 'should use provided fetcher');
+});
+
+await test('linkCardPlugin: falls back to createDefaultFetcher when no fetcher given', async () => {
+  const { html } = await markdownToHtml('https://example.com', {
+    mdastPlugins: [
+      () =>
+        linkCardPlugin({
+          ogFetcher: async () =>
+            ({ ogTitle: 'Default Fetcher Title' }) as any,
+        }),
+    ],
+  });
+  assert(html.includes('Default Fetcher Title'), 'should use default fetcher with ogFetcher');
+});
+
+// ── extractUrlFromParagraph ───────────────────────────────────────────────────
+
+await test('extractUrlFromParagraph: returns undefined for paragraph with data property', () => {
+  const result = extractUrlFromParagraph({
+    data: { someData: true },
+    children: [{ type: 'text', value: 'https://example.com' }],
+  });
+  assert(result === undefined, 'should return undefined when data is present');
+});
+
+await test('extractUrlFromParagraph: returns undefined for empty children', () => {
+  const result = extractUrlFromParagraph({ children: [] });
+  assert(result === undefined, 'should return undefined for no children');
+});
+
+await test('extractUrlFromParagraph: returns undefined when single child is falsy', () => {
+  const result = extractUrlFromParagraph({ children: [undefined] });
+  assert(result === undefined, 'should return undefined for falsy child');
+});
+
+await test('extractUrlFromParagraph: returns undefined for text with multiple URLs', () => {
+  const result = extractUrlFromParagraph({
+    children: [{ type: 'text', value: 'https://a.com https://b.com' }],
+  });
+  assert(result === undefined, 'should return undefined for multiple URLs');
+});
+
+await test('extractUrlFromParagraph: returns URL for bare text with single URL', () => {
+  const result = extractUrlFromParagraph({
+    children: [{ type: 'text', value: 'https://example.com' }],
+  });
+  assert(result === 'https://example.com', `expected URL, got "${result}"`);
+});
+
+await test('extractUrlFromParagraph: returns URL for GFM autolinked link node', () => {
+  const result = extractUrlFromParagraph({
+    children: [
+      {
+        type: 'link',
+        url: 'https://example.com',
+        children: [{ type: 'text', value: 'https://example.com' }],
+      },
+    ],
+  });
+  assert(result === 'https://example.com', `expected URL from link node, got "${result}"`);
+});
+
+await test('extractUrlFromParagraph: returns undefined for link with mismatched URL and text', () => {
+  const result = extractUrlFromParagraph({
+    children: [
+      {
+        type: 'link',
+        url: 'https://example.com',
+        children: [{ type: 'text', value: 'click here' }],
+      },
+    ],
+  });
+  assert(result === undefined, 'should return undefined for non-autolink link');
+});
+
+await test('extractUrlFromParagraph: returns undefined for non-text, non-link child', () => {
+  const result = extractUrlFromParagraph({
+    children: [{ type: 'image', url: 'https://example.com/img.png' }],
+  });
+  assert(result === undefined, 'should return undefined for image child');
+});
+
+await test('extractUrlFromParagraph: returns undefined for multiple children', () => {
+  const result = extractUrlFromParagraph({
+    children: [
+      { type: 'text', value: 'Check ' },
+      { type: 'text', value: 'https://example.com' },
+    ],
+  });
+  assert(result === undefined, 'should return undefined for multiple children');
 });
 
 // ── Summary ───────────────────────────────────────────────────────────────────

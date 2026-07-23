@@ -134,9 +134,9 @@ await test('createLinkCard: contains data values', () => {
   const html = createLinkCard(sampleData);
   assert(html.includes('Test Title'), 'should contain title');
   assert(html.includes('A test description'), 'should contain description');
-  assert(html.includes('https://example.com'), 'should contain url');
-  assert(html.includes('example.com'), 'should contain displayUrl');
-  assert(html.includes('https://example.com/og.png'), 'should contain og image src');
+  assert(html.includes('href="https://example.com"'), 'should contain url in href');
+  assert(html.includes('rlc-url">example.com</span>'), 'should contain displayUrl in span');
+  assert(html.includes('src="https://example.com/og.png"'), 'should contain og image src');
 });
 
 await test('createLinkCard: omits description when empty', () => {
@@ -231,7 +231,7 @@ await test('linkCardPlugin: handles fetcher errors gracefully', async () => {
     ],
   });
   // Should not throw — the URL remains as text
-  assert(html.includes('broken.example.com'), 'URL should remain as text');
+  assert(html.includes('>https://broken.example.com<'), 'URL should remain as text');
 });
 
 await test('linkCardPlugin: one failed fetch does not suppress other link cards', async () => {
@@ -261,10 +261,10 @@ https://also-good.example.com`;
     ],
   });
 
-  assert(html.includes('Card for https://good.example.com'), 'first card should be rendered');
-  assert(html.includes('broken.example.com'), 'broken URL should remain as text');
+  assert(html.includes('>Card for https://good.example.com<'), 'first card should be rendered');
+  assert(html.includes('>https://broken.example.com<'), 'broken URL should remain as text');
   assert(
-    html.includes('Card for https://also-good.example.com'),
+    html.includes('>Card for https://also-good.example.com<'),
     'third card should be rendered',
   );
 });

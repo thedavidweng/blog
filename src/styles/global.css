@@ -692,7 +692,7 @@ pre.astro-code-themes {
   }
 }
 
-/* remark-link-card (Rich Link Preview Cards) */
+/* link-card (Rich Link Preview Cards) */
 a.rlc-container {
   display: flex;
   flex-direction: column;

@@ -1,9 +1,8 @@
 import type { OgObject } from 'open-graph-scraper/types';
 import ogs from 'open-graph-scraper';
-import { visit } from 'unist-util-visit';
-import type { Paragraph, Root } from 'mdast';
+import { defineMdastPlugin } from 'satteri';
 
-export type RemarkLinkCardOptions = {
+export type LinkCardOptions = {
   shortenUrl?: boolean;
 };
 
@@ -54,24 +53,26 @@ export function pickDescription(ogResult: OgObject | undefined): string {
   return '';
 }
 
-async function getOpenGraph(targetUrl: string) {
+export async function getOpenGraph(targetUrl: string) {
   try {
-    const { result, error } = await ogs({
+    const { result } = await ogs({
       url: targetUrl,
       timeout: 10000,
       onlyGetOpenGraphInfo: true,
     });
-    if (error) return undefined;
     return result;
   } catch (error: unknown) {
-    console.error(`[remark-link-card] Failed Open Graph for ${targetUrl}: ${error}`);
+    console.error(`[link-card] Failed Open Graph for ${targetUrl}: ${error}`);
     return undefined;
   }
 }
 
-export function createDefaultFetcher(options?: RemarkLinkCardOptions): LinkCardFetcher {
+export function createDefaultFetcher(
+  options?: LinkCardOptions & { ogFetcher?: typeof getOpenGraph },
+): LinkCardFetcher {
+  const ogFetcher = options?.ogFetcher ?? getOpenGraph;
   return async (targetUrl: string) => {
-    const ogResult = await getOpenGraph(targetUrl);
+    const ogResult = await ogFetcher(targetUrl);
     const parsedUrl = new URL(targetUrl);
     const title =
       (typeof ogResult?.ogTitle === 'string' && escapeHtml(ogResult.ogTitle)) || parsedUrl.hostname;
@@ -91,7 +92,7 @@ export function createDefaultFetcher(options?: RemarkLinkCardOptions): LinkCardF
     try {
       displayUrl = decodeURI(displayUrl);
     } catch {
-      console.error(`[remark-link-card] Cannot decode url: "${displayUrl}"`);
+      console.error(`[link-card] Cannot decode url: "${displayUrl}"`);
     }
 
     return {
@@ -136,56 +137,55 @@ export function createLinkCard(data: LinkCardData) {
 `.trim();
 }
 
-type ParentWithChildren = { children: Root['children'] };
+const URL_PATTERN = /(https?:\/\/|www(?=\.))([-.\w]+)([^ \t\r\n]*)/g;
 
-export default function remarkLinkCard(
-  options?: RemarkLinkCardOptions & { fetcher?: LinkCardFetcher },
-) {
-  const fetcher = options?.fetcher ?? createDefaultFetcher(options);
-  return async (tree: Root) => {
-    const tasks: Array<{ index: number; parent: ParentWithChildren; url: string }> = [];
+/**
+ * A paragraph is a link-card candidate when it has a single child containing exactly one URL.
+ * Handles both bare text (pre-autolink) and GFM-autolinked link nodes.
+ */
+export function extractUrlFromParagraph(paragraph: any): string | undefined {
+  if (paragraph.data !== undefined) return undefined;
+  if (paragraph.children.length !== 1) return undefined;
+  const child = paragraph.children[0];
+  if (!child) return undefined;
 
-    visit(tree, 'paragraph', (paragraphNode, index, parent) => {
-      if (!parent || typeof index !== 'number') return;
-      const p = paragraphNode as Paragraph;
-      if (p.children.length !== 1) return;
-      if (p.data !== undefined) return;
-
-      visit(p, 'text', (textNode) => {
-        const urls = textNode.value.match(/(https?:\/\/|www(?=\.))([-.\w]+)([^ \t\r\n]*)/g);
-        if (urls && urls.length === 1) {
-          tasks.push({ index, parent: parent as ParentWithChildren, url: urls[0] });
-        }
-      });
-    });
-
-    const byParent = new Map<ParentWithChildren, typeof tasks>();
-    for (const t of tasks) {
-      const list = byParent.get(t.parent) ?? [];
-      list.push(t);
-      byParent.set(t.parent, list);
+  // GFM autolinks produce a `link` node wrapping a single `text` child.
+  if (child.type === 'link' && typeof child.url === 'string') {
+    const inner = child.children?.[0];
+    if (inner && inner.type === 'text' && typeof inner.value === 'string') {
+      if (inner.value === child.url) return child.url;
     }
+  }
 
-    const allTasks = [...byParent.values()].flat();
-    const results = await Promise.allSettled(allTasks.map((t) => fetcher(t.url)));
-    const dataByTask = new Map<typeof allTasks[number], LinkCardData>();
-    for (let i = 0; i < allTasks.length; i++) {
-      const r = results[i];
-      if (r?.status === 'fulfilled') {
-        dataByTask.set(allTasks[i]!, r.value);
-      } else if (r?.status === 'rejected') {
-        console.error(`[remark-link-card] Failed to fetch ${allTasks[i]!.url}: ${r.reason}`);
-      }
-    }
-    for (const list of byParent.values()) {
-      list.sort((a, b) => b.index - a.index);
-      for (const task of list) {
-        const data = dataByTask.get(task);
-        if (!data) continue;
-        task.parent.children.splice(task.index, 1, { type: 'html', value: createLinkCard(data) });
-      }
-    }
+  // Bare text (no autolinking).
+  if (child.type === 'text' && typeof child.value === 'string') {
+    const urls = child.value.match(URL_PATTERN);
+    if (urls && urls.length === 1) return urls[0];
+  }
 
-    return tree;
-  };
+  return undefined;
 }
+
+/**
+ * Sätteri MDAST plugin: converts bare-URL paragraphs into rich link cards.
+ * Each paragraph is handled independently — the visitor fetches OG data and
+ * returns `{ raw }` to splice the card HTML in place.
+ */
+export const linkCardPlugin = (
+  options?: LinkCardOptions & { fetcher?: LinkCardFetcher; ogFetcher?: typeof getOpenGraph },
+) => {
+  const fetcher = options?.fetcher ?? createDefaultFetcher(options);
+  return defineMdastPlugin({
+    name: 'link-card',
+    async paragraph(node) {
+      const url = extractUrlFromParagraph(node);
+      if (!url) return;
+      try {
+        const data = await fetcher(url);
+        return { raw: createLinkCard(data), mdxExpressions: false };
+      } catch (error: unknown) {
+        console.error(`[link-card] Failed to fetch ${url}: ${error}`);
+      }
+    },
+  });
+};

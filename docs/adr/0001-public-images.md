@@ -20,5 +20,5 @@ Store article images in `public/posts/<slug>/` as AVIF files, served as-is witho
 ## Consequences
 
 - No auto-generated `srcset` for responsive sizing.
-- No auto-injected lazy loading or CLS prevention (handled by `rehype-lazy-images` plugin instead).
+- No auto-injected lazy loading or CLS prevention (handled by `lazy-images` Sätteri plugin instead).
 - Image format enforcement relies on `scripts/check-image-formats.js` rather than the build pipeline.

@@ -1,44 +1,4 @@
-import TurndownService from 'turndown';
-
-const turndown = new TurndownService({
-  headingStyle: 'atx',
-  codeBlockStyle: 'fenced',
-  emDelimiter: '*',
-  bulletListMarker: '-'
-});
-
-turndown.remove(['script', 'style', 'nav', 'footer', 'noscript']);
-
-function extractMainContent(html: string): string {
-  const match = html.match(/<main[^>]*id="main"[^>]*>([\s\S]*?)<\/main>/i);
-  if (match && match[1]) {
-    return match[1];
-  }
-  const bodyMatch = html.match(/<body[^>]*>([\s\S]*?)<\/body>/i);
-  if (bodyMatch && bodyMatch[1]) {
-    return bodyMatch[1];
-  }
-  return html;
-}
-
-function convertToMarkdown(html: string): string {
-  const content = extractMainContent(html);
-  try {
-    return turndown.turndown(content);
-  } catch {
-    return html;
-  }
-}
-
-function acceptsMarkdown(request: Request): boolean {
-  const accept = request.headers.get('Accept') || '';
-  return accept.includes('text/markdown');
-}
-
-function isHtmlResponse(response: Response): boolean {
-  const contentType = response.headers.get('Content-Type') || '';
-  return contentType.includes('text/html');
-}
+import { acceptsMarkdown, htmlToMarkdown, isHtmlResponse } from '../src/lib/markdown-response';
 
 export async function onRequest(context: { request: Request; next: () => Promise<Response> }): Promise<Response> {
   const response = await context.next();
@@ -55,7 +15,7 @@ export async function onRequest(context: { request: Request; next: () => Promise
   }
 
   const html = await response.text();
-  const markdown = convertToMarkdown(html);
+  const markdown = htmlToMarkdown(html);
 
   headers.set('Content-Type', 'text/markdown; charset=utf-8');
   headers.delete('Content-Length');

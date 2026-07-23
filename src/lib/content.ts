@@ -1,5 +1,6 @@
 import { getCollection, type CollectionEntry } from 'astro:content';
-import { defaultLocale, siteConfig, type Locale, locales } from '../site.config';
+import { siteConfig, type Locale, locales } from '../site.config';
+import { isLocale, postUrl } from './locale';
 
 export type PostEntry = CollectionEntry<'posts'>;
 
@@ -11,9 +12,8 @@ export function parsePostId(id: string) {
   return { locale, filenameSlug: pathParts[0] };
 }
 
-export function isLocale(value: string): value is Locale {
-  return locales.includes(value as Locale);
-}
+export { isLocale } from './locale';
+export { postUrl, tagUrl, ogImagePath } from './locale';
 
 export function getPostLocale(post: PostEntry): Locale {
   if (post.data.locale && isLocale(post.data.locale)) {
@@ -34,10 +34,10 @@ export function getPostSlug(post: PostEntry): string {
   return post.data.slug ?? parsePostId(post.id).filenameSlug;
 }
 
-/** Post URL + title for navigation/related-post links (locale derived from entry id). */
+/** Post URL + title for navigation/related-post links. */
 export function getPostInfo(post: PostEntry) {
   const slug = getPostSlug(post);
-  const postLocale = post.id.startsWith('zh/') ? 'zh' : 'en';
+  const postLocale = getPostLocale(post);
   return { url: postUrl(postLocale, slug), title: post.data.title };
 }
 
@@ -71,25 +71,12 @@ export async function assertTranslatedPostPairs() {
   ) as Array<{ slug: string; posts: Record<Locale, PostEntry> }>;
 }
 
-export function postUrl(locale: Locale, slug: string) {
-  return locale === defaultLocale ? `/posts/${slug}/` : `/${locale}/posts/${slug}/`;
-}
-
-export function tagUrl(locale: Locale, tag: string) {
-  const encoded = encodeURIComponent(tag);
-  return locale === defaultLocale ? `/tags/${encoded}/` : `/${locale}/tags/${encoded}/`;
-}
-
 export function tagLabel(locale: Locale, tag: string) {
   const labels = siteConfig.tags[tag as keyof typeof siteConfig.tags];
   if (!labels) {
     throw new Error(`Unknown tag "${tag}". Add it to siteConfig.tags.`);
   }
   return labels[locale];
-}
-
-export function ogImagePath(locale: Locale, slug: string) {
-  return locale === defaultLocale ? `/og/${slug}.png` : `/${locale}/og/${slug}.png`;
 }
 
 export async function getTags(locale: Locale) {

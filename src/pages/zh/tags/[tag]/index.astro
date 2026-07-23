@@ -1,29 +1,11 @@
 ---
-import PostCard from '../../../../components/PostCard.astro';
-import BaseLayout from '../../../../layouts/BaseLayout.astro';
-import { getPublishedPosts, tagLabel, tagUrl } from '../../../../lib/content';
+import TagDetailPage from '../../../../components/pages/TagDetailPage.astro';
 import { getTagStaticPaths } from '../../../../lib/locale-routing';
-
-const locale = 'zh';
 
 export async function getStaticPaths() {
   return getTagStaticPaths('zh');
 }
 
 const { tag } = Astro.props;
-const posts = (await getPublishedPosts(locale)).filter((post) => post.data.tags.includes(tag));
-const label = tagLabel(locale, tag);
 ---
-
-<BaseLayout locale={locale} title={`#${label}`} description={`标签 ${label} 下的文章。`} path={tagUrl(locale, tag)} alternatePath={`/tags/${encodeURIComponent(tag)}/`} active="tags">
-  <section class="content-wrap">
-    <header class="hero">
-      <p class="eyebrow">Tag</p>
-      <h1>#{label}</h1>
-      <p class="hero-copy">标签 {label} 下的文章。</p>
-    </header>
-    <div class="post-list">
-      {posts.map((post) => <PostCard post={post} locale={locale} />)}
-    </div>
-  </section>
-</BaseLayout>
+<TagDetailPage locale="zh" tag={tag} />

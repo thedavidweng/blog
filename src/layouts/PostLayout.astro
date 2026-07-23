@@ -1,7 +1,8 @@
 ---
 import type { CollectionEntry } from 'astro:content';
 import BaseLayout from './BaseLayout.astro';
-import { getPostSlug, ogImagePath, parsePostId, postUrl, tagLabel, tagUrl } from '../lib/content';
+import { getPostSlug, parsePostId, tagLabel } from '../lib/content';
+import { ogImagePath, postUrl, tagUrl } from '../lib/locale';
 import { absoluteUrl, defaultLocale, siteConfig } from '../site.config';
 import Giscus from '../components/Giscus.astro';
 import Toc from '../components/Toc.astro';

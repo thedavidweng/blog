@@ -1,4 +1,4 @@
-import type { Locale } from './locale';
+import type { Locale } from '../lib/locale';
 
 export const description: Record<Locale, string> = {
   en: 'Writing about design, code, and the messy space in between.',

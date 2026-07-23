@@ -1,19 +1,4 @@
 ---
-import BaseLayout from '../../layouts/BaseLayout.astro';
-import { getTags, tagLabel, tagUrl } from '../../lib/content';
-
-const locale = 'en';
-const tags = await getTags(locale);
+import TagsIndexPage from '../../components/pages/TagsIndexPage.astro';
 ---
-
-<BaseLayout locale={locale} title="Tags" description="Browse posts by tag." path="/tags/" alternatePath="/zh/tags/" active="tags">
-  <section class="content-wrap">
-    <header class="hero">
-      <h1>Tags</h1>
-      <p class="hero-copy">Browse posts by topic.</p>
-    </header>
-    <div class="tag-grid">
-      {tags.map((tag) => <a class="tag-pill" href={tagUrl(locale, tag)}>{tagLabel(locale, tag)}</a>)}
-    </div>
-  </section>
-</BaseLayout>
+<TagsIndexPage locale="en" />

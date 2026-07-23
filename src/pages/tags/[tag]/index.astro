@@ -1,29 +1,11 @@
 ---
-import PostCard from '../../../components/PostCard.astro';
-import BaseLayout from '../../../layouts/BaseLayout.astro';
-import { getPublishedPosts, tagLabel, tagUrl } from '../../../lib/content';
+import TagDetailPage from '../../../components/pages/TagDetailPage.astro';
 import { getTagStaticPaths } from '../../../lib/locale-routing';
-
-const locale = 'en';
 
 export async function getStaticPaths() {
   return getTagStaticPaths('en');
 }
 
 const { tag } = Astro.props;
-const posts = (await getPublishedPosts(locale)).filter((post) => post.data.tags.includes(tag));
-const label = tagLabel(locale, tag);
 ---
-
-<BaseLayout locale={locale} title={`#${label}`} description={`Posts tagged ${label}.`} path={tagUrl(locale, tag)} alternatePath={`/zh/tags/${encodeURIComponent(tag)}/`} active="tags">
-  <section class="content-wrap">
-    <header class="hero">
-      <p class="eyebrow">Tag</p>
-      <h1>#{label}</h1>
-      <p class="hero-copy">Posts tagged {label}.</p>
-    </header>
-    <div class="post-list">
-      {posts.map((post) => <PostCard post={post} locale={locale} />)}
-    </div>
-  </section>
-</BaseLayout>
+<TagDetailPage locale="en" tag={tag} />

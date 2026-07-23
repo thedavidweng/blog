@@ -34,6 +34,13 @@ export function getPostSlug(post: PostEntry): string {
   return post.data.slug ?? parsePostId(post.id).filenameSlug;
 }
 
+/** Post URL + title for navigation/related-post links (locale derived from entry id). */
+export function getPostInfo(post: PostEntry) {
+  const slug = getPostSlug(post);
+  const postLocale = post.id.startsWith('zh/') ? 'zh' : 'en';
+  return { url: postUrl(postLocale, slug), title: post.data.title };
+}
+
 export async function getPostPairs() {
   const posts = await getPublishedPosts();
   const bySlug = new Map<string, Partial<Record<Locale, PostEntry>>>();
@@ -51,8 +58,6 @@ export async function getPostPairs() {
 
 export async function assertTranslatedPostPairs() {
   const pairs = await getPostPairs();
-  const complete = pairs.filter(({ posts }) => locales.every((locale) => posts[locale]));
-
   const missing = pairs.filter(({ posts }) => !locales.every((locale) => posts[locale]));
   if (missing.length > 0) {
     const missingList = missing.map(
@@ -61,7 +66,9 @@ export async function assertTranslatedPostPairs() {
     console.warn(`Skipping incomplete translations: ${missingList.join(', ')}`);
   }
 
-  return complete as Array<{ slug: string; posts: Record<Locale, PostEntry> }>;
+  return pairs.filter(({ posts }) =>
+    locales.every((locale) => posts[locale]),
+  ) as Array<{ slug: string; posts: Record<Locale, PostEntry> }>;
 }
 
 export function postUrl(locale: Locale, slug: string) {

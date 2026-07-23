@@ -1,18 +1,10 @@
-import { access, mkdir, writeFile } from 'node:fs/promises';
-import path from 'node:path';
-import he from 'he';
-import ogs from 'open-graph-scraper';
 import type { OgObject } from 'open-graph-scraper/types';
-import sanitize from 'sanitize-filename';
+import ogs from 'open-graph-scraper';
 import { visit } from 'unist-util-visit';
 import type { Paragraph, Root } from 'mdast';
 
-const defaultSaveDirectory = 'public';
-const defaultOutputDirectory = '/remark-link-card/';
-
 export type RemarkLinkCardOptions = {
   shortenUrl?: boolean;
-  cache?: boolean;
 };
 
 export type LinkCardData = {
@@ -26,6 +18,16 @@ export type LinkCardData = {
 };
 
 export type LinkCardFetcher = (url: string) => Promise<LinkCardData>;
+
+/** Escape the five significant XML characters for safe insertion into HTML text. */
+function escapeHtml(raw: string): string {
+  return raw
+    .replace(/&/g, '&amp;')
+    .replace(/</g, '&lt;')
+    .replace(/>/g, '&gt;')
+    .replace(/"/g, '&quot;')
+    .replace(/'/g, '&#39;');
+}
 
 /**
  * Link-card blurbs must be plain text. OGS is the right tool; we only drop values that are clearly markup
@@ -47,7 +49,7 @@ export function pickDescription(ogResult: OgObject | undefined): string {
     const val = ogResult[key];
     if (typeof val !== 'string') continue;
     if (isUnsafePlaintextSnippet(val)) continue;
-    return he.encode(val);
+    return escapeHtml(val);
   }
   return '';
 }
@@ -67,81 +69,23 @@ async function getOpenGraph(targetUrl: string) {
   }
 }
 
-async function downloadImage(url: string, saveDirectory: string): Promise<string | undefined> {
-  let targetUrl: URL;
-  try {
-    targetUrl = new URL(url);
-  } catch {
-    console.error(`[remark-link-card] Failed to parse url "${url}"`);
-    return undefined;
-  }
-  const filename = sanitize(decodeURI(targetUrl.href));
-  const saveFilePath = path.join(saveDirectory, filename);
-  try {
-    await access(saveFilePath);
-    return filename;
-  } catch {
-    /* fetch */
-  }
-  try {
-    await access(saveDirectory);
-  } catch {
-    await mkdir(saveDirectory, { recursive: true });
-  }
-  try {
-    const response = await fetch(targetUrl.href, {
-      headers: {
-        'User-Agent':
-          'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/74.0.3729.169 Safari/537.36',
-      },
-    });
-    if (!response.ok) throw new Error(String(response.status));
-    const buffer = Buffer.from(await response.arrayBuffer());
-    await writeFile(saveFilePath, buffer);
-  } catch (e) {
-    console.error(`[remark-link-card] Failed to download image from ${targetUrl.href}`, e);
-    return undefined;
-  }
-  return filename;
-}
-
 export function createDefaultFetcher(options?: RemarkLinkCardOptions): LinkCardFetcher {
   return async (targetUrl: string) => {
     const ogResult = await getOpenGraph(targetUrl);
     const parsedUrl = new URL(targetUrl);
     const title =
-      (typeof ogResult?.ogTitle === 'string' && he.encode(ogResult.ogTitle)) || parsedUrl.hostname;
+      (typeof ogResult?.ogTitle === 'string' && escapeHtml(ogResult.ogTitle)) || parsedUrl.hostname;
     const description = pickDescription(ogResult);
 
-    const faviconUrl = `https://www.google.com/s2/favicons?domain=${parsedUrl.hostname}`;
-    let faviconSrc = '';
-    if (options?.cache) {
-      const faviconFilename = await downloadImage(
-        faviconUrl,
-        path.join(process.cwd(), defaultSaveDirectory, defaultOutputDirectory),
-      );
-      faviconSrc = faviconFilename
-        ? path.join(defaultOutputDirectory, faviconFilename)
-        : faviconUrl;
-    } else {
-      faviconSrc = faviconUrl;
-    }
+    const faviconSrc = `https://www.google.com/s2/favicons?domain=${parsedUrl.hostname}`;
 
     let ogImageSrc = '';
     const ogImage = ogResult?.ogImage?.[0];
     if (ogImage?.url) {
-      if (options?.cache) {
-        const imageFilename = await downloadImage(
-          ogImage.url,
-          path.join(process.cwd(), defaultSaveDirectory, defaultOutputDirectory),
-        );
-        ogImageSrc = imageFilename ? path.join(defaultOutputDirectory, imageFilename) : ogImage.url;
-      } else {
-        ogImageSrc = ogImage.url;
-      }
+      ogImageSrc = ogImage.url;
     }
 
-    const ogImageAlt = (typeof ogImage?.alt === 'string' && he.encode(ogImage.alt)) || title;
+    const ogImageAlt = (typeof ogImage?.alt === 'string' && escapeHtml(ogImage.alt)) || title;
 
     let displayUrl = options?.shortenUrl ? parsedUrl.hostname : targetUrl;
     try {

@@ -11,14 +11,14 @@ import rehypeSlug from 'rehype-slug';
 import { remarkReadingTime } from './src/plugins/remark-reading-time.ts';
 import remarkLinkCard from './src/plugins/remark-link-card.ts';
 import expressiveCode from 'astro-expressive-code';
-import { siteConfig } from './src/site.config.ts';
 
 const site = process.env.PUBLIC_SITE_URL || process.env.CF_PAGES_URL || 'http://localhost:4321';
 
-const integrations = [];
+export default defineConfig({
+  site,
+  output: 'static',
 
-if (siteConfig.features.expressiveCode) {
-  integrations.push(
+  integrations: [
     expressiveCode({
       themes: ['github-light', 'github-dark'],
       useThemedScrollbars: false,
@@ -26,35 +26,17 @@ if (siteConfig.features.expressiveCode) {
       themeCssSelector: (theme) =>
         `[data-theme='${theme.name === 'github-dark' ? 'dark' : 'light'}']`,
     }),
-  );
-}
-
-integrations.push(
-  mdx(),
-  sitemap({
-    i18n: {
-      defaultLocale: 'en',
-      locales: {
-        en: 'en',
-        zh: 'zh-CN',
+    mdx(),
+    sitemap({
+      i18n: {
+        defaultLocale: 'en',
+        locales: {
+          en: 'en',
+          zh: 'zh-CN',
+        },
       },
-    },
-  }),
-);
-
-const remarkPlugins = [];
-if (siteConfig.features.readingTime) {
-  remarkPlugins.push(remarkReadingTime);
-}
-if (siteConfig.features.linkCard) {
-  remarkPlugins.push([remarkLinkCard, { shortenUrl: true }]);
-}
-
-export default defineConfig({
-  site,
-  output: 'static',
-
-  integrations,
+    }),
+  ],
 
   markdown: {
     shikiConfig: {
@@ -65,7 +47,7 @@ export default defineConfig({
       defaultColor: false,
     },
     processor: unified({
-      remarkPlugins,
+      remarkPlugins: [remarkReadingTime, [remarkLinkCard, { shortenUrl: true }]],
       rehypePlugins: [rehypeSlug, rehypeFigureCaptions, rehypeLazyImages],
     }),
   },

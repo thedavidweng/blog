@@ -1,10 +1,5 @@
 {
   "$schema": "https://unpkg.com/knip@6/schema.json",
   "entry": ["functions/**/*.ts"],
-  "ignore": [
-    "scripts/normalize-post-assets-phase2.mjs",
-    "scripts/rename-post-assets.mjs",
-    "scripts/submit-indexnow.mjs"
-  ],
   "ignoreExportsUsedInFile": true
 }

@@ -1,6 +1,6 @@
 ---
 import type { CollectionEntry } from 'astro:content';
-import { getPostSlug, postUrl } from '../lib/content';
+import { getPostInfo } from '../lib/content';
 import type { Locale } from '../site.config';
 
 interface Props {
@@ -12,12 +12,6 @@ interface Props {
 const { locale, prev, next } = Astro.props;
 
 const isZh = locale === 'zh';
-
-function getPostInfo(post: CollectionEntry<'posts'>) {
-  const slug = getPostSlug(post);
-  const postLocale = post.id.startsWith('zh/') ? 'zh' : 'en';
-  return { url: postUrl(postLocale, slug), title: post.data.title };
-}
 
 const prevInfo = prev ? getPostInfo(prev) : null;
 const nextInfo = next ? getPostInfo(next) : null;

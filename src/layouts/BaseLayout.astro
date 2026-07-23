@@ -88,7 +88,7 @@ const xDefault = absoluteUrl(path.startsWith('/zh/') ? path.replace('/zh', '') :
     {jsonLd && <script is:inline type="application/ld+json" set:html={JSON.stringify(jsonLd)} />}
   </head>
   <body>
-    {siteConfig.features.progressBar && <ProgressBar />}
+    <ProgressBar />
     <a class="skip-link" href="#main">{locale === 'zh' ? '跳到正文' : 'Skip to content'}</a>
     <div class="page-shell">
       <Sidebar locale={locale} active={active} alternatePath={alternatePath} />
@@ -96,6 +96,6 @@ const xDefault = absoluteUrl(path.startsWith('/zh/') ? path.replace('/zh', '') :
         <slot />
       </main>
     </div>
-    {siteConfig.features.backToTop && <BackToTop locale={locale} />}
+    <BackToTop locale={locale} />
   </body>
 </html>

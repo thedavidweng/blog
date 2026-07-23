@@ -20,7 +20,6 @@ interface Props {
 const { post, alternatePath, remarkPluginFrontmatter, prev, next, relatedPosts = [] } = Astro.props;
 const { locale } = parsePostId(post.id);
 const slug = getPostSlug(post);
-const hasToc = siteConfig.features.toc;
 const narrowFigures = post.data.narrowFigures === true;
 const postPath = postUrl(locale, slug);
 const ogPath = ogImagePath(locale, slug);
@@ -66,12 +65,12 @@ const jsonLd = {
   type="article"
   jsonLd={jsonLd}
 >
-  <article class:list={['article', 'relative', hasToc && 'article--with-toc', narrowFigures && 'article--narrow-figures']}>
-    <div class:list={['article-primary', hasToc && 'min-w-0']}>
+  <article class:list={['article', 'relative', 'article--with-toc', narrowFigures && 'article--narrow-figures']}>
+    <div class:list={['article-primary', 'min-w-0']}>
     <header class="article-header">
       <p class="post-meta">
         <time datetime={post.data.publishedDate.toISOString()}>{dateLabel}</time>
-        {siteConfig.features.readingTime && <span>{readingTimeLabel}</span>}
+        <span>{readingTimeLabel}</span>
       </p>
       <h1 class="article-title">{post.data.title}</h1>
       <p class="article-description">{post.data.description}</p>
@@ -82,26 +81,25 @@ const jsonLd = {
     <div
       class:list={[
         'prose prose-zinc dark:prose-invert mx-auto prose-a:text-accent prose-a:no-underline prose-img:rounded-lg',
-        hasToc ? 'max-w-none' : 'max-w-[65ch]'
+        'max-w-none'
       ]}
     >
       <slot />
     </div>
 
-    <div class:list={[hasToc ? 'max-w-none' : 'max-w-[65ch]', 'mx-auto']}>
+    <div class:list={['max-w-none', 'mx-auto']}>
       <PostNavigation locale={locale} prev={prev} next={next} />
       <RelatedPosts locale={locale} posts={relatedPosts} />
     </div>
 
-    {siteConfig.features.giscus && <Giscus slug={slug} locale={locale} />}
+    <Giscus slug={slug} locale={locale} />
     </div>
-    {hasToc && <Toc locale={locale} />}
+    <Toc locale={locale} />
   </article>
 
-  {siteConfig.features.mediumZoom && (
   <script>
     import mediumZoom from 'medium-zoom';
-    
+
     function initMediumZoom() {
       const images = document.querySelectorAll('.prose img');
       mediumZoom(images, {
@@ -112,5 +110,4 @@ const jsonLd = {
 
     document.addEventListener('astro:page-load', initMediumZoom);
   </script>
-  )}
 </BaseLayout>

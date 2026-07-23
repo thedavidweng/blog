@@ -1,5 +1,4 @@
 import { description, role, about, nav, tags } from './config/i18n';
-import { features } from './config/features';
 import { social } from './config/social';
 import { defaultLocale, locales } from './config/locale';
 import type { Locale } from './config/locale';
@@ -17,7 +16,6 @@ export const siteConfig = {
   nav,
   tags,
   social,
-  features,
 } as const;
 
 export function getBaseUrl() {

@@ -1,12 +1,13 @@
-import type { Root } from 'mdast';
 import type { OgObject } from 'open-graph-scraper/types';
-import remarkLinkCard, {
+import { markdownToHtml } from 'satteri';
+import {
   isUnsafePlaintextSnippet,
   pickDescription,
   createLinkCard,
   createDefaultFetcher,
+  linkCardPlugin,
   type LinkCardData,
-} from '../src/plugins/remark-link-card.ts';
+} from '../src/plugins/link-card.ts';
 
 function assert(condition: unknown, message: string): asserts condition {
   if (!condition) throw new Error(message);
@@ -157,161 +158,109 @@ await test('createLinkCard: links to the target URL', () => {
   assert(html.includes('href="https://example.com"'), 'should have href on anchor');
 });
 
-// ── Integration: remarkLinkCard with mock fetcher ─────────────────────────────
+// ── Integration: linkCardPlugin via markdownToHtml ────────────────────────────
 
-await test('remarkLinkCard: replaces bare URL paragraph with link card HTML', async () => {
-  const tree: Root = {
-    type: 'root',
-    children: [
-      {
-        type: 'paragraph',
-        children: [{ type: 'text', value: 'https://example.com' }],
-      },
-    ],
-  };
-
-  const plugin = remarkLinkCard({
-    fetcher: async (url) => ({
-      title: 'Example',
-      description: 'An example site',
-      faviconSrc: 'https://example.com/favicon.ico',
-      ogImageSrc: '',
-      ogImageAlt: '',
-      displayUrl: 'example.com',
-      url,
-    }),
-  });
-
-  const result = await plugin(tree);
-  assert(result.children.length === 1, 'should have one child');
-  assert(result.children[0].type === 'html', `expected html node, got ${result.children[0].type}`);
-  const htmlNode = result.children[0] as { type: 'html'; value: string };
-  assert(htmlNode.value.includes('rlc-container'), 'should contain link card markup');
-  assert(htmlNode.value.includes('Example'), 'should contain fetched title');
-  assert(htmlNode.value.includes('An example site'), 'should contain fetched description');
+const mockFetcher = async (url: string): Promise<LinkCardData> => ({
+  title: 'Example',
+  description: 'An example site',
+  faviconSrc: 'https://example.com/favicon.ico',
+  ogImageSrc: '',
+  ogImageAlt: '',
+  displayUrl: 'example.com',
+  url,
 });
 
-await test('remarkLinkCard: does not touch paragraphs with multiple children', async () => {
-  const tree: Root = {
-    type: 'root',
-    children: [
-      {
-        type: 'paragraph',
-        children: [
-          { type: 'text', value: 'Check ' },
-          { type: 'text', value: 'https://example.com' },
-        ],
-      },
-    ],
-  };
-
-  let called = false;
-  const plugin = remarkLinkCard({
-    fetcher: async () => {
-      called = true;
-      return sampleData;
-    },
+await test('linkCardPlugin: replaces bare URL paragraph with link card HTML', async () => {
+  const { html } = await markdownToHtml('https://example.com', {
+    mdastPlugins: [() => linkCardPlugin({ fetcher: mockFetcher })],
   });
+  assert(html.includes('rlc-container'), 'should contain link card markup');
+  assert(html.includes('Example'), 'should contain fetched title');
+  assert(html.includes('An example site'), 'should contain fetched description');
+});
 
-  const result = await plugin(tree);
+await test('linkCardPlugin: does not touch paragraphs with multiple children', async () => {
+  let called = false;
+  const { html } = await markdownToHtml('Check https://example.com', {
+    mdastPlugins: [
+      () =>
+        linkCardPlugin({
+          fetcher: async () => {
+            called = true;
+            return sampleData;
+          },
+        }),
+    ],
+  });
   assert(!called, 'fetcher should not be called for multi-child paragraph');
-  assert(result.children[0].type === 'paragraph', 'should remain a paragraph');
+  assert(html.includes('Check'), 'should contain the text "Check"');
+  assert(!html.includes('rlc-container'), 'should not contain link card');
 });
 
-await test('remarkLinkCard: does not touch paragraphs without URLs', async () => {
-  const tree: Root = {
-    type: 'root',
-    children: [
-      {
-        type: 'paragraph',
-        children: [{ type: 'text', value: 'Just plain text, no links here.' }],
-      },
-    ],
-  };
-
+await test('linkCardPlugin: does not touch paragraphs without URLs', async () => {
   let called = false;
-  const plugin = remarkLinkCard({
-    fetcher: async () => {
-      called = true;
-      return sampleData;
-    },
+  const { html } = await markdownToHtml('Just plain text, no links here.', {
+    mdastPlugins: [
+      () =>
+        linkCardPlugin({
+          fetcher: async () => {
+            called = true;
+            return sampleData;
+          },
+        }),
+    ],
   });
-
-  const result = await plugin(tree);
   assert(!called, 'fetcher should not be called for non-URL text');
-  assert(result.children[0].type === 'paragraph', 'should remain a paragraph');
+  assert(html.includes('plain text'), 'should contain the plain text');
+  assert(!html.includes('rlc-container'), 'should not contain link card');
 });
 
-await test('remarkLinkCard: handles fetcher errors gracefully', async () => {
-  const tree: Root = {
-    type: 'root',
-    children: [
-      {
-        type: 'paragraph',
-        children: [{ type: 'text', value: 'https://broken.example.com' }],
-      },
+await test('linkCardPlugin: handles fetcher errors gracefully', async () => {
+  const { html } = await markdownToHtml('https://broken.example.com', {
+    mdastPlugins: [
+      () =>
+        linkCardPlugin({
+          fetcher: async () => {
+            throw new Error('network down');
+          },
+        }),
     ],
-  };
-
-  const plugin = remarkLinkCard({
-    fetcher: async () => {
-      throw new Error('network down');
-    },
   });
-
-  // Should not throw — errors are caught internally
-  const result = await plugin(tree);
-  assert(result.children.length === 1, 'should still have one child');
+  // Should not throw — the URL remains as text
+  assert(html.includes('broken.example.com'), 'URL should remain as text');
 });
 
-await test('remarkLinkCard: one failed fetch does not suppress other link cards', async () => {
-  const tree: Root = {
-    type: 'root',
-    children: [
-      {
-        type: 'paragraph',
-        children: [{ type: 'text', value: 'https://good.example.com' }],
-      },
-      {
-        type: 'paragraph',
-        children: [{ type: 'text', value: 'https://broken.example.com' }],
-      },
-      {
-        type: 'paragraph',
-        children: [{ type: 'text', value: 'https://also-good.example.com' }],
-      },
-    ],
-  };
+await test('linkCardPlugin: one failed fetch does not suppress other link cards', async () => {
+  const source = `https://good.example.com
 
-  const plugin = remarkLinkCard({
-    fetcher: async (url) => {
-      if (url.includes('broken')) throw new Error('network down');
-      return {
-        title: `Card for ${url}`,
-        description: '',
-        faviconSrc: '',
-        ogImageSrc: '',
-        ogImageAlt: '',
-        displayUrl: url,
-        url,
-      };
-    },
+https://broken.example.com
+
+https://also-good.example.com`;
+
+  const { html } = await markdownToHtml(source, {
+    mdastPlugins: [
+      () =>
+        linkCardPlugin({
+          fetcher: async (url) => {
+            if (url.includes('broken')) throw new Error('network down');
+            return {
+              title: `Card for ${url}`,
+              description: '',
+              faviconSrc: '',
+              ogImageSrc: '',
+              ogImageAlt: '',
+              displayUrl: url,
+              url,
+            };
+          },
+        }),
+    ],
   });
 
-  const result = await plugin(tree);
-  assert(result.children.length === 3, 'should still have three children');
-
-  const first = result.children[0] as { type: string; value?: string };
-  assert(first.type === 'html', 'first card should be html');
-  assert(first.value?.includes('Card for https://good.example.com'), 'first card should be rendered');
-
-  const second = result.children[1] as { type: string };
-  assert(second.type === 'paragraph', 'broken URL should remain a paragraph');
-
-  const third = result.children[2] as { type: string; value?: string };
-  assert(third.type === 'html', 'third card should be html');
+  assert(html.includes('Card for https://good.example.com'), 'first card should be rendered');
+  assert(html.includes('broken.example.com'), 'broken URL should remain as text');
   assert(
-    third.value?.includes('Card for https://also-good.example.com'),
+    html.includes('Card for https://also-good.example.com'),
     'third card should be rendered',
   );
 });

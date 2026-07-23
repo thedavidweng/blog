@@ -1,2 +1,5 @@
 minimumReleaseAge: 10080
+minimumReleaseAgeExclude:
+  - astro
+  - '@astrojs/mdx'
 trustPolicy: no-downgrade

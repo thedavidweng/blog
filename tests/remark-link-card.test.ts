@@ -318,34 +318,35 @@ await test('remarkLinkCard: one failed fetch does not suppress other link cards'
 
 // ── createDefaultFetcher ──────────────────────────────────────────────────────
 
+const TEST_HOST = 'example.com';
+
 await test('createDefaultFetcher: returns hostname as title when OG title is missing', async () => {
   const fetcher = createDefaultFetcher();
-  // This will make a real network call to ogs; use a URL that will fail OG fetch
-  // but still produce a card with hostname as title.
-  const data = await fetcher('https://example.com');
-  assert(data.title === 'example.com', `expected hostname as title, got "${data.title}"`);
-  assert(data.url === 'https://example.com', 'url should match input');
-  assert(data.faviconSrc === 'https://www.google.com/s2/favicons?domain=example.com', `expected google favicon URL, got "${data.faviconSrc}"`);
+  const testUrl = `https://${TEST_HOST}`;
+  const data = await fetcher(testUrl);
+  assert(data.title === TEST_HOST, `expected hostname as title, got "${data.title}"`);
+  assert(data.url === testUrl, 'url should match input');
+  assert(data.faviconSrc === `https://www.google.com/s2/favicons?domain=${TEST_HOST}`, `expected google favicon URL, got "${data.faviconSrc}"`);
 });
 
 await test('createDefaultFetcher: shortenUrl option returns hostname as displayUrl', async () => {
   const fetcher = createDefaultFetcher({ shortenUrl: true });
-  const data = await fetcher('https://example.com/some/path');
-  assert(data.displayUrl === 'example.com', `expected hostname, got "${data.displayUrl}"`);
+  const data = await fetcher(`https://${TEST_HOST}/some/path`);
+  assert(data.displayUrl === TEST_HOST, `expected hostname, got "${data.displayUrl}"`);
 });
 
 await test('createDefaultFetcher: full URL as displayUrl without shortenUrl', async () => {
   const fetcher = createDefaultFetcher();
-  const data = await fetcher('https://example.com/some/path');
-  assert(data.displayUrl === 'https://example.com/some/path', `expected full URL, got "${data.displayUrl}"`);
+  const testUrl = `https://${TEST_HOST}/some/path`;
+  const data = await fetcher(testUrl);
+  assert(data.displayUrl === testUrl, `expected full URL, got "${data.displayUrl}"`);
 });
 
 await test('createDefaultFetcher: handles undecodable URL displayUrl gracefully', async () => {
   const fetcher = createDefaultFetcher();
-  // URL with invalid percent-encoding that will cause decodeURI to throw
-  const data = await fetcher('https://example.com/%E0%A4%A');
-  assert(data.url === 'https://example.com/%E0%A4%A', 'url should match input');
-  // displayUrl should still be set (either decoded or original)
+  const testUrl = `https://${TEST_HOST}/%E0%A4%A`;
+  const data = await fetcher(testUrl);
+  assert(data.url === testUrl, 'url should match input');
   assert(typeof data.displayUrl === 'string', 'displayUrl should be a string');
 });
 

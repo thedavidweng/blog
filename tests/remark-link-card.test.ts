@@ -325,7 +325,7 @@ await test('createDefaultFetcher: returns hostname as title when OG title is mis
   const data = await fetcher('https://example.com');
   assert(data.title === 'example.com', `expected hostname as title, got "${data.title}"`);
   assert(data.url === 'https://example.com', 'url should match input');
-  assert(data.faviconSrc.includes('example.com'), 'faviconSrc should contain hostname');
+  assert(data.faviconSrc === 'https://www.google.com/s2/favicons?domain=example.com', `expected google favicon URL, got "${data.faviconSrc}"`);
 });
 
 await test('createDefaultFetcher: shortenUrl option returns hostname as displayUrl', async () => {

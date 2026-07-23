@@ -1,7 +1,7 @@
 ---
 import type { CollectionEntry } from 'astro:content';
-import { getPostSlug, postUrl } from '../lib/content';
-import type { Locale } from '../site.config';
+import { getPostInfo } from '../lib/content';
+import type { Locale } from '../lib/locale';
 
 interface Props {
   locale: Locale;
@@ -14,17 +14,10 @@ if (posts.length === 0) return null;
 
 const isZh = locale === 'zh';
 
-function getPostInfo(post: CollectionEntry<'posts'>) {
-  const slug = getPostSlug(post);
-  const postLocale = post.id.startsWith('zh/') ? 'zh' : 'en';
-  return {
-    url: postUrl(postLocale, slug),
-    title: post.data.title,
-    description: post.data.description,
-  };
-}
-
-const items = posts.map(getPostInfo);
+const items = posts.map((post) => {
+  const info = getPostInfo(post);
+  return { url: info.url, title: info.title, description: post.data.description };
+});
 ---
 
 <section class="related-posts" aria-label={isZh ? '相关文章' : 'Related posts'}>

@@ -4,13 +4,12 @@ import {
   getPostSlug,
   getPublishedPosts,
   getTags,
-  ogImagePath,
-  postUrl,
   tagLabel,
 } from './content';
-import { absoluteUrl, siteConfig, type Locale, defaultLocale, locales } from '../site.config';
+import { ogImagePath, postUrl, type Locale, defaultLocale, locales } from './locale';
+import { absoluteUrl, siteConfig } from '../site.config';
 
-/** Shared getStaticPaths for post detail pages. */
+/** getStaticPaths for post detail pages. */
 export async function getPostStaticPaths(locale: Locale) {
   const pairs = await assertTranslatedPostPairs();
   const sorted = pairs.toSorted(
@@ -44,13 +43,13 @@ export async function getPostStaticPaths(locale: Locale) {
   });
 }
 
-/** Shared getStaticPaths for tag detail pages. */
+/** getStaticPaths for tag detail pages. */
 export async function getTagStaticPaths(locale: Locale) {
   const tags = await getTags(locale);
   return tags.map((tag) => ({ params: { tag }, props: { tag } }));
 }
 
-/** Build the `pages` object for OG image routes (shared across locales). */
+/** Build the `pages` object for OG image routes. */
 export async function getOgPages(locale: Locale) {
   const pairs = await assertTranslatedPostPairs();
   return Object.fromEntries(
@@ -64,7 +63,7 @@ export async function getOgPages(locale: Locale) {
   );
 }
 
-/** Build RSS feed items array (shared across locales). */
+/** Build RSS feed items array. */
 export async function getRssItems(locale: Locale) {
   const posts = await getPublishedPosts(locale);
   return posts.map((post) => {
@@ -84,9 +83,9 @@ export async function getRssItems(locale: Locale) {
 export function getHomeJsonLd(locale: Locale) {
   const siteUrl = absoluteUrl('/');
   const pageUrl = locale === defaultLocale ? siteUrl : absoluteUrl(`/${locale}/`);
-  const socialUrls = siteConfig.social
-    .filter((s) => ['GitHub', 'LinkedIn', 'X'].includes(s.label))
-    .map((s) => s.href);
+  const socialUrls = siteConfig.social.flatMap((s) =>
+    ['GitHub', 'LinkedIn', 'X'].includes(s.label) ? [s.href] : [],
+  );
 
   return {
     '@context': 'https://schema.org',

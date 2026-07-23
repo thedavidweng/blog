@@ -1,10 +1,8 @@
 import { description, role, about, nav, tags } from './config/i18n';
-import { features } from './config/features';
 import { social } from './config/social';
-import { defaultLocale, locales } from './config/locale';
-import type { Locale } from './config/locale';
+import { defaultLocale, locales, localizedPath, type Locale } from './lib/locale';
 
-export { defaultLocale, locales };
+export { defaultLocale, locales, localizedPath };
 export type { Locale };
 
 export const siteConfig = {
@@ -17,21 +15,10 @@ export const siteConfig = {
   nav,
   tags,
   social,
-  features,
 } as const;
 
 export function getBaseUrl() {
   return process.env.PUBLIC_SITE_URL || process.env.CF_PAGES_URL || 'http://localhost:4321';
-}
-
-export function getLocaleBase(locale: Locale) {
-  return locale === defaultLocale ? '' : `/${locale}`;
-}
-
-export function localizedPath(locale: Locale, path = '/') {
-  const cleanPath = path.startsWith('/') ? path : `/${path}`;
-  if (locale === defaultLocale) return cleanPath;
-  return `${getLocaleBase(locale)}${cleanPath === '/' ? '/' : cleanPath}`;
 }
 
 export function absoluteUrl(path = '/') {

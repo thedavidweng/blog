@@ -4,6 +4,7 @@ import remarkLinkCard, {
   isUnsafePlaintextSnippet,
   pickDescription,
   createLinkCard,
+  createDefaultFetcher,
   type LinkCardData,
 } from '../src/plugins/remark-link-card.ts';
 
@@ -261,6 +262,92 @@ await test('remarkLinkCard: handles fetcher errors gracefully', async () => {
   // Should not throw — errors are caught internally
   const result = await plugin(tree);
   assert(result.children.length === 1, 'should still have one child');
+});
+
+await test('remarkLinkCard: one failed fetch does not suppress other link cards', async () => {
+  const tree: Root = {
+    type: 'root',
+    children: [
+      {
+        type: 'paragraph',
+        children: [{ type: 'text', value: 'https://good.example.com' }],
+      },
+      {
+        type: 'paragraph',
+        children: [{ type: 'text', value: 'https://broken.example.com' }],
+      },
+      {
+        type: 'paragraph',
+        children: [{ type: 'text', value: 'https://also-good.example.com' }],
+      },
+    ],
+  };
+
+  const plugin = remarkLinkCard({
+    fetcher: async (url) => {
+      if (url.includes('broken')) throw new Error('network down');
+      return {
+        title: `Card for ${url}`,
+        description: '',
+        faviconSrc: '',
+        ogImageSrc: '',
+        ogImageAlt: '',
+        displayUrl: url,
+        url,
+      };
+    },
+  });
+
+  const result = await plugin(tree);
+  assert(result.children.length === 3, 'should still have three children');
+
+  const first = result.children[0] as { type: string; value?: string };
+  assert(first.type === 'html', 'first card should be html');
+  assert(first.value?.includes('Card for https://good.example.com'), 'first card should be rendered');
+
+  const second = result.children[1] as { type: string };
+  assert(second.type === 'paragraph', 'broken URL should remain a paragraph');
+
+  const third = result.children[2] as { type: string; value?: string };
+  assert(third.type === 'html', 'third card should be html');
+  assert(
+    third.value?.includes('Card for https://also-good.example.com'),
+    'third card should be rendered',
+  );
+});
+
+// ── createDefaultFetcher ──────────────────────────────────────────────────────
+
+const TEST_HOST = 'example.com';
+
+await test('createDefaultFetcher: returns hostname as title when OG title is missing', async () => {
+  const fetcher = createDefaultFetcher();
+  const testUrl = `https://${TEST_HOST}`;
+  const data = await fetcher(testUrl);
+  assert(data.title === TEST_HOST, `expected hostname as title, got "${data.title}"`);
+  assert(data.url === testUrl, 'url should match input');
+  assert(data.faviconSrc === `https://www.google.com/s2/favicons?domain=${TEST_HOST}`, `expected google favicon URL, got "${data.faviconSrc}"`);
+});
+
+await test('createDefaultFetcher: shortenUrl option returns hostname as displayUrl', async () => {
+  const fetcher = createDefaultFetcher({ shortenUrl: true });
+  const data = await fetcher(`https://${TEST_HOST}/some/path`);
+  assert(data.displayUrl === TEST_HOST, `expected hostname, got "${data.displayUrl}"`);
+});
+
+await test('createDefaultFetcher: full URL as displayUrl without shortenUrl', async () => {
+  const fetcher = createDefaultFetcher();
+  const testUrl = `https://${TEST_HOST}/some/path`;
+  const data = await fetcher(testUrl);
+  assert(data.displayUrl === testUrl, `expected full URL, got "${data.displayUrl}"`);
+});
+
+await test('createDefaultFetcher: handles undecodable URL displayUrl gracefully', async () => {
+  const fetcher = createDefaultFetcher();
+  const testUrl = `https://${TEST_HOST}/%E0%A4%A`;
+  const data = await fetcher(testUrl);
+  assert(data.url === testUrl, 'url should match input');
+  assert(typeof data.displayUrl === 'string', 'displayUrl should be a string');
 });
 
 // ── Summary ───────────────────────────────────────────────────────────────────

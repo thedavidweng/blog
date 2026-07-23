@@ -1,0 +1,30 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import { getTags, tagLabel } from '../../lib/content';
+import { tagUrl, defaultLocale, type Locale } from '../../lib/locale';
+
+interface Props {
+  locale: Locale;
+}
+
+const { locale } = Astro.props;
+const isDefault = locale === defaultLocale;
+const tags = await getTags(locale);
+const title = isDefault ? 'Tags' : '标签';
+const description = isDefault ? 'Browse posts by tag.' : '按标签浏览文章。';
+const heroCopy = isDefault ? 'Browse posts by topic.' : '按主题浏览文章。';
+const path = isDefault ? '/tags/' : `/${locale}/tags/`;
+const alternatePath = isDefault ? '/zh/tags/' : '/tags/';
+---
+
+<BaseLayout locale={locale} title={title} description={description} path={path} alternatePath={alternatePath} active="tags">
+  <section class="content-wrap">
+    <header class="hero">
+      <h1>{title}</h1>
+      <p class="hero-copy">{heroCopy}</p>
+    </header>
+    <div class="tag-grid">
+      {tags.map((tag) => <a class="tag-pill" href={tagUrl(locale, tag)}>{tagLabel(locale, tag)}</a>)}
+    </div>
+  </section>
+</BaseLayout>

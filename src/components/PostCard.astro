@@ -1,7 +1,7 @@
 ---
 import type { CollectionEntry } from 'astro:content';
-import { getPostSlug, postUrl, tagLabel } from '../lib/content';
-import type { Locale } from '../site.config';
+import { getPostSlug, tagLabel } from '../lib/content';
+import { postUrl, type Locale } from '../lib/locale';
 
 interface Props {
   post: CollectionEntry<'posts'>;

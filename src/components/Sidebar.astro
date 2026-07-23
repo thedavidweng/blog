@@ -1,7 +1,8 @@
 ---
 import { BookOpenText, BriefcaseBusiness, House, Info, Languages, Moon, Sun, Tags } from '@lucide/astro';
 import BrandIcon from './BrandIcon.astro';
-import { defaultLocale, localizedPath, siteConfig, type Locale } from '../site.config';
+import { siteConfig } from '../site.config';
+import { defaultLocale, localizedPath, type Locale } from '../lib/locale';
 
 interface Props {
   locale: Locale;
@@ -116,7 +117,6 @@ const socialIcons = {
     const locale = getLocale();
     const altLocale = locale === 'zh' ? 'en' : 'zh';
 
-    // nav link labels & hrefs
     const navKeys = ['posts', 'tags', 'about'];
     document.querySelectorAll('.nav-link').forEach((link, i) => {
       const key = navKeys[i];
@@ -129,13 +129,11 @@ const socialIcons = {
       }
     });
 
-    // brand role & link
     const roleEl = document.querySelector('.brand-role');
     if (roleEl) roleEl.textContent = i18n.role[locale];
     const brandLink = document.querySelector('.brand');
     if (brandLink instanceof HTMLAnchorElement) brandLink.href = locale === 'en' ? '/' : '/zh/';
 
-    // toolbar locale link
     const localeLink = document.querySelector('[data-locale-link]');
     if (localeLink instanceof HTMLAnchorElement) {
       localeLink.href = altLocale === 'zh' ? '/zh/' : '/';
@@ -144,7 +142,6 @@ const socialIcons = {
       localeLink.title = localeLink.getAttribute('aria-label') ?? '';
     }
 
-    // toolbar aria
     const toolbar = document.querySelector('.toolbar');
     if (toolbar) toolbar.setAttribute('aria-label', locale === 'zh' ? '主题与语言' : 'Theme and language');
     const themeBtn = document.querySelector('[data-theme-toggle]');
@@ -154,13 +151,11 @@ const socialIcons = {
       themeBtn.title = label;
     }
 
-    // nav landmarks
     const siteNav = document.querySelector('.site-nav');
     if (siteNav) siteNav.setAttribute('aria-label', locale === 'zh' ? '主导航' : 'Primary navigation');
     const socialNav = document.querySelector('.social-nav');
     if (socialNav) socialNav.setAttribute('aria-label', locale === 'zh' ? '外部链接' : 'External links');
 
-    // skip link
     const skipLink = document.querySelector('.skip-link');
     if (skipLink) skipLink.textContent = locale === 'zh' ? '跳到正文' : 'Skip to content';
   }

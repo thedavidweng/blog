@@ -100,6 +100,20 @@ await test('htmlToMarkdown: returns original html on turndown failure', () => {
   assert(result === html, 'should return original input on failure');
 });
 
+await test('htmlToMarkdown: returns original input when turndown throws on valid string', () => {
+  // Turndown throws on non-HTML strings that aren't valid DOM-like content.
+  // We force a throw by passing an object disguised as a string.
+  const fakeHtml = { toString: () => { throw new Error('boom'); } } as unknown as string;
+  const result = htmlToMarkdown(fakeHtml);
+  assert(result === fakeHtml, 'should return original input when turndown throws');
+});
+
+await test('extractMainContent: returns full html when no main and no body tags', () => {
+  const html = '<div>Just a div</div>';
+  const content = extractMainContent(html);
+  assert(content === html, 'should return the full html string unchanged');
+});
+
 // ── acceptsMarkdown ───────────────────────────────────────────────────────────
 
 await test('acceptsMarkdown: true when Accept includes text/markdown', () => {

@@ -4,7 +4,6 @@ import sharp from 'sharp';
 import fs from 'node:fs';
 import path from 'node:path';
 
-/** Default lazy-loading and auto-sizing for inline Markdown images (build-time). */
 export const lazyImagesPlugin = defineHastPlugin({
   name: 'lazy-images',
   element: {

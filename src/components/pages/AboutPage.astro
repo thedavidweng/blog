@@ -1,7 +1,7 @@
 ---
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import { absoluteUrl, siteConfig } from '../../site.config';
-import { defaultLocale, type Locale } from '../../lib/locale';
+import { defaultLocale, localizedPath, type Locale } from '../../lib/locale';
 
 interface Props {
   locale: Locale;
@@ -11,8 +11,8 @@ const { locale } = Astro.props;
 const isDefault = locale === defaultLocale;
 const title = isDefault ? 'About' : '关于';
 const description = isDefault ? `About ${siteConfig.author}.` : `关于 ${siteConfig.author}。`;
-const path = isDefault ? '/about/' : `/${locale}/about/`;
-const alternatePath = isDefault ? '/zh/about/' : '/about/';
+const path = localizedPath(locale, '/about/');
+const alternatePath = localizedPath(isDefault ? 'zh' : defaultLocale, '/about/');
 
 const jsonLd = {
   '@context': 'https://schema.org',

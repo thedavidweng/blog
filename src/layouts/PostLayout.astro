@@ -1,9 +1,9 @@
 ---
 import type { CollectionEntry } from 'astro:content';
 import BaseLayout from './BaseLayout.astro';
-import { getPostSlug, parsePostId, tagLabel } from '../lib/content';
-import { ogImagePath, postUrl, tagUrl } from '../lib/locale';
-import { absoluteUrl, defaultLocale, siteConfig } from '../site.config';
+import { getPostSlug, parsePostId, publishedLabel, tagLabel } from '../lib/content';
+import { defaultLocale, ogImagePath, postUrl, tagUrl } from '../lib/locale';
+import { absoluteUrl, siteConfig } from '../site.config';
 import Giscus from '../components/Giscus.astro';
 import Toc from '../components/Toc.astro';
 import PostNavigation from '../components/PostNavigation.astro';
@@ -24,13 +24,7 @@ const slug = getPostSlug(post);
 const narrowFigures = post.data.narrowFigures === true;
 const postPath = postUrl(locale, slug);
 const ogPath = ogImagePath(locale, slug);
-const date = post.data.publishedDate.toLocaleDateString(locale === 'zh' ? 'zh-CN' : 'en-US', {
-  year: 'numeric',
-  month: 'long',
-  day: 'numeric',
-  timeZone: 'UTC'
-});
-const dateLabel = locale === 'zh' ? `发布于 ${date}` : `Published on ${date}`;
+const dateLabel = publishedLabel(locale, post.data.publishedDate);
 
 const readingTime = remarkPluginFrontmatter?.readingTime;
 const readingTimeLabel = readingTime
@@ -67,7 +61,7 @@ const jsonLd = {
   jsonLd={jsonLd}
 >
   <article class:list={['article', 'relative', 'article--with-toc', narrowFigures && 'article--narrow-figures']}>
-    <div class:list={['article-primary', 'min-w-0']}>
+    <div class="min-w-0">
     <header class="article-header">
       <p class="post-meta">
         <time datetime={post.data.publishedDate.toISOString()}>{dateLabel}</time>
@@ -80,15 +74,12 @@ const jsonLd = {
       </ul>
     </header>
     <div
-      class:list={[
-        'prose prose-zinc dark:prose-invert mx-auto prose-a:text-accent prose-a:no-underline prose-img:rounded-lg',
-        'max-w-none'
-      ]}
+      class="prose prose-zinc dark:prose-invert mx-auto prose-a:text-accent prose-a:no-underline prose-img:rounded-lg max-w-none"
     >
       <slot />
     </div>
 
-    <div class:list={['max-w-none', 'mx-auto']}>
+    <div class="max-w-none mx-auto">
       <PostNavigation locale={locale} prev={prev} next={next} />
       <RelatedPosts locale={locale} posts={relatedPosts} />
     </div>

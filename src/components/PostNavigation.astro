@@ -19,15 +19,15 @@ const nextInfo = next ? getPostInfo(next) : null;
 
 <nav class="post-nav" aria-label={isZh ? '文章导航' : 'Post navigation'}>
   {prevInfo ? (
-    <a href={prevInfo.url} class="post-nav-link post-nav-prev">
+    <a href={prevInfo.url} class="card-link">
       <span class="post-nav-label">{isZh ? '上一篇' : 'Previous'}</span>
-      <span class="post-nav-title">{prevInfo.title}</span>
+      <span class="card-link-title">{prevInfo.title}</span>
     </a>
   ) : <div />}
   {nextInfo ? (
-    <a href={nextInfo.url} class="post-nav-link post-nav-next">
+    <a href={nextInfo.url} class="card-link post-nav-next">
       <span class="post-nav-label">{isZh ? '下一篇' : 'Next'}</span>
-      <span class="post-nav-title">{nextInfo.title}</span>
+      <span class="card-link-title">{nextInfo.title}</span>
     </a>
   ) : <div />}
 </nav>
@@ -42,27 +42,6 @@ const nextInfo = next ? getPostInfo(next) : null;
     border-top: 1px solid var(--border);
   }
 
-  .post-nav-link {
-    display: flex;
-    flex-direction: column;
-    gap: 0.25rem;
-    padding: 1rem;
-    border: 1px solid var(--border);
-    border-radius: 0.75rem;
-    text-decoration: none;
-    transition: border-color 0.2s var(--ease-out-quart), background-color 0.2s var(--ease-out-quart);
-  }
-
-  .post-nav-link:hover {
-    border-color: var(--accent);
-    background-color: var(--panel-strong);
-  }
-
-  .post-nav-link:focus-visible {
-    outline: 2px solid var(--accent);
-    outline-offset: 2px;
-  }
-
   .post-nav-next {
     text-align: right;
   }
@@ -72,13 +51,6 @@ const nextInfo = next ? getPostInfo(next) : null;
     color: var(--muted);
     text-transform: uppercase;
     letter-spacing: 0.05em;
-  }
-
-  .post-nav-title {
-    font-size: 0.95rem;
-    font-weight: 600;
-    color: var(--text);
-    line-height: 1.4;
   }
 
   @media (max-width: 640px) {

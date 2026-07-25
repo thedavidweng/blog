@@ -1,10 +1,6 @@
 import type { Locale } from './locale';
 
-/**
- * OG image configuration — owns the visual design (gradient, border, padding, colors)
- * and parameterizes font selection and sizing by locale.
- * See ADR-0004 for the decision record.
- */
+// OG image visual design + per-locale font config. See ADR-0004.
 
 const SHARED = {
   bgGradient: [[16, 16, 17]] as Array<[number, number, number]>,
@@ -16,14 +12,17 @@ const SHARED = {
   padding: 72,
 };
 
-const FONT_CONFIGS: Record<Locale, {
-  fonts: string[];
-  families: string[];
-  titleSize: number;
-  titleLineHeight: number;
-  descSize: number;
-  descLineHeight: number;
-}> = {
+const FONT_CONFIGS: Record<
+  Locale,
+  {
+    fonts: string[];
+    families: string[];
+    titleSize: number;
+    titleLineHeight: number;
+    descSize: number;
+    descLineHeight: number;
+  }
+> = {
   en: {
     fonts: [
       'https://cdn.jsdelivr.net/fontsource/fonts/noto-sans@5.2.9/latin-400-normal.ttf',
@@ -49,11 +48,7 @@ const FONT_CONFIGS: Record<Locale, {
   },
 };
 
-/** Build the `getImageOptions` payload for `OGImageRoute`, parameterized by locale. */
-export function ogImageOptions(
-  page: { title: string; description: string },
-  locale: Locale,
-) {
+export function ogImageOptions(page: { title: string; description: string }, locale: Locale) {
   const cfg = FONT_CONFIGS[locale];
   return {
     title: page.title,

@@ -4,13 +4,13 @@ import { fileURLToPath } from 'node:url';
 import { parse as parseYaml } from 'yaml';
 import { siteConfig } from '../src/site.config';
 import { postSchema, type PostFrontmatter } from '../src/schemas/post';
+import { assert } from './harness';
 
 const root = fileURLToPath(new URL('..', import.meta.url));
 const postsRoot = join(root, 'src/content/posts');
 const publicRoot = join(root, 'public');
 const locales = ['en', 'zh'] as const;
 
-/** Frontmatter with slug always derived (never undefined). */
 type ResolvedFrontmatter = PostFrontmatter & { slug: string };
 
 async function listPostFiles(locale: string) {
@@ -19,22 +19,13 @@ async function listPostFiles(locale: string) {
   return files.filter((file) => file.endsWith('.md') || file.endsWith('.mdx')).toSorted();
 }
 
-function assert(condition: unknown, message: string): asserts condition {
-  if (!condition) throw new Error(message);
-}
-
-// Validate that boolean fields in frontmatter use valid YAML 1.2 boolean literals.
-// Strings like "no", "yes", "on", "off" are NOT booleans in YAML 1.2 and will
-// cause Astro's z.boolean() schema validation to fail at build time.
-// See: https://yaml.org/spec/1.2.2/#1032-tag-resolution-directives
-// Valid YAML 1.2 booleans: true, false, True, False, TRUE, FALSE
+// Guards the YAML 1.2 boolean pitfall (see AGENTS.md "Post Conventions").
 function validateYamlBooleans(file: string, frontmatterBlock: string): void {
   const booleanFields = ['draft', 'narrowFigures'];
   for (const field of booleanFields) {
     const match = frontmatterBlock.match(new RegExp(`^${field}:\\s*(\\S+)`, 'm'));
-    if (!match) continue; // field not present — optional fields may be absent
+    if (!match) continue;
     const rawValue = match[1];
-    // Strip inline comment if present (e.g. "false  # draft post")
     const value = rawValue.split('#')[0].trim();
     const validBooleans = ['true', 'false', 'True', 'False', 'TRUE', 'FALSE'];
     if (!validBooleans.includes(value)) {
@@ -71,7 +62,6 @@ function parseFrontmatter(file: string, body: string): ResolvedFrontmatter {
     throw new Error(`${file}: frontmatter validation failed:\n${issues}`);
   }
 
-  // Derive slug from filename when not present in frontmatter
   const slug = result.data.slug ?? file.replace(/^.*\/([^/]+)\.(md|mdx)$/, '$1');
 
   return { ...result.data, slug };
@@ -102,24 +92,20 @@ const entriesByLocale = Object.fromEntries(
   Array<{ file: string; body: string; frontmatter: ResolvedFrontmatter }>
 >;
 
-// 1. Validation for each post
 for (const locale of locales) {
   const slugs = new Set();
   for (const { file, body, frontmatter } of entriesByLocale[locale]) {
-    // Check locale consistency
     assert(
       frontmatter.locale === locale,
       `${locale}/${file} has locale "${frontmatter.locale}" in frontmatter, expected "${locale}"`,
     );
 
-    // Check for duplicate slugs within the same locale
     assert(
       !slugs.has(frontmatter.slug),
       `${locale}/${file} has duplicate slug "${frontmatter.slug}"`,
     );
     slugs.add(frontmatter.slug);
 
-    // Check tags against siteConfig
     for (const tag of frontmatter.tags) {
       assert(
         tag in siteConfig.tags,
@@ -127,7 +113,6 @@ for (const locale of locales) {
       );
     }
 
-    // Check image references
     const imgMatches = body.matchAll(/!\[.*?\]\((.*?)\)/g);
     for (const match of imgMatches) {
       const imgPath = match[1];
@@ -143,7 +128,6 @@ for (const locale of locales) {
   }
 }
 
-// 2. Cross-locale validation (Translation completeness)
 const publishedSlugsByLocale = Object.fromEntries(
   locales.map((locale) => [
     locale,

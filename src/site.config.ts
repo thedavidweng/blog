@@ -1,9 +1,5 @@
 import { description, role, about, nav, tags } from './config/i18n';
 import { social } from './config/social';
-import { defaultLocale, locales, localizedPath, type Locale } from './lib/locale';
-
-export { defaultLocale, locales, localizedPath };
-export type { Locale };
 
 export const siteConfig = {
   name: 'David Blog',

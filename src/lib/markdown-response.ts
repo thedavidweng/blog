@@ -1,9 +1,6 @@
 import TurndownService from 'turndown';
 
-/**
- * HTML-to-Markdown conversion for the Cloudflare middleware.
- * See ADR-0005 for the decision record.
- */
+// HTML-to-Markdown conversion for the Cloudflare middleware. See ADR-0005.
 
 const turndown = new TurndownService({
   headingStyle: 'atx',
@@ -14,37 +11,26 @@ const turndown = new TurndownService({
 
 turndown.remove(['script', 'style', 'nav', 'footer', 'noscript']);
 
-/** Extract the `<main id="main">` content, falling back to `<body>` then the full HTML. */
 export function extractMainContent(html: string): string {
-  const match = html.match(/<main[^>]*id="main"[^>]*>([\s\S]*?)<\/main>/i);
-  if (match && match[1]) {
-    return match[1];
-  }
-  const bodyMatch = html.match(/<body[^>]*>([\s\S]*?)<\/body>/i);
-  if (bodyMatch && bodyMatch[1]) {
-    return bodyMatch[1];
-  }
-  return html;
+  return (
+    html.match(/<main[^>]*id="main"[^>]*>([\s\S]*?)<\/main>/i)?.[1] ||
+    html.match(/<body[^>]*>([\s\S]*?)<\/body>/i)?.[1] ||
+    html
+  );
 }
 
-/** Convert an HTML string to Markdown, extracting main content first. */
 export function htmlToMarkdown(html: string): string {
   try {
-    const content = extractMainContent(html);
-    return turndown.turndown(content);
+    return turndown.turndown(extractMainContent(html));
   } catch {
     return html;
   }
 }
 
-/** Check if a request accepts Markdown (via Accept header). */
 export function acceptsMarkdown(request: Request): boolean {
-  const accept = request.headers.get('Accept') || '';
-  return accept.includes('text/markdown');
+  return (request.headers.get('Accept') || '').includes('text/markdown');
 }
 
-/** Check if a response is HTML (via Content-Type header). */
 export function isHtmlResponse(response: Response): boolean {
-  const contentType = response.headers.get('Content-Type') || '';
-  return contentType.includes('text/html');
+  return (response.headers.get('Content-Type') || '').includes('text/html');
 }

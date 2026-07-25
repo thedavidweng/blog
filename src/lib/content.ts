@@ -1,6 +1,6 @@
 import { getCollection, type CollectionEntry } from 'astro:content';
-import { siteConfig, type Locale, locales } from '../site.config';
-import { isLocale, postUrl } from './locale';
+import { siteConfig } from '../site.config';
+import { isLocale, postUrl, locales, type Locale } from './locale';
 
 export type PostEntry = CollectionEntry<'posts'>;
 
@@ -12,14 +12,8 @@ export function parsePostId(id: string) {
   return { locale, filenameSlug: pathParts[0] };
 }
 
-export { isLocale } from './locale';
-export { postUrl, tagUrl, ogImagePath } from './locale';
-
 export function getPostLocale(post: PostEntry): Locale {
-  if (post.data.locale && isLocale(post.data.locale)) {
-    return post.data.locale;
-  }
-  return parsePostId(post.id).locale;
+  return post.data.locale ?? parsePostId(post.id).locale;
 }
 
 export async function getPublishedPosts(locale?: Locale) {
@@ -34,41 +28,52 @@ export function getPostSlug(post: PostEntry): string {
   return post.data.slug ?? parsePostId(post.id).filenameSlug;
 }
 
-/** Post URL + title for navigation/related-post links. */
 export function getPostInfo(post: PostEntry) {
-  const slug = getPostSlug(post);
-  const postLocale = getPostLocale(post);
-  return { url: postUrl(postLocale, slug), title: post.data.title };
+  return { url: postUrl(getPostLocale(post), getPostSlug(post)), title: post.data.title };
 }
 
-export async function getPostPairs() {
+export function publishedLabel(locale: Locale, date: Date) {
+  const formatted = date.toLocaleDateString(locale === 'zh' ? 'zh-CN' : 'en-US', {
+    year: 'numeric',
+    month: 'long',
+    day: 'numeric',
+    timeZone: 'UTC',
+  });
+  return locale === 'zh' ? `发布于 ${formatted}` : `Published on ${formatted}`;
+}
+
+async function getPostPairs() {
   const posts = await getPublishedPosts();
   const bySlug = new Map<string, Partial<Record<Locale, PostEntry>>>();
 
   for (const post of posts) {
-    const locale = getPostLocale(post);
     const slug = getPostSlug(post);
     const pair = bySlug.get(slug) ?? {};
-    pair[locale] = post;
+    pair[getPostLocale(post)] = post;
     bySlug.set(slug, pair);
   }
 
   return [...bySlug.entries()].map(([slug, postsByLocale]) => ({ slug, posts: postsByLocale }));
 }
 
+const isComplete = (posts: Partial<Record<Locale, PostEntry>>) =>
+  locales.every((locale) => posts[locale]);
+
 export async function assertTranslatedPostPairs() {
   const pairs = await getPostPairs();
-  const missing = pairs.filter(({ posts }) => !locales.every((locale) => posts[locale]));
+  const missing = pairs.filter(({ posts }) => !isComplete(posts));
   if (missing.length > 0) {
-    const missingList = missing.map(
-      ({ slug, posts }) => `${slug}: missing ${locales.filter((l) => !posts[l]).join(', ')}`,
+    console.warn(
+      `Skipping incomplete translations: ${missing
+        .map(({ slug, posts }) => `${slug}: missing ${locales.filter((l) => !posts[l]).join(', ')}`)
+        .join(', ')}`,
     );
-    console.warn(`Skipping incomplete translations: ${missingList.join(', ')}`);
   }
 
-  return pairs.filter(({ posts }) =>
-    locales.every((locale) => posts[locale]),
-  ) as Array<{ slug: string; posts: Record<Locale, PostEntry> }>;
+  return pairs.filter(({ posts }) => isComplete(posts)) as Array<{
+    slug: string;
+    posts: Record<Locale, PostEntry>;
+  }>;
 }
 
 export function tagLabel(locale: Locale, tag: string) {

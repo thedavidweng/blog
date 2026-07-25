@@ -7,7 +7,6 @@ const { locale } = Astro.props;
 const tocTitle = locale === 'zh' ? '目录' : 'Table of Contents';
 ---
 
-<!-- tocbot will inject the table of contents here -->
 <aside class="toc-wrapper sticky top-32 hidden lg:block min-w-0 w-full">
   <h2 class="text-xs font-bold mb-4 text-zinc-400 dark:text-zinc-500 tracking-wider uppercase">{tocTitle}</h2>
   <nav class="js-toc toc" aria-label={tocTitle}></nav>

@@ -15,7 +15,6 @@ const site = process.env.PUBLIC_SITE_URL || process.env.CF_PAGES_URL || 'http://
 
 export default defineConfig({
   site,
-  output: 'static',
 
   integrations: [
     expressiveCode({

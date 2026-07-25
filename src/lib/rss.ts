@@ -1,14 +1,30 @@
 import rss from '@astrojs/rss';
-import { getRssItems } from './locale-routing';
+import { getPublishedPosts } from './content';
+import { getPostSlug } from './posts';
+import { tagLabel } from '../config/i18n';
 import { absoluteUrl, siteConfig } from '../site.config';
-import { defaultLocale, type Locale } from './locale';
+import { defaultLocale, localizedPath, ogImagePath, postUrl, type Locale } from './locale';
+
+async function feedItems(locale: Locale) {
+  const posts = await getPublishedPosts(locale);
+  return posts.map((post) => {
+    const slug = getPostSlug(post);
+    return {
+      title: post.data.title,
+      description: post.data.description,
+      pubDate: post.data.publishedDate,
+      link: postUrl(locale, slug),
+      categories: post.data.tags.map((tag) => tagLabel(locale, tag)),
+      customData: `<enclosure url="${absoluteUrl(ogImagePath(locale, slug))}" type="image/png" />`,
+    };
+  });
+}
 
 export async function rssResponse(locale: Locale) {
-  const isDefault = locale === defaultLocale;
   return rss({
-    title: isDefault ? siteConfig.name : `${siteConfig.name} 中文`,
+    title: locale === defaultLocale ? siteConfig.name : `${siteConfig.name} 中文`,
     description: siteConfig.description[locale],
-    site: absoluteUrl(isDefault ? '/' : `/${locale}/`),
-    items: await getRssItems(locale),
+    site: absoluteUrl(localizedPath(locale)),
+    items: await feedItems(locale),
   });
 }

@@ -1,7 +1,8 @@
 ---
 import type { CollectionEntry } from 'astro:content';
-import { getPostInfo } from '../lib/content';
-import type { Locale } from '../lib/locale';
+import { getPostSlug } from '../lib/posts';
+import { t } from '../config/i18n';
+import { postUrl, type Locale } from '../lib/locale';
 
 interface Props {
   locale: Locale;
@@ -12,16 +13,17 @@ const { locale, posts } = Astro.props;
 
 if (posts.length === 0) return null;
 
-const isZh = locale === 'zh';
+const copy = t(locale);
 
-const items = posts.map((post) => {
-  const info = getPostInfo(post);
-  return { url: info.url, title: info.title, description: post.data.description };
-});
+const items = posts.map((post) => ({
+  url: postUrl(locale, getPostSlug(post)),
+  title: post.data.title,
+  description: post.data.description,
+}));
 ---
 
-<section class="related-posts" aria-label={isZh ? '相关文章' : 'Related posts'}>
-  <h2 class="related-posts-heading">{isZh ? '相关文章' : 'Related Posts'}</h2>
+<section class="related-posts" aria-label={copy.relatedLabel}>
+  <h2 class="related-posts-heading">{copy.relatedHeading}</h2>
   <ul class="related-posts-list">
     {items.map((item) => (
       <li>

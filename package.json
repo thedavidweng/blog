@@ -16,7 +16,7 @@
     "format": "oxfmt --write 'src/**/*.{ts,json}' 'tests/**/*.ts' 'scripts/**/*.{ts,mjs,js}'",
     "format:check": "oxfmt --check 'src/**/*.{ts,json}' 'tests/**/*.ts' 'scripts/**/*.{ts,mjs,js}'",
     "deploy": "wrangler pages deploy ./dist",
-    "test": "tsx tests/source-contract.test.ts && tsx tests/content-contract.test.ts && tsx tests/link-card.test.ts && tsx tests/markdown-response.test.ts && tsx tests/locale.test.ts",
+    "test": "tsx tests/source-contract.test.ts && tsx tests/content-contract.test.ts && tsx tests/posts.test.ts && tsx tests/plugins.test.ts && tsx tests/link-card.test.ts && tsx tests/markdown-response.test.ts && tsx tests/locale.test.ts && tsx tests/i18n.test.ts && tsx tests/robots.test.ts",
     "test:coverage": "c8 --reporter=lcov --reporter=text --src=src pnpm test"
   },
   "dependencies": {

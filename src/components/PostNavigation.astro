@@ -1,7 +1,8 @@
 ---
 import type { CollectionEntry } from 'astro:content';
-import { getPostInfo } from '../lib/content';
-import type { Locale } from '../lib/locale';
+import { getPostSlug } from '../lib/posts';
+import { t } from '../config/i18n';
+import { postUrl, type Locale } from '../lib/locale';
 
 interface Props {
   locale: Locale;
@@ -10,24 +11,20 @@ interface Props {
 }
 
 const { locale, prev, next } = Astro.props;
-
-const isZh = locale === 'zh';
-
-const prevInfo = prev ? getPostInfo(prev) : null;
-const nextInfo = next ? getPostInfo(next) : null;
+const copy = t(locale);
 ---
 
-<nav class="post-nav" aria-label={isZh ? '文章导航' : 'Post navigation'}>
-  {prevInfo ? (
-    <a href={prevInfo.url} class="card-link">
-      <span class="post-nav-label">{isZh ? '上一篇' : 'Previous'}</span>
-      <span class="card-link-title">{prevInfo.title}</span>
+<nav class="post-nav" aria-label={copy.postNav}>
+  {prev ? (
+    <a href={postUrl(locale, getPostSlug(prev))} class="card-link">
+      <span class="post-nav-label">{copy.prevPost}</span>
+      <span class="card-link-title">{prev.data.title}</span>
     </a>
   ) : <div />}
-  {nextInfo ? (
-    <a href={nextInfo.url} class="card-link post-nav-next">
-      <span class="post-nav-label">{isZh ? '下一篇' : 'Next'}</span>
-      <span class="card-link-title">{nextInfo.title}</span>
+  {next ? (
+    <a href={postUrl(locale, getPostSlug(next))} class="card-link post-nav-next">
+      <span class="post-nav-label">{copy.nextPost}</span>
+      <span class="card-link-title">{next.data.title}</span>
     </a>
   ) : <div />}
 </nav>

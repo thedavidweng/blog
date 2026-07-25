@@ -1,7 +1,7 @@
 import type { APIRoute } from 'astro';
 import { getCollection } from 'astro:content';
 import { absoluteUrl } from '../site.config';
-import { getPostLocale, getPostSlug } from '../lib/content';
+import { getPostLocale, getPostSlug } from '../lib/posts';
 import { postUrl } from '../lib/locale';
 
 // Generated from the content collection so stats and links never go stale; see ADR-0006.

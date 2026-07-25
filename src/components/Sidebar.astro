@@ -2,7 +2,8 @@
 import { BookOpenText, BriefcaseBusiness, House, Info, Languages, Moon, Sun, Tags } from '@lucide/astro';
 import BrandIcon from './BrandIcon.astro';
 import { siteConfig } from '../site.config';
-import { defaultLocale, localizedPath, type Locale } from '../lib/locale';
+import { t } from '../config/i18n';
+import { alternateLocale, localeTag, locales, localizedPath, type Locale } from '../lib/locale';
 
 interface Props {
   locale: Locale;
@@ -11,20 +12,31 @@ interface Props {
 }
 
 const { locale, active, alternatePath } = Astro.props;
-const nav = siteConfig.nav[locale];
-const navLandmark = locale === 'zh' ? '主导航' : 'Primary navigation';
-const socialLandmark = locale === 'zh' ? '外部链接' : 'External links';
-const toolbarLandmark = locale === 'zh' ? '主题与语言' : 'Theme and language';
-const themeLabel = locale === 'zh' ? '切换浅色或深色主题' : 'Toggle light or dark theme';
-const langLabel = locale === 'zh' ? 'Switch to English' : 'Switch to Chinese';
+
+const localeContent = (l: Locale) => {
+  const copy = t(l);
+  const alt = alternateLocale(l);
+  return {
+    role: siteConfig.role[l],
+    brandHref: localizedPath(l),
+    nav: [
+      { key: 'posts', href: localizedPath(l), label: siteConfig.nav[l].posts },
+      { key: 'tags', href: localizedPath(l, '/tags/'), label: siteConfig.nav[l].tags },
+      { key: 'about', href: localizedPath(l, '/about/'), label: siteConfig.nav[l].about },
+    ],
+    localeLink: { href: localizedPath(alt), hreflang: localeTag[alt], target: alt, label: copy.switchLocale },
+    navLandmark: copy.navLandmark,
+    socialLandmark: copy.socialLandmark,
+    toolbarLandmark: copy.toolbarLandmark,
+    themeToggle: copy.themeToggle,
+  };
+};
+
+const i18n = Object.fromEntries(locales.map((l) => [l, localeContent(l)]));
+const content = i18n[locale];
+
+const navIcons = { posts: BookOpenText, tags: Tags, about: Info };
 const social = siteConfig.social;
-
-const links = [
-  { key: 'posts', href: localizedPath(locale), label: nav.posts, icon: BookOpenText },
-  { key: 'tags', href: localizedPath(locale, '/tags/'), label: nav.tags, icon: Tags },
-  { key: 'about', href: localizedPath(locale, '/about/'), label: nav.about, icon: Info }
-] as const;
-
 const socialIcons = {
   portfolio: BriefcaseBusiness,
   home: House
@@ -33,7 +45,7 @@ const socialIcons = {
 
 <aside class="site-sidebar" transition:persist="sidebar">
   <div class="sidebar-inner">
-    <a class="brand" href={localizedPath(locale)} aria-label={siteConfig.name}>
+    <a class="brand" href={content.brandHref} aria-label={siteConfig.name}>
       <span class="brand-mark">
         <img
           src="/android-chrome-512x512.png"
@@ -46,23 +58,26 @@ const socialIcons = {
       </span>
       <span class="brand-text">
         <span class="brand-name">{siteConfig.author}</span>
-        <span class="brand-role">{siteConfig.role[locale]}</span>
+        <span class="brand-role">{content.role}</span>
       </span>
     </a>
 
     <div class="sidebar-actions">
-      <nav class="site-nav" aria-label={navLandmark}>
+      <nav class="site-nav" aria-label={content.navLandmark}>
         {
-          links.map(({ key, href, label, icon: Icon }) => (
-            <a class="nav-link" href={href} aria-current={active === key ? 'page' : undefined}>
-              <Icon size={23} stroke-width={2.4} />
-              <span>{label}</span>
-            </a>
-          ))
+          content.nav.map(({ key, href, label }) => {
+            const Icon = navIcons[key as keyof typeof navIcons];
+            return (
+              <a class="nav-link" href={href} data-nav-key={key} aria-current={active === key ? 'page' : undefined}>
+                <Icon size={23} stroke-width={2.4} />
+                <span>{label}</span>
+              </a>
+            );
+          })
         }
       </nav>
 
-      <nav class="social-nav" aria-label={socialLandmark}>
+      <nav class="social-nav" aria-label={content.socialLandmark}>
         {
           social.map((item, index) => (
             <>
@@ -86,17 +101,17 @@ const socialIcons = {
   </div>
 </aside>
 
-<div class="toolbar" role="group" transition:persist="toolbar" aria-label={toolbarLandmark}>
-  <button class="icon-button" type="button" data-theme-toggle aria-label={themeLabel} title={themeLabel}>
+<div class="toolbar" role="group" transition:persist="toolbar" aria-label={content.toolbarLandmark}>
+  <button class="icon-button" type="button" data-theme-toggle aria-label={content.themeToggle} title={content.themeToggle}>
     <Sun class="theme-light" size={22} />
     <Moon class="theme-dark" size={22} />
   </button>
-  <a class="icon-button" href={alternatePath} hreflang={locale === defaultLocale ? 'zh-CN' : 'en'} aria-label={langLabel} title={langLabel} data-locale-link>
+  <a class="icon-button" href={alternatePath} hreflang={content.localeLink.hreflang} aria-label={content.localeLink.label} title={content.localeLink.label} data-locale-link data-locale-target={content.localeLink.target}>
     <Languages size={22} />
   </a>
 </div>
 
-<script is:inline define:vars={{ i18n: { nav: siteConfig.nav, role: siteConfig.role } }}>
+<script is:inline define:vars={{ i18n }}>
   function updateActiveNav() {
     const current = location.pathname.replace(/\/+$/, '') || '/';
     document.querySelectorAll('.nav-link').forEach((link) => {
@@ -109,55 +124,44 @@ const socialIcons = {
     });
   }
 
-  function getLocale() {
-    return location.pathname.startsWith('/zh') ? 'zh' : 'en';
-  }
-
   function updateLocaleContent() {
-    const locale = getLocale();
-    const altLocale = locale === 'zh' ? 'en' : 'zh';
+    const content = i18n[document.documentElement.dataset.locale] ?? i18n.en;
 
-    const navKeys = ['posts', 'tags', 'about'];
-    document.querySelectorAll('.nav-link').forEach((link, i) => {
-      const key = navKeys[i];
+    document.querySelectorAll('.nav-link').forEach((link) => {
+      if (!(link instanceof HTMLAnchorElement)) return;
+      const item = content.nav.find((n) => n.key === link.dataset.navKey);
+      if (!item) return;
+      link.href = item.href;
       const label = link.querySelector('span');
-      if (label) label.textContent = i18n.nav[locale][key];
-      if (link instanceof HTMLAnchorElement) {
-        const base = locale === 'en' ? '/' : '/zh/';
-        const suffix = key === 'posts' ? '' : `${key}/`;
-        link.href = base === '/' && suffix === '' ? '/' : `${base}${suffix}`;
-      }
+      if (label) label.textContent = item.label;
     });
 
     const roleEl = document.querySelector('.brand-role');
-    if (roleEl) roleEl.textContent = i18n.role[locale];
+    if (roleEl) roleEl.textContent = content.role;
     const brandLink = document.querySelector('.brand');
-    if (brandLink instanceof HTMLAnchorElement) brandLink.href = locale === 'en' ? '/' : '/zh/';
+    if (brandLink instanceof HTMLAnchorElement) brandLink.href = content.brandHref;
 
     const localeLink = document.querySelector('[data-locale-link]');
     if (localeLink instanceof HTMLAnchorElement) {
-      localeLink.href = altLocale === 'zh' ? '/zh/' : '/';
-      localeLink.hreflang = altLocale === 'zh' ? 'zh-CN' : 'en';
-      localeLink.setAttribute('aria-label', locale === 'zh' ? 'Switch to English' : 'Switch to Chinese');
-      localeLink.title = localeLink.getAttribute('aria-label') ?? '';
+      localeLink.href = content.localeLink.href;
+      localeLink.hreflang = content.localeLink.hreflang;
+      localeLink.dataset.localeTarget = content.localeLink.target;
+      localeLink.setAttribute('aria-label', content.localeLink.label);
+      localeLink.title = content.localeLink.label;
     }
 
     const toolbar = document.querySelector('.toolbar');
-    if (toolbar) toolbar.setAttribute('aria-label', locale === 'zh' ? '主题与语言' : 'Theme and language');
+    if (toolbar) toolbar.setAttribute('aria-label', content.toolbarLandmark);
     const themeBtn = document.querySelector('[data-theme-toggle]');
     if (themeBtn) {
-      const label = locale === 'zh' ? '切换浅色或深色主题' : 'Toggle light or dark theme';
-      themeBtn.setAttribute('aria-label', label);
-      themeBtn.title = label;
+      themeBtn.setAttribute('aria-label', content.themeToggle);
+      themeBtn.title = content.themeToggle;
     }
 
     const siteNav = document.querySelector('.site-nav');
-    if (siteNav) siteNav.setAttribute('aria-label', locale === 'zh' ? '主导航' : 'Primary navigation');
+    if (siteNav) siteNav.setAttribute('aria-label', content.navLandmark);
     const socialNav = document.querySelector('.social-nav');
-    if (socialNav) socialNav.setAttribute('aria-label', locale === 'zh' ? '外部链接' : 'External links');
-
-    const skipLink = document.querySelector('.skip-link');
-    if (skipLink) skipLink.textContent = locale === 'zh' ? '跳到正文' : 'Skip to content';
+    if (socialNav) socialNav.setAttribute('aria-label', content.socialLandmark);
   }
 
   document.addEventListener('astro:after-swap', () => {
@@ -178,9 +182,10 @@ const socialIcons = {
   });
 
   document.querySelector('[data-locale-link]')?.addEventListener('click', (event) => {
-    const href = event.currentTarget instanceof HTMLAnchorElement ? event.currentTarget.getAttribute('href') : null;
+    const target = event.currentTarget instanceof HTMLAnchorElement ? event.currentTarget.dataset.localeTarget : null;
+    if (!target) return;
     try {
-      localStorage.setItem('preferred-locale', href?.startsWith('/zh') ? 'zh' : 'en');
+      localStorage.setItem('preferred-locale', target);
     } catch {
       /* ignore */
     }

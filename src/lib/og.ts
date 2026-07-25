@@ -2,6 +2,9 @@ import type { Locale } from './locale';
 
 // OG image visual design + per-locale font config. See ADR-0004.
 
+/** Reserved slug for the site-wide OG image used by pages that are not posts. */
+export const SITE_OG_SLUG = 'site';
+
 const SHARED = {
   bgGradient: [[16, 16, 17]] as Array<[number, number, number]>,
   border: {

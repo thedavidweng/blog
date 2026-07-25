@@ -1,103 +1,76 @@
 import type { APIRoute } from 'astro';
 import { absoluteUrl } from '../site.config';
 
-// Per-bot policy: see ADR-0006.
+// Per-bot policy: see ADR-0006 (signals) and ADR-0011 (table-driven rendering).
+
+export const SEARCH_BOT = 'ai-train=no, search=yes, ai-input=no';
+export const USER_FETCHER = 'ai-train=no, search=yes, ai-input=yes';
+export const BLOCKED = 'ai-train=no, search=no, ai-input=no';
+
+export const botPolicy = [
+  {
+    title: 'Search & Retrieval Bots (allow) - These power AI search visibility',
+    signal: SEARCH_BOT,
+    agents: [
+      'OAI-SearchBot',
+      'Claude-SearchBot',
+      'PerplexityBot',
+      'GPTBot',
+      'ClaudeBot',
+      'Google-Extended',
+      'Googlebot',
+      'Bingbot',
+    ],
+  },
+  {
+    title: 'User-Triggered Bots (allow) - "Summarize this page" requests',
+    signal: USER_FETCHER,
+    agents: ['ChatGPT-User', 'Claude-User'],
+  },
+  {
+    title: "Blocked Bots - train without search benefit, or don't declare intent",
+    signal: BLOCKED,
+    agents: ['CCBot', 'Meta-ExternalAgent', 'Applebot-Extended', 'Bytespider'],
+  },
+] as const;
+
+const banner = (title: string) => [
+  '# ============================================',
+  `# ${title}`,
+  '# ============================================',
+  '',
+];
+
+export function renderRobotsTxt() {
+  return [
+    '# David Blog - AI Crawler Configuration',
+    '# GEO: Generative Engine Optimization',
+    '',
+    '# ============================================',
+    '# Content Signals - AI content usage preferences',
+    '# https://contentsignals.org/',
+    '# ============================================',
+    '# ai-train=no:  Do not use site content for training models',
+    '# search=yes:   Allow content to appear in AI search results',
+    '# ai-input=no:  Do not use content as real-time AI input',
+    '',
+    ...botPolicy.flatMap(({ title, signal, agents }) => [
+      ...banner(title),
+      ...agents.flatMap((agent) => [
+        `User-agent: ${agent}`,
+        `Content-Signal: ${signal}`,
+        signal.includes('search=yes') ? 'Allow: /' : 'Disallow: /',
+        '',
+      ]),
+    ]),
+    ...banner('Sitemap'),
+    `Sitemap: ${absoluteUrl('/sitemap-index.xml')}`,
+  ].join('\n');
+}
+
 export const GET: APIRoute = () =>
-  new Response(
-    [
-      '# David Blog - AI Crawler Configuration',
-      '# GEO: Generative Engine Optimization',
-      '',
-      '# ============================================',
-      '# Content Signals - AI content usage preferences',
-      '# https://contentsignals.org/',
-      '# ============================================',
-      '# ai-train=no:  Do not use site content for training models',
-      '# search=yes:   Allow content to appear in AI search results',
-      '# ai-input=no:  Do not use content as real-time AI input',
-      '# Content-Signal: ai-train=no, search=yes, ai-input=no',
-      '',
-      '# ============================================',
-      '# Search & Retrieval Bots (allow) - These power AI search',
-      '# ============================================',
-      '',
-      'User-agent: OAI-SearchBot',
-      'Content-Signal: ai-train=no, search=yes, ai-input=no',
-      'Allow: /',
-      '',
-      'User-agent: Claude-SearchBot',
-      'Content-Signal: ai-train=no, search=yes, ai-input=no',
-      'Allow: /',
-      '',
-      'User-agent: PerplexityBot',
-      'Content-Signal: ai-train=no, search=yes, ai-input=no',
-      'Allow: /',
-      '',
-      '# ============================================',
-      '# User-Triggered Bots (allow) - "Summarize this page" requests',
-      '# ============================================',
-      '',
-      'User-agent: ChatGPT-User',
-      'Content-Signal: ai-train=no, search=yes, ai-input=yes',
-      'Allow: /',
-      '',
-      'User-agent: Claude-User',
-      'Content-Signal: ai-train=no, search=yes, ai-input=yes',
-      'Allow: /',
-      '',
-      '# ============================================',
-      '# AI Crawler Bots - train=no, but allow for search visibility',
-      '# ============================================',
-      '',
-      'User-agent: GPTBot',
-      'Content-Signal: ai-train=no, search=yes, ai-input=no',
-      'Allow: /',
-      '',
-      'User-agent: CCBot',
-      'Content-Signal: ai-train=no, search=no, ai-input=no',
-      'Disallow: /',
-      '',
-      'User-agent: ClaudeBot',
-      'Content-Signal: ai-train=no, search=yes, ai-input=no',
-      'Allow: /',
-      '',
-      'User-agent: Meta-ExternalAgent',
-      'Content-Signal: ai-train=no, search=no, ai-input=no',
-      'Disallow: /',
-      '',
-      'User-agent: Google-Extended',
-      'Content-Signal: ai-train=no, search=yes, ai-input=no',
-      'Allow: /',
-      '',
-      'User-agent: Applebot-Extended',
-      'Content-Signal: ai-train=no, search=no, ai-input=no',
-      'Disallow: /',
-      '',
-      '# ============================================',
-      "# Undeclared Bots (block) - Don't play nice",
-      '# ============================================',
-      '',
-      'User-agent: Bytespider',
-      'Content-Signal: ai-train=no, search=no, ai-input=no',
-      'Disallow: /',
-      '',
-      'User-agent: Googlebot',
-      'Content-Signal: ai-train=no, search=yes, ai-input=no',
-      'Allow: /',
-      '',
-      'User-agent: Bingbot',
-      'Content-Signal: ai-train=no, search=yes, ai-input=no',
-      'Allow: /',
-      '',
-      '# ============================================',
-      '# Sitemap',
-      '# ============================================',
-      '',
-      `Sitemap: ${absoluteUrl('/sitemap-index.xml')}`,
-    ].join('\n'),
-    {
-      headers: {
-        'Content-Type': 'text/plain; charset=utf-8',
-      },
+  new Response(renderRobotsTxt(), {
+    headers: {
+      'Content-Type': 'text/plain; charset=utf-8',
     },
-  );
+  });

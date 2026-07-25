@@ -3,8 +3,17 @@ import {
   htmlToMarkdown,
   acceptsMarkdown,
   isHtmlResponse,
+  MAIN_CONTENT_ID,
 } from '../src/lib/markdown-response';
 import { assert, summarize, test } from './harness';
+
+await test('MAIN_CONTENT_ID: extraction matches the id BaseLayout renders', () => {
+  const html = `<main id="${MAIN_CONTENT_ID}"><p>Shared contract</p></main>`;
+  assert(
+    extractMainContent(html).includes('Shared contract'),
+    'the exported id must drive extraction',
+  );
+});
 
 await test('extractMainContent: extracts <main id="main"> content', () => {
   const html =

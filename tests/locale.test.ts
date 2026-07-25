@@ -1,9 +1,13 @@
 import {
+  alternateLocale,
   defaultLocale,
+  delocalizePath,
   locales,
+  localeTag,
   isLocale,
   getLocaleBase,
   localizedPath,
+  ogLocaleTag,
   postUrl,
   tagUrl,
   ogImagePath,
@@ -73,6 +77,32 @@ await test('ogImagePath: no prefix for default locale', () => {
 
 await test('ogImagePath: /zh/ prefix for non-default locale', () => {
   assert(ogImagePath('zh', 'hello') === '/zh/og/hello.png', 'zh OG path should have /zh/ prefix');
+});
+
+await test('delocalizePath: inverse of localizedPath for every locale and path', () => {
+  for (const locale of locales) {
+    for (const path of ['/', '/tags/', '/posts/hello/', '/about/']) {
+      const roundTripped = delocalizePath(localizedPath(locale, path));
+      assert(roundTripped === path, `${locale} ${path}: got ${roundTripped}`);
+    }
+  }
+});
+
+await test('delocalizePath: leaves default-locale paths and lookalikes alone', () => {
+  assert(delocalizePath('/tags/') === '/tags/', 'unprefixed path should pass through');
+  assert(delocalizePath('/zhota/') === '/zhota/', 'prefix must match a whole segment');
+  assert(delocalizePath('/posts/zh-tools/') === '/posts/zh-tools/', 'mid-path zh is not a prefix');
+  assert(delocalizePath('/zh') === '/', 'bare locale base maps to root');
+});
+
+await test('alternateLocale: returns the other locale', () => {
+  assert(alternateLocale('en') === 'zh', 'en alternates to zh');
+  assert(alternateLocale('zh') === 'en', 'zh alternates to en');
+});
+
+await test('locale tags: BCP-47 and OpenGraph forms', () => {
+  assert(localeTag.en === 'en' && localeTag.zh === 'zh-CN', 'html/hreflang tags');
+  assert(ogLocaleTag.en === 'en_US' && ogLocaleTag.zh === 'zh_CN', 'og:locale tags');
 });
 
 await test('constants: defaultLocale is en', () => {

@@ -1,10 +1,13 @@
 ---
+import { t } from '../config/i18n';
+import type { Locale } from '../lib/locale';
+
 interface Props {
-  locale: 'en' | 'zh';
+  locale: Locale;
 }
 
 const { locale } = Astro.props;
-const tocTitle = locale === 'zh' ? '目录' : 'Table of Contents';
+const tocTitle = t(locale).tocTitle;
 ---
 
 <aside class="toc-wrapper sticky top-32 hidden lg:block min-w-0 w-full">

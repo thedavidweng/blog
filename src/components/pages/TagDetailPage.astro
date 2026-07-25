@@ -1,8 +1,9 @@
 ---
 import PostCard from '../PostCard.astro';
 import BaseLayout from '../../layouts/BaseLayout.astro';
-import { getPublishedPosts, tagLabel } from '../../lib/content';
-import { tagUrl, defaultLocale, type Locale } from '../../lib/locale';
+import { getPublishedPosts } from '../../lib/content';
+import { t, tagLabel } from '../../config/i18n';
+import { alternateLocale, tagUrl, type Locale } from '../../lib/locale';
 
 interface Props {
   locale: Locale;
@@ -10,17 +11,17 @@ interface Props {
 }
 
 const { locale, tag } = Astro.props;
-const isDefault = locale === defaultLocale;
+const copy = t(locale);
 const posts = (await getPublishedPosts(locale)).filter((post) => post.data.tags.includes(tag));
 const label = tagLabel(locale, tag);
-const description = isDefault ? `Posts tagged ${label}.` : `标签 ${label} 下的文章。`;
-const alternatePath = tagUrl(isDefault ? 'zh' : defaultLocale, tag);
+const description = copy.taggedDescription(label);
+const alternatePath = tagUrl(alternateLocale(locale), tag);
 ---
 
 <BaseLayout locale={locale} title={`#${label}`} description={description} path={tagUrl(locale, tag)} alternatePath={alternatePath} active="tags">
   <section class="content-wrap">
     <header class="hero">
-      <p class="eyebrow">Tag</p>
+      <p class="eyebrow">{copy.tagEyebrow}</p>
       <h1>#{label}</h1>
       <p class="hero-copy">{description}</p>
     </header>

@@ -1,5 +1,5 @@
 import { OGImageRoute } from 'astro-og-canvas';
-import { getOgPages } from '../../../lib/locale-routing';
+import { getOgPages } from '../../../lib/static-paths';
 import { ogImageOptions } from '../../../lib/og';
 
 const pages = await getOgPages('zh');

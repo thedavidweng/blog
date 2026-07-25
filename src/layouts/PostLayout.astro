@@ -1,8 +1,9 @@
 ---
 import type { CollectionEntry } from 'astro:content';
 import BaseLayout from './BaseLayout.astro';
-import { getPostSlug, parsePostId, publishedLabel, tagLabel } from '../lib/content';
-import { defaultLocale, ogImagePath, postUrl, tagUrl } from '../lib/locale';
+import { getPostSlug, parsePostId } from '../lib/posts';
+import { publishedLabel, t, tagLabel } from '../config/i18n';
+import { localeTag, ogImagePath, postUrl, tagUrl } from '../lib/locale';
 import { absoluteUrl, siteConfig } from '../site.config';
 import Giscus from '../components/Giscus.astro';
 import Toc from '../components/Toc.astro';
@@ -27,9 +28,7 @@ const ogPath = ogImagePath(locale, slug);
 const dateLabel = publishedLabel(locale, post.data.publishedDate);
 
 const readingTime = remarkPluginFrontmatter?.readingTime;
-const readingTimeLabel = readingTime
-  ? (locale === 'zh' ? ` · 约 ${Math.ceil(readingTime.minutes)} 分钟阅读` : ` · ${Math.ceil(readingTime.minutes)} min read`)
-  : '';
+const readingTimeLabel = readingTime ? t(locale).readingTime(Math.ceil(readingTime.minutes)) : '';
 
 const jsonLd = {
   '@context': 'https://schema.org',
@@ -44,7 +43,7 @@ const jsonLd = {
   },
   mainEntityOfPage: absoluteUrl(postPath),
   image: absoluteUrl(ogPath),
-  inLanguage: locale === defaultLocale ? 'en' : 'zh-CN',
+  inLanguage: localeTag[locale],
   keywords: post.data.tags.map((tag) => tagLabel(locale, tag))
 };
 ---
@@ -69,7 +68,7 @@ const jsonLd = {
       </p>
       <h1 class="article-title">{post.data.title}</h1>
       <p class="article-description">{post.data.description}</p>
-      <ul class="tag-list" aria-label={locale === 'zh' ? '文章标签' : 'Article tags'}>
+      <ul class="tag-list" aria-label={t(locale).articleTags}>
         {post.data.tags.map((tag) => <li><a class="tag-pill" href={tagUrl(locale, tag)}>{tagLabel(locale, tag)}</a></li>)}
       </ul>
     </header>

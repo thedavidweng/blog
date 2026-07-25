@@ -2,12 +2,9 @@ import type { APIRoute } from 'astro';
 import { getCollection } from 'astro:content';
 import { absoluteUrl } from '../site.config';
 import { getPostLocale, getPostSlug } from '../lib/content';
+import { postUrl } from '../lib/locale';
 
-/**
- * LLMs.txt route — dynamically generated site overview for AI systems.
- * Provides up-to-date stats and links so content never goes stale.
- * Reference: https://tw93.fun/2026-05-01/ai-visibility.html
- */
+// Generated from the content collection so stats and links never go stale; see ADR-0006.
 export const GET: APIRoute = async () => {
   const allPosts = await getCollection('posts');
   const published = allPosts
@@ -22,9 +19,7 @@ export const GET: APIRoute = async () => {
     .slice(0, 8)
     .map((post) => {
       const locale = getPostLocale(post);
-      const slug = getPostSlug(post);
-      const path = locale === 'zh' ? `/zh/posts/${slug}/` : `/posts/${slug}/`;
-      const url = absoluteUrl(path);
+      const url = absoluteUrl(postUrl(locale, getPostSlug(post)));
       const desc = post.data.description
         ? ` — ${post.data.description.slice(0, 120)}${post.data.description.length > 120 ? '...' : ''}`
         : '';

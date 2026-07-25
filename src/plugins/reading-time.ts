@@ -1,7 +1,6 @@
 import getReadingTime from 'reading-time';
 import { defineMdastPlugin } from 'satteri';
 
-/** Computes reading time from the full document text and stores it in frontmatter. */
 export const readingTimePlugin = () => {
   let done = false;
   const compute = (node: any, ctx: any) => {

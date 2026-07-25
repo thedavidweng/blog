@@ -6,10 +6,9 @@ import {
   getTags,
   tagLabel,
 } from './content';
-import { ogImagePath, postUrl, type Locale, defaultLocale, locales } from './locale';
+import { localizedPath, ogImagePath, postUrl, type Locale, locales } from './locale';
 import { absoluteUrl, siteConfig } from '../site.config';
 
-/** getStaticPaths for post detail pages. */
 export async function getPostStaticPaths(locale: Locale) {
   const pairs = await assertTranslatedPostPairs();
   const sorted = pairs.toSorted(
@@ -43,13 +42,11 @@ export async function getPostStaticPaths(locale: Locale) {
   });
 }
 
-/** getStaticPaths for tag detail pages. */
 export async function getTagStaticPaths(locale: Locale) {
   const tags = await getTags(locale);
   return tags.map((tag) => ({ params: { tag }, props: { tag } }));
 }
 
-/** Build the `pages` object for OG image routes. */
 export async function getOgPages(locale: Locale) {
   const pairs = await assertTranslatedPostPairs();
   return Object.fromEntries(
@@ -63,7 +60,6 @@ export async function getOgPages(locale: Locale) {
   );
 }
 
-/** Build RSS feed items array. */
 export async function getRssItems(locale: Locale) {
   const posts = await getPublishedPosts(locale);
   return posts.map((post) => {
@@ -79,13 +75,22 @@ export async function getRssItems(locale: Locale) {
   });
 }
 
-/** Build JSON-LD structured data for the home page. */
 export function getHomeJsonLd(locale: Locale) {
   const siteUrl = absoluteUrl('/');
-  const pageUrl = locale === defaultLocale ? siteUrl : absoluteUrl(`/${locale}/`);
+  const pageUrl = absoluteUrl(localizedPath(locale));
   const socialUrls = siteConfig.social.flatMap((s) =>
     ['GitHub', 'LinkedIn', 'X'].includes(s.label) ? [s.href] : [],
   );
+  const author = {
+    '@type': 'Person',
+    name: siteConfig.author,
+    jobTitle: 'Developer and Designer',
+    knowsAbout: [
+      'Open-source tools',
+      'Desktop application development',
+      'AI-integrated creative work',
+    ],
+  };
 
   return {
     '@context': 'https://schema.org',
@@ -95,16 +100,7 @@ export function getHomeJsonLd(locale: Locale) {
         name: siteConfig.name,
         description: siteConfig.description[locale],
         url: pageUrl,
-        author: {
-          '@type': 'Person',
-          name: siteConfig.author,
-          jobTitle: 'Developer and Designer',
-          knowsAbout: [
-            'Open-source tools',
-            'Desktop application development',
-            'AI-integrated creative work',
-          ],
-        },
+        author,
         inLanguage: locale === 'en' ? 'en' : 'zh-CN',
       },
       {
@@ -114,18 +110,7 @@ export function getHomeJsonLd(locale: Locale) {
         logo: absoluteUrl('/android-chrome-512x512.png'),
         sameAs: socialUrls,
       },
-      {
-        '@type': 'Person',
-        name: siteConfig.author,
-        url: siteUrl,
-        sameAs: socialUrls,
-        jobTitle: 'Developer and Designer',
-        knowsAbout: [
-          'Open-source tools',
-          'Desktop application development',
-          'AI-integrated creative work',
-        ],
-      },
+      { ...author, url: siteUrl, sameAs: socialUrls },
       {
         '@type': 'WebSite',
         name: siteConfig.name,

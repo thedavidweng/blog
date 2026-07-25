@@ -1,6 +1,6 @@
 ---
 import type { CollectionEntry } from 'astro:content';
-import { getPostSlug, tagLabel } from '../lib/content';
+import { getPostSlug, publishedLabel, tagLabel } from '../lib/content';
 import { postUrl, type Locale } from '../lib/locale';
 
 interface Props {
@@ -10,13 +10,7 @@ interface Props {
 
 const { post, locale } = Astro.props;
 const slug = getPostSlug(post);
-const date = post.data.publishedDate.toLocaleDateString(locale === 'zh' ? 'zh-CN' : 'en-US', {
-  year: 'numeric',
-  month: 'long',
-  day: 'numeric',
-  timeZone: 'UTC'
-});
-const dateLabel = locale === 'zh' ? `发布于 ${date}` : `Published on ${date}`;
+const dateLabel = publishedLabel(locale, post.data.publishedDate);
 ---
 
 <article>

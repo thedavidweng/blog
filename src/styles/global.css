@@ -4,7 +4,6 @@
 /* Manual theme toggle uses html[data-theme]; keep dark:* utilities in sync (not OS prefers-color-scheme). */
 @custom-variant dark (&:where([data-theme="dark"], [data-theme="dark"] *));
 
-/* Restrained accent: links and keys pick up --accent from :root / data-theme. */
 @theme {
   --color-accent: var(--accent);
 }
@@ -42,10 +41,6 @@
   --shadow: 0 18px 60px rgb(0 0 0 / 0.22);
 }
 
-* {
-  box-sizing: border-box;
-}
-
 html {
   min-width: 320px;
   background: var(--bg);
@@ -54,18 +49,11 @@ html {
 }
 
 body {
-  margin: 0;
   min-height: 100vh;
   background: var(--bg);
   color: var(--text);
   line-height: 1.6;
   text-rendering: optimizeLegibility;
-}
-
-body,
-button,
-input {
-  font: inherit;
 }
 
 a {
@@ -81,10 +69,6 @@ img,
 svg {
   display: block;
   max-width: 100%;
-}
-
-button {
-  border: 0;
 }
 
 .page-shell {
@@ -382,7 +366,6 @@ h1 {
   margin: 0 auto;
 }
 
-/* Post + TOC: second column sits beside prose (not far outside a fixed article width). */
 @media (min-width: 1024px) {
   .article.article--with-toc {
     display: grid;
@@ -394,18 +377,6 @@ h1 {
   }
 }
 
-@media (max-width: 1023px) {
-  .article.article--with-toc {
-    display: block;
-    width: min(100%, 720px);
-  }
-}
-
-.article-primary {
-  min-width: 0;
-}
-
-/* Card / product shots: cap figure width (opt-in via frontmatter narrowFigures). */
 .article--narrow-figures .prose figure.post-figure {
   max-width: min(100%, 22rem);
   margin-left: auto;
@@ -416,7 +387,6 @@ h1 {
   width: 100%;
 }
 
-/* Back to top: clear fixed theme toolbar on narrow viewports */
 .back-to-top {
   position: fixed;
   right: 24px;
@@ -462,15 +432,12 @@ h1 {
   font-size: 1.12rem;
 }
 
-
-
 .tag-grid {
   display: flex;
   flex-wrap: wrap;
   gap: 12px;
 }
 
-/* Link pills: minimum touch target (~44px) */
 .tag-grid a.tag-pill,
 .article .tag-list a.tag-pill {
   min-height: 44px;
@@ -489,30 +456,41 @@ h1 {
   font-size: 1.08rem;
 }
 
-.empty-state {
-  border-radius: var(--radius);
-  background: var(--panel);
-  color: var(--muted);
-  padding: 28px;
+.card-link {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+  padding: 1rem;
+  border: 1px solid var(--border);
+  border-radius: 0.75rem;
+  text-decoration: none;
+  transition:
+    border-color 0.2s var(--ease-out-quart),
+    background-color 0.2s var(--ease-out-quart);
 }
 
-/* Shiki dual themes: pair with markdown shikiConfig themes light/dark + defaultColor false */
-pre.astro-code-themes {
-  background-color: var(--shiki-light-bg);
-  color: var(--shiki-light);
+.card-link:hover {
+  border-color: var(--accent);
+  background-color: var(--panel-strong);
 }
 
-:root[data-theme="dark"] pre.astro-code-themes {
-  background-color: var(--shiki-dark-bg);
-  color: var(--shiki-dark);
+.card-link-title {
+  font-size: 0.95rem;
+  font-weight: 600;
+  color: var(--text);
+  line-height: 1.4;
 }
 
-/* Keyboard focus: visible ring without relying on browser defaults only */
 :focus:not(:focus-visible) {
   outline: none;
 }
 
-.skip-link:focus-visible {
+.skip-link:focus-visible,
+.nav-link:focus-visible,
+.social-link:focus-visible,
+.tag-pill:focus-visible,
+.card-link:focus-visible,
+a.rlc-container:focus-visible {
   outline: 2px solid var(--accent);
   outline-offset: 2px;
 }
@@ -521,12 +499,6 @@ pre.astro-code-themes {
   outline: 2px solid var(--accent);
   outline-offset: 3px;
   border-radius: 10px;
-}
-
-.nav-link:focus-visible,
-.social-link:focus-visible {
-  outline: 2px solid var(--accent);
-  outline-offset: 2px;
 }
 
 .icon-button:focus-visible {
@@ -539,12 +511,6 @@ pre.astro-code-themes {
   outline-offset: 4px;
 }
 
-.tag-pill:focus-visible {
-  outline: 2px solid var(--accent);
-  outline-offset: 2px;
-}
-
-/* Article body: links use accent via prose-a:text-accent; match focus ring to brand accent. */
 .article .prose a:focus-visible {
   outline: 2px solid var(--accent);
   outline-offset: 2px;
@@ -711,12 +677,6 @@ a.rlc-container:hover {
   border-color: var(--accent);
 }
 
-a.rlc-container:focus-visible {
-  outline: 2px solid var(--accent);
-  outline-offset: 2px;
-}
-
-/* Prose context: add vertical spacing */
 .article .prose a.rlc-container {
   margin: 2rem 0;
 }

@@ -14,7 +14,7 @@ const isDefault = locale === defaultLocale;
 const posts = (await getPublishedPosts(locale)).filter((post) => post.data.tags.includes(tag));
 const label = tagLabel(locale, tag);
 const description = isDefault ? `Posts tagged ${label}.` : `标签 ${label} 下的文章。`;
-const alternatePath = isDefault ? `/zh/tags/${encodeURIComponent(tag)}/` : `/tags/${encodeURIComponent(tag)}/`;
+const alternatePath = tagUrl(isDefault ? 'zh' : defaultLocale, tag);
 ---
 
 <BaseLayout locale={locale} title={`#${label}`} description={description} path={tagUrl(locale, tag)} alternatePath={alternatePath} active="tags">

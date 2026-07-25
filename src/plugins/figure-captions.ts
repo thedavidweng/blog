@@ -15,18 +15,13 @@ export const figureCaptionsPlugin = defineHastPlugin({
 
       const figures = substantive.map((child: any) => buildFigure(child));
 
-      // replaceNode on HAST accepts a single node, not an array.
-      // For a single figure, replace directly. For multiple, replace the
+      // replaceNode on HAST accepts a single node, not an array — replace the
       // paragraph with the first figure and insert the rest after it.
-      if (figures.length === 1) {
-        ctx.replaceNode(node, figures[0]);
-      } else {
-        ctx.replaceNode(node, figures[0]);
-        let after = node;
-        for (let i = 1; i < figures.length; i++) {
-          ctx.insertAfter(after, figures[i]);
-          after = figures[i];
-        }
+      ctx.replaceNode(node, figures[0]);
+      let after = node;
+      for (let i = 1; i < figures.length; i++) {
+        ctx.insertAfter(after, figures[i]);
+        after = figures[i];
       }
     },
   },

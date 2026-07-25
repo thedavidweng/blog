@@ -1,28 +1,13 @@
 #!/usr/bin/env node
-/**
- * Convert article images to AVIF with repository-standard parameters.
- *
- * Usage:
- *   pnpm exec tsx scripts/convert-to-avif.mjs <input-path> <slug> [--keep]
- *
- *   <input-path>  Path to an image file or a directory containing images
- *   <slug>        Article slug (e.g., "hello-astro")
- *   --keep        Keep original files after conversion (default: delete)
- *
- * Examples:
- *   pnpm exec tsx scripts/convert-to-avif.mjs ./screenshots/ hello-astro
- *   pnpm exec tsx scripts/convert-to-avif.mjs ./my-screenshot.png hello-astro --keep
- */
-
 import fs from 'node:fs';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
+import sharp from 'sharp';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
-// Repository-standard AVIF conversion parameters.
-// See docs/image-workflow.md for the rationale.
+// Repository-standard AVIF parameters; rationale in docs/image-workflow.md.
 const AVIF_CONFIG = {
   quality: 65,
   effort: 6,
@@ -31,36 +16,12 @@ const AVIF_CONFIG = {
 
 const SUPPORTED_INPUT_FORMATS = ['.png', '.jpg', '.jpeg', '.webp', '.gif', '.bmp', '.tiff'];
 
-async function loadSharp() {
-  let sharpModule;
-  try {
-    sharpModule = await import('sharp');
-  } catch (error) {
-    console.error('❌ Failed to load sharp.');
-    console.error('   Dependencies may not be installed. Run: pnpm install');
-    console.error(`   Underlying error: ${error.message}`);
-    process.exit(1);
-  }
-
-  // Handle both ESM default export and direct export patterns.
-  const sharp = sharpModule.default || sharpModule;
-  if (!sharp) {
-    console.error('❌ sharp loaded but no export found. Try running pnpm install.');
-    process.exit(1);
-  }
-  return sharp;
-}
-
 function sanitizeFilename(name) {
   return name
     .toLowerCase()
     .replace(/[^a-z0-9-]/g, '-')
     .replace(/-+/g, '-')
     .replace(/^-|-$/g, '');
-}
-
-async function convertImage(sharp, inputPath, outputPath) {
-  await sharp(inputPath).avif(AVIF_CONFIG).toFile(outputPath);
 }
 
 function formatBytes(bytes) {
@@ -100,7 +61,6 @@ async function main() {
     process.exit(1);
   }
 
-  // Validate input path before loading Sharp (better error messages)
   let inputStat;
   try {
     inputStat = fs.statSync(inputPath);
@@ -109,8 +69,6 @@ async function main() {
     console.error(`   ${err.message}`);
     process.exit(1);
   }
-
-  const sharp = await loadSharp();
 
   let filesToConvert = [];
 
@@ -140,14 +98,12 @@ async function main() {
     process.exit(1);
   }
 
-  // Create output directory
   const outputDir = path.join(__dirname, '..', 'public', 'posts', slug);
   if (!fs.existsSync(outputDir)) {
     fs.mkdirSync(outputDir, { recursive: true });
     console.log(`📁 Created ${path.relative(process.cwd(), outputDir)}`);
   }
 
-  // Convert each file
   let successCount = 0;
   let failCount = 0;
 
@@ -160,7 +116,6 @@ async function main() {
     const inputRelative = path.relative(process.cwd(), filePath);
     const outputRelative = path.relative(process.cwd(), outputPath);
 
-    // Check if output already exists
     if (fs.existsSync(outputPath)) {
       console.log(`⚠️  Overwriting existing file: ${outputRelative}`);
     }
@@ -168,7 +123,7 @@ async function main() {
     console.log(`🔄 ${inputRelative} → ${outputRelative}`);
 
     try {
-      await convertImage(sharp, filePath, outputPath);
+      await sharp(filePath).avif(AVIF_CONFIG).toFile(outputPath);
       const inputSize = fs.statSync(filePath).size;
       const outputSize = fs.statSync(outputPath).size;
       const ratio = ((1 - outputSize / inputSize) * 100).toFixed(1);

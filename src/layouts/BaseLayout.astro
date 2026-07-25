@@ -5,7 +5,8 @@ import ThemeScript from '../components/ThemeScript.astro';
 import ProgressBar from '../components/ProgressBar.astro';
 import BackToTop from '../components/BackToTop.astro';
 import '../styles/global.css';
-import { absoluteUrl, defaultLocale, siteConfig, type Locale } from '../site.config';
+import { absoluteUrl, siteConfig } from '../site.config';
+import { defaultLocale, type Locale } from '../lib/locale';
 
 interface Props {
   locale: Locale;

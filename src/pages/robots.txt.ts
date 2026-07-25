@@ -1,8 +1,7 @@
 import type { APIRoute } from 'astro';
 import { absoluteUrl } from '../site.config';
 
-// AI Crawler Configuration based on GEO best practices
-// Reference: https://tw93.fun/2026-05-01/ai-visibility.html
+// Per-bot policy: see ADR-0006.
 export const GET: APIRoute = () =>
   new Response(
     [

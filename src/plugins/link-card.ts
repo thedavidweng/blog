@@ -18,7 +18,6 @@ export type LinkCardData = {
 
 export type LinkCardFetcher = (url: string) => Promise<LinkCardData>;
 
-/** Escape the five significant XML characters for safe insertion into HTML text. */
 function escapeHtml(raw: string): string {
   return raw
     .replace(/&/g, '&amp;')
@@ -34,10 +33,7 @@ function escapeHtml(raw: string): string {
  */
 export function isUnsafePlaintextSnippet(raw: string): boolean {
   const s = raw.trim();
-  if (!s) return true;
-  if (/^\s*</.test(s)) return true;
-  if (/<\s*meta\b/i.test(s)) return true;
-  return false;
+  return !s || s.startsWith('<') || /<\s*meta\b/i.test(s);
 }
 
 /** Use OG/Twitter card fields only; order matches typical social-preview precedence. */
@@ -80,12 +76,8 @@ export function createDefaultFetcher(
 
     const faviconSrc = `https://www.google.com/s2/favicons?domain=${parsedUrl.hostname}`;
 
-    let ogImageSrc = '';
     const ogImage = ogResult?.ogImage?.[0];
-    if (ogImage?.url) {
-      ogImageSrc = ogImage.url;
-    }
-
+    const ogImageSrc = ogImage?.url ?? '';
     const ogImageAlt = (typeof ogImage?.alt === 'string' && escapeHtml(ogImage.alt)) || title;
 
     let displayUrl = options?.shortenUrl ? parsedUrl.hostname : targetUrl;
@@ -157,7 +149,6 @@ export function extractUrlFromParagraph(paragraph: any): string | undefined {
     }
   }
 
-  // Bare text (no autolinking).
   if (child.type === 'text' && typeof child.value === 'string') {
     const urls = child.value.match(URL_PATTERN);
     if (urls && urls.length === 1) return urls[0];
@@ -166,11 +157,6 @@ export function extractUrlFromParagraph(paragraph: any): string | undefined {
   return undefined;
 }
 
-/**
- * Sätteri MDAST plugin: converts bare-URL paragraphs into rich link cards.
- * Each paragraph is handled independently — the visitor fetches OG data and
- * returns `{ raw }` to splice the card HTML in place.
- */
 export const linkCardPlugin = (
   options?: LinkCardOptions & { fetcher?: LinkCardFetcher; ogFetcher?: typeof getOpenGraph },
 ) => {

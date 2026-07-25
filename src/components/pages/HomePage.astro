@@ -5,7 +5,7 @@ import BaseLayout from '../../layouts/BaseLayout.astro';
 import { getPublishedPosts } from '../../lib/content';
 import { getHomeJsonLd } from '../../lib/locale-routing';
 import { siteConfig } from '../../site.config';
-import { defaultLocale, type Locale } from '../../lib/locale';
+import { defaultLocale, localizedPath, type Locale } from '../../lib/locale';
 
 interface Props {
   locale: Locale;
@@ -16,8 +16,8 @@ const isDefault = locale === defaultLocale;
 const posts = await getPublishedPosts(locale);
 const jsonLd = getHomeJsonLd(locale);
 const title = isDefault ? 'Blog' : '博客';
-const path = isDefault ? '/' : `/${locale}/`;
-const alternatePath = isDefault ? '/zh/' : '/';
+const path = localizedPath(locale);
+const alternatePath = localizedPath(isDefault ? 'zh' : defaultLocale);
 ---
 
 <BaseLayout

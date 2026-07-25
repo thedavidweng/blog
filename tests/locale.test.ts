@@ -92,6 +92,7 @@ await test('delocalizePath: leaves default-locale paths and lookalikes alone', (
   assert(delocalizePath('/tags/') === '/tags/', 'unprefixed path should pass through');
   assert(delocalizePath('/zhota/') === '/zhota/', 'prefix must match a whole segment');
   assert(delocalizePath('/posts/zh-tools/') === '/posts/zh-tools/', 'mid-path zh is not a prefix');
+  assert(delocalizePath('/zh') === '/', 'bare locale base maps to root');
 });
 
 await test('alternateLocale: returns the other locale', () => {

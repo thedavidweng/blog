@@ -1,6 +1,7 @@
 import {
   BLOCKED,
   botPolicy,
+  GET,
   renderRobotsTxt,
   SEARCH_BOT,
   USER_FETCHER,
@@ -59,6 +60,15 @@ await test('robots.txt: each agent appears exactly once and the sitemap is linke
     }
   }
   assert(/Sitemap: .+\/sitemap-index\.xml/.test(text), 'sitemap must be linked');
+});
+
+await test('robots.txt: the route serves the rendered policy as plain text', async () => {
+  const response = await GET({} as any);
+  assert(
+    response.headers.get('Content-Type') === 'text/plain; charset=utf-8',
+    'must serve plain text',
+  );
+  assert((await response.text()) === text, 'route body must be the rendered policy');
 });
 
 summarize();

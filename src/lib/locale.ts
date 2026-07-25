@@ -9,7 +9,7 @@ export function isLocale(value: string): value is Locale {
 }
 
 export function alternateLocale(locale: Locale): Locale {
-  return locales.find((l) => l !== locale) ?? defaultLocale;
+  return locales.find((l) => l !== locale)!;
 }
 
 /** BCP-47 tag for html lang, hreflang, and JSON-LD inLanguage. */

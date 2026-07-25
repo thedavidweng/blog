@@ -86,6 +86,37 @@ await test('lazy-images: unknown local image ships without dimensions', async ()
   assert(!html.includes('width='), 'should not invent a width');
 });
 
+await test('lazy-images: default probe measures a real public asset', async () => {
+  const { html } = await markdownToHtml('![icon](/android-chrome-512x512.png)', {
+    hastPlugins: [lazyImagesPlugin],
+  });
+  assert(html.includes('width="512"'), 'default probe should read the real width');
+  assert(html.includes('height="512"'), 'default probe should read the real height');
+});
+
+await test('lazy-images: default probe skips files missing from public/', async () => {
+  const { html } = await markdownToHtml('![gone](/definitely-not-here.png)', {
+    hastPlugins: [lazyImagesPlugin],
+  });
+  assert(html.includes('loading="lazy"'), 'lazy attrs still apply');
+  assert(!html.includes('width='), 'missing files get no dimensions');
+});
+
+await test('lazy-images: a throwing probe does not break the pipeline', async () => {
+  const { html } = await markdownToHtml('![x](/img.png)', {
+    hastPlugins: [
+      () =>
+        lazyImagesPlugin({
+          probe: async () => {
+            throw new Error('boom');
+          },
+        }),
+    ],
+  });
+  assert(html.includes('<img'), 'image should still render');
+  assert(!html.includes('width='), 'no dimensions on probe failure');
+});
+
 await test('lazy-images + figure-captions: production order composes', async () => {
   const { html } = await markdownToHtml('![A caption](/img.png)', {
     hastPlugins: [

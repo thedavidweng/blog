@@ -1,11 +1,13 @@
 ---
+import { localeTag, type Locale } from '../lib/locale';
+
 interface Props {
   slug: string;
-  locale?: string;
+  locale?: Locale;
 }
 
 const { slug, locale = 'en' } = Astro.props;
-const giscusLang = locale === 'zh' ? 'zh-CN' : 'en';
+const giscusLang = localeTag[locale];
 ---
 
 <div class="giscus-wrapper mt-16 pt-8 border-t border-[var(--border)] max-w-[65ch] mx-auto">

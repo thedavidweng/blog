@@ -8,6 +8,15 @@ export function isLocale(value: string): value is Locale {
   return locales.includes(value as Locale);
 }
 
+export function alternateLocale(locale: Locale): Locale {
+  return locales.find((l) => l !== locale) ?? defaultLocale;
+}
+
+/** BCP-47 tag for html lang, hreflang, and JSON-LD inLanguage. */
+export const localeTag: Record<Locale, string> = { en: 'en', zh: 'zh-CN' };
+
+export const ogLocaleTag: Record<Locale, string> = { en: 'en_US', zh: 'zh_CN' };
+
 export function getLocaleBase(locale: Locale) {
   return locale === defaultLocale ? '' : `/${locale}`;
 }
@@ -28,4 +37,15 @@ export function tagUrl(locale: Locale, tag: string) {
 
 export function ogImagePath(locale: Locale, slug: string) {
   return localizedPath(locale, `/og/${slug}.png`);
+}
+
+/** Inverse of `localizedPath`, e.g. `delocalizePath('/zh/tags/')` → `/tags/`. */
+export function delocalizePath(path: string) {
+  for (const locale of locales) {
+    const base = getLocaleBase(locale);
+    if (!base) continue;
+    if (path === base) return '/';
+    if (path.startsWith(`${base}/`)) return path.slice(base.length);
+  }
+  return path;
 }

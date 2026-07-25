@@ -1,23 +1,24 @@
 ---
 import BaseLayout from '../../layouts/BaseLayout.astro';
+import { t } from '../../config/i18n';
 import { absoluteUrl, siteConfig } from '../../site.config';
-import { defaultLocale, localizedPath, type Locale } from '../../lib/locale';
+import { alternateLocale, localeTag, localizedPath, type Locale } from '../../lib/locale';
 
 interface Props {
   locale: Locale;
 }
 
 const { locale } = Astro.props;
-const isDefault = locale === defaultLocale;
-const title = isDefault ? 'About' : '关于';
-const description = isDefault ? `About ${siteConfig.author}.` : `关于 ${siteConfig.author}。`;
+const copy = t(locale);
+const title = copy.aboutTitle;
+const description = copy.aboutDescription(siteConfig.author);
 const path = localizedPath(locale, '/about/');
-const alternatePath = localizedPath(isDefault ? 'zh' : defaultLocale, '/about/');
+const alternatePath = localizedPath(alternateLocale(locale), '/about/');
 
 const jsonLd = {
   '@context': 'https://schema.org',
   '@type': 'AboutPage',
-  name: isDefault ? `About ${siteConfig.author}` : `关于 ${siteConfig.author}`,
+  name: copy.aboutName(siteConfig.author),
   description,
   url: absoluteUrl(path),
   about: {
@@ -25,7 +26,7 @@ const jsonLd = {
     name: siteConfig.author,
     url: absoluteUrl('/')
   },
-  inLanguage: isDefault ? 'en' : 'zh-CN'
+  inLanguage: localeTag[locale]
 };
 ---
 

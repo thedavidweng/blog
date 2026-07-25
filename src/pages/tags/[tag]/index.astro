@@ -1,6 +1,6 @@
 ---
 import TagDetailPage from '../../../components/pages/TagDetailPage.astro';
-import { getTagStaticPaths } from '../../../lib/locale-routing';
+import { getTagStaticPaths } from '../../../lib/static-paths';
 
 export async function getStaticPaths() {
   return getTagStaticPaths('en');

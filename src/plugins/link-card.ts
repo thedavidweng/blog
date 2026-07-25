@@ -44,9 +44,13 @@ export function pickDescription(ogResult: OgObject | undefined): string {
     const val = ogResult[key];
     if (typeof val !== 'string') continue;
     if (isUnsafePlaintextSnippet(val)) continue;
-    return escapeHtml(val);
+    return val;
   }
   return '';
+}
+
+export function faviconUrl(domain: string) {
+  return `https://www.google.com/s2/favicons?domain=${domain}&sz=32`;
 }
 
 export async function getOpenGraph(targetUrl: string) {
@@ -70,15 +74,14 @@ export function createDefaultFetcher(
   return async (targetUrl: string) => {
     const ogResult = await ogFetcher(targetUrl);
     const parsedUrl = new URL(targetUrl);
-    const title =
-      (typeof ogResult?.ogTitle === 'string' && escapeHtml(ogResult.ogTitle)) || parsedUrl.hostname;
+    const title = (typeof ogResult?.ogTitle === 'string' && ogResult.ogTitle) || parsedUrl.hostname;
     const description = pickDescription(ogResult);
 
-    const faviconSrc = `https://www.google.com/s2/favicons?domain=${parsedUrl.hostname}`;
+    const faviconSrc = faviconUrl(parsedUrl.hostname);
 
     const ogImage = ogResult?.ogImage?.[0];
     const ogImageSrc = ogImage?.url ?? '';
-    const ogImageAlt = (typeof ogImage?.alt === 'string' && escapeHtml(ogImage.alt)) || title;
+    const ogImageAlt = (typeof ogImage?.alt === 'string' && ogImage.alt) || title;
 
     let displayUrl = options?.shortenUrl ? parsedUrl.hostname : targetUrl;
     try {
@@ -99,33 +102,36 @@ export function createDefaultFetcher(
   };
 }
 
+/** The single source of the card's markup; the plugin and LinkCard.astro are two adapters over it. */
 export function createLinkCard(data: LinkCardData) {
   const faviconElement = data.faviconSrc
-    ? `<img class="rlc-favicon" src="${data.faviconSrc}" alt="${data.title} favicon" width="16" height="16">`.trim()
+    ? `<img class="rlc-favicon" src="${escapeHtml(data.faviconSrc)}" alt="" width="16" height="16" loading="lazy" decoding="async">`
     : '';
 
   const descriptionElement = data.description
-    ? `<div class="rlc-description">${data.description}</div>`
+    ? `<div class="rlc-description">${escapeHtml(data.description)}</div>`
     : '';
 
   const imageElement = data.ogImageSrc
     ? `<div class="rlc-image-container">
-      <img class="rlc-image" src="${data.ogImageSrc}" alt="${data.ogImageAlt}" />
-    </div>`.trim()
+      <img class="rlc-image" src="${escapeHtml(data.ogImageSrc)}" alt="${escapeHtml(data.ogImageAlt)}" loading="lazy" decoding="async" />
+    </div>`
     : '';
 
   return `
-<a class="rlc-container" href="${data.url}">
+<div class="not-prose">
+<a class="rlc-container" href="${escapeHtml(data.url)}" target="_blank" rel="noopener noreferrer">
   <div class="rlc-info">
-    <div class="rlc-title">${data.title}</div>
+    <div class="rlc-title">${escapeHtml(data.title)}</div>
     ${descriptionElement}
     <div class="rlc-url-container">
       ${faviconElement}
-      <span class="rlc-url">${data.displayUrl}</span>
+      <span class="rlc-url">${escapeHtml(data.displayUrl)}</span>
     </div>
   </div>
   ${imageElement}
 </a>
+</div>
 `.trim();
 }
 

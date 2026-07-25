@@ -1,6 +1,7 @@
 ---
 import type { CollectionEntry } from 'astro:content';
-import { getPostSlug, publishedLabel, tagLabel } from '../lib/content';
+import { getPostSlug } from '../lib/posts';
+import { publishedLabel, t, tagLabel } from '../config/i18n';
 import { postUrl, type Locale } from '../lib/locale';
 
 interface Props {
@@ -18,7 +19,7 @@ const dateLabel = publishedLabel(locale, post.data.publishedDate);
     <time class="post-meta" datetime={post.data.publishedDate.toISOString()}>{dateLabel}</time>
     <h2 class="post-title">{post.data.title}</h2>
     <p class="post-description">{post.data.description}</p>
-    <ul class="tag-list" aria-label={locale === 'zh' ? '文章标签' : 'Article tags'}>
+    <ul class="tag-list" aria-label={t(locale).articleTags}>
       {post.data.tags.map((tag) => <li><span class="tag-pill">{tagLabel(locale, tag)}</span></li>)}
     </ul>
   </a>

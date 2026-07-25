@@ -3,9 +3,15 @@ import LocaleRedirect from '../LocaleRedirect.astro';
 import PostCard from '../PostCard.astro';
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import { getPublishedPosts } from '../../lib/content';
-import { getHomeJsonLd } from '../../lib/locale-routing';
-import { siteConfig } from '../../site.config';
-import { defaultLocale, localizedPath, type Locale } from '../../lib/locale';
+import { t } from '../../config/i18n';
+import { absoluteUrl, siteConfig } from '../../site.config';
+import {
+  alternateLocale,
+  defaultLocale,
+  localeTag,
+  localizedPath,
+  type Locale,
+} from '../../lib/locale';
 
 interface Props {
   locale: Locale;
@@ -14,10 +20,50 @@ interface Props {
 const { locale } = Astro.props;
 const isDefault = locale === defaultLocale;
 const posts = await getPublishedPosts(locale);
-const jsonLd = getHomeJsonLd(locale);
-const title = isDefault ? 'Blog' : '博客';
+const title = t(locale).homeTitle;
 const path = localizedPath(locale);
-const alternatePath = localizedPath(isDefault ? 'zh' : defaultLocale);
+const alternatePath = localizedPath(alternateLocale(locale));
+
+const siteUrl = absoluteUrl('/');
+const socialUrls = siteConfig.social.flatMap((s) =>
+  ['GitHub', 'LinkedIn', 'X'].includes(s.label) ? [s.href] : [],
+);
+const author = {
+  '@type': 'Person',
+  name: siteConfig.author,
+  jobTitle: 'Developer and Designer',
+  knowsAbout: [
+    'Open-source tools',
+    'Desktop application development',
+    'AI-integrated creative work',
+  ],
+};
+const jsonLd = {
+  '@context': 'https://schema.org',
+  '@graph': [
+    {
+      '@type': 'Blog',
+      name: siteConfig.name,
+      description: siteConfig.description[locale],
+      url: absoluteUrl(path),
+      author,
+      inLanguage: localeTag[locale],
+    },
+    {
+      '@type': 'Organization',
+      name: siteConfig.name,
+      url: siteUrl,
+      logo: absoluteUrl('/android-chrome-512x512.png'),
+      sameAs: socialUrls,
+    },
+    { ...author, url: siteUrl, sameAs: socialUrls },
+    {
+      '@type': 'WebSite',
+      name: siteConfig.name,
+      url: siteUrl,
+    },
+  ],
+};
 ---
 
 <BaseLayout

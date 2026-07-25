@@ -1,12 +1,14 @@
 ---
 import { ChevronUp } from '@lucide/astro';
+import { t } from '../config/i18n';
+import type { Locale } from '../lib/locale';
 
 interface Props {
-  locale: 'en' | 'zh';
+  locale: Locale;
 }
 
 const { locale } = Astro.props;
-const label = locale === 'zh' ? '回到顶部' : 'Back to top';
+const label = t(locale).backToTop;
 ---
 
 <button type="button" class="back-to-top icon-button" data-back-to-top aria-label={label}>

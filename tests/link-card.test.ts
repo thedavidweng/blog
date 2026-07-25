@@ -72,10 +72,9 @@ await test('pickDescription: skips unsafe values', () => {
   assert(result === 'Safe description', `expected "Safe description", got "${result}"`);
 });
 
-await test('pickDescription: encodes HTML entities', () => {
+await test('pickDescription: returns raw text; escaping happens at render time', () => {
   const result = pickDescription({ ogDescription: 'Tom & Jerry' } as OgObject);
-  assert(!result.includes('& ') || result.includes('&#'), `should encode & (got "${result}")`);
-  assert(result !== 'Tom & Jerry', 'should have encoded the raw ampersand');
+  assert(result === 'Tom & Jerry', `should return raw text (got "${result}")`);
 });
 
 await test('pickDescription: skips non-string values', () => {
@@ -136,6 +135,40 @@ await test('createLinkCard: omits favicon when faviconSrc is empty', () => {
 await test('createLinkCard: links to the target URL', () => {
   const html = createLinkCard(sampleData);
   assert(html.includes('href="https://example.com"'), 'should have href on anchor');
+});
+
+await test('createLinkCard: opens in a new tab without opener access', () => {
+  const html = createLinkCard(sampleData);
+  assert(html.includes('target="_blank"'), 'should open in new tab');
+  assert(html.includes('rel="noopener noreferrer"'), 'should have noopener noreferrer');
+});
+
+await test('createLinkCard: wraps the card in not-prose', () => {
+  const html = createLinkCard(sampleData);
+  assert(html.startsWith('<div class="not-prose">'), 'should be wrapped in not-prose');
+});
+
+await test('createLinkCard: escapes HTML in text and attribute values', () => {
+  const html = createLinkCard({
+    ...sampleData,
+    title: 'Tom & Jerry <script>',
+    description: 'a "quoted" description',
+    ogImageAlt: "it's <b>bold</b>",
+  });
+  assert(html.includes('Tom &amp; Jerry &lt;script&gt;'), 'should escape title');
+  assert(html.includes('a &quot;quoted&quot; description'), 'should escape description');
+  assert(html.includes('alt="it&#39;s &lt;b&gt;bold&lt;/b&gt;"'), 'should escape image alt');
+  assert(!html.includes('<script>'), 'no raw markup may pass through');
+});
+
+await test('createLinkCard: lazy-loads favicon and preview image', () => {
+  const html = createLinkCard(sampleData);
+  const imgTags = html.match(/<img[^>]*>/g) ?? [];
+  assert(imgTags.length === 2, `expected favicon + preview image, got ${imgTags.length}`);
+  assert(
+    imgTags.every((tag) => tag.includes('loading="lazy"') && tag.includes('decoding="async"')),
+    'both images should be lazy',
+  );
 });
 
 const mockFetcher = async (url: string): Promise<LinkCardData> => ({
@@ -251,7 +284,7 @@ await test('createDefaultFetcher: returns hostname as title when OG title is mis
   assert(data.title === TEST_HOST, `expected hostname as title, got "${data.title}"`);
   assert(data.url === testUrl, 'url should match input');
   assert(
-    data.faviconSrc === `https://www.google.com/s2/favicons?domain=${TEST_HOST}`,
+    data.faviconSrc === `https://www.google.com/s2/favicons?domain=${TEST_HOST}&sz=32`,
     `expected google favicon URL, got "${data.faviconSrc}"`,
   );
 });
@@ -310,27 +343,20 @@ await test('createDefaultFetcher: falls back to title when OG image alt is missi
   );
 });
 
-await test('createDefaultFetcher: escapes HTML in OG image alt', async () => {
-  const fetcher = createDefaultFetcher({
-    ogFetcher: async () =>
-      ({
-        ogTitle: 'Test Site',
-        ogImage: [{ url: 'https://example.com/og.png', alt: 'Tom & Jerry' }],
-      }) as any,
-  });
-  const data = await fetcher(`https://${TEST_HOST}`);
-  assert(data.ogImageAlt.includes('&amp;'), `expected escaped ampersand, got "${data.ogImageAlt}"`);
-});
-
-await test('createDefaultFetcher: escapes HTML in OG title', async () => {
+await test('createDefaultFetcher: keeps OG text raw; createLinkCard escapes on render', async () => {
   const fetcher = createDefaultFetcher({
     ogFetcher: async () =>
       ({
         ogTitle: 'Tom & Jerry',
+        ogImage: [{ url: 'https://example.com/og.png', alt: 'Cat & Mouse' }],
       }) as any,
   });
   const data = await fetcher(`https://${TEST_HOST}`);
-  assert(data.title.includes('&amp;'), `expected escaped ampersand, got "${data.title}"`);
+  assert(data.title === 'Tom & Jerry', `expected raw title, got "${data.title}"`);
+  assert(data.ogImageAlt === 'Cat & Mouse', `expected raw alt, got "${data.ogImageAlt}"`);
+  const html = createLinkCard(data);
+  assert(html.includes('Tom &amp; Jerry'), 'render should escape the title');
+  assert(html.includes('Cat &amp; Mouse'), 'render should escape the alt');
 });
 
 await test('createDefaultFetcher: returns empty ogImageSrc when OG result has no image', async () => {

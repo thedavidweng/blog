@@ -11,12 +11,13 @@ const turndown = new TurndownService({
 
 turndown.remove(['script', 'style', 'nav', 'footer', 'noscript']);
 
+/** The id BaseLayout puts on `<main>`; the extraction regex below matches on it. */
+export const MAIN_CONTENT_ID = 'main';
+
+const mainPattern = new RegExp(`<main[^>]*id="${MAIN_CONTENT_ID}"[^>]*>([\\s\\S]*?)</main>`, 'i');
+
 export function extractMainContent(html: string): string {
-  return (
-    html.match(/<main[^>]*id="main"[^>]*>([\s\S]*?)<\/main>/i)?.[1] ||
-    html.match(/<body[^>]*>([\s\S]*?)<\/body>/i)?.[1] ||
-    html
-  );
+  return html.match(mainPattern)?.[1] || html.match(/<body[^>]*>([\s\S]*?)<\/body>/i)?.[1] || html;
 }
 
 export function htmlToMarkdown(html: string): string {

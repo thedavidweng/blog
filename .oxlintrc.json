@@ -23,6 +23,11 @@
     "no-underscore-dangle": "off",
     "no-shadow": "off",
     "preserve-caught-error": "warn",
-    "typescript/array-type": ["error", { "default": "array-simple" }]
+    "typescript/array-type": ["error", { "default": "array-simple" }],
+    "no-warning-comments": ["error", { "terms": ["todo", "fixme", "hack", "xxx"], "location": "anywhere" }],
+    "no-inline-comments": "error",
+    "max-lines-per-function": ["warn", { "max": 60, "skipComments": true }],
+    "max-depth": ["warn", 4],
+    "complexity": ["warn", 12]
   }
 }

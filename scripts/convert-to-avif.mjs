@@ -123,7 +123,7 @@ async function main() {
     console.log(`🔄 ${inputRelative} → ${outputRelative}`);
 
     try {
-      await sharp(filePath).avif(AVIF_CONFIG).toFile(outputPath);
+      await sharp(filePath).autoOrient().avif(AVIF_CONFIG).toFile(outputPath);
       const inputSize = fs.statSync(filePath).size;
       const outputSize = fs.statSync(outputPath).size;
       const ratio = ((1 - outputSize / inputSize) * 100).toFixed(1);

@@ -26,14 +26,15 @@ Use **Sharp** (`sharp` npm package, already in the dependency tree).
 
 ```js
 {
-  quality: 65,              // 1–100; 65 balances visual quality and file size
-  effort: 6,                // 0–9; higher = smaller file, slower encoding
-  chromaSubsampling: '4:2:0' // standard web chroma subsampling
+  quality: 65,               // 1–100; 65 balances visual quality and file size
+  effort: 6,                 // 0–9; one-time conversion, slower encode is acceptable
+  chromaSubsampling: '4:2:0' // MUST be explicit: Sharp's AVIF default is 4:4:4 (measured)
 }
 ```
 
-- `effort: 6` is higher than Sharp's default (`4`) because image conversion is a one-time operation, not a per-build cost.
+- `effort: 6` is higher than Sharp's default (`4`) because image conversion is a one-time operation, not a per-build cost. Measured size difference vs `effort: 4` is ~3% — kept because the encode is a one-time cost.
 - `quality: 65` is slightly above Sharp's AVIF default (`50`) to avoid visible artifacts on screenshots containing UI text.
+- The conversion pipeline always runs `autoOrient()` (`scripts/convert-to-avif.mjs`): EXIF orientation on input (e.g. camera JPEGs) is baked into pixels, so output files never render sideways.
 
 ### Directory structure
 

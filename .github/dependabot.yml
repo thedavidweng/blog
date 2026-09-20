@@ -16,9 +16,17 @@ updates:
 
   # Keep GitHub Actions up to date (if you ever add any)
   - package-ecosystem: "github-actions"
+  - package-ecosystem: "github-actions"
     directory: "/"
     schedule:
       interval: "weekly"
       day: "monday"
     labels:
       - "dependencies"
+    groups:
+      github-actions:
+        patterns:
+          - "*"
+        update-types:
+          - "minor"
+          - "patch"

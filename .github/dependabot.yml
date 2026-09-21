@@ -1,12 +1,6 @@
 version: 2
 updates:
-  # Enable npm/pnpm dependency tracking
   - package-ecosystem: "npm"
-    groups:
-      non-major:
-        update-types:
-          - "minor"
-          - "patch"
     directory: "/"
     schedule:
       interval: "weekly"
@@ -19,24 +13,16 @@ updates:
       prefix: "chore"
       include: "scope"
 
-  # Keep GitHub Actions up to date (if you ever add any)
-    cooldown:
-      default-days: 7
-      semver-major-days: 10
-      semver-minor-days: 7
-      semver-patch-days: 3
-  - package-ecosystem: "github-actions"
+    # Keep GitHub Actions up to date (if you ever add any)
     groups:
-      github-actions:
-        patterns:
-          - "*"
+      non-major:
         update-types:
           - "minor"
           - "patch"
     cooldown:
-      default-days: 5
-      semver-major-days: 7
-      semver-minor-days: 3
+      default-days: 7
+      semver-major-days: 10
+      semver-minor-days: 7
       semver-patch-days: 3
   - package-ecosystem: "github-actions"
     directory: "/"

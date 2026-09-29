@@ -83,22 +83,6 @@ await test('htmlToMarkdown: converts lists with dash markers', () => {
   assert(md.includes('-   Two'), 'should use dash bullet markers');
 });
 
-await test('htmlToMarkdown: returns original html on turndown failure', () => {
-  const html = null as unknown as string;
-  const result = htmlToMarkdown(html);
-  assert(result === html, 'should return original input on failure');
-});
-
-await test('htmlToMarkdown: returns original input when turndown throws on valid string', () => {
-  const fakeHtml = {
-    toString: () => {
-      throw new Error('boom');
-    },
-  } as unknown as string;
-  const result = htmlToMarkdown(fakeHtml);
-  assert(result === fakeHtml, 'should return original input when turndown throws');
-});
-
 await test('extractMainContent: returns full html when no main and no body tags', () => {
   const html = '<div>Just a div</div>';
   const content = extractMainContent(html);

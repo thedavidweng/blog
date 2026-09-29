@@ -1,6 +1,6 @@
 # AGENTS.md
 
-Astro static blog on Cloudflare Pages. Source: https://github.com/thedavidweng/blog
+Astro static blog on Cloudflare Workers Static Assets. Source: https://github.com/thedavidweng/blog
 
 ## Images
 

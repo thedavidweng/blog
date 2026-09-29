@@ -15,7 +15,7 @@
     "lint:check": "oxlint",
     "format": "oxfmt --write 'src/**/*.{ts,json}' 'tests/**/*.ts' 'scripts/**/*.{ts,mjs,js}'",
     "format:check": "oxfmt --check 'src/**/*.{ts,json}' 'tests/**/*.ts' 'scripts/**/*.{ts,mjs,js}'",
-    "deploy": "wrangler pages deploy ./dist",
+    "deploy": "PUBLIC_SITE_URL=https://blog.blahaj.uk pnpm build && pnpm --filter blog-worker exec cf deploy",
     "test": "tsx tests/source-contract.test.ts && tsx tests/content-contract.test.ts && tsx tests/posts.test.ts && tsx tests/plugins.test.ts && tsx tests/link-card.test.ts && tsx tests/markdown-response.test.ts && tsx tests/locale.test.ts && tsx tests/i18n.test.ts && tsx tests/robots.test.ts",
     "test:coverage": "c8 --reporter=lcov --reporter=text --src=src pnpm test"
   },
@@ -50,7 +50,6 @@
     "oxlint": "1.80.0",
     "tsx": "^4.23.12",
     "typescript": "^6.0.3",
-    "wrangler": "^4.127.0",
     "yaml": "2.9.0",
     "zod": "^4.5.4"
   },

@@ -1,3 +1,6 @@
+packages:
+  - deploy
+
 minimumReleaseAge: 10080
 minimumReleaseAgeExclude:
   - astro
@@ -5,6 +8,18 @@ minimumReleaseAgeExclude:
   - '@astrojs/internal-helpers@0.11.0'
   - '@astrojs/markdown-satteri@0.4.0'
   - zod@4.5.4
+  - '@cloudflare/build-output-utils@0.8.2'
+  - '@cloudflare/codemods@0.2.1'
+  - '@cloudflare/config@0.20.0'
+  - '@cloudflare/runtime-types@0.1.4'
+  - '@cloudflare/workerd-darwin-64@1.20260926.1'
+  - '@cloudflare/workerd-darwin-arm64@1.20260926.1'
+  - '@cloudflare/workerd-linux-64@1.20260926.1'
+  - '@cloudflare/workerd-linux-arm64@1.20260926.1'
+  - '@cloudflare/workerd-windows-64@1.20260926.1'
+  - cf@1.0.0-beta.5
+  - miniflare@5.20260926.0-alpha
+  - workerd@1.20260926.1
 trustPolicy: no-downgrade
 trustPolicyExclude:
   - chokidar@4.0.3

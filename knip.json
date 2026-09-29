@@ -1,5 +1,8 @@
 {
   "$schema": "https://unpkg.com/knip@6/schema.json",
-  "entry": ["functions/**/*.ts"],
+  "workspaces": {
+    ".": { "entry": ["src/worker.ts"] },
+    "deploy": { "entry": ["cloudflare.config.ts", "wrangler.config.ts"] }
+  },
   "ignoreExportsUsedInFile": true
 }

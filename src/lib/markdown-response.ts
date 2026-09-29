@@ -21,11 +21,7 @@ export function extractMainContent(html: string): string {
 }
 
 export function htmlToMarkdown(html: string): string {
-  try {
-    return turndown.turndown(extractMainContent(html));
-  } catch {
-    return html;
-  }
+  return turndown.turndown(extractMainContent(html));
 }
 
 export function acceptsMarkdown(request: Request): boolean {

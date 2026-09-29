@@ -1,6 +1,6 @@
 # David Blog
 
-Pure static bilingual blog built with Astro 7, Markdown content collections, build-time Open Graph images, RSS, sitemap, and Cloudflare Pages configuration.
+Static bilingual blog built with Astro 7, Markdown content collections, build-time Open Graph images, RSS, sitemap, and Cloudflare Workers Static Assets. A small Worker handles Markdown responses.
 
 ## Tech Stack & Integrations
 
@@ -35,6 +35,7 @@ pnpm run dev
 pnpm run check
 pnpm run build
 pnpm run preview
+pnpm run deploy
 ```
 
 ### Keeping Dependencies Updated
@@ -47,15 +48,16 @@ pnpm up --latest
 
 | Variable | Required | Description |
 |----------|----------|-------------|
-| `PUBLIC_SITE_URL` | Yes | Production site URL (e.g. `https://blog.blahaj.uk`). Used to generate absolute URLs for OG images, canonical links, and sitemap. Without this, all URLs default to `http://localhost:4321` and social media platforms cannot fetch OG images. |
+| `PUBLIC_SITE_URL` | For manual builds | Production site URL (`https://blog.blahaj.uk`). Used to generate absolute URLs for OG images, canonical links, and sitemap. `pnpm deploy` sets it automatically. |
 
-Set this in **Cloudflare Pages → Settings → Environment variables** (Production).
+Set this for any CI build that runs `pnpm build` directly.
 
-### Cloudflare Pages
+### Cloudflare Workers
 
-- Build command: `pnpm run build`
-- Output directory: `dist`
-- Node version: from `mise.toml`
+- Build command: `PUBLIC_SITE_URL=https://blog.blahaj.uk pnpm build`
+- Deploy command: `pnpm --filter blog-worker exec cf deploy`
+- Assets: `dist`; Worker source: `src/worker.ts`; configuration: `deploy/cloudflare.config.ts`
+- Workers Builds deploys `main`. Both `blog.blahaj.uk` and `blog.davidweng.eu.org` are Worker custom domains.
 
 ## Content
 

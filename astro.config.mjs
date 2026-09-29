@@ -11,7 +11,7 @@ import { readingTimePlugin } from './src/plugins/reading-time.ts';
 import { linkCardPlugin } from './src/plugins/link-card.ts';
 import expressiveCode from 'astro-expressive-code';
 
-const site = process.env.PUBLIC_SITE_URL || process.env.CF_PAGES_URL || 'http://localhost:4321';
+const site = process.env.PUBLIC_SITE_URL || 'http://localhost:4321';
 
 export default defineConfig({
   site,

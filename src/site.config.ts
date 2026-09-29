@@ -14,7 +14,7 @@ export const siteConfig = {
 } as const;
 
 export function getBaseUrl() {
-  return process.env.PUBLIC_SITE_URL || process.env.CF_PAGES_URL || 'http://localhost:4321';
+  return process.env.PUBLIC_SITE_URL || 'http://localhost:4321';
 }
 
 export function absoluteUrl(path = '/') {

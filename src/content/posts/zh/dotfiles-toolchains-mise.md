@@ -78,7 +78,7 @@ export PATH="/usr/local/go/bin:$PATH"
 # ~/.local/share/chezmoi/dot_config/mise/config.toml
 
 [tools]
-actionlint = "latest"
+jactionlint = "1.8.2"
 go = "latest"
 node = "24"
 pnpm = "12"

@@ -23,7 +23,8 @@ updates:
       default-days: 7
       semver-major-days: 10
       semver-minor-days: 7
-      semver-patch-days: 3
+      # Align patch updates with pnpm minimumReleaseAge (10080 minutes).
+      semver-patch-days: 7
   - package-ecosystem: "github-actions"
     directory: "/"
     schedule:

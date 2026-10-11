@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-# Per-file comment-line budget (see AGENTS.md "Code Comments & Line Economy").
+# Per-file comment-line budget (see docs/agents/code-style.md).
 MAX_RATIO="${1:-15}"
 status=0
 files=$(find src tests scripts functions -type f \( -name '*.ts' -o -name '*.astro' -o -name '*.mjs' \))

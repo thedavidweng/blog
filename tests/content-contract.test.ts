@@ -19,7 +19,7 @@ async function listPostFiles(locale: string) {
   return files.filter((file) => file.endsWith('.md') || file.endsWith('.mdx')).toSorted();
 }
 
-// Guards the YAML 1.2 boolean pitfall (see AGENTS.md "Post Conventions").
+// Guards the YAML 1.2 boolean pitfall (see docs/agents/content.md).
 function validateYamlBooleans(file: string, frontmatterBlock: string): void {
   const booleanFields = ['draft', 'narrowFigures'];
   for (const field of booleanFields) {

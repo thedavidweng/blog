@@ -25,9 +25,9 @@
     "@astrojs/rss": "^4.0.19",
     "@astrojs/sitemap": "^3.7.4",
     "@fortawesome/free-brands-svg-icons": "^7.3.1",
-    "@lucide/astro": "^1.52.0",
+    "@lucide/astro": "^1.55.0",
     "@tailwindcss/vite": "^4.3.3",
-    "astro": "^7.3.6",
+    "astro": "^7.3.8",
     "astro-expressive-code": "^0.44.2",
     "astro-og-canvas": "^0.13.2",
     "canvaskit-wasm": "0.42.0",
@@ -45,13 +45,13 @@
     "@tailwindcss/typography": "^0.5.20",
     "@types/turndown": "^5.0.6",
     "c8": "^12.0.0",
-    "knip": "^6.40.0",
+    "knip": "^6.41.0",
     "oxfmt": "0.72.0",
     "oxlint": "1.87.0",
     "tsx": "^4.23.15",
     "typescript": "^6.0.3",
     "yaml": "2.9.1",
-    "zod": "^4.6.5"
+    "zod": "^4.6.7"
   },
   "packageManager": "pnpm@12.3.2"
 }

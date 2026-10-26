@@ -1,0 +1,44 @@
+import { defineConfig } from 'vite-plus';
+
+export default defineConfig({
+  fmt: {
+    singleQuote: true,
+    semi: true,
+    tabWidth: 2,
+    trailingComma: 'all',
+    arrowParens: 'always',
+    ignorePatterns: ['dist/', 'node_modules/', '.astro/'],
+  },
+  lint: {
+    categories: { correctness: 'error', suspicious: 'warn', perf: 'warn' },
+    rules: {
+      'no-unused-vars': ['error', { argsIgnorePattern: '^_', caughtErrors: 'none' }],
+      'no-console': 'off',
+      'sort-imports': 'off',
+      'sort-keys': 'off',
+      'no-ternary': 'off',
+      'id-length': 'off',
+      'no-magic-numbers': 'off',
+      'max-statements': 'off',
+      'prefer-destructuring': 'off',
+      'prefer-named-capture-group': 'off',
+      'no-continue': 'off',
+      'init-declarations': 'off',
+      'filename-case': 'off',
+      'no-await-in-loop': 'off',
+      'no-underscore-dangle': 'off',
+      'no-shadow': 'off',
+      'preserve-caught-error': 'warn',
+      'typescript/array-type': ['error', { default: 'array-simple' }],
+      'no-warning-comments': [
+        'error',
+        { terms: ['todo', 'fixme', 'hack', 'xxx'], location: 'anywhere' },
+      ],
+      'no-inline-comments': 'error',
+      'max-lines-per-function': ['warn', { max: 60, skipComments: true }],
+      'max-depth': ['warn', 4],
+      complexity: ['warn', 12],
+    },
+    options: { typeAware: false, typeCheck: false },
+  },
+});

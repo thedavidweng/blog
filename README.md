@@ -44,6 +44,10 @@ To upgrade all dependencies to their absolute latest versions, simply run:
 pnpm up --latest
 ```
 
+Keep TypeScript on 6.x. `astro check` rejects TypeScript 7, and `tsc` 7 cannot
+type-check `.astro` files until `@astrojs/ts-content-mapper` supports 7.1+. After
+`pnpm up --latest`, revert `typescript` to the newest 6.x release and reinstall.
+
 ### Environment Variables
 
 | Variable | Required | Description |

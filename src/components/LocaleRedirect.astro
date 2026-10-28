@@ -1,5 +1,8 @@
 <script is:inline>
-  (() => {
+  // A prerendered page runs this before the click that stores the preference; wait until activation.
+  const whenActivated = (run) =>
+    document.prerendering ? document.addEventListener('prerenderingchange', run, { once: true }) : run();
+  whenActivated(() => {
     try {
       const key = 'preferred-locale';
       let saved = null;
@@ -20,5 +23,5 @@
     } catch {
       /* fail open: stay on current page */
     }
-  })();
+  });
 </script>

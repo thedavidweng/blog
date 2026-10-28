@@ -114,4 +114,6 @@ minimumReleaseAgeExcludes = [
   "cf@1.0.0-beta.5",
   "miniflare@5.20260926.0-alpha",
   "workerd@1.20260926.1",
+  "@cloudflare/vite-plugin@2.0.0-beta.v.6",
+  "@cloudflare/runtime-types@0.1.17",
 ]

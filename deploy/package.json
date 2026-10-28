@@ -4,7 +4,7 @@
   "type": "module",
   "devDependencies": {
     "cf": "1.0.0-beta.18",
-    "wrangler": "^4.151.2"
+    "wrangler": "^4.151.3"
   },
   "dependencies": {
     "@mixmark-io/domino": "2.2.0"

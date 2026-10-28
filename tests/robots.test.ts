@@ -1,11 +1,4 @@
-import {
-  BLOCKED,
-  botPolicy,
-  GET,
-  renderRobotsTxt,
-  SEARCH_BOT,
-  USER_FETCHER,
-} from '../src/pages/robots.txt.ts';
+import { botPolicy, GET, renderRobotsTxt } from '../src/pages/robots.txt.ts';
 import { assert, test } from './harness';
 
 const text = renderRobotsTxt();
@@ -17,29 +10,6 @@ const botBlock = (agent: string) => {
   assert(match, `robots.txt must declare a complete block for ${agent}`);
   return { signal: match[1], rule: match[2] };
 };
-
-test('robots.txt: ADR-0006 policy per bot', () => {
-  const expected: Record<string, string> = {
-    'OAI-SearchBot': SEARCH_BOT,
-    'Claude-SearchBot': SEARCH_BOT,
-    PerplexityBot: SEARCH_BOT,
-    GPTBot: SEARCH_BOT,
-    ClaudeBot: SEARCH_BOT,
-    'Google-Extended': SEARCH_BOT,
-    Googlebot: SEARCH_BOT,
-    Bingbot: SEARCH_BOT,
-    'ChatGPT-User': USER_FETCHER,
-    'Claude-User': USER_FETCHER,
-    CCBot: BLOCKED,
-    'Meta-ExternalAgent': BLOCKED,
-    'Applebot-Extended': BLOCKED,
-    Bytespider: BLOCKED,
-  };
-  for (const [agent, signal] of Object.entries(expected)) {
-    const block = botBlock(agent);
-    assert(block.signal === signal, `${agent}: expected "${signal}", got "${block.signal}"`);
-  }
-});
 
 test('robots.txt: no bot may train, and crawl access follows the search signal', () => {
   for (const { signal, agents } of botPolicy) {

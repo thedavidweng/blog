@@ -20,3 +20,5 @@ Extract a shared `ogImageOptions(page, locale)` function in `src/lib/og.ts` that
 
 - The shared visual config (gradient, border, padding, colors) lives in `src/lib/og.ts`, not in the route files.
 - Locale-specific font differences are the only thing behind the per-locale seam.
+
+**2026-10-27:** Literal OG configuration assertions were removed. The build and generated-output contract exercise the OG routes.

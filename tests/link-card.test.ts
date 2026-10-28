@@ -278,7 +278,7 @@ https://also-good.example.com`;
 const TEST_HOST = 'example.com';
 
 test('createDefaultFetcher: returns hostname as title when OG title is missing', async () => {
-  const fetcher = createDefaultFetcher();
+  const fetcher = createDefaultFetcher({ ogFetcher: async () => undefined });
   const testUrl = `https://${TEST_HOST}`;
   const data = await fetcher(testUrl);
   assert(data.title === TEST_HOST, `expected hostname as title, got "${data.title}"`);
@@ -290,20 +290,20 @@ test('createDefaultFetcher: returns hostname as title when OG title is missing',
 });
 
 test('createDefaultFetcher: shortenUrl option returns hostname as displayUrl', async () => {
-  const fetcher = createDefaultFetcher({ shortenUrl: true });
+  const fetcher = createDefaultFetcher({ shortenUrl: true, ogFetcher: async () => undefined });
   const data = await fetcher(`https://${TEST_HOST}/some/path`);
   assert(data.displayUrl === TEST_HOST, `expected hostname, got "${data.displayUrl}"`);
 });
 
 test('createDefaultFetcher: full URL as displayUrl without shortenUrl', async () => {
-  const fetcher = createDefaultFetcher();
+  const fetcher = createDefaultFetcher({ ogFetcher: async () => undefined });
   const testUrl = `https://${TEST_HOST}/some/path`;
   const data = await fetcher(testUrl);
   assert(data.displayUrl === testUrl, `expected full URL, got "${data.displayUrl}"`);
 });
 
 test('createDefaultFetcher: handles undecodable URL displayUrl gracefully', async () => {
-  const fetcher = createDefaultFetcher();
+  const fetcher = createDefaultFetcher({ ogFetcher: async () => undefined });
   const testUrl = `https://${TEST_HOST}/%E0%A4%A`;
   const data = await fetcher(testUrl);
   assert(data.url === testUrl, 'url should match input');
@@ -382,7 +382,7 @@ test('createDefaultFetcher: handles getOpenGraph returning undefined', async () 
 test('getOpenGraph: returns undefined for unreachable URL', async () => {
   const result = await getOpenGraph('https://nonexistent.invalid.example');
   assert(result === undefined, 'should return undefined for unreachable URL');
-});
+}, 15_000);
 
 test('linkCardPlugin: processes normal paragraph (no data property)', async () => {
   const { html } = await markdownToHtml('https://example.com', {

@@ -60,6 +60,7 @@ Set this for any CI build that runs `bun run build` directly.
 
 - Build command: `PUBLIC_SITE_URL=https://blog.blahaj.uk bun run build`
 - Deploy command: `bun run --cwd deploy cf deploy`
+- `cf` runs on Node.js 22 or later (`mise.toml` pins Node 24), so deploying needs Node installed alongside Bun.
 - Assets: `dist`; Worker source: `src/worker.ts`; configuration: `deploy/cloudflare.config.ts`
 - Workers Builds deploys `main`. Both `blog.blahaj.uk` and `blog.davidweng.eu.org` are Worker custom domains.
 

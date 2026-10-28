@@ -119,7 +119,7 @@ export const tags = {
   Translated: { en: 'Translated', zh: '翻译' },
   Writing: { en: 'Writing', zh: '文字' },
   Workflow: { en: 'Workflow', zh: '工作流' },
-} as const;
+} as const satisfies Record<string, Record<Locale, string>>;
 
 export function tagLabel(locale: Locale, tag: string) {
   const labels = tags[tag as keyof typeof tags];

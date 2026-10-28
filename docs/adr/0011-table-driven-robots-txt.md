@@ -22,3 +22,5 @@ ADR-0006 chose a hand-written literal for `robots.txt.ts` ("what you see is what
 
 - The rendered output regroups bots by policy (search / user-triggered / blocked); per-agent directives are unchanged except the corrected banners.
 - Expressing a signal/rule combination outside the derivation (e.g. `search=yes` with `Disallow`) requires revisiting the renderer deliberately.
+
+**2026-10-27:** The per-agent allowlist assertion was removed; the policy table is the source of truth. Tests retain the signal-to-crawl rule and rendered response checks.

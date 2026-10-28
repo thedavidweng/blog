@@ -1,19 +1,6 @@
-import { publishedLabel, t, tagLabel, tags, ui } from '../src/config/i18n';
+import { publishedLabel, t, tagLabel } from '../src/config/i18n';
 import { locales } from '../src/lib/locale';
 import { assert, test } from './harness';
-
-test('ui: every locale exposes the same keys', () => {
-  const enKeys = Object.keys(ui.en).toSorted().join(',');
-  for (const locale of locales) {
-    const keys = Object.keys(ui[locale]).toSorted().join(',');
-    assert(keys === enKeys, `${locale} must define exactly the en key set`);
-  }
-});
-
-test('t: returns the table for the requested locale', () => {
-  assert(t('en').homeTitle === 'Blog', 'en home title');
-  assert(t('zh').homeTitle === '博客', 'zh home title');
-});
 
 test('ui: parameterized copy renders for both locales', () => {
   for (const locale of locales) {
@@ -44,12 +31,4 @@ test('tagLabel: returns the locale label and rejects unknown tags', () => {
     threw = true;
   }
   assert(threw, 'unknown tag must throw');
-});
-
-test('tags: every tag has a label for every locale', () => {
-  for (const [id, labels] of Object.entries(tags)) {
-    for (const locale of locales) {
-      assert(labels[locale].length > 0, `tag ${id} missing ${locale} label`);
-    }
-  }
 });

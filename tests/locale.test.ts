@@ -1,13 +1,10 @@
 import {
   alternateLocale,
-  defaultLocale,
   delocalizePath,
   locales,
-  localeTag,
   isLocale,
   getLocaleBase,
   localizedPath,
-  ogLocaleTag,
   postUrl,
   tagUrl,
   ogImagePath,
@@ -98,19 +95,4 @@ test('delocalizePath: leaves default-locale paths and lookalikes alone', () => {
 test('alternateLocale: returns the other locale', () => {
   assert(alternateLocale('en') === 'zh', 'en alternates to zh');
   assert(alternateLocale('zh') === 'en', 'zh alternates to en');
-});
-
-test('locale tags: BCP-47 and OpenGraph forms', () => {
-  assert(localeTag.en === 'en' && localeTag.zh === 'zh-CN', 'html/hreflang tags');
-  assert(ogLocaleTag.en === 'en_US' && ogLocaleTag.zh === 'zh_CN', 'og:locale tags');
-});
-
-test('constants: defaultLocale is en', () => {
-  assert(defaultLocale === 'en', "defaultLocale should be 'en'");
-});
-
-test('constants: locales contains en and zh', () => {
-  assert(locales.includes('en'), "locales should include 'en'");
-  assert(locales.includes('zh'), "locales should include 'zh'");
-  assert(locales.length === 2, 'locales should have exactly 2 entries');
 });

@@ -55,7 +55,7 @@ const packageJson = JSON.parse(await readSource('package.json')) as {
 };
 assert(
   packageJson.dependencies?.['canvaskit-wasm'],
-  'astro-og-canvas requires canvaskit-wasm as a direct dependency when installing with pnpm.',
+  'astro-og-canvas requires canvaskit-wasm as a direct dependency when installing with an isolated linker.',
 );
 
 console.log('Source contract ok: OG config and content invariants verified.');

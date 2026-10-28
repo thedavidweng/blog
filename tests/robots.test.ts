@@ -6,7 +6,7 @@ import {
   SEARCH_BOT,
   USER_FETCHER,
 } from '../src/pages/robots.txt.ts';
-import { assert, summarize, test } from './harness';
+import { assert, test } from './harness';
 
 const text = renderRobotsTxt();
 
@@ -18,7 +18,7 @@ const botBlock = (agent: string) => {
   return { signal: match[1], rule: match[2] };
 };
 
-await test('robots.txt: ADR-0006 policy per bot', () => {
+test('robots.txt: ADR-0006 policy per bot', () => {
   const expected: Record<string, string> = {
     'OAI-SearchBot': SEARCH_BOT,
     'Claude-SearchBot': SEARCH_BOT,
@@ -41,7 +41,7 @@ await test('robots.txt: ADR-0006 policy per bot', () => {
   }
 });
 
-await test('robots.txt: no bot may train, and crawl access follows the search signal', () => {
+test('robots.txt: no bot may train, and crawl access follows the search signal', () => {
   for (const { signal, agents } of botPolicy) {
     assert(signal.includes('ai-train=no'), 'training is opted out for every bot');
     for (const agent of agents) {
@@ -52,7 +52,7 @@ await test('robots.txt: no bot may train, and crawl access follows the search si
   }
 });
 
-await test('robots.txt: each agent appears exactly once and the sitemap is linked', () => {
+test('robots.txt: each agent appears exactly once and the sitemap is linked', () => {
   for (const { agents } of botPolicy) {
     for (const agent of agents) {
       const count = text.split(`User-agent: ${agent}\n`).length - 1;
@@ -62,7 +62,7 @@ await test('robots.txt: each agent appears exactly once and the sitemap is linke
   assert(/Sitemap: .+\/sitemap-index\.xml/.test(text), 'sitemap must be linked');
 });
 
-await test('robots.txt: the route serves the rendered policy as plain text', async () => {
+test('robots.txt: the route serves the rendered policy as plain text', async () => {
   const response = await GET({} as any);
   assert(
     response.headers.get('Content-Type') === 'text/plain; charset=utf-8',
@@ -70,5 +70,3 @@ await test('robots.txt: the route serves the rendered policy as plain text', asy
   );
   assert((await response.text()) === text, 'route body must be the rendered policy');
 });
-
-summarize();

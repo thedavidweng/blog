@@ -55,7 +55,7 @@ public/posts/hello-astro/
 ## Converting images
 
 ```bash
-pnpm exec tsx scripts/convert-to-avif.mjs <input-path> <slug>
+bun scripts/convert-to-avif.mjs <input-path> <slug>
 ```
 
 - `<input-path>` can be a single image file or a directory containing multiple images.
@@ -65,7 +65,7 @@ pnpm exec tsx scripts/convert-to-avif.mjs <input-path> <slug>
 Or use the package.json alias:
 
 ```bash
-pnpm convert-images <input> <slug>
+bun run convert-images <input> <slug>
 ```
 
 Reference the image in Markdown:
@@ -77,7 +77,7 @@ Reference the image in Markdown:
 Run checks after adding images:
 
 ```bash
-pnpm check
+bun run check
 ```
 
 The `check:images` step (`scripts/check-image-formats.js`) will fail the build if any non-whitelisted image format (e.g., `.png`, `.jpg`) is found in `public/`.

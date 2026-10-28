@@ -30,36 +30,37 @@ Static bilingual blog built with Astro 7, Markdown content collections, build-ti
 ## Commands
 
 ```bash
-pnpm install
-pnpm run dev
-pnpm run check
-pnpm run build
-pnpm run preview
-pnpm run deploy
+bun install
+bun run dev
+bun run check
+bun run build
+bun run preview
+bun run deploy
 ```
 
 ### Keeping Dependencies Updated
 To upgrade all dependencies to their absolute latest versions, simply run:
 ```bash
-pnpm up --latest
+bun update --latest
 ```
 
 Keep TypeScript on 6.x. `astro check` rejects TypeScript 7, and `tsc` 7 cannot
 type-check `.astro` files until `@astrojs/ts-content-mapper` supports 7.1+. After
-`pnpm up --latest`, revert `typescript` to the newest 6.x release and reinstall.
+`bun update --latest`, revert `typescript` to the newest 6.x release and reinstall.
 
 ### Environment Variables
 
 | Variable | Required | Description |
 |----------|----------|-------------|
-| `PUBLIC_SITE_URL` | For manual builds | Production site URL (`https://blog.blahaj.uk`). Used to generate absolute URLs for OG images, canonical links, and sitemap. `pnpm deploy` sets it automatically. |
+| `PUBLIC_SITE_URL` | For manual builds | Production site URL (`https://blog.blahaj.uk`). Used to generate absolute URLs for OG images, canonical links, and sitemap. `bun run deploy` sets it automatically. |
 
-Set this for any CI build that runs `pnpm build` directly.
+Set this for any CI build that runs `bun run build` directly.
 
 ### Cloudflare Workers
 
-- Build command: `PUBLIC_SITE_URL=https://blog.blahaj.uk pnpm build`
-- Deploy command: `pnpm --filter blog-worker exec cf deploy`
+- Build command: `PUBLIC_SITE_URL=https://blog.blahaj.uk bun run build`
+- Deploy command: `bun run --cwd deploy cf deploy`
+- `cf` runs on Node.js, so deploying needs Node installed alongside Bun. Use Node 24 LTS, which `mise.toml` pins.
 - Assets: `dist`; Worker source: `src/worker.ts`; configuration: `deploy/cloudflare.config.ts`
 - Workers Builds deploys `main`. Both `blog.blahaj.uk` and `blog.davidweng.eu.org` are Worker custom domains.
 

@@ -2,7 +2,7 @@
 
 Bilingual (English/Chinese) Astro static blog deployed with Cloudflare Workers Static Assets.
 
-- Package manager: **pnpm** (`pnpm install`, `pnpm check`, `pnpm build`).
+- Package manager: **bun** (`bun install`, `bun run check`, `bun run build`).
 - Read relevant conventions before changing:
   - [Posts, frontmatter and comments](docs/agents/content.md).
   - [Image and OG asset rules](docs/agents/assets.md).

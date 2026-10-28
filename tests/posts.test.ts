@@ -8,7 +8,7 @@ import {
   translatedPairs,
   type PostEntry,
 } from '../src/lib/posts';
-import { assert, summarize, test } from './harness';
+import { assert, test } from './harness';
 
 type FixtureData = {
   slug?: string;
@@ -34,14 +34,14 @@ function post(id: string, data: FixtureData = {}): PostEntry {
   } as unknown as PostEntry;
 }
 
-await test('parsePostId: splits locale and filename slug', () => {
+test('parsePostId: splits locale and filename slug', () => {
   const parsed = parsePostId('en/hello-world.md');
   assert(parsed.locale === 'en', 'locale should be en');
   assert(parsed.filenameSlug === 'hello-world', 'slug should drop the extension');
   assert(parsePostId('zh/hello-world.mdx').locale === 'zh', 'mdx should parse too');
 });
 
-await test('parsePostId: rejects ids without a valid locale prefix', () => {
+test('parsePostId: rejects ids without a valid locale prefix', () => {
   for (const bad of ['fr/post.md', 'post.md', 'en/nested/post.md', 'en/.md']) {
     let threw = false;
     try {
@@ -53,7 +53,7 @@ await test('parsePostId: rejects ids without a valid locale prefix', () => {
   }
 });
 
-await test('getPostLocale / getPostSlug: frontmatter wins over the id', () => {
+test('getPostLocale / getPostSlug: frontmatter wins over the id', () => {
   const fromId = post('en/from-id.md');
   assert(getPostLocale(fromId) === 'en', 'locale should derive from id');
   assert(getPostSlug(fromId) === 'from-id', 'slug should derive from id');
@@ -63,7 +63,7 @@ await test('getPostLocale / getPostSlug: frontmatter wins over the id', () => {
   assert(getPostSlug(overridden) === 'custom-slug', 'frontmatter slug should win');
 });
 
-await test('publishedPosts: drops drafts, filters by locale, sorts newest first', () => {
+test('publishedPosts: drops drafts, filters by locale, sorts newest first', () => {
   const older = post('en/older.md', { publishedDate: new Date('2026-01-01') });
   const newer = post('en/newer.md', { publishedDate: new Date('2026-06-01') });
   const zh = post('zh/newer.md', { publishedDate: new Date('2026-06-01') });
@@ -77,7 +77,7 @@ await test('publishedPosts: drops drafts, filters by locale, sorts newest first'
   assert(all.length === 3, 'without locale, all published posts remain');
 });
 
-await test('pairPostsBySlug: groups translations by slug', () => {
+test('pairPostsBySlug: groups translations by slug', () => {
   const en = post('en/hello.md');
   const zh = post('zh/hello.md');
   const lonely = post('en/lonely.md');
@@ -88,7 +88,7 @@ await test('pairPostsBySlug: groups translations by slug', () => {
   assert(hello?.posts.en === en && hello?.posts.zh === zh, 'both locales should pair up');
 });
 
-await test('translatedPairs: keeps only complete pairs and warns about the rest', () => {
+test('translatedPairs: keeps only complete pairs and warns about the rest', () => {
   const warnings: string[] = [];
   const originalWarn = console.warn;
   console.warn = (msg: string) => warnings.push(msg);
@@ -107,7 +107,7 @@ await test('translatedPairs: keeps only complete pairs and warns about the rest'
   }
 });
 
-await test('translatedPairs: complete input warns nothing', () => {
+test('translatedPairs: complete input warns nothing', () => {
   const warnings: string[] = [];
   const originalWarn = console.warn;
   console.warn = (msg: string) => warnings.push(msg);
@@ -120,12 +120,10 @@ await test('translatedPairs: complete input warns nothing', () => {
   }
 });
 
-await test('collectTags: unique sorted tags across posts', () => {
+test('collectTags: unique sorted tags across posts', () => {
   const tags = collectTags([
     post('en/a.md', { tags: ['Tools', 'Finance'] }),
     post('en/b.md', { tags: ['Animation', 'Tools'] }),
   ]);
   assert(JSON.stringify(tags) === JSON.stringify(['Animation', 'Finance', 'Tools']), `got ${tags}`);
 });
-
-summarize();

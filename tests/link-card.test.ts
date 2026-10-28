@@ -10,14 +10,14 @@ import {
   linkCardPlugin,
   type LinkCardData,
 } from '../src/plugins/link-card.ts';
-import { assert, summarize, test } from './harness';
+import { assert, test } from './harness';
 
-await test('isUnsafePlaintextSnippet: empty string is unsafe', () => {
+test('isUnsafePlaintextSnippet: empty string is unsafe', () => {
   assert(isUnsafePlaintextSnippet('') === true, 'empty should be unsafe');
   assert(isUnsafePlaintextSnippet('   ') === true, 'whitespace-only should be unsafe');
 });
 
-await test('isUnsafePlaintextSnippet: markup strings are unsafe', () => {
+test('isUnsafePlaintextSnippet: markup strings are unsafe', () => {
   assert(isUnsafePlaintextSnippet('<div>foo</div>') === true, 'HTML tag should be unsafe');
   assert(
     isUnsafePlaintextSnippet('<meta name="description" content="x">') === true,
@@ -31,7 +31,7 @@ await test('isUnsafePlaintextSnippet: markup strings are unsafe', () => {
   );
 });
 
-await test('isUnsafePlaintextSnippet: plain text is safe', () => {
+test('isUnsafePlaintextSnippet: plain text is safe', () => {
   assert(isUnsafePlaintextSnippet('Hello world') === false, 'plain text should be safe');
   assert(
     isUnsafePlaintextSnippet('A description with numbers 123') === false,
@@ -43,15 +43,15 @@ await test('isUnsafePlaintextSnippet: plain text is safe', () => {
   );
 });
 
-await test('pickDescription: returns empty for undefined', () => {
+test('pickDescription: returns empty for undefined', () => {
   assert(pickDescription(undefined) === '', 'undefined should return empty');
 });
 
-await test('pickDescription: returns empty for empty object', () => {
+test('pickDescription: returns empty for empty object', () => {
   assert(pickDescription({} as OgObject) === '', 'empty object should return empty');
 });
 
-await test('pickDescription: prefers ogDescription over twitterDescription', () => {
+test('pickDescription: prefers ogDescription over twitterDescription', () => {
   const result = pickDescription({
     ogDescription: 'OG desc',
     twitterDescription: 'Twitter desc',
@@ -59,12 +59,12 @@ await test('pickDescription: prefers ogDescription over twitterDescription', () 
   assert(result === 'OG desc', `expected "OG desc", got "${result}"`);
 });
 
-await test('pickDescription: falls back to twitterDescription', () => {
+test('pickDescription: falls back to twitterDescription', () => {
   const result = pickDescription({ twitterDescription: 'Twitter desc' } as OgObject);
   assert(result === 'Twitter desc', `expected "Twitter desc", got "${result}"`);
 });
 
-await test('pickDescription: skips unsafe values', () => {
+test('pickDescription: skips unsafe values', () => {
   const result = pickDescription({
     ogDescription: '<meta charset="utf-8">',
     twitterDescription: 'Safe description',
@@ -72,12 +72,12 @@ await test('pickDescription: skips unsafe values', () => {
   assert(result === 'Safe description', `expected "Safe description", got "${result}"`);
 });
 
-await test('pickDescription: returns raw text; escaping happens at render time', () => {
+test('pickDescription: returns raw text; escaping happens at render time', () => {
   const result = pickDescription({ ogDescription: 'Tom & Jerry' } as OgObject);
   assert(result === 'Tom & Jerry', `should return raw text (got "${result}")`);
 });
 
-await test('pickDescription: skips non-string values', () => {
+test('pickDescription: skips non-string values', () => {
   const result = pickDescription({
     ogDescription: 42,
     twitterDescription: true,
@@ -95,7 +95,7 @@ const sampleData: LinkCardData = {
   url: 'https://example.com',
 };
 
-await test('createLinkCard: contains expected CSS classes', () => {
+test('createLinkCard: contains expected CSS classes', () => {
   const html = createLinkCard(sampleData);
   assert(html.includes('rlc-container'), 'should have rlc-container');
   assert(html.includes('rlc-title'), 'should have rlc-title');
@@ -105,7 +105,7 @@ await test('createLinkCard: contains expected CSS classes', () => {
   assert(html.includes('rlc-image'), 'should have rlc-image');
 });
 
-await test('createLinkCard: contains data values', () => {
+test('createLinkCard: contains data values', () => {
   const html = createLinkCard(sampleData);
   assert(html.includes('Test Title'), 'should contain title');
   assert(html.includes('A test description'), 'should contain description');
@@ -114,41 +114,41 @@ await test('createLinkCard: contains data values', () => {
   assert(html.includes('src="https://example.com/og.png"'), 'should contain og image src');
 });
 
-await test('createLinkCard: omits description when empty', () => {
+test('createLinkCard: omits description when empty', () => {
   const data = { ...sampleData, description: '' };
   const html = createLinkCard(data);
   assert(!html.includes('rlc-description'), 'should not have rlc-description div');
 });
 
-await test('createLinkCard: omits image when ogImageSrc is empty', () => {
+test('createLinkCard: omits image when ogImageSrc is empty', () => {
   const data = { ...sampleData, ogImageSrc: '' };
   const html = createLinkCard(data);
   assert(!html.includes('rlc-image-container'), 'should not have image container');
 });
 
-await test('createLinkCard: omits favicon when faviconSrc is empty', () => {
+test('createLinkCard: omits favicon when faviconSrc is empty', () => {
   const data = { ...sampleData, faviconSrc: '' };
   const html = createLinkCard(data);
   assert(!html.includes('rlc-favicon'), 'should not have favicon img');
 });
 
-await test('createLinkCard: links to the target URL', () => {
+test('createLinkCard: links to the target URL', () => {
   const html = createLinkCard(sampleData);
   assert(html.includes('href="https://example.com"'), 'should have href on anchor');
 });
 
-await test('createLinkCard: opens in a new tab without opener access', () => {
+test('createLinkCard: opens in a new tab without opener access', () => {
   const html = createLinkCard(sampleData);
   assert(html.includes('target="_blank"'), 'should open in new tab');
   assert(html.includes('rel="noopener noreferrer"'), 'should have noopener noreferrer');
 });
 
-await test('createLinkCard: wraps the card in not-prose', () => {
+test('createLinkCard: wraps the card in not-prose', () => {
   const html = createLinkCard(sampleData);
   assert(html.startsWith('<div class="not-prose">'), 'should be wrapped in not-prose');
 });
 
-await test('createLinkCard: escapes HTML in text and attribute values', () => {
+test('createLinkCard: escapes HTML in text and attribute values', () => {
   const html = createLinkCard({
     ...sampleData,
     title: 'Tom & Jerry <script>',
@@ -161,7 +161,7 @@ await test('createLinkCard: escapes HTML in text and attribute values', () => {
   assert(!html.includes('<script>'), 'no raw markup may pass through');
 });
 
-await test('createLinkCard: lazy-loads favicon and preview image', () => {
+test('createLinkCard: lazy-loads favicon and preview image', () => {
   const html = createLinkCard(sampleData);
   const imgTags = html.match(/<img[^>]*>/g) ?? [];
   assert(imgTags.length === 2, `expected favicon + preview image, got ${imgTags.length}`);
@@ -181,7 +181,7 @@ const mockFetcher = async (url: string): Promise<LinkCardData> => ({
   url,
 });
 
-await test('linkCardPlugin: replaces bare URL paragraph with link card HTML', async () => {
+test('linkCardPlugin: replaces bare URL paragraph with link card HTML', async () => {
   const { html } = await markdownToHtml('https://example.com', {
     mdastPlugins: [() => linkCardPlugin({ fetcher: mockFetcher })],
   });
@@ -190,7 +190,7 @@ await test('linkCardPlugin: replaces bare URL paragraph with link card HTML', as
   assert(html.includes('An example site'), 'should contain fetched description');
 });
 
-await test('linkCardPlugin: does not touch paragraphs with multiple children', async () => {
+test('linkCardPlugin: does not touch paragraphs with multiple children', async () => {
   let called = false;
   const { html } = await markdownToHtml('Check https://example.com', {
     mdastPlugins: [
@@ -208,7 +208,7 @@ await test('linkCardPlugin: does not touch paragraphs with multiple children', a
   assert(!html.includes('rlc-container'), 'should not contain link card');
 });
 
-await test('linkCardPlugin: does not touch paragraphs without URLs', async () => {
+test('linkCardPlugin: does not touch paragraphs without URLs', async () => {
   let called = false;
   const { html } = await markdownToHtml('Just plain text, no links here.', {
     mdastPlugins: [
@@ -226,7 +226,7 @@ await test('linkCardPlugin: does not touch paragraphs without URLs', async () =>
   assert(!html.includes('rlc-container'), 'should not contain link card');
 });
 
-await test('linkCardPlugin: handles fetcher errors gracefully', async () => {
+test('linkCardPlugin: handles fetcher errors gracefully', async () => {
   const { html } = await markdownToHtml('https://broken.example.com', {
     mdastPlugins: [
       () =>
@@ -240,7 +240,7 @@ await test('linkCardPlugin: handles fetcher errors gracefully', async () => {
   assert(html.includes('>https://broken.example.com<'), 'URL should remain as text');
 });
 
-await test('linkCardPlugin: one failed fetch does not suppress other link cards', async () => {
+test('linkCardPlugin: one failed fetch does not suppress other link cards', async () => {
   const source = `https://good.example.com
 
 https://broken.example.com
@@ -277,8 +277,8 @@ https://also-good.example.com`;
 
 const TEST_HOST = 'example.com';
 
-await test('createDefaultFetcher: returns hostname as title when OG title is missing', async () => {
-  const fetcher = createDefaultFetcher();
+test('createDefaultFetcher: returns hostname as title when OG title is missing', async () => {
+  const fetcher = createDefaultFetcher({ ogFetcher: async () => undefined });
   const testUrl = `https://${TEST_HOST}`;
   const data = await fetcher(testUrl);
   assert(data.title === TEST_HOST, `expected hostname as title, got "${data.title}"`);
@@ -289,28 +289,28 @@ await test('createDefaultFetcher: returns hostname as title when OG title is mis
   );
 });
 
-await test('createDefaultFetcher: shortenUrl option returns hostname as displayUrl', async () => {
-  const fetcher = createDefaultFetcher({ shortenUrl: true });
+test('createDefaultFetcher: shortenUrl option returns hostname as displayUrl', async () => {
+  const fetcher = createDefaultFetcher({ shortenUrl: true, ogFetcher: async () => undefined });
   const data = await fetcher(`https://${TEST_HOST}/some/path`);
   assert(data.displayUrl === TEST_HOST, `expected hostname, got "${data.displayUrl}"`);
 });
 
-await test('createDefaultFetcher: full URL as displayUrl without shortenUrl', async () => {
-  const fetcher = createDefaultFetcher();
+test('createDefaultFetcher: full URL as displayUrl without shortenUrl', async () => {
+  const fetcher = createDefaultFetcher({ ogFetcher: async () => undefined });
   const testUrl = `https://${TEST_HOST}/some/path`;
   const data = await fetcher(testUrl);
   assert(data.displayUrl === testUrl, `expected full URL, got "${data.displayUrl}"`);
 });
 
-await test('createDefaultFetcher: handles undecodable URL displayUrl gracefully', async () => {
-  const fetcher = createDefaultFetcher();
+test('createDefaultFetcher: handles undecodable URL displayUrl gracefully', async () => {
+  const fetcher = createDefaultFetcher({ ogFetcher: async () => undefined });
   const testUrl = `https://${TEST_HOST}/%E0%A4%A`;
   const data = await fetcher(testUrl);
   assert(data.url === testUrl, 'url should match input');
   assert(typeof data.displayUrl === 'string', 'displayUrl should be a string');
 });
 
-await test('createDefaultFetcher: extracts OG image URL and alt when present', async () => {
+test('createDefaultFetcher: extracts OG image URL and alt when present', async () => {
   const fetcher = createDefaultFetcher({
     ogFetcher: async () =>
       ({
@@ -327,7 +327,7 @@ await test('createDefaultFetcher: extracts OG image URL and alt when present', a
   assert(data.title === 'Test Site', `expected OG title, got "${data.title}"`);
 });
 
-await test('createDefaultFetcher: falls back to title when OG image alt is missing', async () => {
+test('createDefaultFetcher: falls back to title when OG image alt is missing', async () => {
   const fetcher = createDefaultFetcher({
     ogFetcher: async () =>
       ({
@@ -343,7 +343,7 @@ await test('createDefaultFetcher: falls back to title when OG image alt is missi
   );
 });
 
-await test('createDefaultFetcher: keeps OG text raw; createLinkCard escapes on render', async () => {
+test('createDefaultFetcher: keeps OG text raw; createLinkCard escapes on render', async () => {
   const fetcher = createDefaultFetcher({
     ogFetcher: async () =>
       ({
@@ -359,7 +359,7 @@ await test('createDefaultFetcher: keeps OG text raw; createLinkCard escapes on r
   assert(html.includes('Cat &amp; Mouse'), 'render should escape the alt');
 });
 
-await test('createDefaultFetcher: returns empty ogImageSrc when OG result has no image', async () => {
+test('createDefaultFetcher: returns empty ogImageSrc when OG result has no image', async () => {
   const fetcher = createDefaultFetcher({
     ogFetcher: async () => ({ ogTitle: 'Test Site' }) as any,
   });
@@ -368,7 +368,7 @@ await test('createDefaultFetcher: returns empty ogImageSrc when OG result has no
   assert(data.ogImageAlt === 'Test Site', `expected title as alt, got "${data.ogImageAlt}"`);
 });
 
-await test('createDefaultFetcher: handles getOpenGraph returning undefined', async () => {
+test('createDefaultFetcher: handles getOpenGraph returning undefined', async () => {
   const fetcher = createDefaultFetcher({
     ogFetcher: async () => undefined,
   });
@@ -379,12 +379,12 @@ await test('createDefaultFetcher: handles getOpenGraph returning undefined', asy
   assert(data.description === '', 'expected empty description');
 });
 
-await test('getOpenGraph: returns undefined for unreachable URL', async () => {
+test('getOpenGraph: returns undefined for unreachable URL', async () => {
   const result = await getOpenGraph('https://nonexistent.invalid.example');
   assert(result === undefined, 'should return undefined for unreachable URL');
-});
+}, 15_000);
 
-await test('linkCardPlugin: processes normal paragraph (no data property)', async () => {
+test('linkCardPlugin: processes normal paragraph (no data property)', async () => {
   const { html } = await markdownToHtml('https://example.com', {
     mdastPlugins: [
       () =>
@@ -404,7 +404,7 @@ await test('linkCardPlugin: processes normal paragraph (no data property)', asyn
   assert(html.includes('rlc-container'), 'should process paragraph without data property');
 });
 
-await test('linkCardPlugin: does not process text with multiple URLs', async () => {
+test('linkCardPlugin: does not process text with multiple URLs', async () => {
   let called = false;
   const { html } = await markdownToHtml('https://a.com https://b.com', {
     mdastPlugins: [
@@ -421,7 +421,7 @@ await test('linkCardPlugin: does not process text with multiple URLs', async () 
   assert(!html.includes('rlc-container'), 'should not contain link card');
 });
 
-await test('linkCardPlugin: uses provided fetcher option directly', async () => {
+test('linkCardPlugin: uses provided fetcher option directly', async () => {
   const { html } = await markdownToHtml('https://example.com', {
     mdastPlugins: [
       () =>
@@ -441,7 +441,7 @@ await test('linkCardPlugin: uses provided fetcher option directly', async () => 
   assert(html.includes('Direct Fetcher'), 'should use provided fetcher');
 });
 
-await test('linkCardPlugin: falls back to createDefaultFetcher when no fetcher given', async () => {
+test('linkCardPlugin: falls back to createDefaultFetcher when no fetcher given', async () => {
   const { html } = await markdownToHtml('https://example.com', {
     mdastPlugins: [
       () =>
@@ -453,7 +453,7 @@ await test('linkCardPlugin: falls back to createDefaultFetcher when no fetcher g
   assert(html.includes('Default Fetcher Title'), 'should use default fetcher with ogFetcher');
 });
 
-await test('extractUrlFromParagraph: returns undefined for paragraph with data property', () => {
+test('extractUrlFromParagraph: returns undefined for paragraph with data property', () => {
   const result = extractUrlFromParagraph({
     data: { someData: true },
     children: [{ type: 'text', value: 'https://example.com' }],
@@ -461,31 +461,31 @@ await test('extractUrlFromParagraph: returns undefined for paragraph with data p
   assert(result === undefined, 'should return undefined when data is present');
 });
 
-await test('extractUrlFromParagraph: returns undefined for empty children', () => {
+test('extractUrlFromParagraph: returns undefined for empty children', () => {
   const result = extractUrlFromParagraph({ children: [] });
   assert(result === undefined, 'should return undefined for no children');
 });
 
-await test('extractUrlFromParagraph: returns undefined when single child is falsy', () => {
+test('extractUrlFromParagraph: returns undefined when single child is falsy', () => {
   const result = extractUrlFromParagraph({ children: [undefined] });
   assert(result === undefined, 'should return undefined for falsy child');
 });
 
-await test('extractUrlFromParagraph: returns undefined for text with multiple URLs', () => {
+test('extractUrlFromParagraph: returns undefined for text with multiple URLs', () => {
   const result = extractUrlFromParagraph({
     children: [{ type: 'text', value: 'https://a.com https://b.com' }],
   });
   assert(result === undefined, 'should return undefined for multiple URLs');
 });
 
-await test('extractUrlFromParagraph: returns URL for bare text with single URL', () => {
+test('extractUrlFromParagraph: returns URL for bare text with single URL', () => {
   const result = extractUrlFromParagraph({
     children: [{ type: 'text', value: 'https://example.com' }],
   });
   assert(result === 'https://example.com', `expected URL, got "${result}"`);
 });
 
-await test('extractUrlFromParagraph: returns URL for GFM autolinked link node', () => {
+test('extractUrlFromParagraph: returns URL for GFM autolinked link node', () => {
   const result = extractUrlFromParagraph({
     children: [
       {
@@ -498,7 +498,7 @@ await test('extractUrlFromParagraph: returns URL for GFM autolinked link node', 
   assert(result === 'https://example.com', `expected URL from link node, got "${result}"`);
 });
 
-await test('extractUrlFromParagraph: returns undefined for link with mismatched URL and text', () => {
+test('extractUrlFromParagraph: returns undefined for link with mismatched URL and text', () => {
   const result = extractUrlFromParagraph({
     children: [
       {
@@ -511,14 +511,14 @@ await test('extractUrlFromParagraph: returns undefined for link with mismatched 
   assert(result === undefined, 'should return undefined for non-autolink link');
 });
 
-await test('extractUrlFromParagraph: returns undefined for non-text, non-link child', () => {
+test('extractUrlFromParagraph: returns undefined for non-text, non-link child', () => {
   const result = extractUrlFromParagraph({
     children: [{ type: 'image', url: 'https://example.com/img.png' }],
   });
   assert(result === undefined, 'should return undefined for image child');
 });
 
-await test('extractUrlFromParagraph: returns undefined for multiple children', () => {
+test('extractUrlFromParagraph: returns undefined for multiple children', () => {
   const result = extractUrlFromParagraph({
     children: [
       { type: 'text', value: 'Check ' },
@@ -527,5 +527,3 @@ await test('extractUrlFromParagraph: returns undefined for multiple children', (
   });
   assert(result === undefined, 'should return undefined for multiple children');
 });
-
-summarize();

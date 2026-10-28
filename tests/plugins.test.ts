@@ -2,9 +2,9 @@ import { markdownToHtml } from 'satteri';
 import { figureCaptionsPlugin } from '../src/plugins/figure-captions';
 import { lazyImagesPlugin, type ImageProbe } from '../src/plugins/lazy-images';
 import { readingTimePlugin } from '../src/plugins/reading-time';
-import { assert, summarize, test } from './harness';
+import { assert, test } from './harness';
 
-await test('figure-captions: image-only paragraph becomes a figure with caption', async () => {
+test('figure-captions: image-only paragraph becomes a figure with caption', async () => {
   const { html } = await markdownToHtml('![A caption](/img.png)', {
     hastPlugins: [figureCaptionsPlugin],
   });
@@ -14,7 +14,7 @@ await test('figure-captions: image-only paragraph becomes a figure with caption'
   assert(!html.includes('<p>'), 'the paragraph should be replaced');
 });
 
-await test('figure-captions: empty alt produces a figure without caption', async () => {
+test('figure-captions: empty alt produces a figure without caption', async () => {
   const { html } = await markdownToHtml('![](/img.png)', {
     hastPlugins: [figureCaptionsPlugin],
   });
@@ -22,7 +22,7 @@ await test('figure-captions: empty alt produces a figure without caption', async
   assert(!html.includes('figcaption'), 'should not render an empty figcaption');
 });
 
-await test('figure-captions: multi-image paragraph splits into one figure per image', async () => {
+test('figure-captions: multi-image paragraph splits into one figure per image', async () => {
   const { html } = await markdownToHtml('![First](/a.png)\n![Second](/b.png)', {
     hastPlugins: [figureCaptionsPlugin],
   });
@@ -32,7 +32,7 @@ await test('figure-captions: multi-image paragraph splits into one figure per im
   assert(html.includes('>Second</figcaption>'), 'second caption should render');
 });
 
-await test('figure-captions: paragraph mixing text and image is left alone', async () => {
+test('figure-captions: paragraph mixing text and image is left alone', async () => {
   const { html } = await markdownToHtml('Look at ![this](/a.png) now', {
     hastPlugins: [figureCaptionsPlugin],
   });
@@ -56,7 +56,7 @@ const fakeProbe =
     return size;
   };
 
-await test('lazy-images: local image gets lazy attrs and probed dimensions', async () => {
+test('lazy-images: local image gets lazy attrs and probed dimensions', async () => {
   const calls: string[] = [];
   const { html } = await markdownToHtml('![Alt](/img.png)', {
     hastPlugins: [() => lazyImagesPlugin({ probe: fakeProbe(calls, { width: 640, height: 480 }) })],
@@ -68,7 +68,7 @@ await test('lazy-images: local image gets lazy attrs and probed dimensions', asy
   assert(calls.length === 1 && calls[0] === '/img.png', 'probe should be called with the src');
 });
 
-await test('lazy-images: external image gets no-referrer and is not probed', async () => {
+test('lazy-images: external image gets no-referrer and is not probed', async () => {
   const calls: string[] = [];
   const { html } = await markdownToHtml('![Alt](https://cdn.example.com/i.png)', {
     hastPlugins: [() => lazyImagesPlugin({ probe: fakeProbe(calls, { width: 1, height: 1 }) })],
@@ -78,7 +78,7 @@ await test('lazy-images: external image gets no-referrer and is not probed', asy
   assert(!html.includes('width="1"'), 'no dimensions for external images');
 });
 
-await test('lazy-images: unknown local image ships without dimensions', async () => {
+test('lazy-images: unknown local image ships without dimensions', async () => {
   const { html } = await markdownToHtml('![Alt](/missing.png)', {
     hastPlugins: [() => lazyImagesPlugin({ probe: async () => undefined })],
   });
@@ -86,7 +86,7 @@ await test('lazy-images: unknown local image ships without dimensions', async ()
   assert(!html.includes('width='), 'should not invent a width');
 });
 
-await test('lazy-images: default probe measures a real public asset', async () => {
+test('lazy-images: default probe measures a real public asset', async () => {
   const { html } = await markdownToHtml('![icon](/android-chrome-512x512.png)', {
     hastPlugins: [lazyImagesPlugin],
   });
@@ -94,7 +94,7 @@ await test('lazy-images: default probe measures a real public asset', async () =
   assert(html.includes('height="512"'), 'default probe should read the real height');
 });
 
-await test('lazy-images: default probe skips files missing from public/', async () => {
+test('lazy-images: default probe skips files missing from public/', async () => {
   const { html } = await markdownToHtml('![gone](/definitely-not-here.png)', {
     hastPlugins: [lazyImagesPlugin],
   });
@@ -102,7 +102,7 @@ await test('lazy-images: default probe skips files missing from public/', async 
   assert(!html.includes('width='), 'missing files get no dimensions');
 });
 
-await test('lazy-images: a throwing probe does not break the pipeline', async () => {
+test('lazy-images: a throwing probe does not break the pipeline', async () => {
   const { html } = await markdownToHtml('![x](/img.png)', {
     hastPlugins: [
       () =>
@@ -117,7 +117,7 @@ await test('lazy-images: a throwing probe does not break the pipeline', async ()
   assert(!html.includes('width='), 'no dimensions on probe failure');
 });
 
-await test('lazy-images + figure-captions: production order composes', async () => {
+test('lazy-images + figure-captions: production order composes', async () => {
   const { html } = await markdownToHtml('![A caption](/img.png)', {
     hastPlugins: [
       () => lazyImagesPlugin({ probe: async () => ({ width: 640, height: 480 }) }),
@@ -131,7 +131,7 @@ await test('lazy-images + figure-captions: production order composes', async () 
   );
 });
 
-await test('reading-time: writes readingTime to the astro frontmatter', async () => {
+test('reading-time: writes readingTime to the astro frontmatter', async () => {
   const data = astroData();
   await markdownToHtml('Some words to count here.', {
     mdastPlugins: [readingTimePlugin],
@@ -142,7 +142,7 @@ await test('reading-time: writes readingTime to the astro frontmatter', async ()
   assert(rt.words === 5, `expected 5 words, got ${rt?.words}`);
 });
 
-await test('reading-time: heading-only documents still get a reading time', async () => {
+test('reading-time: heading-only documents still get a reading time', async () => {
   const data = astroData();
   await markdownToHtml('## Just a heading', {
     mdastPlugins: [readingTimePlugin],
@@ -151,7 +151,7 @@ await test('reading-time: heading-only documents still get a reading time', asyn
   assert(data.astro.frontmatter.readingTime != null, 'headings alone should trigger compute');
 });
 
-await test('reading-time: each document gets its own count (factory-per-document contract)', async () => {
+test('reading-time: each document gets its own count (factory-per-document contract)', async () => {
   const plugins = [readingTimePlugin];
   const first = astroData();
   const second = astroData();
@@ -162,5 +162,3 @@ await test('reading-time: each document gets its own count (factory-per-document
   assert(a != null && b != null, 'both documents should get a readingTime');
   assert(a.words === 3 && b.words === 6, `expected 3 and 6 words, got ${a?.words} and ${b?.words}`);
 });
-
-summarize();

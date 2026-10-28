@@ -32,16 +32,16 @@ function formatBytes(bytes) {
 
 function printUsage() {
   console.log(`
-Usage: pnpm exec tsx scripts/convert-to-avif.mjs <input-path> <slug> [--keep]
+Usage: bun scripts/convert-to-avif.mjs <input-path> <slug> [--keep]
 
   <input-path>   Path to an image file or a directory containing images
   <slug>         Article slug (e.g., "hello-astro")
   --keep         Keep original files after conversion (default: delete)
 
 Examples:
-  pnpm exec tsx scripts/convert-to-avif.mjs ./screenshots/ hello-astro
-  pnpm exec tsx scripts/convert-to-avif.mjs ./my-screenshot.png hello-astro
-  pnpm exec tsx scripts/convert-to-avif.mjs ./screenshots/ hello-astro --keep
+  bun scripts/convert-to-avif.mjs ./screenshots/ hello-astro
+  bun scripts/convert-to-avif.mjs ./my-screenshot.png hello-astro
+  bun scripts/convert-to-avif.mjs ./screenshots/ hello-astro --keep
 `);
 }
 

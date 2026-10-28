@@ -5,9 +5,9 @@ import {
   isHtmlResponse,
   MAIN_CONTENT_ID,
 } from '../src/lib/markdown-response';
-import { assert, summarize, test } from './harness';
+import { assert, test } from './harness';
 
-await test('MAIN_CONTENT_ID: extraction matches the id BaseLayout renders', () => {
+test('MAIN_CONTENT_ID: extraction matches the id BaseLayout renders', () => {
   const html = `<main id="${MAIN_CONTENT_ID}"><p>Shared contract</p></main>`;
   assert(
     extractMainContent(html).includes('Shared contract'),
@@ -15,7 +15,7 @@ await test('MAIN_CONTENT_ID: extraction matches the id BaseLayout renders', () =
   );
 });
 
-await test('extractMainContent: extracts <main id="main"> content', () => {
+test('extractMainContent: extracts <main id="main"> content', () => {
   const html =
     '<html><body><nav>nav</nav><main id="main"><h1>Title</h1><p>Body</p></main><footer>foot</footer></body></html>';
   const content = extractMainContent(html);
@@ -25,19 +25,19 @@ await test('extractMainContent: extracts <main id="main"> content', () => {
   assert(!content.includes('footer'), 'should not contain footer');
 });
 
-await test('extractMainContent: falls back to <body> when no <main id="main">', () => {
+test('extractMainContent: falls back to <body> when no <main id="main">', () => {
   const html = '<html><body><h1>Title</h1></body></html>';
   const content = extractMainContent(html);
   assert(content.includes('<h1>Title</h1>'), 'should contain body content');
 });
 
-await test('extractMainContent: falls back to full html when no <body>', () => {
+test('extractMainContent: falls back to full html when no <body>', () => {
   const html = '<h1>Title</h1>';
   const content = extractMainContent(html);
   assert(content === html, 'should return full html');
 });
 
-await test('extractMainContent: handles attributes on <main>', () => {
+test('extractMainContent: handles attributes on <main>', () => {
   const html = '<main class="content" id="main" role="main"><p>Content</p></main>';
   const content = extractMainContent(html);
   assert(
@@ -46,13 +46,13 @@ await test('extractMainContent: handles attributes on <main>', () => {
   );
 });
 
-await test('extractMainContent: handles case-insensitive tags', () => {
+test('extractMainContent: handles case-insensitive tags', () => {
   const html = '<MAIN ID="main"><p>Content</p></MAIN>';
   const content = extractMainContent(html);
   assert(content.includes('<p>Content</p>'), 'should match case-insensitively');
 });
 
-await test('htmlToMarkdown: converts basic HTML to Markdown', () => {
+test('htmlToMarkdown: converts basic HTML to Markdown', () => {
   const html =
     '<main id="main"><h1>Title</h1><p>A paragraph with <strong>bold</strong> text.</p></main>';
   const md = htmlToMarkdown(html);
@@ -61,7 +61,7 @@ await test('htmlToMarkdown: converts basic HTML to Markdown', () => {
   assert(md.includes('**bold**'), 'should convert strong to bold');
 });
 
-await test('htmlToMarkdown: removes script, style, nav, footer, noscript', () => {
+test('htmlToMarkdown: removes script, style, nav, footer, noscript', () => {
   const html = '<main id="main"><script>alert(1)</script><style>.x{}</style><p>Content</p></main>';
   const md = htmlToMarkdown(html);
   assert(!md.includes('alert'), 'should remove script content');
@@ -69,69 +69,67 @@ await test('htmlToMarkdown: removes script, style, nav, footer, noscript', () =>
   assert(md.includes('Content'), 'should preserve real content');
 });
 
-await test('htmlToMarkdown: converts code blocks to fenced syntax', () => {
+test('htmlToMarkdown: converts code blocks to fenced syntax', () => {
   const html = '<main id="main"><pre><code>const x = 1;</code></pre></main>';
   const md = htmlToMarkdown(html);
   assert(md.includes('```'), 'should use fenced code blocks');
   assert(md.includes('const x = 1;'), 'should preserve code content');
 });
 
-await test('htmlToMarkdown: converts lists with dash markers', () => {
+test('htmlToMarkdown: converts lists with dash markers', () => {
   const html = '<main id="main"><ul><li>One</li><li>Two</li></ul></main>';
   const md = htmlToMarkdown(html);
   assert(md.includes('-   One'), 'should use dash bullet markers');
   assert(md.includes('-   Two'), 'should use dash bullet markers');
 });
 
-await test('extractMainContent: returns full html when no main and no body tags', () => {
+test('extractMainContent: returns full html when no main and no body tags', () => {
   const html = '<div>Just a div</div>';
   const content = extractMainContent(html);
   assert(content === html, 'should return the full html string unchanged');
 });
 
-await test('acceptsMarkdown: true when Accept includes text/markdown', () => {
+test('acceptsMarkdown: true when Accept includes text/markdown', () => {
   const req = new Request('https://example.com', {
     headers: { Accept: 'text/markdown' },
   });
   assert(acceptsMarkdown(req) === true, 'should accept text/markdown');
 });
 
-await test('acceptsMarkdown: false when Accept is text/html', () => {
+test('acceptsMarkdown: false when Accept is text/html', () => {
   const req = new Request('https://example.com', {
     headers: { Accept: 'text/html' },
   });
   assert(acceptsMarkdown(req) === false, 'should not accept text/html');
 });
 
-await test('acceptsMarkdown: false when no Accept header', () => {
+test('acceptsMarkdown: false when no Accept header', () => {
   const req = new Request('https://example.com');
   assert(acceptsMarkdown(req) === false, 'should not accept when no Accept header');
 });
 
-await test('acceptsMarkdown: true when Accept includes text/markdown among others', () => {
+test('acceptsMarkdown: true when Accept includes text/markdown among others', () => {
   const req = new Request('https://example.com', {
     headers: { Accept: 'text/html, text/markdown, application/json' },
   });
   assert(acceptsMarkdown(req) === true, 'should accept when text/markdown is in list');
 });
 
-await test('isHtmlResponse: true for text/html content type', () => {
+test('isHtmlResponse: true for text/html content type', () => {
   const res = new Response('<html></html>', {
     headers: { 'Content-Type': 'text/html; charset=utf-8' },
   });
   assert(isHtmlResponse(res) === true, 'should detect text/html');
 });
 
-await test('isHtmlResponse: false for application/json', () => {
+test('isHtmlResponse: false for application/json', () => {
   const res = new Response('{}', {
     headers: { 'Content-Type': 'application/json' },
   });
   assert(isHtmlResponse(res) === false, 'should not detect application/json');
 });
 
-await test('isHtmlResponse: false for missing content type', () => {
+test('isHtmlResponse: false for missing content type', () => {
   const res = new Response('');
   assert(isHtmlResponse(res) === false, 'should not detect when no content type');
 });
-
-summarize();

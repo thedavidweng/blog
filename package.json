@@ -5,19 +5,19 @@
   "type": "module",
   "scripts": {
     "dev": "astro dev",
-    "build": "astro build",
+    "build": "bun --bun astro build",
     "preview": "astro preview",
-    "check": "astro check && pnpm test",
-    "check:images": "node scripts/check-image-formats.js",
-    "test:dist": "tsx tests/dist-contract.test.ts",
-    "convert-images": "tsx scripts/convert-to-avif.mjs",
+    "check": "bun --bun astro check && bun run test",
+    "check:images": "bun scripts/check-image-formats.js",
+    "test:dist": "bun tests/dist-contract.test.ts",
+    "convert-images": "bun scripts/convert-to-avif.mjs",
     "lint": "vp lint --fix",
     "lint:check": "vp lint",
     "format": "vp fmt --write 'src/**/*.{ts,json}' 'tests/**/*.ts' 'scripts/**/*.{ts,mjs,js}'",
     "format:check": "vp fmt --check 'src/**/*.{ts,json}' 'tests/**/*.ts' 'scripts/**/*.{ts,mjs,js}'",
-    "deploy": "PUBLIC_SITE_URL=https://blog.blahaj.uk pnpm build && pnpm --filter blog-worker exec cf deploy",
-    "test": "tsx tests/source-contract.test.ts && tsx tests/content-contract.test.ts && tsx tests/posts.test.ts && tsx tests/plugins.test.ts && tsx tests/link-card.test.ts && tsx tests/markdown-response.test.ts && tsx tests/locale.test.ts && tsx tests/i18n.test.ts && tsx tests/robots.test.ts",
-    "test:coverage": "c8 --reporter=lcov --reporter=text --src=src pnpm test"
+    "deploy": "PUBLIC_SITE_URL=https://blog.blahaj.uk bun run build && bun run --cwd deploy cf deploy",
+    "test": "bun test",
+    "test:coverage": "bun test --coverage"
   },
   "dependencies": {
     "@astrojs/markdown-satteri": "0.4.5",
@@ -43,14 +43,25 @@
   "devDependencies": {
     "@astrojs/check": "^0.9.12",
     "@tailwindcss/typography": "^0.5.20",
+    "@types/bun": "^1.4.3",
     "@types/turndown": "^5.0.6",
-    "c8": "^12.0.0",
     "knip": "^6.43.0",
-    "tsx": "^4.23.15",
     "typescript": "^6.0.3",
     "vite-plus": "1.4.0",
     "yaml": "2.9.1",
     "zod": "^4.6.7"
   },
-  "packageManager": "pnpm@12.15.0"
+  "workspaces": ["deploy"],
+  "trustedDependencies": ["esbuild", "sharp", "workerd"],
+  "overrides": {
+    "fast-uri@3": ">=3.1.9 <4",
+    "zod": ">=4.6.7",
+    "undici@7": ">=7.30.1 <8",
+    "postcss-selector-parser": ">=7.1.6",
+    "yaml-language-server>yaml": "2.9.1",
+    "yaml": "2.9.1",
+    "@ungap/structured-clone": "1.3.1",
+    "esbuild": ">=0.28.1",
+    "ws": ">=8.21.0"
+  }
 }

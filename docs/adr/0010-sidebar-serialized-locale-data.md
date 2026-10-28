@@ -1,5 +1,7 @@
 # ADR-0010: Sidebar client script consumes serialized locale data
 
+Status: Superseded by [ADR-0012](0012-native-navigation.md).
+
 Date: 2026-07-25
 
 ## Context

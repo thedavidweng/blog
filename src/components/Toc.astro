@@ -1,44 +1,54 @@
 ---
+import type { MarkdownHeading } from 'astro';
 import { t } from '../config/i18n';
 import type { Locale } from '../lib/locale';
 
 interface Props {
   locale: Locale;
+  headings: MarkdownHeading[];
 }
 
-const { locale } = Astro.props;
+const { locale, headings } = Astro.props;
 const tocTitle = t(locale).tocTitle;
+const items = headings.filter(({ depth }) => depth >= 2 && depth <= 4);
 ---
 
 <aside class="toc-wrapper sticky top-32 hidden lg:block min-w-0 w-full">
   <h2 class="text-xs font-bold mb-4 text-zinc-400 dark:text-zinc-500 tracking-wider uppercase">{tocTitle}</h2>
-  <nav class="js-toc toc" aria-label={tocTitle}></nav>
+  <nav class="toc" aria-label={tocTitle}>
+    <ul class="toc-list">
+      {items.map(({ depth, slug, text }) => (
+        <li class="toc-list-item" data-depth={depth}><a class="toc-link" href={`#${slug}`}>{text}</a></li>
+      ))}
+    </ul>
+  </nav>
 </aside>
 
 <script>
-  import tocbot from 'tocbot';
+  const links = [...document.querySelectorAll<HTMLAnchorElement>('.toc-link')];
+  const headings = links.map((link) => document.getElementById(decodeURIComponent(link.hash.slice(1))));
+  let frame = 0;
 
-  function initToc() {
-    tocbot.destroy();
-    tocbot.init({
-      tocSelector: '.js-toc',
-      contentSelector: '.prose',
-      headingSelector: 'h2, h3, h4',
-      hasInnerContainers: true,
-      scrollSmooth: false,
-      activeLinkClass: 'is-active-link',
-      listItemClass: 'toc-list-item',
-      linkClass: 'toc-link',
-      collapseDepth: 6,
-      headingsOffset: 86,
-      scrollSmoothOffset: -86,
+  function highlight() {
+    frame = 0;
+    let active = 0;
+    headings.forEach((heading, index) => {
+      if (heading && heading.getBoundingClientRect().top <= 90) active = index;
+    });
+    links.forEach((link, index) => {
+      if (index === active) link.setAttribute('aria-current', 'location');
+      else link.removeAttribute('aria-current');
     });
   }
 
-  document.addEventListener('astro:page-load', initToc);
+  window.addEventListener('scroll', () => (frame ||= requestAnimationFrame(highlight)), { passive: true });
+  highlight();
 </script>
 
 <style is:global>
+  .prose :is(h2, h3, h4) {
+    scroll-margin-top: 86px;
+  }
   .toc-wrapper {
     max-height: calc(100vh - 10rem);
     overflow-y: auto;
@@ -52,8 +62,11 @@ const tocTitle = t(locale).tocTitle;
     padding-left: 0;
     margin: 0;
   }
-  .toc-list .toc-list {
+  .toc-list-item[data-depth='3'] {
     padding-left: 1.25rem;
+  }
+  .toc-list-item[data-depth='4'] {
+    padding-left: 2.5rem;
   }
   .toc-list-item {
     margin-bottom: 0.5rem;
@@ -67,7 +80,7 @@ const tocTitle = t(locale).tocTitle;
     color: var(--muted);
     transition: color 0.2s var(--ease-out-quart);
   }
-  .is-active-link {
+  .toc-link[aria-current] {
     color: var(--accent) !important;
     font-weight: 600;
     background: var(--accent-soft);

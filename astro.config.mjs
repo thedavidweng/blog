@@ -8,7 +8,6 @@ import tailwindcss from '@tailwindcss/vite';
 import { figureCaptionsPlugin } from './src/plugins/figure-captions.ts';
 import { lazyImagesPlugin } from './src/plugins/lazy-images.ts';
 import { readingTimePlugin } from './src/plugins/reading-time.ts';
-import { linkCardPlugin } from './src/plugins/link-card.ts';
 import expressiveCode from 'astro-expressive-code';
 
 const site = process.env.PUBLIC_SITE_URL || 'http://localhost:4321';
@@ -45,7 +44,7 @@ export default defineConfig({
       defaultColor: false,
     },
     processor: satteri({
-      mdastPlugins: [readingTimePlugin, () => linkCardPlugin({ shortenUrl: true })],
+      mdastPlugins: [readingTimePlugin],
       hastPlugins: [lazyImagesPlugin, figureCaptionsPlugin],
     }),
   },

@@ -1,5 +1,4 @@
 ---
-import { ClientRouter } from 'astro:transitions';
 import Sidebar from '../components/Sidebar.astro';
 import ThemeScript from '../components/ThemeScript.astro';
 import ProgressBar from '../components/ProgressBar.astro';
@@ -53,7 +52,7 @@ const xDefault = absoluteUrl(delocalizePath(path));
 ---
 
 <!doctype html>
-<html lang={localeTag[locale]} data-locale={locale}>
+<html lang={localeTag[locale]}>
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -66,7 +65,9 @@ const xDefault = absoluteUrl(delocalizePath(path));
         }
       </style>
     </noscript>
-    <ClientRouter />
+    <script is:inline type="speculationrules">
+      {"prerender":[{"where":{"href_matches":"/*"},"eagerness":"moderate"}]}
+    </script>
     {includeLocaleRedirect && <slot name="locale-redirect" />}
     <title>{fullTitle}</title>
     <meta name="description" content={description} />

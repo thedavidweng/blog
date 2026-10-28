@@ -1,5 +1,6 @@
 ---
 import type { CollectionEntry } from 'astro:content';
+import type { MarkdownHeading } from 'astro';
 import BaseLayout from './BaseLayout.astro';
 import { getPostSlug, parsePostId } from '../lib/posts';
 import { publishedLabel, t, tagLabel } from '../config/i18n';
@@ -14,12 +15,13 @@ interface Props {
   post: CollectionEntry<'posts'>;
   alternatePath: string;
   remarkPluginFrontmatter?: Record<string, any>;
+  headings: MarkdownHeading[];
   prev?: CollectionEntry<'posts'>;
   next?: CollectionEntry<'posts'>;
   relatedPosts?: Array<CollectionEntry<'posts'>>;
 }
 
-const { post, alternatePath, remarkPluginFrontmatter, prev, next, relatedPosts = [] } = Astro.props;
+const { post, alternatePath, remarkPluginFrontmatter, headings, prev, next, relatedPosts = [] } = Astro.props;
 const { locale } = parsePostId(post.id);
 const slug = getPostSlug(post);
 const narrowFigures = post.data.narrowFigures === true;
@@ -85,20 +87,15 @@ const jsonLd = {
 
     <Giscus slug={slug} locale={locale} />
     </div>
-    <Toc locale={locale} />
+    <Toc locale={locale} headings={headings} />
   </article>
 
   <script>
     import mediumZoom from 'medium-zoom';
 
-    function initMediumZoom() {
-      const images = document.querySelectorAll('.prose img');
-      mediumZoom(images, {
-        margin: 24,
-        background: 'var(--bg)'
-      });
-    }
-
-    document.addEventListener('astro:page-load', initMediumZoom);
+    mediumZoom(document.querySelectorAll('.prose img'), {
+      margin: 24,
+      background: 'var(--bg)'
+    });
   </script>
 </BaseLayout>

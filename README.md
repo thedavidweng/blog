@@ -61,7 +61,7 @@ Set this for any CI build that runs `bun run build` directly.
 - Build command: `PUBLIC_SITE_URL=https://blog.blahaj.uk bun run build`
 - Deploy command: `bun run --cwd deploy cf deploy`
 - `cf` runs on Node.js, so deploying needs Node installed alongside Bun. Use Node 26.12.1, which `mise.toml` pins.
-- Assets: `dist`; Worker source: `src/worker.ts`; configuration: `deploy/cloudflare.config.ts`
+- Assets: `dist` (copied into the Worker asset directory by Vite). Worker source: `src/worker.ts`. Configuration: `deploy/cloudflare.config.ts`. Bundler: `@cloudflare/vite-plugin` in `deploy/vite.config.ts`.
 - Workers Builds deploys `main`. Both `blog.blahaj.uk` and `blog.davidweng.eu.org` are Worker custom domains.
 
 ## Content

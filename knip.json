@@ -2,7 +2,7 @@
   "$schema": "https://unpkg.com/knip@6/schema.json",
   "workspaces": {
     ".": { "entry": ["src/worker.ts"] },
-    "deploy": { "entry": ["cloudflare.config.ts", "wrangler.config.ts"] }
+    "deploy": { "entry": ["cloudflare.config.ts"] }
   },
   "ignoreExportsUsedInFile": true
 }

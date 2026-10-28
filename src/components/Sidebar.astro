@@ -3,7 +3,7 @@ import { BookOpenText, BriefcaseBusiness, House, Info, Languages, Moon, Sun, Tag
 import BrandIcon from './BrandIcon.astro';
 import { siteConfig } from '../site.config';
 import { t } from '../config/i18n';
-import { alternateLocale, localeTag, locales, localizedPath, type Locale } from '../lib/locale';
+import { alternateLocale, localeTag, localizedPath, type Locale } from '../lib/locale';
 
 interface Props {
   locale: Locale;
@@ -13,27 +13,13 @@ interface Props {
 
 const { locale, active, alternatePath } = Astro.props;
 
-const localeContent = (l: Locale) => {
-  const copy = t(l);
-  const alt = alternateLocale(l);
-  return {
-    role: siteConfig.role[l],
-    brandHref: localizedPath(l),
-    nav: [
-      { key: 'posts', href: localizedPath(l), label: siteConfig.nav[l].posts },
-      { key: 'tags', href: localizedPath(l, '/tags/'), label: siteConfig.nav[l].tags },
-      { key: 'about', href: localizedPath(l, '/about/'), label: siteConfig.nav[l].about },
-    ],
-    localeLink: { href: localizedPath(alt), hreflang: localeTag[alt], target: alt, label: copy.switchLocale },
-    navLandmark: copy.navLandmark,
-    socialLandmark: copy.socialLandmark,
-    toolbarLandmark: copy.toolbarLandmark,
-    themeToggle: copy.themeToggle,
-  };
-};
-
-const i18n = Object.fromEntries(locales.map((l) => [l, localeContent(l)]));
-const content = i18n[locale];
+const copy = t(locale);
+const alt = alternateLocale(locale);
+const nav = [
+  { key: 'posts', href: localizedPath(locale), label: siteConfig.nav[locale].posts },
+  { key: 'tags', href: localizedPath(locale, '/tags/'), label: siteConfig.nav[locale].tags },
+  { key: 'about', href: localizedPath(locale, '/about/'), label: siteConfig.nav[locale].about },
+] as const;
 
 const navIcons = { posts: BookOpenText, tags: Tags, about: Info };
 const social = siteConfig.social;
@@ -43,9 +29,9 @@ const socialIcons = {
 };
 ---
 
-<aside class="site-sidebar" transition:persist="sidebar">
+<aside class="site-sidebar">
   <div class="sidebar-inner">
-    <a class="brand" href={content.brandHref} aria-label={siteConfig.name}>
+    <a class="brand" href={localizedPath(locale)} aria-label={siteConfig.name}>
       <span class="brand-mark">
         <img
           src="/android-chrome-512x512.png"
@@ -58,17 +44,17 @@ const socialIcons = {
       </span>
       <span class="brand-text">
         <span class="brand-name">{siteConfig.author}</span>
-        <span class="brand-role">{content.role}</span>
+        <span class="brand-role">{siteConfig.role[locale]}</span>
       </span>
     </a>
 
     <div class="sidebar-actions">
-      <nav class="site-nav" aria-label={content.navLandmark}>
+      <nav class="site-nav" aria-label={copy.navLandmark}>
         {
-          content.nav.map(({ key, href, label }) => {
-            const Icon = navIcons[key as keyof typeof navIcons];
+          nav.map(({ key, href, label }) => {
+            const Icon = navIcons[key];
             return (
-              <a class="nav-link" href={href} data-nav-key={key} aria-current={active === key ? 'page' : undefined}>
+              <a class="nav-link" href={href} aria-current={active === key ? 'page' : undefined}>
                 <Icon size={23} stroke-width={2.4} />
                 <span>{label}</span>
               </a>
@@ -77,7 +63,7 @@ const socialIcons = {
         }
       </nav>
 
-      <nav class="social-nav" aria-label={content.socialLandmark}>
+      <nav class="social-nav" aria-label={copy.socialLandmark}>
         {
           social.map((item, index) => (
             <>
@@ -101,74 +87,17 @@ const socialIcons = {
   </div>
 </aside>
 
-<div class="toolbar" role="group" transition:persist="toolbar" aria-label={content.toolbarLandmark}>
-  <button class="icon-button" type="button" data-theme-toggle aria-label={content.themeToggle} title={content.themeToggle}>
+<div class="toolbar" role="group" aria-label={copy.toolbarLandmark}>
+  <button class="icon-button" type="button" data-theme-toggle aria-label={copy.themeToggle} title={copy.themeToggle}>
     <Sun class="theme-light" size={22} />
     <Moon class="theme-dark" size={22} />
   </button>
-  <a class="icon-button" href={alternatePath} hreflang={content.localeLink.hreflang} aria-label={content.localeLink.label} title={content.localeLink.label} data-locale-link data-locale-target={content.localeLink.target}>
+  <a class="icon-button" href={alternatePath} hreflang={localeTag[alt]} aria-label={copy.switchLocale} title={copy.switchLocale} data-locale-link data-locale-target={alt}>
     <Languages size={22} />
   </a>
 </div>
 
-<script is:inline define:vars={{ i18n }}>
-  function updateActiveNav() {
-    const current = location.pathname.replace(/\/+$/, '') || '/';
-    document.querySelectorAll('.nav-link').forEach((link) => {
-      const href = link instanceof HTMLAnchorElement ? new URL(link.href).pathname.replace(/\/+$/, '') || '/' : '';
-      if (href === current) {
-        link.setAttribute('aria-current', 'page');
-      } else {
-        link.removeAttribute('aria-current');
-      }
-    });
-  }
-
-  function updateLocaleContent() {
-    const content = i18n[document.documentElement.dataset.locale] ?? i18n.en;
-
-    document.querySelectorAll('.nav-link').forEach((link) => {
-      if (!(link instanceof HTMLAnchorElement)) return;
-      const item = content.nav.find((n) => n.key === link.dataset.navKey);
-      if (!item) return;
-      link.href = item.href;
-      const label = link.querySelector('span');
-      if (label) label.textContent = item.label;
-    });
-
-    const roleEl = document.querySelector('.brand-role');
-    if (roleEl) roleEl.textContent = content.role;
-    const brandLink = document.querySelector('.brand');
-    if (brandLink instanceof HTMLAnchorElement) brandLink.href = content.brandHref;
-
-    const localeLink = document.querySelector('[data-locale-link]');
-    if (localeLink instanceof HTMLAnchorElement) {
-      localeLink.href = content.localeLink.href;
-      localeLink.hreflang = content.localeLink.hreflang;
-      localeLink.dataset.localeTarget = content.localeLink.target;
-      localeLink.setAttribute('aria-label', content.localeLink.label);
-      localeLink.title = content.localeLink.label;
-    }
-
-    const toolbar = document.querySelector('.toolbar');
-    if (toolbar) toolbar.setAttribute('aria-label', content.toolbarLandmark);
-    const themeBtn = document.querySelector('[data-theme-toggle]');
-    if (themeBtn) {
-      themeBtn.setAttribute('aria-label', content.themeToggle);
-      themeBtn.title = content.themeToggle;
-    }
-
-    const siteNav = document.querySelector('.site-nav');
-    if (siteNav) siteNav.setAttribute('aria-label', content.navLandmark);
-    const socialNav = document.querySelector('.social-nav');
-    if (socialNav) socialNav.setAttribute('aria-label', content.socialLandmark);
-  }
-
-  document.addEventListener('astro:after-swap', () => {
-    updateActiveNav();
-    updateLocaleContent();
-  });
-
+<script is:inline>
   const root = document.documentElement;
   const themeButton = document.querySelector('[data-theme-toggle]');
   themeButton?.addEventListener('click', () => {

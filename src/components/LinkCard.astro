@@ -1,6 +1,4 @@
 ---
-import { createLinkCard, faviconUrl } from '../plugins/link-card';
-
 interface Props {
   url: string;
   title: string;
@@ -10,18 +8,24 @@ interface Props {
   domain?: string;
 }
 
-const { url, title, description = '', image = '', favicon, domain } = Astro.props;
-const displayUrl = domain || new URL(url).hostname;
-
-const html = createLinkCard({
-  title,
-  description,
-  faviconSrc: favicon || faviconUrl(displayUrl),
-  ogImageSrc: image,
-  ogImageAlt: title,
-  displayUrl,
-  url,
-});
+const { url, title, description, image, domain = new URL(url).hostname } = Astro.props;
+const favicon = Astro.props.favicon ?? `https://www.google.com/s2/favicons?domain=${domain}&sz=32`;
 ---
 
-<Fragment set:html={html} />
+<div class="not-prose">
+  <a class="rlc-container" href={url} target="_blank" rel="noopener noreferrer">
+    <div class="rlc-info">
+      <div class="rlc-title">{title}</div>
+      {description && <div class="rlc-description">{description}</div>}
+      <div class="rlc-url-container">
+        <img class="rlc-favicon" src={favicon} alt="" width="16" height="16" loading="lazy" decoding="async" />
+        <span class="rlc-url">{domain}</span>
+      </div>
+    </div>
+    {image && (
+      <div class="rlc-image-container">
+        <img class="rlc-image" src={image} alt={title} loading="lazy" decoding="async" />
+      </div>
+    )}
+  </a>
+</div>

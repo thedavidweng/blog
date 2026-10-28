@@ -2,7 +2,7 @@
   <div id="reading-progress-bar" class="h-full bg-accent origin-left" style="transform: scaleX(0)"></div>
 </div>
 
-<script is:inline data-astro-rerun>
+<script is:inline>
   function updateProgress() {
     const winScroll = document.body.scrollTop || document.documentElement.scrollTop;
     const height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
@@ -14,8 +14,5 @@
   }
 
   window.addEventListener('scroll', updateProgress, { passive: true });
-  document.addEventListener('astro:before-swap', () => {
-    window.removeEventListener('scroll', updateProgress);
-  }, { once: true });
   updateProgress();
 </script>

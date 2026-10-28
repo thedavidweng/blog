@@ -16,30 +16,16 @@ const label = t(locale).backToTop;
 </button>
 
 <script is:inline>
-  (function() {
-    let scrollHandler;
+  (() => {
+    const btn = document.querySelector('[data-back-to-top]');
+    const update = () => btn.classList.toggle('back-to-top--visible', window.scrollY > 360);
 
-    function setup() {
-      if (scrollHandler) window.removeEventListener('scroll', scrollHandler);
+    btn.addEventListener('click', () => {
+      const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+      window.scrollTo({ top: 0, behavior: reduce ? 'auto' : 'smooth' });
+    });
 
-      const btn = document.querySelector('[data-back-to-top]');
-      if (!btn) return;
-
-      const threshold = 360;
-
-      scrollHandler = () => {
-        btn.classList.toggle('back-to-top--visible', window.scrollY > threshold);
-      };
-
-      btn.addEventListener('click', () => {
-        const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-        window.scrollTo({ top: 0, behavior: reduce ? 'auto' : 'smooth' });
-      });
-
-      scrollHandler();
-      window.addEventListener('scroll', scrollHandler, { passive: true });
-    }
-
-    document.addEventListener('astro:page-load', setup);
+    update();
+    window.addEventListener('scroll', update, { passive: true });
   })();
 </script>

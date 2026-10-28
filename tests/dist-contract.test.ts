@@ -29,6 +29,19 @@ for (const file of requiredFiles) {
 }
 
 const postHtml = await readFile(join(root, 'dist/posts/hello-astro/index.html'), 'utf8');
+if (!/<a class="toc-link" href="#[^"]+">/.test(postHtml)) {
+  throw new Error('Post pages must render the table of contents at build time.');
+}
+if (postHtml.includes('ClientRouter')) {
+  throw new Error('Pages must navigate natively, without the Astro client router.');
+}
+const linkCardHtml = await readFile(
+  join(root, 'dist/posts/kamen-rider-cosplay-suit-solutions/index.html'),
+  'utf8',
+);
+if (!linkCardHtml.includes('<a class="rlc-container" href="https://tieba.baidu.com/p/8119008490"')) {
+  throw new Error('MDX <LinkCard> must render its card markup.');
+}
 const markdown = htmlToMarkdown(postHtml);
 if (!markdown.includes('# ')) {
   throw new Error('Markdown extraction must keep the article heading.');

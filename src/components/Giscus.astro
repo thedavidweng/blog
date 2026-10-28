@@ -41,11 +41,10 @@ const giscusLang = localeTag[locale];
     }
   }
 
-  let giscusObserver = null;
   let giscusLoaded = false;
 
   function setupThemeObserver() {
-    giscusObserver = new MutationObserver((mutations) => {
+    new MutationObserver((mutations) => {
       mutations.forEach((mutation) => {
         if (mutation.attributeName === 'data-theme') {
           const newTheme = document.documentElement.dataset.theme === 'dark' ? 'dark' : 'light';
@@ -57,8 +56,7 @@ const giscusLang = localeTag[locale];
           );
         }
       });
-    });
-    giscusObserver.observe(document.documentElement, { attributes: true, attributeFilter: ['data-theme'] });
+    }).observe(document.documentElement, { attributes: true, attributeFilter: ['data-theme'] });
   }
 
   function lazyLoadGiscus() {
@@ -78,18 +76,10 @@ const giscusLang = localeTag[locale];
         }
       }, { rootMargin: '200px' });
       io.observe(giscusWrapper);
-      document.addEventListener('astro:before-swap', () => io.disconnect(), { once: true });
     } else {
       lazyLoadGiscus();
     }
   } else {
     lazyLoadGiscus();
   }
-
-  document.addEventListener('astro:before-swap', () => {
-    if (giscusObserver) {
-      giscusObserver.disconnect();
-      giscusObserver = null;
-    }
-  });
 </script>

@@ -39,7 +39,9 @@ const linkCardHtml = await readFile(
   join(root, 'dist/posts/kamen-rider-cosplay-suit-solutions/index.html'),
   'utf8',
 );
-if (!linkCardHtml.includes('<a class="rlc-container" href="https://tieba.baidu.com/p/8119008490"')) {
+if (
+  !linkCardHtml.includes('<a class="rlc-container" href="https://tieba.baidu.com/p/8119008490"')
+) {
   throw new Error('MDX <LinkCard> must render its card markup.');
 }
 const markdown = htmlToMarkdown(postHtml);

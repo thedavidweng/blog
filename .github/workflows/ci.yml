@@ -56,6 +56,10 @@ jobs:
           PUBLIC_SITE_URL: https://blog.blahaj.uk
         run: ${{ matrix.run }}
 
+      - name: Verify coverage report
+        if: ${{ matrix.task == 'test' }}
+        run: test -s coverage/lcov.info
+
       - name: Deploy to Cloudflare
         if: ${{ matrix.task == 'build' && github.event_name == 'push' }}
         env:
@@ -68,5 +72,8 @@ jobs:
         uses: codecov/codecov-action@303a32d7a59b442fa8d48b6a1cc6825c09c847a5 # v7.1.1
         with:
           token: ${{ secrets.CODECOV_TOKEN }}
+          files: coverage/lcov.info
+          disable_search: true
+          plugins: noop
           flags: contract
           fail_ci_if_error: false

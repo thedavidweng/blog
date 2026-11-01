@@ -116,13 +116,12 @@ for (const locale of locales) {
     const imgMatches = body.matchAll(/!\[.*?\]\((.*?)\)/g);
     for (const match of imgMatches) {
       const imgPath = match[1];
-      if (imgPath.startsWith('/')) {
-        const fullPath = join(publicRoot, imgPath);
-        try {
-          await access(fullPath);
-        } catch {
-          throw new Error(`${locale}/${file} references missing image: ${imgPath}`);
-        }
+      if (!imgPath.startsWith('/')) continue;
+      const fullPath = join(publicRoot, imgPath);
+      try {
+        await access(fullPath);
+      } catch {
+        throw new Error(`${locale}/${file} references missing image: ${imgPath}`);
       }
     }
   }

@@ -187,7 +187,7 @@ end
 
 **tmux**
 
-```tmux
+```text
 # ~/.tmux.conf
 
 # Try loading local config
@@ -245,7 +245,7 @@ $HOME/
 
 In the repo's `.gitignore`, ignore all `.local` files:
 
-```gitignore
+```text
 # .gitignore
 *.local
 ```

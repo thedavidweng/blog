@@ -4,8 +4,8 @@ import { lazyImagesPlugin, type ImageProbe } from '../src/plugins/lazy-images';
 import { readingTimePlugin } from '../src/plugins/reading-time';
 import { assert, test } from './harness';
 
-test('figure-captions: image-only paragraph becomes a figure with caption', async () => {
-  const { html } = await markdownToHtml('![A caption](/img.png)', {
+test('figure-captions: image-only paragraph becomes a figure with caption', () => {
+  const { html } = markdownToHtml('![A caption](/img.png)', {
     hastPlugins: [figureCaptionsPlugin],
   });
   assert(html.includes('<figure class="post-figure">'), 'should wrap image in figure');
@@ -14,16 +14,16 @@ test('figure-captions: image-only paragraph becomes a figure with caption', asyn
   assert(!html.includes('<p>'), 'the paragraph should be replaced');
 });
 
-test('figure-captions: empty alt produces a figure without caption', async () => {
-  const { html } = await markdownToHtml('![](/img.png)', {
+test('figure-captions: empty alt produces a figure without caption', () => {
+  const { html } = markdownToHtml('![](/img.png)', {
     hastPlugins: [figureCaptionsPlugin],
   });
   assert(html.includes('<figure class="post-figure">'), 'should wrap image in figure');
   assert(!html.includes('figcaption'), 'should not render an empty figcaption');
 });
 
-test('figure-captions: multi-image paragraph splits into one figure per image', async () => {
-  const { html } = await markdownToHtml('![First](/a.png)\n![Second](/b.png)', {
+test('figure-captions: multi-image paragraph splits into one figure per image', () => {
+  const { html } = markdownToHtml('![First](/a.png)\n![Second](/b.png)', {
     hastPlugins: [figureCaptionsPlugin],
   });
   const figures = html.match(/<figure/g) ?? [];
@@ -32,8 +32,8 @@ test('figure-captions: multi-image paragraph splits into one figure per image', 
   assert(html.includes('>Second</figcaption>'), 'second caption should render');
 });
 
-test('figure-captions: paragraph mixing text and image is left alone', async () => {
-  const { html } = await markdownToHtml('Look at ![this](/a.png) now', {
+test('figure-captions: paragraph mixing text and image is left alone', () => {
+  const { html } = markdownToHtml('Look at ![this](/a.png) now', {
     hastPlugins: [figureCaptionsPlugin],
   });
   assert(!html.includes('<figure'), 'mixed paragraph should not become a figure');
@@ -131,9 +131,9 @@ test('lazy-images + figure-captions: production order composes', async () => {
   );
 });
 
-test('reading-time: writes readingTime to the astro frontmatter', async () => {
+test('reading-time: writes readingTime to the astro frontmatter', () => {
   const data = astroData();
-  await markdownToHtml('Some words to count here.', {
+  markdownToHtml('Some words to count here.', {
     mdastPlugins: [readingTimePlugin],
     data,
   });
@@ -142,21 +142,21 @@ test('reading-time: writes readingTime to the astro frontmatter', async () => {
   assert(rt.words === 5, `expected 5 words, got ${rt?.words}`);
 });
 
-test('reading-time: heading-only documents still get a reading time', async () => {
+test('reading-time: heading-only documents still get a reading time', () => {
   const data = astroData();
-  await markdownToHtml('## Just a heading', {
+  markdownToHtml('## Just a heading', {
     mdastPlugins: [readingTimePlugin],
     data,
   });
   assert(data.astro.frontmatter.readingTime != null, 'headings alone should trigger compute');
 });
 
-test('reading-time: each document gets its own count (factory-per-document contract)', async () => {
+test('reading-time: each document gets its own count (factory-per-document contract)', () => {
   const plugins = [readingTimePlugin];
   const first = astroData();
   const second = astroData();
-  await markdownToHtml('One two three.', { mdastPlugins: plugins, data: first });
-  await markdownToHtml('One two three four five six.', { mdastPlugins: plugins, data: second });
+  markdownToHtml('One two three.', { mdastPlugins: plugins, data: first });
+  markdownToHtml('One two three four five six.', { mdastPlugins: plugins, data: second });
   const a = first.astro.frontmatter.readingTime;
   const b = second.astro.frontmatter.readingTime;
   assert(a != null && b != null, 'both documents should get a readingTime');

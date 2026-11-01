@@ -4,30 +4,8 @@ import { absoluteUrl } from '../site.config';
 import { getPostLocale, getPostSlug } from '../lib/posts';
 import { postUrl } from '../lib/locale';
 
-// Generated from the content collection so stats and links never go stale; see ADR-0006.
-export const GET: APIRoute = async () => {
-  const allPosts = await getCollection('posts');
-  const published = allPosts
-    .filter((post) => !post.data.draft)
-    .toSorted(
-      (a, b) => new Date(b.data.publishedDate).getTime() - new Date(a.data.publishedDate).getTime(),
-    );
-
-  const totalPosts = published.length;
-
-  const recentPosts = published
-    .slice(0, 8)
-    .map((post) => {
-      const locale = getPostLocale(post);
-      const url = absoluteUrl(postUrl(locale, getPostSlug(post)));
-      const desc = post.data.description
-        ? ` — ${post.data.description.slice(0, 120)}${post.data.description.length > 120 ? '...' : ''}`
-        : '';
-      return `- **[${post.data.title}](${url})** (${locale})${desc}`;
-    })
-    .join('\n');
-
-  const text = [
+function renderLlmsText(totalPosts: number, recentPosts: string) {
+  return [
     '# David Blog',
     '',
     '> A personal blog by David Weng (@thedavidweng), exploring design, code, tools, finance, animation, and bilingual writing.',
@@ -64,8 +42,30 @@ export const GET: APIRoute = async () => {
     `- ${absoluteUrl('/zh/rss.xml')} — RSS feed (Chinese)`,
     '',
   ].join('\n');
+}
 
-  return new Response(text, {
+// Generated from the content collection so stats and links never go stale; see ADR-0006.
+export const GET: APIRoute = async () => {
+  const allPosts = await getCollection('posts');
+  const published = allPosts
+    .filter((post) => !post.data.draft)
+    .toSorted(
+      (a, b) => new Date(b.data.publishedDate).getTime() - new Date(a.data.publishedDate).getTime(),
+    );
+
+  const recentPosts = published
+    .slice(0, 8)
+    .map((post) => {
+      const locale = getPostLocale(post);
+      const url = absoluteUrl(postUrl(locale, getPostSlug(post)));
+      const desc = post.data.description
+        ? ` — ${post.data.description.slice(0, 120)}${post.data.description.length > 120 ? '...' : ''}`
+        : '';
+      return `- **[${post.data.title}](${url})** (${locale})${desc}`;
+    })
+    .join('\n');
+
+  return new Response(renderLlmsText(published.length, recentPosts), {
     headers: {
       'Content-Type': 'text/markdown; charset=utf-8',
     },

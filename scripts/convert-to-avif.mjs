@@ -45,31 +45,7 @@ Examples:
 `);
 }
 
-async function main() {
-  const args = process.argv.slice(2);
-  if (args.length < 2) {
-    printUsage();
-    process.exit(1);
-  }
-
-  const inputPath = path.resolve(args[0]);
-  const slug = args[1];
-  const keepOriginals = args.includes('--keep');
-
-  if (!slug || slug.includes('/') || slug.includes('\\')) {
-    console.error('❌ Invalid slug. Use a simple kebab-case string like "hello-astro".');
-    process.exit(1);
-  }
-
-  let inputStat;
-  try {
-    inputStat = fs.statSync(inputPath);
-  } catch (err) {
-    console.error(`❌ Cannot access input path: ${inputPath}`);
-    console.error(`   ${err.message}`);
-    process.exit(1);
-  }
-
+function getFilesToConvert(inputPath, inputStat) {
   let filesToConvert = [];
 
   if (inputStat.isDirectory()) {
@@ -98,12 +74,10 @@ async function main() {
     process.exit(1);
   }
 
-  const outputDir = path.join(__dirname, '..', 'public', 'posts', slug);
-  if (!fs.existsSync(outputDir)) {
-    fs.mkdirSync(outputDir, { recursive: true });
-    console.log(`📁 Created ${path.relative(process.cwd(), outputDir)}`);
-  }
+  return filesToConvert;
+}
 
+async function convertFiles(filesToConvert, outputDir, slug, keepOriginals) {
   let successCount = 0;
   let failCount = 0;
 
@@ -138,6 +112,47 @@ async function main() {
       failCount++;
     }
   }
+  return { successCount, failCount };
+}
+
+async function main() {
+  const args = process.argv.slice(2);
+  if (args.length < 2) {
+    printUsage();
+    process.exit(1);
+  }
+
+  const inputPath = path.resolve(args[0]);
+  const slug = args[1];
+  const keepOriginals = args.includes('--keep');
+
+  if (!slug || slug.includes('/') || slug.includes('\\')) {
+    console.error('❌ Invalid slug. Use a simple kebab-case string like "hello-astro".');
+    process.exit(1);
+  }
+
+  let inputStat;
+  try {
+    inputStat = fs.statSync(inputPath);
+  } catch (err) {
+    console.error(`❌ Cannot access input path: ${inputPath}`);
+    console.error(`   ${err.message}`);
+    process.exit(1);
+  }
+
+  const filesToConvert = getFilesToConvert(inputPath, inputStat);
+  const outputDir = path.join(__dirname, '..', 'public', 'posts', slug);
+  if (!fs.existsSync(outputDir)) {
+    fs.mkdirSync(outputDir, { recursive: true });
+    console.log(`📁 Created ${path.relative(process.cwd(), outputDir)}`);
+  }
+
+  const { successCount, failCount } = await convertFiles(
+    filesToConvert,
+    outputDir,
+    slug,
+    keepOriginals,
+  );
 
   console.log(`\n🎉 Done: ${successCount} converted, ${failCount} failed.`);
   console.log(`   Output: public/posts/${slug}/`);

@@ -54,15 +54,16 @@ export function renderRobotsTxt() {
     '# search=yes:   Allow content to appear in AI search results',
     '# ai-input=no:  Do not use content as real-time AI input',
     '',
-    ...botPolicy.flatMap(({ title, signal, agents }) => [
-      ...banner(title),
-      ...agents.flatMap((agent) => [
-        `User-agent: ${agent}`,
-        `Content-Signal: ${signal}`,
-        signal.includes('search=yes') ? 'Allow: /' : 'Disallow: /',
-        '',
-      ]),
-    ]),
+    ...botPolicy.flatMap(({ title, signal, agents }) =>
+      banner(title).concat(
+        agents.flatMap((agent) => [
+          `User-agent: ${agent}`,
+          `Content-Signal: ${signal}`,
+          signal.includes('search=yes') ? 'Allow: /' : 'Disallow: /',
+          '',
+        ]),
+      ),
+    ),
     ...banner('Sitemap'),
     `Sitemap: ${absoluteUrl('/sitemap-index.xml')}`,
   ].join('\n');

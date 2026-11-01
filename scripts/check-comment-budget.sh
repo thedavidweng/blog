@@ -2,7 +2,7 @@
 # Per-file comment-line budget (see docs/agents/code-style.md).
 MAX_RATIO="${1:-15}"
 status=0
-files=$(find src tests scripts functions -type f \( -name '*.ts' -o -name '*.astro' -o -name '*.mjs' \))
+files=$(find src tests scripts deploy -type f \( -name '*.ts' -o -name '*.astro' -o -name '*.mjs' \)) || exit 1
 for f in $files; do
   total=$(grep -cE '[^[:space:]]' "$f")
   [ "${total:-0}" -eq 0 ] && continue

@@ -45,7 +45,7 @@ export default defineConfig({
     },
     processor: satteri({
       mdastPlugins: [readingTimePlugin],
-      hastPlugins: [lazyImagesPlugin, figureCaptionsPlugin],
+      hastPlugins: [() => lazyImagesPlugin(), figureCaptionsPlugin],
     }),
   },
 
